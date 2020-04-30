@@ -1,0 +1,130 @@
+body {
+  background: rgb(51, 51, 51);
+  margin: 0;
+  height: auto;
+  font-family: 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
+}
+
+#oep-header {
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
+}
+
+#oep-header nav {
+  height: 40px;
+  width: 100%;
+  background-color: #1A1A1A;
+  color: #333;
+}
+
+#oep-header nav ul {
+  padding: 0;
+  margin: 0;
+}
+
+#oep-header nav li {
+  text-align: center;
+}
+
+#oep-header nav a {
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  text-decoration: none;
+  padding: 10px 0;
+  color: #fff;
+  text-decoration: none;
+}
+
+#roep-container {
+  max-width: 530px;
+  height: 530px;
+  margin: auto;
+  border-radius: 5px;
+  background: #fff;
+  position: relative;
+}
+
+#roep-container > h3 {
+  top: 20px;
+  padding: 0;
+  margin-bottom: 40px;
+  text-align: center;
+  position: relative;
+  font-size: 20px;
+}
+
+label {
+  font-size: .93rem;
+  margin-right: 10px;
+  color: #808080;
+  position: relative;
+}
+
+hr {
+  margin: 16px 0 16px 0;
+  width: 505px;
+  padding: 0;
+  border: 0;
+  height: 1px;
+  background: #dadada;
+  overflow: visible;
+  text-align: center;
+}
+
+form {
+  display: grid;
+  grid-auto-flow: row;
+  padding: 0 1rem 0 .5rem;
+}
+
+#roep-personaldetails, #roep-accountdetails {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+#roep-input-inner {
+  display: grid;
+  grid-gap: 5px;
+  grid-auto-flow: row;
+}
+
+input[type=text], input[type=password] {
+  height: 28px;
+  width: 380px;
+  background: #F2F2F2;
+  border: 1px solid #E6E6E6;
+  border-radius: 3px;
+  padding-left: 10px;
+  font-size: 1rem;
+}
+
+#register-action {
+  display: flex;
+  flex-flow: row;
+  margin-top: 1rem;
+  padding-left: 110px;
+}
+
+#btn-submit-new-oep {
+  background: #000000;
+  border-radius: 5px;
+  border: none;
+  height: 3rem;
+  width: 390px;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#btn-submit-new-oep:disabled {
+  background: #E6E6E6;
+  color: #B3B3B3;
+}
+
+form > p {
+  color: #808080;
+  font-size: 12px;
+  text-align: center;
+}

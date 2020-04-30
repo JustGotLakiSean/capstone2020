@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  background: #0071bc;
+  font-family: 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
+}
+
+#btn_signin_container {
+  width: 300px;
+  height: 200px;
+  margin: auto;
+}
+
+.btn_signin_inner_content {
+  width: 20vw;
+  margin: auto;
+  display: grid;
+  grid-gap: 10px;
+  position: relative;
+  top: 100%;
+}
+
+#btn_signin_container button[type="button"] {
+  width: 20vw;
+  height: 55px;
+  background: #0071BC;
+  border: 1px solid #29ABE2;
+  border-radius: 30px;
+  font-size: 1.3rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: 100ms ease-in;
+}
+
+#btn_signin_container button[type="button"]:hover {
+  background: #007183;
+  border: 1px solid #3a1a63;
+  color: #fff;
+}

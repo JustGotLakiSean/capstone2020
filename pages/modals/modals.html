@@ -1,0 +1,894 @@
+<!-- <linK rel="stylesheet" href="../loanmonitoring/css/loanMonitoring.css"> -->
+  <link rel="stylesheet" href="../loanmonitoring/css/950themployee.css">
+  <!-- <link rel="stylesheet" href="../officersandep/css/oep-homepage.css"> -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
+<!-- fiveK Loan Transaction Details MODAL-->
+
+<input type="text" name="date_of_payment_5k" id="datepicker"/>
+<section id="fiveKlt-container">
+  <div class="loantransactiondetailspanel" id="fiveKTransactionDetails">
+    <div class="fiveKloandetailstitle">
+      <h2>5K Loan Transaction</h2>
+    </div>
+    <hr>
+    <div class="fiveKloanhistorybox">
+      <div class="fiveKfirstbox">
+        <div class="fiveKfirstboxeft">
+          <p>Name of Borrower</p>
+          <p>BORROWER NAME</p>
+        </div>
+        <div class="fiveKfirstboxright">
+          <p>Control Number</p>
+          <p>00000</p>
+        </div>
+      </div>
+      <hr>
+      <div class="fiveKsecondbox">
+        <div class="fiveKsecondboxleft">
+          <p>Loan Amount</p>
+          <p>00000</p>
+          <p>Monthly Payment</p>
+          <p>00000</p>
+          <p>Credit</p>
+          <p>00000</p>
+          <p>Payment Method</p>
+          <p>00000</p>
+        </div>
+        <div class="fiveKsecondboxright">
+          <p>Interest</p>
+          <p>00000</p>
+          <p>Penalty</p>
+          <p>00000</p>
+          <p>Balance</p>
+          <p>00000</p>
+        </div>
+      </div>
+      <hr>
+      <div class="fiveKthirdbox">
+        <div class="fiveKthirdboxleft">
+          <p>1ST Payment</p>
+          <p>Date</p>
+          <p>2ND Payment</p>
+          <p>Date</p>
+          <p>3RD Payment</p>
+          <p>Date</p>
+        </div>
+        <div class="fiveKthirdboxright">
+          <input type="button" name="btn_cancel fiveKbtncancel" id="fiveKbtncancel" value="Cancel" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10K Loan Transaction Details MODAL-->
+<div class="loantransactiondetailspanel" id="tenKTransactionDetails">
+  <div class="tenKloandetailstitle">
+    <h2>10K Loan Transaction</h2>
+  </div>
+  <hr>
+  <div class="tenKloanhistorybox">
+    <div class="tenKfirstbox">
+      <div class="tenKfirstboxeft">
+        <p>Name of Borrower</p>
+        <p>BORROWER NAME</p>
+      </div>
+      <div class="tenKfirstboxright">
+        <p>Control Number</p>
+        <p>00000</p>
+      </div>
+    </div>
+    <hr>
+    <div class="tenKsecondbox">
+      <div class="tenKsecondboxleft">
+        <p>Loan Amount</p>
+        <p>00000</p>
+        <p>Monthly Payment</p>
+        <p>00000</p>
+        <p>Credit</p>
+        <p>00000</p>
+        <p>Payment Method</p>
+        <p>00000</p>
+      </div>
+      <div class="tenKsecondboxright">
+        <p>Interest</p>
+        <p>00000</p>
+        <p>Penalty</p>
+        <p>00000</p>
+        <p>Balance</p>
+        <p>00000</p>
+      </div>
+    </div>
+    <hr>
+    <div class="tenKthirdbox">
+      <div class="tenKthirdboxleft">
+        <p>1ST Payment</p>
+        <p>00000</p>
+        <p>2ND Payment</p>
+        <p>00000</p>
+        <p>3RD Payment</p>
+        <p>00000</p>
+        <p>4TH Payment</p>
+        <p>Date</p>
+        <p>FULL Payment</p>
+        <p>Date</p>
+      </div>
+      <div class="tenKthirdboxright">
+        <button type="button">
+          CANCEL
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+
+<button type="button" onclick="document.getElementById('fiveKaddnewloan-container').style.display='block'">OPEN</button>
+<!-- Add New Loan 5K MODAL-->
+
+<section id="fiveKaddnewloan-container" class="modal">
+  <div class="fiveKaddnewloanpanel" id="fiveKaddnewloan">
+    <div class="fiveKnewloantitleholder">
+      <h3 id="fiveKnewloantitle">New Loan Record</h3>
+    </div>
+    <div class="fiveKnewloanfirstbox">
+      <div class="fiveKborrowerdetails">
+        <input type="text" name="txt_5K_newloan_borrower" id="txt_5K_newloan_borrower" placeholder="Search Borrower Name" />
+        <input type="text" disabled name="txt_5K_newloan_office" id = "txt_5K_newloan_office" />
+      </div>
+      <div class="fiveKaddtolistholder">
+        <button type="button" id="btn_fiveKaddtolist">
+          Add to List
+        </button>
+      </div>
+    </div>
+    <hr>
+    <form action="" method="POST" id="fiveKnewloanform">
+      <div class="fiveKnewloansecondbox">
+        <div class="fiveKlistboxtitleholder">
+          <h4>Borrower List</h4>
+        </div>
+        <div class="fiveKborrowerlistbox">
+
+          <!-- <h3 align="center" style="font-weight: lighter; color: #666666; font-size: 2rem; margin: 0;" class="queuetitle">Empty</h3> -->
+
+          <div class="fiveKqueue-container">
+            <div class="fiveKborrowerqueue">
+              <div class="fiveKqueuefirstbox">
+                <p class="fiveKborrowername">JEAN JOSHUA VILLANUEVA</p>
+                <p class="fiveKborroweroffice">APPLE</p>
+              </div>
+              <div class="fiveKqueuesecondbox">
+                <button type="button" id="fiveKqueueremove">
+                  Remove
+                </button>
+              </div>
+            </div>
+            <div class="fiveKborrowerqueue">
+              <div class="fiveKqueuefirstbox">
+                <p class="fiveKborrowername">JEAN JOSHUA VILLANUEVA</p>
+                <p class="fiveKborroweroffice">APPLE</p>
+              </div>
+              <div class="fiveKqueuesecondbox">
+                <button type="button" id="fiveKqueueremove">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="fiveKqueue-container">
+            <div class="fiveKborrowerqueue">
+              <div class="fiveKqueuefirstbox">
+                <p class="fiveKborrowername">JEAN JOSHUA VILLANUEVA</p>
+                <p class="fiveKborroweroffice">APPLE</p>
+              </div>
+              <div class="fiveKqueuesecondbox">
+                <button type="button" id="fiveKqueueremove">
+                  Remove
+                </button>
+              </div>
+            </div>
+            <div class="fiveKborrowerqueue">
+              <div class="fiveKqueuefirstbox">
+                <p class="fiveKborrowername">JEAN JOSHUA VILLANUEVA</p>
+                <p class="fiveKborroweroffice">APPLE</p>
+              </div>
+              <div class="fiveKqueuesecondbox">
+                <button type="button" id="fiveKqueueremove">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="fiveKqueue-container">
+            <div class="fiveKborrowerqueue">
+              <div class="fiveKqueuefirstbox">
+                <p class="fiveKborrowername">JEAN JOSHUA VILLANUEVA</p>
+                <p class="fiveKborroweroffice">APPLE</p>
+              </div>
+              <div class="fiveKqueuesecondbox">
+                <button type="button" id="fiveKqueueremove">
+                  Remove
+                </button>
+              </div>
+            </div>
+            <div class="fiveKborrowerqueue">
+              <div class="fiveKqueuefirstbox">
+                <p class="fiveKborrowername">JEAN JOSHUA VILLANUEVA</p>
+                <p class="fiveKborroweroffice">APPLE</p>
+              </div>
+              <div class="fiveKqueuesecondbox">
+                <button type="button" id="fiveKqueueremove">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="fiveKqueue-container">
+            <div class="fiveKborrowerqueue">
+              <div class="fiveKqueuefirstbox">
+                <p class="fiveKborrowername">JEAN JOSHUA VILLANUEVA</p>
+                <p class="fiveKborroweroffice">APPLE</p>
+              </div>
+              <div class="fiveKqueuesecondbox">
+                <button type="button" id="fiveKqueueremove">
+                  Remove
+                </button>
+              </div>
+            </div>
+            <div class="fiveKborrowerqueue">
+              <div class="fiveKqueuefirstbox">
+                <p class="fiveKborrowername">JEAN JOSHUA VILLANUEVA</p>
+                <p class="fiveKborroweroffice">APPLE</p>
+              </div>
+              <div class="fiveKqueuesecondbox">
+                <button type="button" id="fiveKqueueremove">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="fiveKborrowernewloandetails">
+          <div class="fiveKnewloandetailstitleholder">
+            <h4>Loan Details</h4>
+            <hr>
+            <div class="fiveKloanaccountdetailscontainer">
+              <div class="firstbox">
+                <p>Beginning Balance</p>
+                <p>Interest</p>
+                <p>Total Borrow</p>
+                <p>Date Borrow</p>
+              </div>
+              <div class="secondbox">
+                <p>00000</p>
+                <p>00000</p>
+                <p>00000</p>
+                <p>mm-dd-yyyy</p>
+              </div>
+              <div class="thirdbox" align="center">
+                <input type="submit" name="submit_fiveK_newloan" id="submit_fiveK_newloan" value="Submit" />
+                <input type="button" name="cancel_fiveK_newloan" id="cancel_fiveK_newloan" value="Cancel" onclick="document.getElementById('fiveKaddnewloan-container').style.display='none'"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ADD NEW 10K LOAN-->
+<section id="tenKaddnewloan-container">
+  <div class="tenKaddnewloanpanel" id="tenKaddnewloan">
+    <div class="tenKnewloantitleholder">
+      <h3 id="tenKnewloantitle">New Loan Record</h3>
+    </div>
+    <div class="tenKnewloanfirstbox">
+      <div class="tenKborrowerdetails">
+        <input type="text" name="txt_tenK_newloan_borrower" id="txt_tenK_newloan_borrower" placeholder="Search Borrower Name" />
+        <input type="text" disabled name="txt_tenK_newloan_office" id = "txt_tenK_newloan_office" />
+      </div>
+      <div class="tenKaddtolistholder">
+        <button type="button" id="btn_tenKaddtolist">
+          Add to List
+        </button>
+      </div>
+    </div>
+    <hr>
+    <form action="" method="POST" id="tenKnewloanform">
+      <div class="tenKnewloansecondbox">
+        <div class="tenKlistboxtitleholder">
+          <h4>Borrower List</h4>
+        </div>
+        <div class="tenKborrowerlistbox">
+
+          <!-- <h3 align="center" style="font-weight: lighter; color: #666666; font-size: 2rem; margin: 0;" class="queuetitle">Empty</h3> -->
+
+          <div class="tenKqueue-container">
+
+            <div class="tenKborrowerqueue">
+              <div class="tenKqueuefirstbox">
+                <p class="tenKborrowername">JEAN JOSHUA HAPLASCA VILLANUEVA</p>
+                <p class="tenKborroweroffice">APPLE</p>
+              </div>
+              <div class="tenKqueuesecondbox">
+                <button type="submit" id="tenKqueueremove">
+                  Remove
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="tenKborrowernewloandetails">
+          <div class="tenKnewloandetailstitleholder">
+            <h4>Loan Details</h4>
+            <hr>
+            <div class="tenKloanaccountdetailscontainer">
+              <div class="loanaccountdetails-box">
+                <div class="firstbox">
+                  <p>Beginning Balance</p>
+                  <p>Interest</p>
+                  <p>Total Borrow</p>
+                  <p>Date Borrow</p>
+                </div>
+                <div class="secondbox">
+                  <p>00000</p>
+                  <p>00000</p>
+                  <p>00000</p>
+                  <p>mm-dd-yyyy</p>
+                </div>
+              </div>
+              <div class="thirdbox" align="center">
+                <input type="submit" name="submit_tenK_newloan" id="submit_tenK_newloan" value="Submit" />
+                <input type="button" name="cancel_tenK_newloan" id="cancel_tenK_newloan" value="Cancel" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<button type="button" onclick="document.getElementById('newpayment_5k_modal').style.display='block'">NEW PAYMENT</button>
+
+<!-- Add New Payment 5K MODAL -->
+<section id="newpayment_5k_modal">
+  <form class="newpayment_5k_container" method="post" action="">
+    <div class="newpayment_5k_titlecontainer">
+      <h3 align="center">Add New Payment</h3>
+      <button type="button" id="btn_5k_moreoption">More</button>
+    </div>
+    <div class="bdb_container">
+      <div class="borrowers_detailbox">
+        <input type="text" name="borrower_name" id="borrower_name" />
+        <input type="text" name="borrower_office" id="borrower_office" />
+      </div>
+    </div>
+    <div class="current_loantransaction_container">
+      <div class="clt_header">
+        <h5>Borrower's Loan History</h5>
+      </div>
+      <hr>
+      <div class="clt_container">
+        <div class="cltbox">
+          <div class="ctrl_number_box clt">
+            <label>Control Number</label>
+            <input type="number" disabled name="txt_ctrl_number_5k" id="txt_ctrl_number_5k" value="0000000" /> 
+          </div>
+          <div class="account_type_5k clt">
+            <label>Account Type:</label>
+            <input type="text" disabled name="txt_accounttype_5k" id="txt_accounttype_5k" value="5K Account" />
+          </div>
+          <div class="balance_5k_box clt">
+            <label>Current Balance</label>
+            <input type="number" disabled name="balance_5k" id="balance_5k" value="0000000" /> 
+          </div>
+          <div class="currentstatus_5k_box clt">
+            <label>Status</label>
+            <input type="text" disabled name="txt_currentstatus_5k" id="txt_currentstatus_5k" value="Status" /> 
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="paymentbox_5k_container">
+      <div class="paymentbox5k_title">
+        <h5>Payment Box</h5>
+      </div>
+      <hr>
+      <div class="paymentbox_5k_content">
+        <div class="paymentbox_5k">
+          <div class="paymentoption_box np5kbox">
+            <label for="paymentoption_5k">Payment Option</label>
+            <select name="paymentoption_5k">
+              <option value="1ST Payment">1ST Payment</option>
+              <option value="2ND Payment">2ND Payment</option>
+              <option value="3RD Payment">3RD Payment</option>
+              <option value="FULL PAYMENT">FULL PAYMENT</option>
+            </select>
+          </div>
+          <div class="date_of_payment_5k_box np5kbox">
+            <label for="date_of_payment_5k">Date of Payment</label>
+            <input type="text" name="date_of_payment_5k" id="datepicker"/>
+          </div>
+          <div class="amount_payment_5k_box np5kbox">
+            <label for="txt_amount_payment_5k">Amount Payment</label>
+            <input type="number" name="txt_amount_payment_5k" id="txt_amount_payment_5k"/>
+          </div>
+          <div class="penaltyrate_5k_box np5kbox">
+            <label>Penalty</label>
+            <div>
+              <label for="penaltyrate_5k" style="font-size: 13px;">80 PHP</label>
+              <input type="radio" name="penaltyrate_5k" id="penaltyrate_5k"/>
+            </div>
+          </div>
+          <div class="interest_5k_box np5kbox">
+            <label for="txt_interestamount_5k">Interest</label>
+            <input type="text" disabled name="txt_interestamount_5k" id="txt_interestamount_5k" placeholder="000" />
+          </div>
+          <div class="current_balance_5k_box np5kbox">
+            <label for="txt_currentbalance_5k">Current Balance</label>
+            <input type="text" disabled name="txt_currentbalance_5k" id="txt_currentbalance_5k" placeholder="000" />
+          </div>
+        </div>
+      </div>
+      <div class="pb5k_btnaction">
+        <input type="submit" name="pb5k_btn_submit" id="pb5k_btn_submit" value="Pay" />
+        <input type="button" name="pb5k_btn_cancel" id="pb5k_btn_cancel" onclick="document.getElementById('newpayment_5k_modal').style.display='none'" value="Cancel" />
+      </div>
+    </div>
+  </form>
+</section>
+
+<!-- Add New Payment 10K Modal -->
+<section id="newpayment_5k_modal">
+  <form class="newpayment_5k_container" method="post" action="">
+    <div class="newpayment_5k_titlecontainer">
+      <h3 align="center">Add New Payment</h3>
+      <button type="button" id="btn_5k_moreoption">More</button>
+    </div>
+    <div class="bdb_container">
+      <div class="borrowers_detailbox">
+        <input type="text" name="borrower_name" disabled id="borrower_name" />
+        <input type="text" name="borrower_office" disabled id="borrower_office" />
+      </div>
+    </div>
+    <div class="current_loantransaction_container">
+      <div class="clt_header">
+        <h5>Borrower's Loan History</h5>
+      </div>
+      <hr>
+      <div class="clt_container">
+        <div class="cltbox">
+          <div class="ctrl_number_box clt">
+            <label>Control Number</label>
+            <input type="number" disabled name="txt_ctrl_number_5k" id="txt_ctrl_number_5k" value="0000000" /> 
+          </div>
+          <div class="account_type_5k clt">
+            <label>Account Type:</label>
+            <input type="text" disabled name="txt_accounttype_5k" id="txt_accounttype_5k" value="5K Account" />
+          </div>
+          <div class="balance_5k_box clt">
+            <label>Current Balance</label>
+            <input type="number" disabled name="balance_5k" id="balance_5k" value="0000000" /> 
+          </div>
+          <div class="currentstatus_5k_box clt">
+            <label>Status</label>
+            <input type="text" disabled name="txt_currentstatus_5k" id="txt_currentstatus_5k" value="Status" /> 
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="paymentbox_5k_container">
+      <div class="paymentbox5k_title">
+        <h5>Payment Box</h5>
+      </div>
+      <hr>
+      <div class="paymentbox_5k_content">
+        <div class="paymentbox_5k">
+          <div class="paymentoption_box np5kbox">
+            <label for="paymentoption_5k">Payment Option</label>
+            <select name="paymentoption_5k">
+              <option value="1ST Payment">1ST Payment</option>
+              <option value="2ND Payment">2ND Payment</option>
+              <option value="3RD Payment">3RD Payment</option>
+              <option value="FULL PAYMENT">FULL PAYMENT</option>
+            </select>
+          </div>
+          <div class="date_of_payment_5k_box np5kbox">
+            <label for="date_of_payment_5k">Date of Payment</label>
+            <input type="text" name="date_of_payment_5k" id="datepicker"/>
+          </div>
+          <div class="amount_payment_5k_box np5kbox">
+            <label for="txt_amount_payment_5k">Amount Payment</label>
+            <input type="number" name="txt_amount_payment_5k" id="txt_amount_payment_5k"/>
+          </div>
+          <div class="penaltyrate_5k_box np5kbox">
+            <label>Penalty</label>
+            <div>
+              <label for="penaltyrate_5k" style="font-size: 13px;">80 PHP</label>
+              <input type="radio" name="penaltyrate_5k" id="penaltyrate_5k"/>
+            </div>
+          </div>
+          <div class="interest_5k_box np5kbox">
+            <label for="txt_interestamount_5k">Interest</label>
+            <input type="text" disabled name="txt_interestamount_5k" id="txt_interestamount_5k" placeholder="000" />
+          </div>
+          <div class="current_balance_5k_box np5kbox">
+            <label for="txt_currentbalance_5k">Current Balance</label>
+            <input type="text" disabled name="txt_currentbalance_5k" id="txt_currentbalance_5k" placeholder="000" />
+          </div>
+        </div>
+      </div>
+      <div class="pb5k_btnaction">
+        <input type="submit" name="pb5k_btn_submit" id="pb5k_btn_submit" value="Pay" />
+        <input type="button" name="pb5k_btn_cancel" id="pb5k_btn_cancel" onclick="document.getElementById('newpayment_5k_modal').style.display='none'" value="Cancel" />
+      </div>
+    </div>
+  </form>
+</section>
+
+<!-- Officers and EP Profile MODAL-->
+<section class="officersandeprofilepanel" id="OfficersAndEPProfile">
+  <div class="oae_profile_container">
+    <div class="oaefirstbox">
+      <div class="oaemorebuttonbox">
+        <button type="button" id="oaemorebutton">
+          More Options
+        </button>
+      </div>
+      <div class="bottom-box">
+        <div class="oaetitleholder">
+          <h3 id="oaetitle">Officers and EP Profile</h3>
+        </div>
+        <div class="oaeofficelogo">
+
+        </div>
+      </div>
+    </div>
+    <div class="oaesecondbox">
+      <div class="oaeimageboxcontainer">
+        <div class="oaeimagebox">
+          <img src="" id="oae_avatar">
+        </div>
+      </div>
+      <div class="oaedetailbox">
+        <div class="oae_name oaebox">
+          <label for="txt_op_name">Officer Name</label>
+          <input type="text" disabled name="txt_op_name" id="txt_op_name" value="Jean Joshua Haplasca Villanueva" />
+        </div>
+        <div class="oae_office oaebox">
+          <label for="txt_op_office">Office</label>
+          <input type="text" disabled name="txt_op_office" id="txt_op_office" value="APPLE" />
+        </div>
+        <div class="oae_rank oaebox">
+          <label for="txt_op_rank">RanK</label>
+          <input type="text" disabled name="txt_op_rank" id="txt_op_rank" value="MAJOR" />
+        </div>
+        <div class="oae_unit oaebox">
+          <label for="txt_op_unit">Unit</label>
+          <input type="text" disabled name="txt_op_unit" id="txt_op_unit" value="Headquarters" />
+        </div>
+        <div class="oae_email oaebox">
+          <label for="txt_op_email">Email</label>
+          <input type="text" disabled name="txt_op_email" id="txt_op_email" />
+        </div>
+        <div class="oae_contactno oaebox">
+          <label for="txt_op_contactno">Contact Number</label>
+          <input type="text" disabled name="txt_op_contactno" id="txt_op_contactno" />
+        </div>
+        <div class="oae_birthdate oaebox">
+          <label for="txt_op_birthdate">Birthdate</label>
+          <input type="text" disabled name="txt_op_birthdate" id="txt_op_birthdate" />
+        </div>
+        <div class="oae_address oaebox">
+          <label for="txt_op_address">Address</label>
+          <input type="text" disabled name="txt_op_address" id="txt_op_address" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Add New Officers and EP MODAL-->
+<section id="addnewoaep-container">
+  <div class="addnewofficersandeppanel" id="AddNewOfficerAndEPRecord">
+    <form action="" method="POST" id="addnewofficersandepform" >
+      <div class="addoaeformtitlebox">
+        <h3 align="center">Add New Officer</h3>
+      </div>
+      <div class="oaeinputbox">
+        <div class="oaeaddimageboxcontainer">
+          <div class="add_oaeimagebox">
+            <img src="" id="add_oae_avatar" />
+          </div>
+          <div class="addimagelink">
+            <input type="button" id="oaeaddimagebutton" value="Choose Image Profile" capture="user"/>
+          </div>
+        </div>
+        <div class="oaetextfieldcontainer">
+          <div class="add_oae_personaldetails add_info_box">
+            <input type="text" name="txtofficerfirstname" id="txtofficerfirstname" placeholder="Firstname" />
+            <input type="text" name="txtofficermiddlename" id="txtofficermiddlename" placeholder="Middle Name" />
+            <input type="text" name="txtofficerlastname" id="txtofficerlastname" placeholder="Lastname" />
+            <input type="text" id="txtofficerbirthdate" name="txtofficerbirthdate" placeholder="Birthdate" />
+            <input type="text" id="txtofficeraddress" name="txtofficeraddress" placeholder="Address" />
+          </div>
+          <div class="oaeofficebox add_info_box oae_select_option">
+            <label for="oae_office_option">Office:</label>
+            <select name="oae_office_option">
+              <option value="Headquarters">Headquarters</option>
+              <option value="951ST CES">951ST CES</option>
+              <option value="VSAT">VSAT</option>
+              <option value="952ND MIS">952ND MIS</option>
+              <option value="953RD SSS">953RD SSS</option>
+              <option value="954TH COS">954TH COS</option>
+            </select>
+          </div>
+          <div class="oaerankbox add_info_box oae_select_option">
+            <label for="oae_rank_option">Rank:</label>
+            <select name="oae_rank_option">
+              <option value="LTC">LTC</option>
+              <option value="MAJ">MAJ</option>
+              <option value="SMS">SMS</option>
+              <option value="CPT">CPT</option>
+              <option value="MSgt">MSgt</option>
+            </select>
+          </div>
+          <div class="oae_contactdetails_box add_info_box">
+            <input type="text" id="txtofficerunit" name="txtofficerunit" placeholder="Unit" />
+            <input type="text" id="txtofficeremail" name="txtofficeremail" placeholder="Email" />
+            <input type="text" id="txtofficercontactnumber" name="txtofficercontactnumber" placeholder="Contact Number" />
+          </div>
+          <div class="addofficercommand">
+            <input type="submit" name="submitnewofficer" id="submitnewofficer" value="Submit New Record" />
+            <input type="button" name="canceloperation" id="canceloperation" value="Cancel" />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Civilian Employee Profile MODAL-->
+<section id="CivilianEmployeeProfile">
+  <div class="civilianemployeerofilepanel">
+    <div class="cefirstbox">
+      <div class="cemorebuttonbox">
+        <button type="button" id="cemorebutton" onclick="document.getElementById('CivilianEmployeeProfile').style.display='none'">
+          Close
+        </button>
+      </div>
+      <div class="ce-bottom-box">
+        <div class="cetitleholder">
+          <h3 id="cetitle">Civilian Employee Profile</h3>
+        </div>
+        <div class="ceofficelogo">
+          <!-- 950th LOGO -->
+        </div>
+      </div>
+    </div>
+    <div class="cesecondbox">
+      <div class="ceimageboxcontainer">
+        <div class="ceimagebox">
+          <img src="" id="ce_avatar" />
+        </div>
+      </div>
+      <div class="cedetailsboxcontainer">
+        <div class="ce_name cebox">
+          <label>Officer Name</label>
+          <input type="text" disabled name="txt_ce_name" id="txt_ce_name" value="Jean Joshua Haplasca Villanueva" />
+        </div>
+        <div class="ce_email cebox">
+          <label>Email</label>
+          <input type="text" disabled name="txt_ce_email" id="txt_ce_email" />
+        </div>
+        <div class="ce_contactno cebox">
+          <label>Contact Number</label>
+          <input type="text" disabled name="txt_ce_contactno" id="txt_ce_contactno" />
+        </div>
+        <div class="ce_birthdate cebox">
+          <label>Birthdate</label>
+          <input type="text" disabled name="txt_ce_birthdate" id="txt_ce_birthdate" />
+        </div>
+        <div class="ce_address cebox">
+          <label>Address</label>
+          <input type="text" disabled name="txt_ce_address" id="txt_ce_address" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Add New Civilian Employee -->
+<section id="addnewce-container">
+  <div class="addnewcivilianemployeepanel" id="AddNewCivilianEmployeeRecord">
+    <form action="" method="POST" id="addnewcivilianemployeeform" >
+      <div class="addnewcetitlebox">
+        <h3 align="center">Add New civilian</h3>
+      </div>
+      <div class="add_ceinputbox">
+        <div class="ceaddimageboxcontainer">
+          <div class="add_ceimagebox">
+            <img src="" id="add_ce_avatar" />
+          </div>
+          <div class="addimagelink">
+            <input type="button" id="ceaddimagebutton" value="Choose Image Profile" />
+          </div>
+        </div>
+        <div class="cetextfieldcontainer">
+          <div class="add_ce_personaldetails add_info_box">
+            <input type="text" name="txtcivilianfirstname" id="txtcivilianfirstname" placeholder="Firstname" />
+            <input type="text" name="txtcivilianmiddlename" id="txtcivilianmiddlename" placeholder="Middle Name" />
+            <input type="text" name="txtcivilianlastname" id="txtcivilianlastname" placeholder="Lastname" />
+            <input type="text" id="txtcivilianbirthdate" name="txtcivilianbirthdate" placeholder="Birthdate" />
+            <input type="text" id="txtcivilianaddress" name="txtcivilianaddress" placeholder="Address" />
+          </div>  
+          <div class="ceofficebox add_info_box">
+            <label for="ce_office_option add_info_box">Office</label>
+            <select name="ce_office_option">
+              <option value="Headquarters">Headquarters</option>
+                <option value="951ST CES">951ST CES</option>
+                <option value="VSAT">VSAT</option>
+                <option value="952ND MIS">952ND MIS</option>
+                <option value="953RD SSS">953RD SSS</option>
+                <option value="954TH COS">954TH COS</option>
+            </select>
+          </div>
+          <div class="ce_contactdetails_box add_info_box">
+            <input type="text" id="txtcivilianunit" name="txtcivilianunit" placeholder="Unit" />
+            <input type="email" id="txtcivilianemail" name="txtcivilianemail" placeholder="Email" />
+            <input type="text" id="txtciviliancontactnumber" name="txtciviliancontactnumber" placeholder="Contact Number" />
+          </div>
+          <div class="addciviliancommand">
+            <input type="submit" name="submitnewcivilian" id="submitnewcivilian" value="Submit New Record" />
+            <input type="button" name="canceloperation" id="canceloperation" value="Cancel" />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!--Loan Request Form-->
+<section id="lrf-container">
+  <form action="" method="" id="loanRequestForm">
+    <div class="lrf-inner-container">
+      <div class="lrf-top-container">
+        <div class="lrf-header">
+          <h3 align="center">Loan Request Form</h3>
+          <button type="button" class="btn_lrf_close">
+            Close
+          </button>
+        </div>
+        <div class="lrf-type-of-account-box">
+          <label for="type_of_account">Choose type of Account:</label>
+          <select name="type_of_account">
+            <option value="5K">5K Account</option>
+            <option value="10K">10K Account</option>
+          </select>
+        </div>
+      </div>
+      <hr>
+      <div class="lrf-midinputbox">
+        <div class="lrf-midinputbox-inner">
+          <div class="lrf-bfn-container mid_box_item">
+            <label for="lrf-txt-borrowerfname">Firstname</label>
+            <input type="text" disabled name="lrf-txt-borrowerfname" id="lrf-txt-borrowerfname" />
+          </div>
+          <div class="lrf-bmn-container mid_box_item">
+            <label for="lrf-txt-borrowermname">Middle name</label>
+            <input type="text" disabled name="lrf-txt-borrowermname" id="lrf-txt-borrowermname" />
+          </div>
+          <div class="lrf-bln-container mid_box_item">
+            <label for="lrf-txt-borrowerlname">Last name</label>
+            <input type="text" disabled name="lrf-txt-borrowerlname" id="lrf-txt-borrowerlname" />
+          </div>
+          <div class="lrf-boff-container mid_box_item">
+            <label for="lrf-txt-borroweroffice">Office</label>
+            <input type="text" disabled name="lrf-txt-borroweroffice" id="lrf-txt-borroweroffice" />
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="lrf-loanrates">
+        <div class="lrf-loanrates-inner">
+          <p>HUHUGUTIN KAY DATABASE PHP</p>
+        </div>
+      </div>
+      <hr>
+      <div class="lrf-btn-action" align='center'>
+        <input type="submit" name="lrf_btn_submit" id="lrf_btn_submit" value="Submit" />
+        <input type="button" name="lrf_btn_cancel" id="lrf_btn_cancel" onclick="document.getElementById('lrf-container').style.display='none'" value="Cancel" />
+      </div>
+    </div>
+  </form>
+</section>
+
+<!-- Edit Officers and EP Profile MODAL -->
+<section id="edit_oaep_profile_container">
+  <div class="edit_oaep_profile_panel">
+    <form id="edit_oaep_profile_form">
+      <div class="edit_oaep_titlebox">
+        <h3 align="center">Edit Your Profile</h3>
+      </div>
+      <div class="edit_oaep_input_box">
+        <div class="edit_oaep_imagebox_container">
+          <div class="edit_oaep_imagebox">
+            <img src="" id="edit_oaep_avatar" />
+          </div>
+          <div class="edit_image_link">
+            <input type="button" name="btn_change_oaepimage" id="btn_change_oaepimage" value="Change Image Profile" />
+          </div>
+        </div>
+        <div class="edit_oaep_textfield_container">
+          <input type="text" name="edit_txt_oaep_fName" id="edit_txt_oaep_fName" />
+          <input type="text" name="edit_txt_oaep_mName" id="edit_txt_oaep_mName" />
+          <input type="text" name="edit_txt_oaep_lName" id="edit_txt_oaep_lName" />
+          <input type="text" name="edit_txt_oaep_unit" id="edit_txt_oaep_unit" />
+          <input type="text" name="edit_txt_oaep_rank" id="edit_txt_oaep_rank" />
+          <input type="email" name="edit_txt_oaep_email" id="edit_txt_oaep_email" />
+          <input type="text" name="edit_txt_oaep_contactno" id="edit_txt_oaep_contactno" />
+          <input type="text" name="edit_txt_oaep_bDate" id="edit_txt_oaep_bDate" />
+        </div>
+        <div class="btn_update_oaep_box" align="center">
+          <input type="submit" name="btn_update_oaep_profile" id="btn_update_oaep_profile" value="Update Profile" />
+          <button type="button" name="oaep_btn_close" id="oaep_btn_close" onclick="document.getElementById('edit_oaep_profile_container').style.display='none'">
+            Close
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Edit Civilian Employee Profile MODAL -->
+<section id="edit_ce_profile_container">
+  <div class="edit_ce_profile_panel">
+    <form id="edit_ce_profile_form">
+      <div class="edit_ce_titlebox">
+        <h3 align="center">Edit Your Profile</h3>
+      </div>
+      <div class="edit_ce_input_box">
+        <div class="edit_ce_imagebox_container">
+          <div class="edit_ce_imagebox">
+            <img src="" id="edit_ce_avatar" />
+          </div>
+          <div class="edit_image_link">
+            <input type="button" name="btn_change_ceimage" id="btn_change_ceimage" value="Change Image Profile" />
+          </div>
+        </div>
+        <div class="edit_ce_textfield_container">
+          <input type="text" name="edit_txt_ce_fName" id="edit_txt_ce_fName" />
+          <input type="text" name="edit_txt_ce_mName" id="edit_txt_ce_mName" />
+          <input type="text" name="edit_txt_ce_lName" id="edit_txt_ce_lName" />
+          <input type="text" name="edit_txt_ce_unit" id="edit_txt_ce_unit" />
+          <input type="email" name="edit_txt_ce_email" id="edit_txt_ce_email" />
+          <input type="text" name="edit_txt_ce_contactno" id="edit_txt_ce_contactno" />
+          <input type="text" name="edit_txt_ce_bDate" id="edit_txt_ce_bDate" />
+        </div>
+        <div class="btn_update_ce_box" align="center">
+          <input type="submit" name="btn_update_ce_profile" id="btn_update_ce_profile" value="Update Profile" />
+          <button type="button" name="ce_btn_close" id="ce_btn_close" onclick="document.getElementById('edit_oaep_profile_container').style.display='none'">
+            Close
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

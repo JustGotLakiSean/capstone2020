@@ -1,0 +1,205 @@
+body {
+  margin: 0;
+  font-family: 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
+  background: #F2F2F2;
+}
+
+#loan-navigation-container {
+  margin: 0;
+  padding: 0;
+}
+
+#loan-navigation-container nav {
+  background-color: #0071BC;
+  color: #eee;
+}
+
+#loan-navigation-container nav ul {
+  height: 6vh;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0;
+  margin: 0;
+}
+
+#loan-navigation-container nav li {
+  display: inline;
+  margin: 0;
+}
+
+#loan-navigation-container nav > ul > li > a {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  color: #eee;
+  text-decoration: none;
+  position: relative;
+  top: .7rem;
+}
+
+#loan-navigation-container input[type=text] {
+  width: 20vw;
+  height: 3vh;
+  background: #F2F2F2;
+  font-size: .8rem;
+  padding-left: 10px;
+  border: none;
+  border-radius: 5px;
+  position: relative;
+  top: .5rem;
+}
+
+#admin-button {
+  background: #dddddd;
+  border: none;
+  border-radius: 3px;
+  height: 4vh;
+  cursor: pointer;
+  color: #fff;
+  position: relative;
+  top: .5rem;
+}
+
+#admin_menu_box {
+  position: absolute;
+  top: 37px;
+  right: 65px;
+  width: 10vw;
+  height: 100px;
+  font-size: .9rem;
+  background: #fff;
+  border-radius: 15px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  box-shadow: 1px 2px 5px rgba(126, 125, 125, 0.1),
+  -1px 2px 5px rgba(126, 125, 125, 0.1);
+}
+
+#admin_menu_box a {
+  text-decoration: none;
+  color: #666;
+}
+
+#loan-navigation-container ::placeholder {
+  color: #666666;
+}
+
+.adminPersonalDetailsPanel {
+  max-width: 700px;
+  height: 520px;
+  background: #FFF;
+  margin: auto;
+  box-shadow: 0px 0px 10px rgba(128, 128, 128, 0.3),
+  -0px 0px 10px rgba(128, 128, 128, 0.3);
+  border-radius: 15px;
+  position: relative;
+  top: 30px;
+}
+
+.apd-inner-section {
+  margin: 0;
+  padding: 10px 40px 40px 40px;
+}
+
+.adminPersonalDetailstitleBox {
+  margin: auto;
+}
+
+.adminPersonalDetailstitleBox h3 {
+  text-align: center;
+  font-size: 37px;
+  margin: 0;
+}
+
+.adp-header {
+  display: flex;
+  align-items: center;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+#paneleditbutton {
+  width: 30px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: #E6E6E6;
+  border-radius: 5px;
+}
+
+.adp-header h3{
+  margin: 0;
+}
+
+.adminPersonalDetailsFormContainer {
+  position: relative;
+  margin: auto;
+  max-width: 700px;
+}
+
+hr {
+  margin: 16px 0 16px 0;
+  padding: 0;
+  border: 0;
+  height: 1px;
+  background: #dadada;
+  overflow: visible;
+  text-align: center;
+}
+
+form {
+  position: absolute;
+  top: 2rem;
+  left: 6.5rem;
+}
+
+form > div {
+  display: grid;
+  grid-auto-flow: row wrap;
+  position: relative;
+}
+
+label {
+  font-size: 1.3rem;
+  margin-right: 10px;
+  color: #808080;
+  position: relative;
+}
+
+form input[type=text] {
+  /* justify-items: center; */
+  background: #F2F2F2;
+  border-radius: 2px;
+  border: none;
+  width: 380px;
+  height: 30px;
+  font-size: 1.3rem;
+}
+
+.admincommandcontainer {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 3.8rem;
+}
+
+.admincommandcontainer button {
+  border: none;
+  width: 160px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border-radius: 5px;
+  font-size: 15px;
+}
+.admincommandcontainer button[type=submit] {
+  background: #1A1A1A;
+  color: #fff;
+}
+
+.admincommandcontainer button[type=button] {
+  background: #FF1D25;
+  color: #fff;
+}
