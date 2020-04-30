@@ -642,6 +642,7 @@ EMP_LIST;
         $LoanType5k = $r['type_of_loan'];
         $currentBalance5k = $r['balance_rate_5k'];
         $interestRate5k = $r['interest_rate_5k'];
+        $creditRate5k = $r['credit_5k_rate'];
         $LoanStatus5k = (($r['loan_status'] == 0) ? 'Active' : 'Not Active');
         $is_new_loan = $r['isNewLoan'];
 
@@ -778,7 +779,7 @@ echo '
                   </div>
                   <div class="current_balance_5k_box np5kbox">
                     <label for="txt_currentbalance_5k">Current Balance</label>
-                    <input type="text" disabled name="txt_currentbalance_5k" id="txt_currentbalance_5k" placeholder="000" />
+                    <input type="text" disabled name="txt_currentbalance_5k" id="txt_currentbalance_5k" placeholder="'.$creditRate5k.'" />
                   </div>
                   <div class="pb5k_btnaction">
                     <input type="submit" name="pb5k_btn_submit" id="pb5k_btn_submit" value="Pay" />
