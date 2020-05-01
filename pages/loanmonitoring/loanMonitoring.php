@@ -347,103 +347,6 @@ EMP_LIST;
             </div>
           </section>
 
-          <?php
-          
-          ?>
-
-          <!-- Add New Payment 5K MODAL -->
-          <!-- <section id="newpayment_5k_modal">
-            <form id="newpayment_5k_container" method="post" action="">
-              <div class="newpayment_5k_titlecontainer">
-                <button type="button" id="btn_5k_moreoption">More</button>
-                <h3 align="center">Add New Payment</h3>
-              </div>
-              <div class="bdb-content">
-                <div class="bdb-inner-content">
-                  <div class="bdb_container">
-                    <div class="borrowers_detailbox">
-                      <input type="text" name="borrower_name" disabled id="borrower_name" />
-                      <input type="text" name="borrower_office" disabled id="borrower_office" />
-                    </div>
-                  </div>
-                  <div class="current_loantransaction_container">
-                    <div class="clt_header">
-                      <h5>Borrower's Loan History</h5>
-                    </div>
-                    <hr>
-                    <div class="clt_container">
-                      <div class="cltbox">
-                        <div class="ctrl_number_box clt">
-                          <label>Control Number</label>
-                          <input type="number" disabled name="txt_ctrl_number_5k" id="txt_ctrl_number_5k" value="0000000" /> 
-                        </div>
-                        <div class="account_type_5k clt">
-                          <label>Account Type:</label>
-                          <input type="text" disabled name="txt_accounttype_5k" id="txt_accounttype_5k" value="5K Account" />
-                        </div>
-                        <div class="balance_5k_box clt">
-                          <label>Current Balance</label>
-                          <input type="number" disabled name="balance_5k" id="balance_5k" value="0000000" /> 
-                        </div>
-                        <div class="currentstatus_5k_box clt">
-                          <label>Status</label>
-                          <input type="text" disabled name="txt_currentstatus_5k" id="txt_currentstatus_5k" value="Status" /> 
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="paymentbox_5k_container">
-                    <div class="paymentbox_5k_list">
-                      <div class="paymentbox5k_title">
-                        <h5 align="center" style="background: #0071BC; color: white">Payment Box</h5>
-                      </div>
-                      <div class="paymentbox_5k_content">
-                        <div class="paymentbox_5k">
-                          <div class="paymentoption_box np5kbox">
-                            <label for="paymentoption_5k">Payment Option</label>
-                            <select name="paymentoption_5k">
-                              <option value="1ST Payment">1ST Payment</option>
-                              <option value="2ND Payment">2ND Payment</option>
-                              <option value="3RD Payment">3RD Payment</option>
-                              <option value="FULL PAYMENT">FULL PAYMENT</option>
-                            </select>
-                          </div>
-                          <div class="date_of_payment_5k_box np5kbox">
-                            <label for="date_of_payment_5k">Date of Payment</label>
-                            <input type="date" name="date_of_payment_5k" id="datepicker"/>
-                          </div>
-                          <div class="amount_payment_5k_box np5kbox">
-                            <label for="txt_amount_payment_5k">Amount Payment</label>
-                            <input type="number" name="txt_amount_payment_5k" id="txt_amount_payment_5k"/>
-                          </div>
-                          <div class="penaltyrate_5k_box np5kbox">
-                            <label>Penalty</label>
-                            <div>
-                              <label for="penaltyrate_5k" style="font-size: 13px;">80 PHP</label>
-                              <input type="radio" name="penaltyrate_5k" id="penaltyrate_5k"/>
-                            </div>
-                          </div>
-                          <div class="interest_5k_box np5kbox">
-                            <label for="txt_interestamount_5k">Interest</label>
-                            <input type="text" disabled name="txt_interestamount_5k" id="txt_interestamount_5k" placeholder="000" />
-                          </div>
-                          <div class="current_balance_5k_box np5kbox">
-                            <label for="txt_currentbalance_5k">Current Balance</label>
-                            <input type="text" disabled name="txt_currentbalance_5k" id="txt_currentbalance_5k" placeholder="000" />
-                          </div>
-                          <div class="pb5k_btnaction">
-                            <input type="submit" name="pb5k_btn_submit" id="pb5k_btn_submit" value="Pay" />
-                            <input type="button" name="pb5k_btn_cancel" id="pb5k_btn_cancel" onclick="document.getElementById('newpayment_5k_modal').style.display='none'" value="Cancel" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </section> -->
-
           <!-- Add New Payment 10K MODAL -->
           <section id="newpayment_10k_modal">
             <form class="newpayment_10k_container" method="post" action="">
@@ -624,7 +527,13 @@ EMP_LIST;
     $borrowerMname5k = '';
     $borrowerLname5k = '';
     $borrowerOffice5k = '';
-    $empType5k = '';
+    $borrowerType5k = '';
+    $LoanType5k = '';
+    $currentBalance5k = '';
+    $interestRate5k = '';
+    $creditRate5k = '';
+    $LoanStatus5k = '';
+    $is_new_loan = '';
     if(isset($_SESSION['transaction_number'])){
       echo '<section id="newpayment_5k_modal">';
       $new_loan5k_access = new db_access();
@@ -638,8 +547,11 @@ EMP_LIST;
         $borrowerMname5k = $r['mname'];
         $borrowerLname5k = $r['lname'];
         $borrowerOffice5k = $r['office'];
-        $empType5k = $r['type_of_employee'];
+        $borrowerType5k = $r['type_of_employee'];
+        $borrowerRank5k = $r['emp_rank'];
         $LoanType5k = $r['type_of_loan'];
+        $LoanAmountRate5k = $r['loan_amount_5k_rate'];
+        $MonthlyPaymentRate5k = $r['monthly_payment_5k_rate'];
         $currentBalance5k = $r['balance_rate_5k'];
         $interestRate5k = $r['interest_rate_5k'];
         $creditRate5k = $r['credit_5k_rate'];
@@ -701,7 +613,7 @@ EMP_LIST;
       }
 
 echo <<<loan_panel
-    <form id="newpayment_5k_container" method="post" action="new_5k_loan_payment.php">
+    <form id="newpayment_5k_container" method="POST" action="add_new_5k_payment.php">
       <div class="newpayment_5k_titlecontainer">
         <button type="button" id="btn_5k_moreoption">More</button>
         <h3 align="center">Add New Payment</h3>
@@ -710,14 +622,19 @@ echo <<<loan_panel
         <div class="bdb-inner-content">
           <div class="bdb_container">
             <div class="borrowers_detailbox">
-              <input type="hidden" name="b_loanID" disabled id="b_loanID" value="$LoanID5K" />
-              <input type="hidden" name="b_empID" disabled id="b_empID" value="$borrowerID5K" />
-              <input type="hidden" name="b_ctrl" disabled id="b_ctrl" value="$ctrlPrefix5k" /> 
-              <input type="hidden" name="b_fname" disabled id="b_fname" value="$borrowerFname5k" />
-              <input type="hidden" name="b_mname" disabled id="b_mname" value="$borrowerMname5k" />
-              <input type="hidden" name="b_lname" disabled id="b_lname" value="$borrowerLname5k" />
+              <input type="hidden" name="b_loanID" id="b_loanID" value="$LoanID5K" />
+              <input type="hidden" name="b_empID" id="b_empID" value="$borrowerID5K" />
+              <input type="hidden" name="b_ctrl" id="b_ctrl" value="$ctrlPrefix5k" /> 
+              <input type="hidden" name="b_fname" id="b_fname" value="$borrowerFname5k" />
+              <input type="hidden" name="b_mname" id="b_mname" value="$borrowerMname5k" />
+              <input type="hidden" name="b_lname" id="b_lname" value="$borrowerLname5k" />
+              <input type="hidden" name="b_type" id="b_type" value="$borrowerType5k" />
+              <input type="hidden" name="b_rank" id="b_rank" value="$borrowerRank5k" />
+              <input type="hidden" name="txt_loan5k_amount_rate" value="$LoanAmountRate5k" />
+              <input type="hidden" name="txt_monthlyPayment_5k_rate" value="$MonthlyPaymentRate5k" />
+              <input type="hidden" name="b_office" id="b_office" value="$borrowerOffice5k" />
               <input type="text" name="b_fullname" disabled id="b_fullname" value="$borrowerFullname5k"/>
-              <input type="text" name="b_office" disabled id="b_office" value="$borrowerOffice5k" />
+              <input type="text" disabled value="$borrowerOffice5k" />
             </div>
           </div>
           <div class="current_loantransaction_container">
@@ -729,19 +646,23 @@ echo <<<loan_panel
               <div class="cltbox">
                 <div class="ctrl_number_box clt">
                   <label>Control Number:</label>
-                  <input type="text" disabled name="txt_ctrl_number_5k" id="txt_ctrl_number_5k" value="$control_number5k" /> 
+                  <input type="hidden" name="txt_ctrl_number_5k" id="txt_ctrl_number_5k" value="$control_number5k" />
+                  <input type="text" disabled value="$control_number5k" />
                 </div>
                 <div class="account_type_5k clt">
                   <label>Account Type:</label>
-                  <input type="text" disabled name="txt_accounttype_5k" id="txt_accounttype_5k" value="$LoanType5k" />
+                  <input type="hidden" name="txt_accounttype_5k" id="txt_accounttype_5k" value="$LoanType5k" />
+                  <input type="text" disabled value="$LoanType5k" />
                 </div>
                 <div class="balance_5k_box clt">
                   <label>Balance Rate:</label>
-                  <input type="text" disabled name="balance_5k" id="balance_5k" value="$currentBalance5k" /> 
+                  <input type="hidden" name="balance_5k" id="balance_5k" value="$currentBalance5k" />
+                  <input type="text" disabled value="$currentBalance5k" />
                 </div>
                 <div class="currentstatus_5k_box clt">
                   <label>Status:</label>
-                  <input type="text" disabled name="txt_currentstatus_5k" id="txt_currentstatus_5k" value="$LoanStatus5k" /> 
+                  <input type="hidden" name="txt_currentstatus_5k" id="txt_currentstatus_5k" value="$LoanStatus5k" /> 
+                  <input type="text" disabled value="$LoanStatus5k" /> 
                 </div>
               </div>
             </div>
@@ -771,19 +692,21 @@ echo '
                     <input type="number" name="txt_amount_payment_5k" id="txt_amount_payment_5k"/>
                   </div>
                   <div class="penaltyrate_5k_box np5kbox">
-                    <label>Penalty</label>
+                    <label>Penalty:</label>
                     <div>
                       <label for="penaltyrate_5k" style="font-size: 13px;">80 PHP</label>
-                      <input type="radio" name="penaltyrate_5k" id="penaltyrate_5k"/>
+                      <input type="radio" name="penaltyrate_5k" id="penaltyrate_5k" value="80"/>
                     </div>
                   </div>
                   <div class="interest_5k_box np5kbox">
                     <label for="txt_interestamount_5k">Interest</label>
-                    <input type="text" disabled name="txt_interestamount_5k" id="txt_interestamount_5k" placeholder="'.$interestRate5k.'" />
+                    <input type="hidden" name="txt_interestamount_5k" value="'.$interestRate5k.'" />
+                    <input type="text" disabled id="txt_interestamount_5k" disabled value="'.$interestRate5k.'" />
                   </div>
                   <div class="current_balance_5k_box np5kbox">
                     <label for="txt_currentbalance_5k">Current Balance</label>
-                    <input type="text" disabled name="txt_currentbalance_5k" id="txt_currentbalance_5k" placeholder="'.$creditRate5k.'" />
+                    <input type="hidden" name="txt_currentbalance_5k" value="'.$creditRate5k.'" />
+                    <input type="text" disabled id="txt_currentbalance_5k" value="'.$creditRate5k.'" />
                   </div>
                   <div class="pb5k_btnaction">
                     <input type="submit" name="pb5k_btn_submit" id="pb5k_btn_submit" value="Pay" />
