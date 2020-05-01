@@ -699,6 +699,7 @@ EMP_LIST;
           </table>
         </div>';
       }
+
 echo <<<loan_panel
     <form id="newpayment_5k_container" method="post" action="new_5k_loan_payment.php">
       <div class="newpayment_5k_titlecontainer">
@@ -745,6 +746,9 @@ echo <<<loan_panel
               </div>
             </div>
           </div>
+loan_panel;
+if($LoanStatus5k === 'Active'){
+  echo'  
           <div class="paymentbox_5k_container">
             <div class="paymentbox_5k_list">
               <div class="paymentbox5k_title">
@@ -754,7 +758,7 @@ echo <<<loan_panel
                 <div class="paymentbox_5k">
                   <div class="paymentoption_box np5kbox">
                     <label for="paymentoption_5k">Payment Option</label>
-loan_panel;
+            ';
                       echo payment_options($is_new_loan);
 echo '
                   </div>
@@ -788,16 +792,22 @@ echo '
                 </div>
               </div>
             </div>
-          </div>
+          </div>';
+        } else if($LoanStatus5k === 'Not Active'){
+          echo '<div class="not_active_container" align="center">
+            <h4>Not Active</h4>
+          </div>';
+        }
+        echo '
         </div>
       </div>
     </form>
   </section>
 ';
-    }
-  } else {
-
   }
+} else {
+
+}
   ?>
     </main>
 
