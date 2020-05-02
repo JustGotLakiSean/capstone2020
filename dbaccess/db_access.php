@@ -63,6 +63,20 @@ class db_access {
     $con-close();
   }
 
+  // get the downpayment (dp) and fullpayment (dp) column of the employee
+  public function get_dp_and_fp($borrower_id, $fname, $mname, $lname, $office, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query = "SELECT civilian_ID as emp_id, type_of_employee as emptype, civilian_fName as emp_fName, civilian_mName as emp_mName, civilian_lName as emp_lName, civilian_email as emp_email, civilian_office as emp_office, civilian_rank as empRank, downpayment_count as dpCount, dp_5k_count as dp5k, dp_10k_count as dp10k, fullpayment_count as fp_count, fp_5k_count as fp5k, fp_10k_count as fp10k, penalty_count as penaltyCount, penalty_5k_count as penalty5k, penalty_10k_count as penalty10k, la_5k_count as la5k, la_10k_count as la10k FROM tbl_civilian_employee WHERE civilian_ID = '$borrower_id' AND type_of_employee = '$type_of_employee' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND civilian_office = '$office' AND civilian_rank = '$rank' UNION SELECT officer_ID, type_of_employee, officer_fName, officer_mName, officer_lName, officer_email, officer_headquarter, officer_rank, downpayment_count, dp_5k_count, dp_10k_count, fullpayment_count, fp_5k_count, fp_10k_count, penalty_count, penalty_5k_count, penalty_10k_count, la_5k_count, la_10k_count FROM tbl_officersandep WHERE officer_ID = '$borrower_id' AND type_of_employee = '$type_of_employee' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND officer_headquarter = '$office' AND officer_rank = '$rank'";
+    $res = $con->query($query);
+    if($res){
+      return $res;
+    } else {
+      return false;
+    }
+    $con->close();
+  }
+
   public function search_data($keyword){
     $con = $this->getConnection();
     $query = "SELECT civilian_ID as emp_id, civilian_fName as emp_fName, civilian_mName as emp_mName, civilian_lName as emp_lName, civilian_email as emp_email, civilian_office as emp_office FROM tbl_civilian_employee WHERE civilian_fName LIKE '%" . $keyword . "%' OR civilian_lName LIKE '%" . $keyword . "%' UNION SELECT officer_ID, officer_fName, officer_mName, officer_lName, officer_email, officer_headquarter FROM tbl_officersandep WHERE officer_fName LIKE '%" . $keyword . "%' OR officer_lName LIKE '%" . $keyword . "%'";
@@ -377,6 +391,7 @@ class db_access {
     } else {
       return false;
     }
+    $con->close();
   }
 
   public function update_officer_la5k_count($id, $fname, $mname, $lname, $emp_type, $increment)
@@ -390,6 +405,7 @@ class db_access {
     } else {
       return false;
     }
+    $con->close();
   }
 
   // increment civilian downpayment (dp) count //
@@ -404,6 +420,7 @@ class db_access {
     } else {
       return true;
     }
+    $con->close();
   }
 
   // dp10k
@@ -417,6 +434,7 @@ class db_access {
     } else {
       return true;
     }
+    $con->close();
   }
 
   // downpayment count; increment by 1 whether dp5k or dp10k
@@ -430,6 +448,7 @@ class db_access {
     } else {
       return true;
     }
+    $con->close();
   }
 
   // increment civilian fullpayment (fp) count
@@ -444,6 +463,7 @@ class db_access {
     } else {
       return true;
     }
+    $con->close();
   }
 
   // fp10k
@@ -457,6 +477,7 @@ class db_access {
     } else {
       return true;
     }
+    $con->close();
   }
 
   // fullpayment count; increment by 1 whether fp5k or fp10k
@@ -470,6 +491,7 @@ class db_access {
     } else {
       return true;
     }
+    $con->close();
   }
 
   // increment officer downpayment (dp) count //
@@ -484,6 +506,7 @@ class db_access {
     } else {
       return true;
     }
+    $con->close();
   }
 
   // dp10k
@@ -497,6 +520,7 @@ class db_access {
     } else {
       return true;
     }
+    $con->close();
   }
 
   // downpayment count; increment by 1 whether dp5k or dp10k
@@ -510,6 +534,7 @@ class db_access {
     } else {
       return true;
     }
+    $con->close();
   }
 
   // increment civilian fullpayment (fp) count
@@ -524,6 +549,7 @@ class db_access {
     } else {
       return true;
     }
+    $con->close();
   }
 
   // fp10k
@@ -537,6 +563,7 @@ class db_access {
     } else {
       return true;
     }
+    $con->close();
   }
 
   // fullpayment count; increment by 1 whether fp5k or fp10k
@@ -550,6 +577,7 @@ class db_access {
     } else {
       return true;
     }
+    $con->close();
   }
 }
 ?>

@@ -28,37 +28,22 @@ if(isset($_POST['pb5k_btn_submit'])){
   $has_penalty = '';// 1 = 'yes'; 0 = 'no'
   $is_penalty_paid = ''; // 1 = 'yes'; 0 = 'no'
   $penalty_amount = '';// 1 = 'yes'; 0 = 'no'
+  $increment = '';
+  $dp5k = '';
+  $dp10k = '';
+  $dp = '';
+  $fp5k = '';
+  $fp10k = '';
+  $fp = '';
+  $penalty_count = '';
+  $penalty_5k_count = '';
+  $penalty_10k_count = '';
 
   // calculations
   $new_current_balance_5k = '';
   $new_current_interest_5k = '';
-  echo "HEllo";
   // && isset($_POST['txt_interestamount_5k']) && isset($_POST['txt_currentbalance_5k'])
-  if(isset($_POST['b_loanID']) && isset($_POST['b_empID']) && isset($_POST['b_ctrl']) && isset($_POST['b_fname']) && isset($_POST['b_mname']) && isset($_POST['b_lname']) && isset($_POST['b_office']) && isset($_POST['b_type']) && isset($_POST['b_rank']) && isset($_POST['txt_loan5k_amount_rate']) && isset($_POST['txt_monthlyPayment_5k_rate']) && isset($_POST['txt_accounttype_5k']) && isset($_POST['balance_5k']) && isset($_POST['paymentoption_5k']) && isset($_POST['date_of_payment_5k']) && isset($_POST['txt_amount_payment_5k'])&& isset($_POST['txt_interestamount_5k']) && isset($_POST['txt_currentbalance_5k'])){
-    echo "HEY";
-    // echo $_POST['b_loanID'];
-    // echo $_POST['b_empID'];
-    // echo $_POST['b_ctrl'];
-    // echo $_POST['b_fname'];
-    // echo $_POST['b_mname'];
-    // echo $_POST['b_lname'];
-    // echo $_POST['b_office'];
-    // echo $_POST['b_type'];
-    // echo $_POST['b_rank'];
-    // echo $_POST['txt_loan5k_amount_rate'];
-    // echo $_POST['txt_monthlyPayment_5k_rate'];
-    // echo $_POST['txt_accounttype_5k'];
-    // echo $_POST['balance_5k'];
-    // echo $_POST['paymentoption_5k'];
-    // echo $_POST['date_of_payment_5k'];
-    // echo $_POST['txt_amount_payment_5k'];
-    // if(isset($_POST['penaltyrate_5k'])){
-    //   echo $_POST['penaltyrate_5k'];
-    // } else {
-    //   echo "No Penalty";
-    // }
-    // echo $_POST['txt_interestamount_5k'];
-    // echo $_POST['txt_currentbalance_5k'];
+  if(isset($_POST['b_loanID']) && isset($_POST['b_empID']) && isset($_POST['b_ctrl']) && isset($_POST['b_fname']) && isset($_POST['b_mname']) && isset($_POST['b_lname']) && isset($_POST['b_office']) && isset($_POST['b_type']) && isset($_POST['b_rank']) && isset($_POST['txt_loan5k_amount_rate']) && isset($_POST['txt_monthlyPayment_5k_rate']) && isset($_POST['txt_accounttype_5k']) && isset($_POST['balance_5k']) && isset($_POST['paymentoption_5k']) && isset($_POST['date_of_payment_5k']) && isset($_POST['txt_amount_payment_5k'])&& isset($_POST['txt_interestamount_5k']) && isset($_POST['txt_currentbalance_5k']) && isset($_POST['b_dp5k']) && isset($_POST['b_dp10k']) && isset($_POST['b_dp']) && isset($_POST['b_fp5k']) && isset($_POST['b_fp10k']) && isset($_POST['b_fp']) && isset($_POST['b_penalty_count']) && isset($_POST['b_penalty_5k_count']) && isset($_POST['b_penalty_10k_count'])){
     $db = new db_access();
     $loan_id = mysqli_real_escape_string($db->getConnection(), $_POST['b_loanID']);
     $borrower_id = mysqli_real_escape_string($db->getConnection(), $_POST['b_empID']);
@@ -87,11 +72,31 @@ if(isset($_POST['pb5k_btn_submit'])){
       $has_penalty = 0;
       $is_penalty_paid = 0;
     }
+    $dp5k = mysqli_real_escape_string($db->getConnection(), $_POST['b_dp5k']);
+    $dp10k = mysqli_real_escape_string($db->getConnection(), $_POST['b_dp10k']);
+    $dp = mysqli_real_escape_string($db->getConnection(), $_POST['b_dp']);
+    $fp5k = mysqli_real_escape_string($db->getConnection(), $_POST['b_fp5k']);
+    $fp10k = mysqli_real_escape_string($db->getConnection(), $_POST['b_fp10k']);
+    $fp = mysqli_real_escape_string($db->getConnection(), $_POST['b_fp']);
+    $penalty_count = mysqli_real_escape_string($db->getConnection(), $_POST['b_penalty_count']);
+    $penalty_5k_count = mysqli_real_escape_string($db->getConnection(), $_POST['b_penalty_count']);
+    $penalty_10k_count = mysqli_real_escape_string($db->getConnection(), $_POST['b_penalty_10k_count']);
+
     // $new_current_balance_5k = (int)$credit_rate - (int)$amount_paid;
 
     if($payment_option === '1st_payment_option'){
       $new_current_balance_5k = (int)$credit_rate - (int)$amount_paid;
+      $new_current_interest_5k = (int)$loan_amount_5k_rate - (int)$amount_paid;
+      // $add_new_payment = $db->add_to_1stpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $current_interest);
+      echo $new_current_balance_5k;
+      echo $new_current_interest_5k;
+      if($type_of_employee == 'civilian'){
+        $increment = (int)$dp5k + 1;
+        echo "$increment";
+        // $db->update_dp5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment);
+      }
     } else if($payment_option === '2nd_payment_option'){
+      
       echo "Second Payment";
     } else if($payment_option === '3rd_payment_option'){
       echo "Third Payment";

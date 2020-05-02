@@ -233,7 +233,7 @@ BUT;
               <div class="fiveKnewloanfirstbox">
                 <div class="fiveKborrowerdetails">
 
-                  <!-- SEARCH BOX -->
+                  <!-- All Employee List -->
                   <div id="search_container" align="center">
                     <?php foreach($dt as $res) { ?>
                     <?php
@@ -612,7 +612,20 @@ EMP_LIST;
         </div>';
       }
 
-echo <<<loan_panel
+      $get_dp_and_fp = new db_access();
+      $get_data = $get_dp_and_fp->get_dp_and_fp($borrowerID5K, $borrowerFname5k, $borrowerMname5k, $borrowerLname5k, $borrowerOffice5k, $borrowerType5k, $borrowerRank5k);
+      while($result = $get_data->fetch_assoc()){
+        $dp5k = $result['dp5k'];
+        $dp10k = $result['dp10k'];
+        $dp = $result['dpCount'];
+        $fp5k = $result['fp5k'];
+        $fp10k = $result['fp10k'];
+        $fp = $result['fp_count'];
+        $penalty_count = $result['penaltyCount'];
+        $penalty_5k_count = $result['penalty5k'];
+        $penalty_10k_count = $result['penalty10k'];
+      }
+echo '
     <form id="newpayment_5k_container" method="POST" action="add_new_5k_payment.php">
       <div class="newpayment_5k_titlecontainer">
         <button type="button" id="btn_5k_moreoption">More</button>
@@ -622,52 +635,60 @@ echo <<<loan_panel
         <div class="bdb-inner-content">
           <div class="bdb_container">
             <div class="borrowers_detailbox">
-              <input type="hidden" name="b_loanID" id="b_loanID" value="$LoanID5K" />
-              <input type="hidden" name="b_empID" id="b_empID" value="$borrowerID5K" />
-              <input type="hidden" name="b_ctrl" id="b_ctrl" value="$ctrlPrefix5k" /> 
-              <input type="hidden" name="b_fname" id="b_fname" value="$borrowerFname5k" />
-              <input type="hidden" name="b_mname" id="b_mname" value="$borrowerMname5k" />
-              <input type="hidden" name="b_lname" id="b_lname" value="$borrowerLname5k" />
-              <input type="hidden" name="b_type" id="b_type" value="$borrowerType5k" />
-              <input type="hidden" name="b_rank" id="b_rank" value="$borrowerRank5k" />
-              <input type="hidden" name="txt_loan5k_amount_rate" value="$LoanAmountRate5k" />
-              <input type="hidden" name="txt_monthlyPayment_5k_rate" value="$MonthlyPaymentRate5k" />
-              <input type="hidden" name="b_office" id="b_office" value="$borrowerOffice5k" />
-              <input type="text" name="b_fullname" disabled id="b_fullname" value="$borrowerFullname5k"/>
-              <input type="text" disabled value="$borrowerOffice5k" />
+              <input type="hidden" name="b_loanID" id="b_loanID" value="'.$LoanID5K.'" />
+              <input type="hidden" name="b_empID" id="b_empID" value="'.$borrowerID5K.'" />
+              <input type="hidden" name="b_ctrl" id="b_ctrl" value="'.$ctrlPrefix5k.'" /> 
+              <input type="hidden" name="b_fname" id="b_fname" value="'.$borrowerFname5k.'" />
+              <input type="hidden" name="b_mname" id="b_mname" value="'.$borrowerMname5k.'" />
+              <input type="hidden" name="b_lname" id="b_lname" value="'.$borrowerLname5k.'" />
+              <input type="hidden" name="b_type" id="b_type" value="'.$borrowerType5k.'" />
+              <input type="hidden" name="b_rank" id="b_rank" value="'.$borrowerRank5k.'" />
+              <input type="hidden" name="txt_loan5k_amount_rate" value="'.$LoanAmountRate5k.'" />
+              <input type="hidden" name="txt_monthlyPayment_5k_rate" value="'.$MonthlyPaymentRate5k.'" />
+              <input type="hidden" name="b_office" id="b_office" value="'.$borrowerOffice5k.'" />
+              <input type="hidden" name="b_dp5k" value="'.$dp5k.'" />
+              <input type="hidden" name="b_dp10k" value="'.$dp10k.'" />
+              <input type="hidden" name="b_dp" value="'.$dp.'" />
+              <input type="hidden" name="b_fp" value="'.$fp.'" />
+              <input type="hidden" name="b_fp5k" value="'.$fp5k.'" />
+              <input type="hidden" name="b_fp10k" value="'.$fp10k.'" />
+              <input type="hidden" name="b_penalty_count" value="'.$penalty_count.'" />
+              <input type="hidden" name="b_penalty_5k_count" value="'.$penalty_5k_count.'" />
+              <input type="hidden" name="b_penalty_10k_count" value="'.$penalty_10k_count.'" />
+              <input type="text" name="b_fullname" disabled id="b_fullname" value="'.$borrowerFullname5k.'"/>
+              <input type="text" disabled value="'.$borrowerOffice5k.'" />
             </div>
           </div>
           <div class="current_loantransaction_container">
             <div class="clt_header">
-              <h5>Borrower's Loan Detail</h5>
+              <h5>Borrower\'s Loan Detail</h5>
             </div>
             <hr>
             <div class="clt_container">
               <div class="cltbox">
                 <div class="ctrl_number_box clt">
                   <label>Control Number:</label>
-                  <input type="hidden" name="txt_ctrl_number_5k" id="txt_ctrl_number_5k" value="$control_number5k" />
-                  <input type="text" disabled value="$control_number5k" />
+                  <input type="hidden" name="txt_ctrl_number_5k" id="txt_ctrl_number_5k" value="'.$control_number5k.'" />
+                  <input type="text" disabled value="'.$control_number5k.'" />
                 </div>
                 <div class="account_type_5k clt">
                   <label>Account Type:</label>
-                  <input type="hidden" name="txt_accounttype_5k" id="txt_accounttype_5k" value="$LoanType5k" />
-                  <input type="text" disabled value="$LoanType5k" />
+                  <input type="hidden" name="txt_accounttype_5k" id="txt_accounttype_5k" value="'.$LoanType5k.'" />
+                  <input type="text" disabled value="'.$LoanType5k.'" />
                 </div>
                 <div class="balance_5k_box clt">
                   <label>Balance Rate:</label>
-                  <input type="hidden" name="balance_5k" id="balance_5k" value="$currentBalance5k" />
-                  <input type="text" disabled value="$currentBalance5k" />
+                  <input type="hidden" name="balance_5k" id="balance_5k" value="'.$currentBalance5k.'" />
+                  <input type="text" disabled value="'.$currentBalance5k.'" />
                 </div>
                 <div class="currentstatus_5k_box clt">
                   <label>Status:</label>
-                  <input type="hidden" name="txt_currentstatus_5k" id="txt_currentstatus_5k" value="$LoanStatus5k" /> 
-                  <input type="text" disabled value="$LoanStatus5k" /> 
+                  <input type="hidden" name="txt_currentstatus_5k" id="txt_currentstatus_5k" value="'.$LoanStatus5k.'" /> 
+                  <input type="text" disabled value="'.$LoanStatus5k.'" /> 
                 </div>
               </div>
             </div>
-          </div>
-loan_panel;
+          </div>';
 if($LoanStatus5k === 'Active'){
   echo'  
           <div class="paymentbox_5k_container">
