@@ -391,5 +391,165 @@ class db_access {
       return false;
     }
   }
+
+  // increment civilian downpayment (dp) count //
+  // dp5k
+  public function update_dp5k_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query = "UPDATE tbl_civilian_employee SET dp_5k_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  // dp10k
+  public function update_dp10k_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query = "UPDATE tbl_civilian_employee SET dp_10k_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  // downpayment count; increment by 1 whether dp5k or dp10k
+  public function update_downpayment_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query = "UPDATE tbl_civilian_employee SET downpayment_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  // increment civilian fullpayment (fp) count
+  // fp5k
+  public function update_fp_5k_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query = "UPDATE tbl_civilian_employee SET fp_5k_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  // fp10k
+  public function update_fp_10k_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query = "UPDATE tbl_civilian_employee SET fp_10k_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  // fullpayment count; increment by 1 whether fp5k or fp10k
+  public function update_fullpayment_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query = "UPDATE tbl_civilian_employee SET fullpayment_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  // increment officer downpayment (dp) count //
+  // dp5k
+  public function update_dp5k_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query = "UPDATE tbl_officersandep SET dp_5k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  // dp10k
+  public function update_dp10k_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query = "UPDATE tbl_officersandep SET dp_10k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  // downpayment count; increment by 1 whether dp5k or dp10k
+  public function update_downpayment_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query = "UPDATE tbl_officersandep SET downpayment_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  // increment civilian fullpayment (fp) count
+  // fp5k
+  public function update_fp_5k_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query = "UPDATE tbl_officersandep SET fp_5k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  // fp10k
+  public function update_fp_10k_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query = "UPDATE tbl_officersandep SET fp_10k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return true;
+    }
+  }
+
+  // fullpayment count; increment by 1 whether fp5k or fp10k
+  public function update_fullpayment_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query = "UPDATE tbl_officersandep SET fullpayment_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return true;
+    }
+  }
 }
 ?>
