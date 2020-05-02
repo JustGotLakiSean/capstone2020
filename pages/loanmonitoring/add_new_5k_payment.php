@@ -87,10 +87,10 @@ if(isset($_POST['pb5k_btn_submit'])){
       $has_penalty = 0;
       $is_penalty_paid = 0;
     }
-    $new_current_balance_5k = (int)$credit_rate - (int)$amount_paid;
+    // $new_current_balance_5k = (int)$credit_rate - (int)$amount_paid;
 
     if($payment_option === '1st_payment_option'){
-      
+      $new_current_balance_5k = (int)$credit_rate - (int)$amount_paid;
     } else if($payment_option === '2nd_payment_option'){
       echo "Second Payment";
     } else if($payment_option === '3rd_payment_option'){
