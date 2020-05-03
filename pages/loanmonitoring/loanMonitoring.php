@@ -643,7 +643,7 @@ echo '
               <input type="hidden" name="b_lname" id="b_lname" value="'.$borrowerLname5k.'" />
               <input type="hidden" name="b_type" id="b_type" value="'.$borrowerType5k.'" />
               <input type="hidden" name="b_rank" id="b_rank" value="'.$borrowerRank5k.'" />
-              <input type="hidden" name="b_type" id="b_type" value="'.$LoanType5k.'" />
+              <input type="hidden" name="b_loanType" id="b_type" value="'.$LoanType5k.'" />
               <input type="hidden" name="txt_loan5k_amount_rate" value="'.$LoanAmountRate5k.'" />
               <input type="hidden" name="txt_monthlyPayment_5k_rate" value="'.$MonthlyPaymentRate5k.'" />
               <input type="hidden" name="b_office" id="b_office" value="'.$borrowerOffice5k.'" />
