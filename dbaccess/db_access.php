@@ -579,5 +579,99 @@ class db_access {
     }
     $con->close();
   }
+
+  // update is_new_loan from the borrower's table //
+  public function update_is_new_loan($loan_id_5k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_5k_loan SET isNewLoan = 0 WHERE loan_id_5k = '$loan_id_5k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
+    }
+    $con->close();
+  }
+
+  // update the payment option of on the new 5k loan table
+  // first payment to '1';
+  // is_new_loan to '0';
+  public function update_first_payment($loan_id_5k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_5k_loan SET first_payment = 1 WHERE loan_id_5k = '$loan_id_5k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  // second payment
+  public function update_second_payment($loan_id_5k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_5k_loan SET second_payment = 0 WHERE loan_id_5k = '$loan_id_5k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // third payment
+  public function update_third_payment($loan_id_5k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_5k_loan SET third_payment = 0 WHERE loan_id_5k = '$loan_id_5k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // fourth payment
+  public function update_fourth_payment($loan_id_5k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_5k_loan SET fourth_payment = 0 WHERE loan_id_5k = '$loan_id_5k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // fifth payment
+  public function update_fifth_payment($loan_id_5k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_5k_loan SET fifth_payment = 0 WHERE loan_id_5k = '$loan_id_5k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // full payment; fully paid / not active;
+  public function update_full_payment_and_loan_status($loan_id_5k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_5k_loan SET full_payment = 0 AND loan_status = 1 WHERE loan_id_5k = '$loan_id_5k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 ?>
