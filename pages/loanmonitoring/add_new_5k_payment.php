@@ -29,6 +29,12 @@ if(isset($_POST['pb5k_btn_submit'])){
   $is_penalty_paid = ''; // 1 = 'yes'; 0 = 'no'
   $penalty_amount = '';// 1 = 'yes'; 0 = 'no'
   $increment = '';
+  $increment_dp = '';
+  $increment_dp5k = '';
+  $increment_dp10k = '';
+  $increment_fp = '';
+  $increment_fp5k = '';
+  $increment_fp10k = '';
   $dp5k = '';
   $dp10k = '';
   $dp = '';
@@ -74,16 +80,14 @@ if(isset($_POST['pb5k_btn_submit'])){
       $is_penalty_paid = 0;
     }
     $dp5k = mysqli_real_escape_string($db->getConnection(), $_POST['b_dp5k']);
-    $dp10k = mysqli_real_escape_string($db->getConnection(), $_POST['b_dp10k']);
+    $dp10k = mysqli_real_escape_string($db->getConnection(), $_POST['b_dp10k']); // for 10k
     $dp = mysqli_real_escape_string($db->getConnection(), $_POST['b_dp']);
     $fp5k = mysqli_real_escape_string($db->getConnection(), $_POST['b_fp5k']);
-    $fp10k = mysqli_real_escape_string($db->getConnection(), $_POST['b_fp10k']);
+    $fp10k = mysqli_real_escape_string($db->getConnection(), $_POST['b_fp10k']); // for 10k
     $fp = mysqli_real_escape_string($db->getConnection(), $_POST['b_fp']);
     $penalty_count = mysqli_real_escape_string($db->getConnection(), $_POST['b_penalty_count']);
     $penalty_5k_count = mysqli_real_escape_string($db->getConnection(), $_POST['b_penalty_count']);
-    $penalty_10k_count = mysqli_real_escape_string($db->getConnection(), $_POST['b_penalty_10k_count']);
-
-    // $new_current_balance_5k = (int)$credit_rate - (int)$amount_paid;
+    $penalty_10k_count = mysqli_real_escape_string($db->getConnection(), $_POST['b_penalty_10k_count']); // for 10k
 
     if($payment_option === '1st_payment_option'){
       $new_current_balance_5k = (int)$credit_rate - (int)$amount_paid;
@@ -95,10 +99,14 @@ if(isset($_POST['pb5k_btn_submit'])){
         echo "New Payment";
         if($type_of_employee === 'civilian'){
           $increment = (int)$dp5k + 1;
+          $increment_dp5k = (int)$dp + 1;
           $db->update_dp5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment);
+          $db->update_downpayment_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment);
         } else if($type_of_employee === 'officer'){
           $increment = (int)$dp5k + 1;
+          $increment_dp5k = (int)$dp + 1;
           $db->update_dp5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment);
+          $db->update_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment);
         }
       } else {
         echo "ERR";

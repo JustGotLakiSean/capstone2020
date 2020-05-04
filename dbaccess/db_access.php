@@ -277,6 +277,20 @@ class db_access {
     $con->close();
   }
 
+  // display borrower's 5k transaction as table
+  public function display_borrower_new_5k_list($loan_id_5k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $emp_rank)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_new_5k_loan WHERE loan_id_5k = '$loan_id_5k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank = '$emp_rank'";
+    $get_info=$con->query($query);
+    if($get_info){
+      return $get_info;
+    } else {
+      return false;
+    }
+    $con->close();
+  }
+
   // ### Loan payment ### //
   //tbl_1stpayment
   public function add_to_1stpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $amount_paid, $is_paid, $current_interest, $current_balance, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount)

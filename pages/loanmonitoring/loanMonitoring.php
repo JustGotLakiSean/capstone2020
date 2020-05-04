@@ -581,8 +581,6 @@ EMP_LIST;
         $control_number5k = "$ctrlPrefix5k$LoanID5K";
       }
 
-      function display_previous_transaction()
-      {
         echo '
         <div id="transaction_box_5kcontainer">
           <table border="1" id="transaction_box_5k">
@@ -610,7 +608,6 @@ EMP_LIST;
             </tbody>
           </table>
         </div>';
-      }
 
       $get_dp_and_fp = new db_access();
       $get_data = $get_dp_and_fp->get_dp_and_fp($borrowerID5K, $borrowerFname5k, $borrowerMname5k, $borrowerLname5k, $borrowerOffice5k, $borrowerType5k, $borrowerRank5k);
@@ -726,7 +723,7 @@ echo '
                     <input type="text" disabled id="txt_interestamount_5k" disabled value="'.$interestRate5k.'" />
                   </div>
                   <div class="current_balance_5k_box np5kbox">
-                    <label for="txt_currentbalance_5k">Current Balance</label>
+                    <label for="txt_currentbalance_5k">Credit</label>
                     <input type="hidden" name="txt_currentbalance_5k" value="'.$creditRate5k.'" />
                     <input type="text" disabled id="txt_currentbalance_5k" value="'.$creditRate5k.'" />
                   </div>
