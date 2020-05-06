@@ -293,14 +293,42 @@ class db_access {
 
   // ### Loan payment ### //
   //tbl_1stpayment
-  public function add_to_1stpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $amount_paid, $is_paid, $current_interest, $current_balance, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount)
+  public function add_to_1stpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $amount_paid, $is_paid, $current_interest, $current_balance, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks)
   {
     $con=$this->getConnection();
-    $query="INSERT INTO tbl_1stpayment(loan_id, type_of_loanAccount, borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, office, borrower_rank, loan_amount_rate, monthly_payment_rate, credit_rate, amount_paid, is_paid, current_interest, current_balance, payment_option, date_of_payment, has_penalty, is_penalty_paid, penalty_amount)
-    VALUES('$loan_id', '$type_of_loanAccount', '$borrower_id', '$ctrl_no_prefix', '$fname', '$mname', '$lname', '$type_of_employee', '$office', '$borrower_rank', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$amount_paid', '$is_paid', '$current_interest', '$current_balance', '$payment_option', '$date_of_payment', '$has_penalty', '$is_penalty_paid', '$penalty_amount')";
+    $query="INSERT INTO tbl_1stpayment(loan_id, type_of_loanAccount, borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, office, borrower_rank, loan_amount_rate, monthly_payment_rate, credit_rate, amount_paid, is_paid, current_interest, current_balance, payment_option, date_of_payment, has_penalty, is_penalty_paid, penalty_amount, remarks)
+    VALUES('$loan_id', '$type_of_loanAccount', '$borrower_id', '$ctrl_no_prefix', '$fname', '$mname', '$lname', '$type_of_employee', '$office', '$borrower_rank', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$amount_paid', '$is_paid', '$current_interest', '$current_balance', '$payment_option', '$date_of_payment', '$has_penalty', '$is_penalty_paid', '$penalty_amount', '$remarks')";
     $first_payment = $con->query($query);
     if($first_payment){
       return true;
+    } else {
+      return false;
+    }
+    $con->close();
+  }
+
+  // get 1st payment data
+  public function get_1st_payment()
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_1stpayment";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      return false;
+    }
+    $con->close();
+  }
+
+  // get borrower's 1st payment transaction
+  public function display_1st_payment($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $borrower_rank)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_1stpayment WHERE loan_id = '$loan_id' AND type_of_loanAccount = '$type_of_loanAccount' AND borrower_id = '$borrower_id' AND ctrl_no_prefix = '$ctrl_no_prefix' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND borrower_rank = '$borrower_id'";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
     } else {
       return false;
     }

@@ -581,34 +581,6 @@ EMP_LIST;
         $control_number5k = "$ctrlPrefix5k$LoanID5K";
       }
 
-        echo '
-        <div id="transaction_box_5kcontainer">
-          <table border="1" id="transaction_box_5k">
-            <thead>
-              <tr>
-                <th>Debit</th>
-                <th>Interest</th>
-                <th>Current Balance</th>
-                <th>Remarks</th>
-                <th>Date of Payment</th>
-                <th>Penalty</th>
-                <th>Penalty Paid</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>World</td>
-                <td>World</td>
-                <td>World</td>
-                <td>World</td>
-                <td>World</td>
-                <td>World</td>
-                <td>World</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>';
-
       $get_dp_and_fp = new db_access();
       $get_data = $get_dp_and_fp->get_dp_and_fp($borrowerID5K, $borrowerFname5k, $borrowerMname5k, $borrowerLname5k, $borrowerOffice5k, $borrowerType5k, $borrowerRank5k);
       while($result = $get_data->fetch_assoc()){
@@ -687,6 +659,42 @@ echo '
               </div>
             </div>
           </div>';
+
+          function display_1st_payment($l_id, $b_id, $b_fname, $b_mname, $b_lname, $b_type, $b_rank){
+
+          }
+
+          $get_5k_info = new db_access();
+          $display_5k_table = $get_5k_info->display_borrower_new_5k_list($LoanID5K, $borrowerID5K, $borrowerFname5k, $borrowerMname5k, $borrowerLname5k, $borrowerType5k, $borrowerRank5k);
+          while($data = $display_5k_table->fetch_array(MYSQLI_ASSOC)){
+            $la_5k = $data['loan_amount_5k_rate'];
+            $mp_5k = $data['monthly_payment_5k_rate'];
+            $dp_5k = $data['debit_pay_5k'];
+            $int_5k = $data['interest_rate_5k'];
+            $com_5k = $data['comment'];
+            $dop_5k = $data['date_of_loan'];
+          }
+            echo '
+            <div id="transaction_box_5kcontainer">
+              <table border="1" id="transaction_box_5k">
+                <thead>
+                  <tr>
+                    <th>Debit</th>
+                    <th>Interest</th>
+                    <th>Remarks</th>
+                    <th>Date of Payment</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>'.$dp_5k.'</td>
+                    <td>'.$int_5k.'</td>
+                    <td>'.$com_5k.'</td>
+                    <td>'.$dop_5k.'</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>';
 if($LoanStatus5k === 'Active'){
   echo'  
           <div class="paymentbox_5k_container">

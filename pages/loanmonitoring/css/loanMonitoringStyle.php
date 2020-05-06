@@ -825,6 +825,10 @@ hr {
   font-size: 13px;
 }
 
+#transaction_box_5kcontainer {
+  margin-top: 15px;
+}
+
 .paymentbox_5k_container {
   position: relative;
   top: 10px;
@@ -832,7 +836,7 @@ hr {
 }
 
 .paymentbox_5k_content {
-  height: 230px;
+  height: 240px;
   overflow: auto;
 }
 

@@ -44,6 +44,8 @@ if(isset($_POST['pb5k_btn_submit'])){
   $penalty_count = '';
   $penalty_5k_count = '';
   $penalty_10k_count = '';
+  $remarks = '';
+  $borrowerFullname = '';
 
   // calculations
   $new_current_balance_5k = '';
@@ -88,11 +90,13 @@ if(isset($_POST['pb5k_btn_submit'])){
     $penalty_count = mysqli_real_escape_string($db->getConnection(), $_POST['b_penalty_count']);
     $penalty_5k_count = mysqli_real_escape_string($db->getConnection(), $_POST['b_penalty_count']);
     $penalty_10k_count = mysqli_real_escape_string($db->getConnection(), $_POST['b_penalty_10k_count']); // for 10k
+    $borrowerFullname = "$fname $mname $lname";
+    $remarks = "$borrowerFullname's New Loan Payment";
 
     if($payment_option === '1st_payment_option'){
       $new_current_balance_5k = (int)$credit_rate - (int)$amount_paid;
       $new_current_interest_5k = (int)$loan_amount_5k_rate - (int)$amount_paid;
-      $add_new_payment = $db->add_to_1stpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $new_current_interest_5k, $new_current_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount);
+      $add_new_payment = $db->add_to_1stpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $new_current_interest_5k, $new_current_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
       if($add_new_payment){
         $db->update_first_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
         $db->update_is_new_loan($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
