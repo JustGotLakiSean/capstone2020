@@ -660,8 +660,26 @@ echo '
             </div>
           </div>';
 
-          function display_1st_payment($l_id, $b_id, $b_fname, $b_mname, $b_lname, $b_type, $b_rank){
+          function display_1st_payment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank){
+            $get_1st_payment_details = new db_access();
+            $display_1st_payment_details = $get_1st_payment_details->display_1stpayment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank);
+            while($res = $display_1st_payment_details->fetch_array(MYSQLI_ASSOC)){
+              $amount_paid_fp = $res['amount_paid'];
+              $current_interest_fp = $res['current_interest'];
+              $remarks_fp = $res['remarks'];
+              $date_of_payment_fp = $res['date_of_payment'];
+            }
 
+            if($res > 0){
+              echo '
+            <td>'.$amount_paid_fp.'</td>
+            <td>'.$current_interest_fp.'</td>
+            <td>'.$remarks_fp.'</td>
+            <td>'.$date_of_payment_fp.'</td>
+            ';
+            } else {
+              // do nothing...
+            }
           }
 
           $get_5k_info = new db_access();
@@ -690,9 +708,10 @@ echo '
                     <td>'.$dp_5k.'</td>
                     <td>'.$int_5k.'</td>
                     <td>'.$com_5k.'</td>
-                    <td>'.$dop_5k.'</td>
-                  </tr>
-                </tbody>
+                    <td>'.$dop_5k.'</td>';
+                    echo display_1st_payment($LoanID5K, $LoanType5k, $borrowerID5K, $ctrlPrefix5k, $borrowerFname5k, $borrowerMname5k, $borrowerLname5k, $borrowerType5k, $borrowerRank5k);
+            echo '</tr>
+              </tbody>
               </table>
             </div>';
 if($LoanStatus5k === 'Active'){
