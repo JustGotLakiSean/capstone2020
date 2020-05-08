@@ -155,7 +155,7 @@ if(isset($_POST['pb5k_btn_submit'])){
       } else {
         printf("%s\n", $con->error);
       }
-    } else {
+    } else if($payment_option === '2nd_payment_option'){
       echo 'Not First';
     }
   }
