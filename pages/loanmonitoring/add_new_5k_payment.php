@@ -123,23 +123,36 @@ if(isset($_POST['pb5k_btn_submit'])){
       echo "<strong>22 Penalty Amount</strong>: $penalty_amount<br>"; // 22
       echo "<strong>23 Remarks</strong>: $remarks<br>"; // 23
       
-      // echo "$dp5k<br>";
-      // // echo "$dp10k<br>";
-      // echo "$dp<br>";
-      // echo "$fp<br>";
-      // echo "$fp5k<br>";
-      // // echo "$fp10k<br>";
-      // echo "$penalty_count<br>";
-      // echo "$penalty_5k_count<br>";
-      // // echo "$penalty_10k_count<br>";
-      // echo "$control_number<br>";
-      // echo "$borrowerFullname<br>";
-      $ins = new db_access();
-      $add_new_payment = $ins->first_payment($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $new_current_interest_5k, $new_current_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
+      echo "$dp5k<br>";
+      // echo "$dp10k<br>";
+      echo "$dp<br>";
+      echo "$fp<br>";
+      echo "$fp5k<br>";
+      // echo "$fp10k<br>";
+      echo "$penalty_count<br>";
+      echo "$penalty_5k_count<br>";
+      // echo "$penalty_10k_count<br>";
+      echo "$control_number<br>";
+      echo "$borrowerFullname<br>";
+      $add_new_payment = $db->first_payment($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $new_current_interest_5k, $new_current_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
       if($add_new_payment){
-        echo "HE";
+        $db->update_first_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+        $db->update_is_new_loan($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+        if($type_of_employee === 'civilian'){
+          $increment_dp = (int)$dp + 1;
+          $increment_dp5k = (int)$dp5k + 1;
+          
+          $db->increment_downpayment_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
+          $db->increment_dp5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
+        } else if($type_of_employee === 'officer'){
+          $increment_dp = (int)$dp + 1;
+          $increment_dp5k = (int)$dp5k + 1;
+
+          $db->increment_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
+          $db->increment_dp5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
+        }
+        header("Location: loanMonitoring.php");
       } else {
-        // trigger_error('Error: '. mysqli_error($con));
         printf("%s\n", $con->error);
       }
     } else {
