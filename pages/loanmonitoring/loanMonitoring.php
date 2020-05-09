@@ -562,7 +562,7 @@ EMP_LIST;
         $second_payment_col = $r['second_payment'];
         $full_payment_col = $r['full_payment'];
 
-        function payment_options($isNewLoan, $firstPaymentCol, $secondPaymentCol) {
+        function payment_options($isNewLoan, $firstPaymentCol, $secondPaymentCol, $fullPaymentCol) {
           // '1' means new... '0' means not new... //
           if($isNewLoan == 1){ // if no payment
             echo '<select name="paymentoption_5k">
@@ -570,13 +570,13 @@ EMP_LIST;
               <option value="2nd_payment_option" disabled>2ND Payment</option>
               <option value="full_payment_option">FULL PAYMENT</option>
             </select>';
-          } else if($isNewLoan == 0 && $firstPaymentCol == 1){ // paid the first
+          } else if($isNewLoan == 0 && $firstPaymentCol == 1 && $secondPaymentCol == 0){ // paid the first
             echo '<select name="paymentoption_5k">
               <option value="1st_payment_option" disabled>1ST Payment</option>
               <option value="2nd_payment_option">2ND Payment</option>
               <option value="full_payment_option">FULL PAYMENT</option>
             </select>';
-          } else {
+          } else if($isNewLoan == 0 && $fullPaymentCol == 0 && $secondPaymentCol == 1){
             echo '<select name="paymentoption_5k">
               <option value="1st_payment_option" disabled>1ST Payment</option>
               <option value="2nd_payment_option" disabled>2ND Payment</option>
@@ -730,6 +730,35 @@ echo '
             }
           }
 
+          function display_fullpayment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank)
+          {
+            $db = new db_access();
+
+            $display_fullpayment_details = $db->display_fullpayment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank);
+            while($row = $display_fullpayment_details->fetch_array(MYSQLI_ASSOC)){
+              $amount_paid_full_5k = $row['amount_paid'];
+              $current_interest_full_5k = $row['current_interest'];
+              $remarks_full_5k = $row['remarks'];
+              $date_of_payment_full_5k = $row['date_of_payment'];
+              $new_balance_full_5k = $row['current_balance'];
+
+              if($row > 0){
+                echo '<input type="hidden" name="amount_paid_full_5k" value="'.$amount_paid_full_5k.'" />
+                <input type="hidden" name="new_balance_full_5k" value="'.$new_balance_full_5k.'" />
+                <input type="hidden" name="current_interest_full_5k" value="'.$current_interest_full_5k.'" />
+                <input type="hidden" name="remarks_full_5k" value="'.$remarks_full_5k.'" />
+                <input type="hidden" name="date_of_payment_full_5k" value="'.$date_of_payment_full_5k.'" />
+                <td>'.$amount_paid_full_5k.'</td>
+                <td>'.$current_interest_full_5k.'</td>
+                <td>'.$new_balance_full_5k.'</td>
+                <td>'.$remarks_full_5k.'</td>
+                <td>'.$date_of_payment_full_5k.'</td> ';
+              } else {
+                // do nothing...
+              }
+            }
+          }
+
           $get_5k_info = new db_access();
           $display_5k_table = $get_5k_info->display_borrower_new_5k_list($LoanID5K, $borrowerID5K, $borrowerFname5k, $borrowerMname5k, $borrowerLname5k, $borrowerType5k, $borrowerRank5k);
           while($data = $display_5k_table->fetch_array(MYSQLI_ASSOC)){
@@ -767,6 +796,9 @@ echo '
             echo '<tr>';
             echo display_2nd_payment($LoanID5K, $LoanType5k, $borrowerID5K, $ctrlPrefix5k, $borrowerFname5k, $borrowerMname5k, $borrowerLname5k, $borrowerType5k, $borrowerRank5k);
             echo '</tr>';
+            echo '<tr>';
+            echo display_fullpayment($LoanID5K, $LoanType5k, $borrowerID5K, $ctrlPrefix5k, $borrowerFname5k, $borrowerMname5k, $borrowerLname5k, $borrowerType5k, $borrowerRank5k);
+            echo '</tr>';
             echo '</tbody>
               </table>
             </div>';
@@ -782,8 +814,8 @@ if($LoanStatus5k === 'Active'){
                   <div class="paymentoption_box np5kbox">
                     <label>Payment Option</label>
             ';
-                      echo payment_options($is_new_loan, $first_payment_col, $second_payment_col);
-echo '
+                      echo payment_options($is_new_loan, $first_payment_col, $second_payment_col, $full_payment_col);
+                echo '
                   </div>
                   <div class="date_of_payment_5k_box np5kbox">
                     <label for="date_of_payment_5k">Date of Payment</label>
@@ -821,6 +853,9 @@ echo '
         } else if($LoanStatus5k === 'Not Active'){
           echo '<div class="not_active_container" align="center">
             <h4>Not Active</h4>
+          </div>
+          <div class="pb5k_btnaction" align="center">
+            <input type="button" name="pb5k_btn_cancel" id="pb5k_btn_cancel" onclick="window.location.href=\'loanMonitoring.php\'" value="Cancel" />
           </div>';
         }
         echo '

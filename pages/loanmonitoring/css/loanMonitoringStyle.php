@@ -690,7 +690,7 @@ hr {
 
 #newpayment_5k_container {
   display: block;
-  width: 400px;
+  width: 600px;
   height: 655px;
   margin: auto;
   background: #F2F2F2;
@@ -721,9 +721,7 @@ hr {
 }
 
 .bdb-content{
-  width: 380px;
-  padding: 5px;
-  height: 520px;
+  width: 550px;
   margin: auto;
 }
 
@@ -765,7 +763,7 @@ hr {
 }
 
 .current_loantransaction_container {
-  width: 380px;
+  width: 550px;
   height: 125px;
   margin: auto;
 }
@@ -920,8 +918,7 @@ hr {
 }
 
 .pb5k_btnaction {
-  margin-top: .3rem;
-  margin-left: 15.5rem;
+  margin: auto;
 }
 
 #pb5k_btn_submit {

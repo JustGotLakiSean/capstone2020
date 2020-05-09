@@ -345,7 +345,7 @@ class db_access {
     if($second_payment){
       return true;
     } else {
-      die($connect->error);
+      die($con->error);
     }
     $con->close();
   }
@@ -359,7 +359,7 @@ class db_access {
     if($get_data){
       return $get_data;
     } else {
-      die($connect->error);
+      die($con->error);
     }
     $con->close();
   }
@@ -410,16 +410,29 @@ class db_access {
   }
 
   //tbl_fullpayment
-  public function add_to_fullpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $amount_paid, $is_paid, $current_interest, $current_balance, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount)
+  public function add_to_fullpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $amount_paid, $is_paid, $current_interest, $current_balance, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks)
   {
     $con=$this->getConnection();
-    $query="INSERT INTO tbl_fullpayment(loan_id, type_of_loanAccount, borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, office, borrower_rank, loan_amount_rate, monthly_payment_rate, credit_rate, amount_paid, is_paid, current_interest, current_balance, payment_option, date_of_payment, has_penalty, is_penalty_paid, penalty_amount)
-    VALUES('$loan_id', '$type_of_loanAccount', '$borrower_id', '$ctrl_no_prefix', '$fname', '$mname', '$lname', '$type_of_employee', '$office', '$borrower_rank', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$amount_paid', '$is_paid', '$current_interest', '$current_balance', '$payment_option', '$date_of_payment', '$has_penalty', '$is_penalty_paid', '$penalty_amount')";
+    $query="INSERT INTO tbl_fullpayment(loan_id, type_of_loanAccount, borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, office, borrower_rank, loan_amount_rate, monthly_payment_rate, credit_rate, amount_paid, is_paid, current_interest, current_balance, payment_option, date_of_payment, has_penalty, is_penalty_paid, penalty_amount, remarks)
+    VALUES('$loan_id', '$type_of_loanAccount', '$borrower_id', '$ctrl_no_prefix', '$fname', '$mname', '$lname', '$type_of_employee', '$office', '$borrower_rank', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$amount_paid', '$is_paid', '$current_interest', '$current_balance', '$payment_option', '$date_of_payment', '$has_penalty', '$is_penalty_paid', '$penalty_amount', '$remarks')";
     $full_payment = $con->query($query);
     if($full_payment){
       return true;
     } else {
       return false;
+    }
+    $con->close();
+  }
+
+  public function display_fullpayment($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $borrower_rank)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_fullpayment WHERE loan_id = '$loan_id' AND type_of_loanAccount = '$type_of_loanAccount' AND borrower_id = '$borrower_id' AND ctrl_no_prefix = '$ctrl_no_prefix' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND borrower_rank = '$borrower_rank'";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
     }
     $con->close();
   }
@@ -669,7 +682,7 @@ class db_access {
   public function update_second_payment($loan_id_5k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
   {
     $con=$this->getConnection();
-    $query="UPDATE tbl_new_5k_loan SET second_payment = 0 WHERE loan_id_5k = '$loan_id_5k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank = '$rank'";
+    $query="UPDATE tbl_new_5k_loan SET second_payment = 1 WHERE loan_id_5k = '$loan_id_5k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank = '$rank'";
     $update_query = $con->query($query);
     if($update_query){
       return true;
@@ -718,15 +731,27 @@ class db_access {
   }
 
   // full payment; fully paid / not active;
-  public function update_full_payment_and_loan_status($loan_id_5k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  public function update_full_payment($loan_id_5k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
   {
     $con=$this->getConnection();
-    $query="UPDATE tbl_new_5k_loan SET full_payment = 0 AND loan_status = 1 WHERE loan_id_5k = '$loan_id_5k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank = '$rank'";
+    $query="UPDATE tbl_new_5k_loan SET full_payment = 1 WHERE loan_id_5k = '$loan_id_5k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank = '$rank'";
     $update_query = $con->query($query);
     if($update_query){
       return true;
     } else {
-      return false;
+      die($con->error);
+    }
+  }
+
+  public function update_loan_status($loan_id_5k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_5k_loan SET loan_status = 1 WHERE loan_id_5k = '$loan_id_5k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      die($con->error);
     }
   }
 }
