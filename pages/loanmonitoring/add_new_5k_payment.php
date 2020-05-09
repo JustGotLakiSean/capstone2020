@@ -214,40 +214,40 @@ if(isset($_POST['pb5k_btn_submit'])){
         // do nothing...
       }
     } else if($payment_option === 'full_payment_option'){
-      if(isset($_POST['is_new_loan'])){
-        $is_new_loan = mysqli_real_escape_string($db->getConnection(), $_POST['is_new_loan']);
+      // if(isset($_POST['is_new_loan'])){
+      //   $is_new_loan = mysqli_real_escape_string($db->getConnection(), $_POST['is_new_loan']);
 
-        if($is_new_loan == 1){
-          $full_balance_5k = (int)$credit_rate - (int)$amount_paid;
-          $full_interest_5k = (int)$amount_paid - (int)$loan_amount_5k_rate;
+      //   if($is_new_loan == 1){
+      //     $full_balance_5k = (int)$credit_rate - (int)$amount_paid;
+      //     $full_interest_5k = (int)$amount_paid - (int)$loan_amount_5k_rate;
 
-          echo "$credit_rate<br>";
-          echo "$amount_paid<br>";
-          echo "$loan_amount_5k_rate<br>";
-          echo "$full_balance_5k<br>";
-          echo "$full_interest_5k<br>";
+      //     echo "$credit_rate<br>";
+      //     echo "$amount_paid<br>";
+      //     echo "$loan_amount_5k_rate<br>";
+      //     echo "$full_balance_5k<br>";
+      //     echo "$full_interest_5k<br>";
 
-          $full_payment_5k = $db->add_to_fullpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $full_interest_5k, $full_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
-          if($full_payment_5k){
-            $db->update_full_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
-            $db->update_loan_status($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
-            $db->update_is_new_loan($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
-            if($type_of_employee === 'civilian'){
-              $increment_fp = (int)$fp + 1;
-              $increment_fp5k = (int)$fp5k + 1;
-              $db->increment_fullpayment_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp);
-              $db->increment_fp_5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp5k);
-            } else if($type_of_employee === 'officer'){
-              $increment_fp = (int)$fp + 1;
-              $increment_fp5k = (int)$fp5k + 1;
-              $db->increment_fp_5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp);
-              $db->increment_fullpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp5k);
-            }
-            echo "Fully paid!";
-            header("Location: loanMonitoring.php");
-          } else {
-            printf("%s\n", $con->error);
-          }
+      //     $full_payment_5k = $db->add_to_fullpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $full_interest_5k, $full_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
+      //     if($full_payment_5k){
+      //       $db->update_full_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+      //       $db->update_loan_status($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+      //       $db->update_is_new_loan($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+      //       if($type_of_employee === 'civilian'){
+      //         $increment_fp = (int)$fp + 1;
+      //         $increment_fp5k = (int)$fp5k + 1;
+      //         $db->increment_fullpayment_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp);
+      //         $db->increment_fp_5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp5k);
+      //       } else if($type_of_employee === 'officer'){
+      //         $increment_fp = (int)$fp + 1;
+      //         $increment_fp5k = (int)$fp5k + 1;
+      //         $db->increment_fp_5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp);
+      //         $db->increment_fullpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp5k);
+      //       }
+      //       echo "Fully paid!";
+      //       header("Location: loanMonitoring.php");
+      //     } else {
+      //       printf("%s\n", $con->error);
+      //     }
         } else { // if not new loan
           echo "Full Payment<br>";
           $remarks = "$borrowerFullname Full Payment";
