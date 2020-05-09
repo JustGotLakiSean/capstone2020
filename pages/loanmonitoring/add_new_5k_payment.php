@@ -247,14 +247,6 @@ if(isset($_POST['pb5k_btn_submit'])){
         $full_balance_5k = (int)$sp_prev_balance_5k - (int)$amount_paid;
         $full_interest_5k = ((int)$fp_prev_amount_payment_5k + (int)$sp_prev_amount_payment_5k + (int)$amount_paid) - $loan_amount_5k_rate;
 
-        // echo "Previous Balance: $sp_prev_balance_5k<br>";
-        // echo "Previous Interest: $sp_prev_interest_5k<br>";
-        // echo "2nd Payment: $sp_prev_amount_payment_5k<br>";
-        // echo "First Payment: $fp_prev_amount_payment_5k<br>";
-        // echo "Amount Paid: $amount_paid<br>";
-        // echo "Full Balance: $full_balance_5k<br>";
-        // echo "Full Interest: $full_interest_5k<br>";
-
         $full_payment_5k = $db->add_to_fullpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $full_interest_5k, $full_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
         if($full_payment_5k){
           $db->update_full_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
