@@ -47,6 +47,12 @@ if(isset($_POST['pb5k_btn_submit'])){
   $remarks = '';
   $borrowerFullname = '';
 
+  $sp_current_balance_5k = '';
+  $sp_current_interest_5k = '';
+  $new_balance_fp = '';
+  $current_interest_fp = '';
+  $amount_paid_fp = '';
+
   // calculations
   $new_current_balance_5k = '';
   $new_current_interest_5k = '';
@@ -93,11 +99,11 @@ if(isset($_POST['pb5k_btn_submit'])){
     $penalty_5k_count = mysqli_real_escape_string($db->getConnection(), $_POST['b_penalty_5k_count']);
     $penalty_10k_count = mysqli_real_escape_string($db->getConnection(), $_POST['b_penalty_10k_count']);
     $borrowerFullname = "$fname $mname $lname";
-    $remarks = "$borrowerFullname New Loan Payment"; // apostrophe
 
     if($payment_option === '1st_payment_option'){
       $new_current_balance_5k = (int)$credit_rate - (int)$amount_paid;
       $new_current_interest_5k = (int)$loan_amount_5k_rate - (int)$amount_paid;
+      $remarks = "$borrowerFullname New Loan Payment"; // apostrophe
       echo '1st_payment_option<br>';
       echo "<strong>2 Loan ID</strong>: $loan_id<br>"; // 1
       echo "<strong>3 Type of Loan Account</strong>: $type_of_loanAccount<br>"; // 2
@@ -156,8 +162,57 @@ if(isset($_POST['pb5k_btn_submit'])){
         printf("%s\n", $con->error);
       }
     } else if($payment_option === '2nd_payment_option'){
-      echo 'Not First';
+      echo '2st_payment_option<br>';
+      $remarks = "$borrowerFullname Second Payment"; // apostrophe
+      echo "<strong>2 Loan ID</strong>: $loan_id<br>"; // 1
+      echo "<strong>3 Type of Loan Account</strong>: $type_of_loanAccount<br>"; // 2
+      echo "<strong>4 Borrower ID</strong>: $borrower_id<br>"; // 3
+      echo "<strong>5 PREFIX</strong>: $ctrl_no_prefix<br>"; // 4
+      echo "<strong>6 Firstname</strong>: $fname<br>"; // 5
+      echo "<strong>7 MiddleName</strong>: $mname<br>"; // 6
+      echo "<strong>8 Lastname</strong>: $lname<br>"; // 7
+      echo "<strong>9 Type Of Employee</strong>: $type_of_employee<br>"; // 8
+      echo "<strong>10 Office</strong>: $office<br>"; // 9
+      echo "<strong>11 Rank</strong>: $borrower_rank<br>"; // 10
+      echo "<strong>11.5 Loan Amount Rate</strong>: $loan_amount_5k_rate<br>"; // 11
+      echo "<strong>12 Monthly Payment</strong>: $monthly_payment_5k_rate<br>"; // 12
+      echo "<strong>13 Credit</strong>: $credit_rate<br>"; // 13
+      echo "<strong>14 Amount Paid</strong>: $amount_paid<br>"; // 14
+      echo "<strong>15 Is paid</strong>? $is_paid<br>"; // 15
+      echo "<strong>16 Total Current Interest</strong>: $new_current_interest_5k<br>"; // 16
+      echo "<strong>17 Total Current Balance</strong>: $new_current_balance_5k<br>"; // 17
+      echo "<strong>18 Payment Option</strong>: $payment_option<br>"; // 18
+      echo "<strong>19 Date of Payment</strong>: $date_of_payment<br>"; // 19
+      echo "<strong>20 Has Penalty</strong>? $has_penalty<br>"; // 20
+      echo "<strong>21 Penalty Paid</strong>: $is_penalty_paid<br>"; // 21
+      echo "<strong>22 Penalty Amount</strong>: $penalty_amount<br>"; // 22
+      echo "<strong>23 Remarks</strong>: $remarks<br>"; // 23
+
+      if(isset($_POST['new_balance_fp']) && isset($_POST['current_interest_fp']) && isset($_POST['amount_paid_fp'])){
+        $new_balance_fp = mysqli_real_escape_string($con, $_POST['new_balance_fp']);
+        $current_interest_fp = mysqli_real_escape_string($con, $_POST['current_interest_fp']);
+        $amount_paid_fp = mysqli_real_escape_string($con, $_POST['amount_paid_fp']);
+        $sp_current_balance_5k = (int)$new_balance_fp - (int)$amount_paid; // 17
+        $sp_current_interest_5k = (int)$loan_amount_5k_rate - ((int)$amount_paid_fp + (int)$amount_paid); // 16
+
+        $add_second_payment = $db->add_to_2ndpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $sp_current_interest_5k, $sp_current_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
+        if($add_second_payment){
+          $db->update_second_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank)
+          echo "Second Payment Done!";
+        } else {
+          printf("%s\n", $con->error);
+        }
+      } else {
+        // do nothing...
+      }
+    } else if($payment_option === 'full_payment_option'){
+      echo "Full Payment";
     }
+  } else {
+    // do nothing; second payment
   }
+} else {
+  echo "Forbidden Access!";
+  header("Location: loanMonitoring.php");
 }
 ?>
