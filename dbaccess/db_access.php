@@ -522,7 +522,7 @@ class db_access {
 
   // increment civilian fullpayment (fp) count
   // fp5k
-  public function update_fp_5k_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  public function increment_fp_5k_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
   {
     $con=$this->getConnection();
     $query = "UPDATE tbl_civilian_employee SET fp_5k_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
@@ -536,7 +536,7 @@ class db_access {
   }
 
   // fp10k
-  public function update_fp_10k_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  public function increment_fp_10k_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
   {
     $con=$this->getConnection();
     $query = "UPDATE tbl_civilian_employee SET fp_10k_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
@@ -550,7 +550,7 @@ class db_access {
   }
 
   // fullpayment count; increment by 1 whether fp5k or fp10k
-  public function update_fullpayment_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  public function increment_fullpayment_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
   {
     $con=$this->getConnection();
     $query = "UPDATE tbl_civilian_employee SET fullpayment_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
@@ -608,7 +608,7 @@ class db_access {
 
   // increment civilian fullpayment (fp) count
   // fp5k
-  public function update_fp_5k_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  public function increment_fp_5k_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
   {
     $con=$this->getConnection();
     $query = "UPDATE tbl_officersandep SET fp_5k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
@@ -636,7 +636,7 @@ class db_access {
   }
 
   // fullpayment count; increment by 1 whether fp5k or fp10k
-  public function update_fullpayment_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  public function increment_fullpayment_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
   {
     $con=$this->getConnection();
     $query = "UPDATE tbl_officersandep SET fullpayment_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";

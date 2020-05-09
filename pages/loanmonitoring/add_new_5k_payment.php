@@ -46,6 +46,7 @@ if(isset($_POST['pb5k_btn_submit'])){
   $penalty_10k_count = '';
   $remarks = '';
   $borrowerFullname = '';
+  $is_new_loan = '';
 
   $sp_current_balance_5k = '';
   $sp_current_interest_5k = '';
@@ -213,51 +214,99 @@ if(isset($_POST['pb5k_btn_submit'])){
         // do nothing...
       }
     } else if($payment_option === 'full_payment_option'){
-      echo "Full Payment";
-      $remarks = "$borrowerFullname Full Payment";
-      echo "<strong>2 Loan ID</strong>: $loan_id<br>"; // 1
-      echo "<strong>3 Type of Loan Account</strong>: $type_of_loanAccount<br>"; // 2
-      echo "<strong>4 Borrower ID</strong>: $borrower_id<br>"; // 3
-      echo "<strong>5 PREFIX</strong>: $ctrl_no_prefix<br>"; // 4
-      echo "<strong>6 Firstname</strong>: $fname<br>"; // 5
-      echo "<strong>7 MiddleName</strong>: $mname<br>"; // 6
-      echo "<strong>8 Lastname</strong>: $lname<br>"; // 7
-      echo "<strong>9 Type Of Employee</strong>: $type_of_employee<br>"; // 8
-      echo "<strong>10 Office</strong>: $office<br>"; // 9
-      echo "<strong>11 Rank</strong>: $borrower_rank<br>"; // 10
-      echo "<strong>11.5 Loan Amount Rate</strong>: $loan_amount_5k_rate<br>"; // 11
-      echo "<strong>12 Monthly Payment</strong>: $monthly_payment_5k_rate<br>"; // 12
-      echo "<strong>13 Credit</strong>: $credit_rate<br>"; // 13
-      echo "<strong>14 Amount Paid</strong>: $amount_paid<br>"; // 14
-      echo "<strong>15 Is paid</strong>? $is_paid<br>"; // 15
-      echo "<strong>16 Total Current Interest</strong>: $new_current_interest_5k<br>"; // 16
-      echo "<strong>17 Total Current Balance</strong>: $new_current_balance_5k<br>"; // 17
-      echo "<strong>18 Payment Option</strong>: $payment_option<br>"; // 18
-      echo "<strong>19 Date of Payment</strong>: $date_of_payment<br>"; // 19
-      echo "<strong>20 Has Penalty</strong>? $has_penalty<br>"; // 20
-      echo "<strong>21 Penalty Paid</strong>: $is_penalty_paid<br>"; // 21
-      echo "<strong>22 Penalty Amount</strong>: $penalty_amount<br>"; // 22
-      echo "<strong>23 Remarks</strong>: $remarks<br>"; // 23
+      if(isset($_POST['is_new_loan'])){
+        $is_new_loan = mysqli_real_escape_string($db->getConnection(), $_POST['is_new_loan']);
 
-      if(isset($_POST['amount_paid_fp']) && isset($_POST['amount_paid_sp']) && isset($_POST['new_balance_sp']) && isset($_POST['current_interest_sp'])){
-        $sp_prev_balance_5k = mysqli_real_escape_string($con, $_POST['new_balance_sp']);
-        $sp_prev_interest_5k = mysqli_real_escape_string($con, $_POST['current_interest_sp']);
-        $sp_prev_amount_payment_5k = mysqli_real_escape_string($con, $_POST['amount_paid_sp']);
-        $fp_prev_amount_payment_5k = mysqli_real_escape_string($con, $_POST['amount_paid_fp']);
-        $full_balance_5k = (int)$sp_prev_balance_5k - (int)$amount_paid;
-        $full_interest_5k = ((int)$fp_prev_amount_payment_5k + (int)$sp_prev_amount_payment_5k + (int)$amount_paid) - $loan_amount_5k_rate;
+        if($is_new_loan == 1){
+          $full_balance_5k = (int)$credit_rate - (int)$amount_paid;
+          $full_interest_5k = (int)$amount_paid - (int)$loan_amount_5k_rate;
 
-        $full_payment_5k = $db->add_to_fullpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $full_interest_5k, $full_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
-        if($full_payment_5k){
-          $db->update_full_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
-          $db->update_loan_status($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
-          echo "Fully paid!";
-          header("Location: loanMonitoring.php");
-        } else {
-          printf("%s\n", $con->error);
-        }
+          echo "$credit_rate<br>";
+          echo "$amount_paid<br>";
+          echo "$loan_amount_5k_rate<br>";
+          echo "$full_balance_5k<br>";
+          echo "$full_interest_5k<br>";
+
+          $full_payment_5k = $db->add_to_fullpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $full_interest_5k, $full_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
+          if($full_payment_5k){
+            $db->update_full_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+            $db->update_loan_status($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+            $db->update_is_new_loan($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+            if($type_of_employee === 'civilian'){
+              $increment_fp = (int)$fp + 1;
+              $increment_fp5k = (int)$fp5k + 1;
+              $db->increment_fullpayment_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp);
+              $db->increment_fp_5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp5k);
+            } else if($type_of_employee === 'officer'){
+              $increment_fp = (int)$fp + 1;
+              $increment_fp5k = (int)$fp5k + 1;
+              $db->increment_fp_5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp);
+              $db->increment_fullpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp5k);
+            }
+            echo "Fully paid!";
+            header("Location: loanMonitoring.php");
+          } else {
+            printf("%s\n", $con->error);
+          }
+        } else { // if not new loan
+          echo "Full Payment<br>";
+          $remarks = "$borrowerFullname Full Payment";
+          echo "<strong>2 Loan ID</strong>: $loan_id<br>"; // 1
+          echo "<strong>3 Type of Loan Account</strong>: $type_of_loanAccount<br>"; // 2
+          echo "<strong>4 Borrower ID</strong>: $borrower_id<br>"; // 3
+          echo "<strong>5 PREFIX</strong>: $ctrl_no_prefix<br>"; // 4
+          echo "<strong>6 Firstname</strong>: $fname<br>"; // 5
+          echo "<strong>7 MiddleName</strong>: $mname<br>"; // 6
+          echo "<strong>8 Lastname</strong>: $lname<br>"; // 7
+          echo "<strong>9 Type Of Employee</strong>: $type_of_employee<br>"; // 8
+          echo "<strong>10 Office</strong>: $office<br>"; // 9
+          echo "<strong>11 Rank</strong>: $borrower_rank<br>"; // 10
+          echo "<strong>11.5 Loan Amount Rate</strong>: $loan_amount_5k_rate<br>"; // 11
+          echo "<strong>12 Monthly Payment</strong>: $monthly_payment_5k_rate<br>"; // 12
+          echo "<strong>13 Credit</strong>: $credit_rate<br>"; // 13
+          echo "<strong>14 Amount Paid</strong>: $amount_paid<br>"; // 14
+          echo "<strong>15 Is paid</strong>? $is_paid<br>"; // 15
+          echo "<strong>16 Total Current Interest</strong>: $new_current_interest_5k<br>"; // 16
+          echo "<strong>17 Total Current Balance</strong>: $new_current_balance_5k<br>"; // 17
+          echo "<strong>18 Payment Option</strong>: $payment_option<br>"; // 18
+          echo "<strong>19 Date of Payment</strong>: $date_of_payment<br>"; // 19
+          echo "<strong>20 Has Penalty</strong>? $has_penalty<br>"; // 20
+          echo "<strong>21 Penalty Paid</strong>: $is_penalty_paid<br>"; // 21
+          echo "<strong>22 Penalty Amount</strong>: $penalty_amount<br>"; // 22
+          echo "<strong>23 Remarks</strong>: $remarks<br>"; // 23
+          echo "<strong>ISNEWLOAN </strong>: $is_new_loan<br>";
+  
+          if(isset($_POST['amount_paid_fp']) && isset($_POST['amount_paid_sp']) && isset($_POST['new_balance_sp']) && isset($_POST['current_interest_sp'])){
+            $sp_prev_balance_5k = mysqli_real_escape_string($con, $_POST['new_balance_sp']);
+            $sp_prev_interest_5k = mysqli_real_escape_string($con, $_POST['current_interest_sp']);
+            $sp_prev_amount_payment_5k = mysqli_real_escape_string($con, $_POST['amount_paid_sp']);
+            $fp_prev_amount_payment_5k = mysqli_real_escape_string($con, $_POST['amount_paid_fp']);
+            $full_balance_5k = (int)$sp_prev_balance_5k - (int)$amount_paid;
+            $full_interest_5k = ((int)$fp_prev_amount_payment_5k + (int)$sp_prev_amount_payment_5k + (int)$amount_paid) - $loan_amount_5k_rate;
+  
+            echo "Previous Balance: $sp_prev_balance_5k<br>";	
+            echo "Previous Interest: $sp_prev_interest_5k<br>";	
+            echo "2nd Payment: $sp_prev_amount_payment_5k<br>";	
+            echo "First Payment: $fp_prev_amount_payment_5k<br>";	
+            echo "Amount Paid: $amount_paid<br>";	
+            echo "Full Balance: $full_balance_5k<br>";	
+            echo "Full Interest: $full_interest_5k<br>";
+  
+            $full_payment_5k = $db->add_to_fullpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $full_interest_5k, $full_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
+            if($full_payment_5k){
+              $db->update_full_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+              $db->update_loan_status($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+              echo "Fully paid!";
+              header("Location: loanMonitoring.php");
+            } else {
+              printf("%s\n", $con->error);
+            }
+          } else {
+            // do nothing...
+          }
+        } 
       } else {
-        // do nothing...
+        // do nothing if is_new_loan isn't set
       }
     } else {
       // do nothing...

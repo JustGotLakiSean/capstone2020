@@ -92,7 +92,7 @@ function transaction_table_5k(){
         <td>'.$borrower_fullname.'</td>
         <td>'.$type_of_loan_account.'</td>';
         echo <<<BUT
-        <td><a type="button" href="loanMonitoring.php?transaction_number={$_SESSION['transaction_number']}">NEW PAYMENT</a></td>
+        <td><a type="button" href="loanMonitoring.php?transaction_number={$_SESSION['transaction_number']}">VIEW</a></td>
 BUT;
       echo '</tr>
     </tbody>';
@@ -605,8 +605,7 @@ EMP_LIST;
 echo '
     <form id="newpayment_5k_container" method="POST" action="add_new_5k_payment.php">
       <div class="newpayment_5k_titlecontainer">
-        <button type="button" id="btn_5k_moreoption">More</button>
-        <h3 align="center">Add New Payment</h3>
+        <h3 id="new_payment_title_5k"align="center">Add New Payment</h3>
       </div>
       <div class="bdb-content">
         <div class="bdb-inner-content">
@@ -633,6 +632,7 @@ echo '
               <input type="hidden" name="b_penalty_count" value="'.$penalty_count.'" />
               <input type="hidden" name="b_penalty_5k_count" value="'.$penalty_5k_count.'" />
               <input type="hidden" name="b_penalty_10k_count" value="'.$penalty_10k_count.'" />
+              <input type="hidden" name="is_new_loan" value="'.$is_new_loan.'" />
               <input type="text" name="b_fullname" disabled id="b_fullname" value="'.$borrowerFullname5k.'"/>
               <input type="text" disabled value="'.$borrowerOffice5k.'" />
             </div>
@@ -852,7 +852,7 @@ if($LoanStatus5k === 'Active'){
           </div>';
         } else if($LoanStatus5k === 'Not Active'){
           echo '<div class="not_active_container" align="center">
-            <h4>Not Active</h4>
+            <h4>Fully Paid</h4>
           </div>
           <div class="pb5k_btnaction" align="center">
             <input type="button" name="pb5k_btn_cancel" id="pb5k_btn_cancel" onclick="window.location.href=\'loanMonitoring.php\'" value="Cancel" />
