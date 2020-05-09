@@ -701,6 +701,34 @@ echo '
           }
 
           // display borrower's second payment function
+          function display_2nd_payment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank){
+            $db = new db_access();
+
+            $diplay_2nd_payment_details = $db->display_2ndpayment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank);
+            while($row = $diplay_2nd_payment_details->fetch_array(MYSQLI_ASSOC)){
+              $amount_paid_sp = $row['amount_paid'];
+              $current_interest_sp = $row['current_interest'];
+              $remarks_sp = $row['remarks'];
+              $date_of_payment_sp = $row['date_of_payment'];
+              $new_balance_sp = $row['current_balance'];
+
+              if($row > 0){
+                echo '
+                <input type="hidden" name="amount_paid_sp" value="'.$amount_paid_sp.'" />
+                <input type="hidden" name="new_balance_sp" value="'.$new_balance_sp.'" />
+                <input type="hidden" name="current_interest_sp" value="'.$current_interest_sp.'" />
+                <input type="hidden" name="remarks_sp" value="'.$remarks_sp.'" />
+                <input type="hidden" name="date_of_payment_sp" value="'.$date_of_payment_sp.'" />
+                <td>'.$amount_paid_sp.'</td>
+                <td>'.$current_interest_sp.'</td>
+                <td>'.$new_balance_sp.'</td>
+                <td>'.$remarks_sp.'</td>
+                <td>'.$date_of_payment_sp.'</td>';
+              } else {
+                // do nothing...
+              }
+            }
+          }
 
           $get_5k_info = new db_access();
           $display_5k_table = $get_5k_info->display_borrower_new_5k_list($LoanID5K, $borrowerID5K, $borrowerFname5k, $borrowerMname5k, $borrowerLname5k, $borrowerType5k, $borrowerRank5k);
@@ -735,6 +763,9 @@ echo '
                   </tr>';
             echo '<tr>';
             echo display_1st_payment($LoanID5K, $LoanType5k, $borrowerID5K, $ctrlPrefix5k, $borrowerFname5k, $borrowerMname5k, $borrowerLname5k, $borrowerType5k, $borrowerRank5k);
+            echo '</tr>';
+            echo '<tr>';
+            echo display_2nd_payment($LoanID5K, $LoanType5k, $borrowerID5K, $ctrlPrefix5k, $borrowerFname5k, $borrowerMname5k, $borrowerLname5k, $borrowerType5k, $borrowerRank5k);
             echo '</tr>';
             echo '</tbody>
               </table>
