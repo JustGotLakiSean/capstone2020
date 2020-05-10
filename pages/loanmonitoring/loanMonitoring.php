@@ -100,6 +100,33 @@ BUT;
   echo '</table>';
   echo '</div>';
 }
+
+function transaction_table_10k(){
+  $con = new db_access();
+  $list10k = $con->new_10k_list();
+  echo '
+  <div id="trasaction_table_10k">
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Control Number</th>
+          <th>Name</th>
+          <th>Type Of Loan Account</th>
+          <th>View</th>
+        </tr>
+      </thead>
+      ';
+
+      while($row = $list10k->fetch_array(MYSQLI_ASSOC)){
+        $loan_id_10k = $row['loan_id_10k'];
+        $_SESSION['loan_id_10k'] = $row['loan_id_10k'];
+        $ctrl_no_prefix = $row['ctrl_no_prefix'];
+        $borrower_id_10k = $row['borrower_id'];
+        $_SESSION['borrower_id'] = $row['borrower_id'];
+      }
+    echo '</table>
+  </div>';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -452,8 +479,9 @@ EMP_LIST;
                 <h3 id="tenKnewloantitle">New Loan Record</h3>
                 <button type="button" id="btn_close_10k" onclick="document.getElementById('tenKaddnewloan-container').style.display='none'">Close</button>
               </div>
+              <span id="alert_10k" style="display: none; text-align: center;">New Record Added.</span>
               <div class="tenKnewloanfirstbox">
-                <div class="fiveKborrowerdetails">
+                <div class="tenKborrowerdetails">
 
                   <!-- All Employee List -->
                   <div id="search_container_10k" align="center">

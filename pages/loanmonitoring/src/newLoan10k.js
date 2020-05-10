@@ -37,10 +37,10 @@ function addnewloan10k(
     .then(res => res.json())
     .then(res => setTimeout(() => {
       console.log(res);
-      document.getElementById('alert').style.display = 'block';
-      if(document.getElementById('alert').style.display = 'block'){
+      document.getElementById('alert_10k').style.display = 'block';
+      if(document.getElementById('alert_10k').style.display = 'block'){
         setTimeout(() => {
-          document.getElementById('alert').style.display = 'none';
+          document.getElementById('alert_10k').style.display = 'none';
         }, 3000)
       }
     }, 2000))

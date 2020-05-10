@@ -306,6 +306,31 @@ class db_access {
     $con->close();
   }
 
+  public function select_new_loan_10k($loan_id)
+  {
+    $con=$this->getConnection();
+    $query = "SELECT * FROM tbl_new_10k_loan WHERE loan_id_10k = '$loan_id'";
+    $display_10k_loan_panel = $con->query($query);
+    if($display_10k_loan_panel){
+      return $display_10k_loan_panel;
+    } else {
+      return false;
+    }
+    $con->close();
+  }
+
+  public function new_10k_list()
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_new_10k_loan";
+    $view_list = $con->query($query);
+    if($view_list){
+      return $view_list;
+    } else {
+      return false;
+    }
+  }
+
   // ### Loan payment ### //
   //tbl_1stpayment
   public function first_payment($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $new_current_interest_5k, $new_current_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks)
