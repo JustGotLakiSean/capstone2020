@@ -113,6 +113,7 @@ BUT;
   </head>
   <body>
     <script src="src/new_loan.js"></script>
+    <script src="src/newLoan10k.js"></script>
     <header id = "loan-navigation-container">
       <nav id = "loan-global-navigation">
         <ul>
@@ -449,12 +450,13 @@ EMP_LIST;
             <div class="tenKaddnewloanpanel" id="tenKaddnewloan">
               <div class="tenKnewloantitleholder">
                 <h3 id="tenKnewloantitle">New Loan Record</h3>
+                <button type="button" id="btn_close_10k" onclick="document.getElementById('tenKaddnewloan-container').style.display='none'">Close</button>
               </div>
               <div class="tenKnewloanfirstbox">
                 <div class="fiveKborrowerdetails">
 
                   <!-- All Employee List -->
-                  <div id="search_container" align="center">
+                  <div id="search_container_10k" align="center">
                     <?php foreach($dt as $res) { ?>
                     <?php
                       while($row = $lr10k->fetch_array(MYSQLI_ASSOC)){
@@ -489,28 +491,28 @@ EMP_LIST;
                       $fifth_payment_10k = 0;
                       $full_payment_10k = 0;
 echo <<<EMP_LIST
-                    <form action="add_new_10k_loan.php" method="POST" class="search_result_box" >
+                    <form action="add_new_10k_loan.php" method="POST" class="search_result_box_10k" >
                       <div id="emp_list">
-                        <input type="hidden" name="empid" class="hidden_10k_info hidden_id" value="$empid" />
-                        <input type="hidden" name="empfname" class="hidden_10k_info hidden_fname" value="$empfname" />
-                        <input type="hidden" name="empmname" class="hidden_10k_info hidden_mname" value="$empmname" />
-                        <input type="hidden" name="emplname" class="hidden_10k_info hidden_lname" value="$emplname" />
-                        <input type="hidden" name="empoffice" class="hidden_10k_info hidden_office" value="$empoffice" />
-                        <input type="hidden" name="empType" class="hidden_10k_info hidden_type" value="$empType" />
-                        <input type="hidden" name="empRank" class="hidden_10k_info hidden_rank" value="$empRank" />
+                        <input type="hidden" name="empid_10k" class="hidden_10k_info hidden_id" value="$empid" />
+                        <input type="hidden" name="empfname_10k" class="hidden_10k_info hidden_fname" value="$empfname" />
+                        <input type="hidden" name="empmname_10k" class="hidden_10k_info hidden_mname" value="$empmname" />
+                        <input type="hidden" name="emplname_10k" class="hidden_10k_info hidden_lname" value="$emplname" />
+                        <input type="hidden" name="empoffice_10k" class="hidden_10k_info hidden_office" value="$empoffice" />
+                        <input type="hidden" name="empType_10k" class="hidden_10k_info hidden_type" value="$empType" />
+                        <input type="hidden" name="empRank_10k" class="hidden_10k_info hidden_rank" value="$empRank" />
                         <input type="hidden" name="la10kcount" class="hidden_10k_info" value="$la10k_count" />
-                        <input type="hidden" name="loan_status" class="hidden_10k_info" value="$status" />
-                        <input type="hidden" name="first_payment" class="hidden_10k_info" value="$first_payment" />
-                        <input type="hidden" name="second_payment" class="hidden_10k_info" value="$second_payment" />
-                        <input type="hidden" name="third_payment" class="hidden_10k_info" value="$third_payment" />
-                        <input type="hidden" name="fourth_payment" class="hidden_10k_info" value="$fourth_payment" />
-                        <input type="hidden" name="five_payment" class="hidden_10k_info" value="$fifth_payment" />
-                        <input type="hidden" name="full_payment" class="hidden_10k_info" value="$full_payment" />
-                        <input type="hidden" name="amount_of_payment" class="hidden_10k_info" value="$debit_pay" />
-                        <input type="hidden" name="comment_remarks" class="hidden_10k_info" value="$comment" />
-                        <input type="text" disabled name="empfullname" class="emp_info_10k" value="$emp_fullname" />
+                        <input type="hidden" name="loan_status_10k" class="hidden_10k_info" value="$status_10k" />
+                        <input type="hidden" name="first_payment_10k" class="hidden_10k_info" value="$first_payment_10k" />
+                        <input type="hidden" name="second_payment_10k" class="hidden_10k_info" value="$second_payment_10k" />
+                        <input type="hidden" name="third_payment_10k" class="hidden_10k_info" value="$third_payment_10k" />
+                        <input type="hidden" name="fourth_payment_10k" class="hidden_10k_info" value="$fourth_payment_10k" />
+                        <input type="hidden" name="five_payment_10k" class="hidden_10k_info" value="$fifth_payment_10k" />
+                        <input type="hidden" name="full_payment_10k" class="hidden_10k_info" value="$full_payment_10k" />
+                        <input type="hidden" name="amount_of_payment_10k" class="hidden_10k_info" value="$debit_pay_10k" />
+                        <input type="hidden" name="comment_remarks_10k" class="hidden_10k_info" value="$comment_10k" />
+                        <input type="text" disabled name="empfullname_10k" class="emp_info_10k" value="$emp_fullname" />
 EMP_LIST;
-                  echo "<input type='button' name = 'btn_add_5k_loan' value='Add New Loan' class='btn_add_10k_loan' onclick='addnewloan10k(\"".$empid."\", \"".$formattedString10K."\", \"".$empfname."\", \"".$empmname."\", \"".$emplname."\", \"".$empType."\", \"".$loan_type_10k."\", \"".$la_amount_10k."\", \"".$emp_fullname."\", \"".$mp_rates_10k."\", \"".$cr_rates_10k."\", \"".$debit_pay_10k."\", \"".$interest_10k."\", \"".$beg_bal_10k."\", \"".$date_today_10k."\", \"".$comment_10k."\", \"".$pen_permonth_10k."\", \"".$empoffice."\", \"".$empRank."\", \"".$la10k_count."\", \"".$first_payment_10k."\", \"".$second_payment_10k."\", \"".$third_payment_10k."\", \"".$fourth_payment_10k."\", \"".$fifth_payment_10k."\", \"".$full_payment_10k."\", \"".$status_10k."\");' />";
+                  echo "<input type='button' name = 'btn_add_10k_loan' value='Add New Loan' class='btn_add_10k_loan' onclick='addnewloan10k(\"".$empid."\", \"".$formattedString10K."\", \"".$empfname."\", \"".$empmname."\", \"".$emplname."\", \"".$empType."\", \"".$loan_type_10k."\", \"".$la_amount_10k."\", \"".$emp_fullname."\", \"".$mp_rates_10k."\", \"".$cr_rates_10k."\", \"".$debit_pay_10k."\", \"".$interest_10k."\", \"".$beg_bal_10k."\", \"".$date_today_10k."\", \"".$comment_10k."\", \"".$pen_permonth_10k."\", \"".$empoffice."\", \"".$empRank."\", \"".$la10k_count."\", \"".$first_payment_10k."\", \"".$second_payment_10k."\", \"".$third_payment_10k."\", \"".$fourth_payment_10k."\", \"".$fifth_payment_10k."\", \"".$full_payment_10k."\", \"".$status_10k."\");' />";
                   echo '</div>';
                   echo '</form>';
                       ?>
@@ -527,34 +529,42 @@ EMP_LIST;
                   <div class="tenKlistboxtitleholder">
                     <h4>Borrower List</h4>
                   </div>
-                  <div class="tenKborrowerlistbox">
-
-                    <h3 align="center" style="font-weight: lighter; color: #666666; font-size: 2rem;" class="queuetitle">Empty</h3>
-
-                  </div>
                   <div class="tenKborrowernewloandetails">
                     <div class="tenKnewloandetailstitleholder">
-                      <h4>Loan Details</h4>
+                      <h4>Loan Details (10K Account)</h4>
                       <hr>
                       <div class="tenKloanaccountdetailscontainer">
                         <div class="loanaccountdetails-box">
-                          <div class="firstbox">
-                            <p>Beginning Balance</p>
-                            <p>Interest</p>
-                            <p>Total Borrow</p>
-                            <p>Date Borrow</p>
-                          </div>
-                          <div class="secondbox">
-                            <p>00000</p>
-                            <p>00000</p>
-                            <p>00000</p>
-                            <p>mm-dd-yyyy</p>
-                          </div>
+
+                        <?php
+                        echo '<div class="firstbox_10k">';
+                        echo '<label for="loan_type_10k">Type of Loan account</label>';
+                        echo '<label for="la_rate_10k">Loan Amount Rate</label>';
+                        echo '<label for="mp_rate_10k">Monthly Payment Rate</label>';
+                        echo '<label for="interest_rate_10k">Interest Rate</label>';
+                        echo '<label for="cr_rate_10k">Credit rate</label>';
+                        echo '<label for="beg_bal_10k">Beginning Balance</label>';
+                        echo '<label for="pen_permonth_10k">Penalty per month</label>';
+                        echo '<label for="date_today_10k">Date</label>';
+                        echo '</div>';
+
+                        echo '<div class="secondbox_10k">';
+                        echo '<input type="hidden" disabled id="ctrlno_prefix_10k" name="ctrlno_prefix_10k" class="lk_rate_10k" value="'. $formattedString10K .'" /> ';
+                        echo '<input type="text" disabled id="loan_type_10k" name="loan_type_10k" class="lk_rate_10k" value="' . $loan_type_10k . '" />';
+                        echo '<input type="text" disabled id="la_rate_10k" name="la_rate_10k" class="lk_rate_10k" value="'. $la_amount_10k . '" />';
+                        echo '<input type="text" disabled id="mp_rate_10k" name="mp_rate_10k" class="lk_rate_10k" value="'. $mp_rates_10k . '" />';
+                        echo '<input type="text" disabled id="interest_rate_10k" name="interest_rate_10k" class="lk_rate_10k" value="'. $interest_10k . '" />';
+                        echo '<input type="text" disabled id="cr_rate_10k" name="cr_rate_10k" class="lk_rate_10k" value="'. $cr_rates_10k . '" />';
+                        echo '<input type="text" disabled id="beg_bal_10k" name="beg_bal_10k" class="lk_rate_10k" value="'. $beg_bal_10k . '" />';
+                        echo '<input type="text" disabled id="pen_permonth_10k" name="pen_permonth_10k" class="lk_rate_10k" value="'. $pen_permonth_10k . '" />';
+                        echo '<input type="text" disabled id="date_today_10k" name="date_today_10k" class="lk_rate_10k" value="'. $date_today_10k . '" />';
+                        echo '</div>';
+                        ?>
                         </div>
-                        <div class="thirdbox" align="center">
+                        <!-- <div class="thirdbox" align="center">
                           <input type="submit" name="submit_tenK_newloan" id="submit_tenK_newloan" value="Submit" />
                           <input type="button" name="cancel_tenK_newloan" id="cancel_tenK_newloan" value="Cancel" onclick="document.getElementById('tenKaddnewloan-container').style.display='none'" />
-                        </div>
+                        </div> -->
                       </div>
                     </div>
                   </div>

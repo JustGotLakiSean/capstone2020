@@ -241,6 +241,7 @@ body {
   text-align: center;
   font-weight: lighter;
   margin: 0;
+  position: relative;
   top: 2px;
 }
 
@@ -250,7 +251,6 @@ body {
   width: 380px;
   height: 120px;
 }
-
 
 #search_container {
   background: #E6E6E6;
@@ -355,8 +355,6 @@ hr {
   grid-gap: 5px;
   margin: auto;
 }
-
-
 
 /* width */
 ::-webkit-scrollbar {
@@ -475,19 +473,27 @@ hr {
 }
 
 .tenKaddnewloanpanel {
-  width: 400px;
-  height: 550px;
+  width: 700px;
+  height: 650px;
   margin: auto;
   background: #F2F2F2;
-  border: 1px solid #dadada;
+  border: none;
   border-radius: 5px;
 }
 
 .tenKnewloantitleholder {
+  position: relative;
   height: 26px;
   background: #009245;
   border-radius: 5px;
   color: #fff;
+}
+
+#btn_close_10k {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 50px;
 }
 
 .tenKnewloantitleholder > h3 {
@@ -499,43 +505,55 @@ hr {
 }
 
 .tenKnewloanfirstbox {
-  display: grid;
-  margin: auto;
   position: relative;
   top: 10px;
   width: 380px;
   height: 120px;
 }
 
-.tenKborrowerdetails {
-  display: grid;
-}
-
-.tenKborrowerdetails input[type=text] {
-  height: 26px;
-  padding-left: 10px;
+#search_container_10k {
   background: #E6E6E6;
-  border: 1px solid #CCCCCC;
-  border-radius: 3px;
-  font-size: .9rem;
-  color: #666666;
+  border-radius: 5px;
+  width: 50.95vw;
+  max-height: 38vh;
+  overflow: auto;
+  border: 2px solid #009245;
 }
 
-#btn_tenKaddtolist {
+.search_result_box_10k {
+  margin: 5px 0 0 0;
+  padding: 0;
+}
+
+.emp_info_10k {
+  text-align: center;
+  margin-bottom: 5px;
+  width: 40vw;
+  color: #FFF;
   background: #009245;
   border: none;
   border-radius: 5px;
-  font-size: .8rem;
-  color: #fff;
-  width: 94px;
-  height: 31px;
-  float: right;
-  cursor: pointer;
-  
+  height: 30px;
+  //cursor: pointer;
+  font-size: 1rem;
 }
 
-#btn_tenKaddtolist:hover {
-  background: #007C45;
+.btn_add_10k_loan {
+  border: 2px solid #009245;
+  margin-left: 10px;
+  border-radius: 5px;
+  font-size: .8rem;
+  font-weight: bold;
+  color: #009245;
+  width: 110px;
+  height: 30px;
+  cursor: pointer;
+  transition: 100ms ease-in;
+}
+
+.btn_add_10k_loan:hover {
+  background: #009245;
+  color: #fff;
 }
 
 hr {
@@ -553,14 +571,6 @@ hr {
   grid-auto-flow: row;
   grid-gap: 5px;
   margin: auto;
-  position: relative;
-}
-
-.tenKborrowerlistbox {
-  width: 380px;
-  height: 200px;
-  margin: auto;
-  overflow: auto;
 }
 
 /* width */
@@ -589,9 +599,7 @@ hr {
   text-align: center;
   font-weight: lighter;
   margin: 0;
-  position: relative;
-  top: 2px;
-  font-size: 20px;
+  font-size: 1rem;
   color: #666666;
 }
 
@@ -608,15 +616,21 @@ hr {
   border-radius: 10px;
 }
 
-.tenKborrowerqueue p {
+.tenKborrowernewloandetails {
+  margin-top: 150px;
+}
+
+.lk_rate_10k {
+  text-align: center;
+  width: 7vw;
   margin: 0;
-  padding:0;
-  font-size: 13px;
-  font-weight: bold;
+  font-size: .9rem;
+  border-radius: 5px;
+  border: 2px solid #CCCCCC;
+  height: 20px;
 }
 
 .tenKqueuesecondbox {
-  position: relative;
   margin: auto;
 }
 
@@ -624,8 +638,6 @@ hr {
   width: 380px;
   height: 120px;
   margin: auto;
-  position: relative;
-  top: 10px;
   display: grid;
   grid-gap: 15px;
 }
@@ -636,24 +648,23 @@ hr {
   padding:0;
 }
 
-.loanaccountdetails-box {
-  position: relative;
-  top: 20px;
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 40px;
-  justify-content: center;
-}
-
-.firstbox {
+.firstbox_10k {
   display: grid;
   grid-gap: 5px;
   color: #666666;
 }
 
-.secondbox {
+.secondbox_10k {
   display: grid;
   grid-gap: 5px;
+}
+
+.loanaccountdetails-box {
+  margin-top: 10px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 40px;
+  justify-content: center;
 }
 
 #submit_tenK_newloan {

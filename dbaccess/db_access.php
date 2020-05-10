@@ -291,6 +291,21 @@ class db_access {
     $con->close();
   }
 
+  // Add New 10k Loan //
+  public function add_new_10k_record($borrower_id, $ctrlno_prefix, $fname, $mname, $lname, $emp_type, $loan_type, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $debit_pay, $interest_rate, $balance_rate, $date_of_loan, $comment_remarks, $penalty_per_month, $emp_office, $emp_rank, $first_payment, $second_payment, $third_payment, $fourth_payment, $fifth_payment, $full_payment, $status, $isNewLoan)
+  {
+    $con=$this->getConnection();
+    $query="INSERT INTO tbl_new_10k_loan(borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, type_of_loan, loan_amount_10k_rate, monthly_payment_10k_rate, credit_10k_rate, debit_pay_5k, interest_rate_10k, balance_rate_10k, date_of_loan, comment, penalty_10k, office_10k, emp_rank_10k, first_payment_10k, second_payment_10k, third_payment_10k, fourth_payment_10k, fifth_payment_10k, full_payment_10k, loan_status_10k, isNewLoan)
+    VALUES('$borrower_id', '$ctrlno_prefix', '$fname', '$mname', '$lname', '$emp_type', '$loan_type', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$debit_pay', '$interest_rate', '$balance_rate', '$date_of_loan', '$comment_remarks', '$penalty_per_month', '$emp_office', '$emp_rank', '$first_payment', '$second_payment', '$third_payment', '$fourth_payment', '$fifth_payment', '$full_payment', '$status', '$isNewLoan')";
+    $insert_query = $con->query($query);
+    if($insert_query){
+      return true;
+    } else {
+      return false;
+    }
+    $con->close();
+  }
+
   // ### Loan payment ### //
   //tbl_1stpayment
   public function first_payment($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $new_current_interest_5k, $new_current_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks)
@@ -468,6 +483,19 @@ class db_access {
     $con=$this->getConnection();
     // $query = 'UPDATE tbl_officersandep SET la_5k_count = ' . +1 . ' WHERE officer_ID = ' . $id . ' AND officer_fName = ' . $fname . ' AND officer_mName = ' . $mname . ' AND officer_lName = ' . $lname . ' AND type_of_employee = ' . $emp_type . '';
     $query = "UPDATE tbl_officersandep SET la_5k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$emp_type'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
+    }
+    $con->close();
+  }
+
+  public function update_officer_la10k_count($id, $fname, $mname, $lname, $emp_type, $increment)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_officersandep SET la_10k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$emp_type'";
     $update_query = $con->query($query);
     if($update_query){
       return true;
