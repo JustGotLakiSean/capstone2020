@@ -633,6 +633,9 @@ echo '
               <input type="hidden" name="b_penalty_5k_count" value="'.$penalty_5k_count.'" />
               <input type="hidden" name="b_penalty_10k_count" value="'.$penalty_10k_count.'" />
               <input type="hidden" name="is_new_loan" value="'.$is_new_loan.'" />
+              <input type="hidden" name="first_payment_col" value="'.$first_payment_col.'" />
+              <input type="hidden" name="second_payment_col" value="'.$second_payment_col.'" />
+              <input type="hidden" name="full_payment_col" value="'.$full_payment_col.'" />
               <input type="text" name="b_fullname" disabled id="b_fullname" value="'.$borrowerFullname5k.'"/>
               <input type="text" disabled value="'.$borrowerOffice5k.'" />
             </div>
