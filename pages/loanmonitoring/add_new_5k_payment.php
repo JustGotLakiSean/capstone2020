@@ -224,6 +224,7 @@ if(isset($_POST['pb5k_btn_submit'])){
         $full_payment_col = mysqli_real_escape_string($db->getConnection(), $_POST['full_payment_col']);
 
         if($is_new_loan == 1 && $first_payment_col == 0 && $second_payment_col == 0){
+          $remarks = "$borrowerFullname Full Payment";
           $full_balance_5k = (int)$credit_rate - (int)$amount_paid;
           $full_interest_5k = (int)$amount_paid - (int)$loan_amount_5k_rate;
 
@@ -262,6 +263,7 @@ if(isset($_POST['pb5k_btn_submit'])){
             $new_balance_fp = mysqli_real_escape_string($db->getConnection(), $_POST['new_balance_fp']);
             $current_interest_fp = mysqli_real_escape_string($db->getConnection(), $_POST['current_interest_fp']);
             $fp_prev_amount_payment_5k = mysqli_real_escape_string($db->getConnection(), $_POST['amount_paid_fp']);
+            $remarks = "$borrowerFullname Full Payment";
             
             $full_balance_5k = (int)$new_balance_fp - (int)$amount_paid;
             $full_interest_5k = ((int)$fp_prev_amount_payment_5k + (int)$amount_paid) - (int)$loan_amount_5k_rate;

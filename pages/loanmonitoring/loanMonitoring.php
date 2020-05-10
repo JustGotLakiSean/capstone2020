@@ -52,8 +52,8 @@ function transaction_table_5k(){
     $fourth_payment = $row['fourth_payment'];
     $fifth_payment = $row['fifth_payment'];
     $full_payment = $row['full_payment'];
-    // $loan_status = $row['loan_status'] === 0 ? 'Not Active' : 'Active';
-    $loan_status = $row['loan_status'];
+    $loan_status = (($row['loan_status'] == 0) ? 'Active' : 'Not Active');
+    // $loan_status = $row['loan_status'];
     $isNewLoan = $row['isNewLoan'];
 
     $borrower_fullname = "$borrower_fname $borrower_mname $borrower_lname";
@@ -90,7 +90,7 @@ function transaction_table_5k(){
         <input type="hidden" name="loan_status" value="'.$loan_status.'" />
         <td>'.$formatted_control_number.'</td>
         <td>'.$borrower_fullname.'</td>
-        <td>'.$type_of_loan_account.'</td>';
+        <td>'.$loan_status.'</td>';
         echo <<<BUT
         <td><a type="button" href="loanMonitoring.php?transaction_number={$_SESSION['transaction_number']}">VIEW</a></td>
 BUT;
@@ -451,14 +451,74 @@ EMP_LIST;
                 <h3 id="tenKnewloantitle">New Loan Record</h3>
               </div>
               <div class="tenKnewloanfirstbox">
-                <div class="tenKborrowerdetails">
-                  <input type="text" name="txt_tenK_newloan_borrower" id="txt_tenK_newloan_borrower" placeholder="Search Borrower Name" />
-                  <input type="text" disabled name="txt_tenK_newloan_office" id = "txt_tenK_newloan_office" />
-                </div>
-                <div class="tenKaddtolistholder">
-                  <button type="button" id="btn_tenKaddtolist" >
-                    Add to List
-                  </button>
+                <div class="fiveKborrowerdetails">
+
+                  <!-- All Employee List -->
+                  <div id="search_container" align="center">
+                    <?php foreach($dt as $res) { ?>
+                    <?php
+                      while($row = $lr10k->fetch_array(MYSQLI_ASSOC)){
+                        $id = $row['10k_rates_id'];
+                        $loan_type_10k = $row['type_of_loan'];
+                        $la_amount_10k = $row['10k_loan_amount_rates'];
+                        $mp_rates_10k = $row['10k_monthly_payment_rates'];
+                        $cr_rates_10k = $row['10k_credit_rates'];
+                        $beg_bal_10k = $row['10k_beginning_balance_rates'];
+                        $interest_10k = $row['10k_interest_rate'];
+                        $pen_permonth_10k = $row['10k_penalty_permonth_rates'];
+                        $date_today_10k = date("j-M-y");
+                        $formattedString10K = "950CEISG-000";
+                      }
+                      $empid = $res["emp_id"];
+                      $empfname = $res["emp_fName"];
+                      $empmname = $res["emp_mName"];
+                      $emplname = $res["emp_lName"];
+                      $empoffice = $res["emp_office"];
+                      $empType = $res["emptype"];
+                      $empRank = $res["empRank"];
+                      $la10k_count = $res['la10k'];
+                      $emp_fullname = "$res[emp_fName] $res[emp_mName] $res[emp_lName]";
+                      $emp_info_10k = "$res[emp_fName] $res[emp_mName] $res[emp_lName] | $res[emp_office]";
+                      $comment_10k = "New Loan form $emp_fullname.";
+                      $debit_pay_10k = 0;
+                      $status_10k = 0;
+                      $first_payment_10k = 0;
+                      $second_payment_10k = 0;
+                      $third_payment_10k = 0;
+                      $fourth_payment_10k = 0;
+                      $fifth_payment_10k = 0;
+                      $full_payment_10k = 0;
+echo <<<EMP_LIST
+                    <form action="add_new_10k_loan.php" method="POST" class="search_result_box" >
+                      <div id="emp_list">
+                        <input type="hidden" name="empid" class="hidden_10k_info hidden_id" value="$empid" />
+                        <input type="hidden" name="empfname" class="hidden_10k_info hidden_fname" value="$empfname" />
+                        <input type="hidden" name="empmname" class="hidden_10k_info hidden_mname" value="$empmname" />
+                        <input type="hidden" name="emplname" class="hidden_10k_info hidden_lname" value="$emplname" />
+                        <input type="hidden" name="empoffice" class="hidden_10k_info hidden_office" value="$empoffice" />
+                        <input type="hidden" name="empType" class="hidden_10k_info hidden_type" value="$empType" />
+                        <input type="hidden" name="empRank" class="hidden_10k_info hidden_rank" value="$empRank" />
+                        <input type="hidden" name="la10kcount" class="hidden_10k_info" value="$la10k_count" />
+                        <input type="hidden" name="loan_status" class="hidden_10k_info" value="$status" />
+                        <input type="hidden" name="first_payment" class="hidden_10k_info" value="$first_payment" />
+                        <input type="hidden" name="second_payment" class="hidden_10k_info" value="$second_payment" />
+                        <input type="hidden" name="third_payment" class="hidden_10k_info" value="$third_payment" />
+                        <input type="hidden" name="fourth_payment" class="hidden_10k_info" value="$fourth_payment" />
+                        <input type="hidden" name="five_payment" class="hidden_10k_info" value="$fifth_payment" />
+                        <input type="hidden" name="full_payment" class="hidden_10k_info" value="$full_payment" />
+                        <input type="hidden" name="amount_of_payment" class="hidden_10k_info" value="$debit_pay" />
+                        <input type="hidden" name="comment_remarks" class="hidden_10k_info" value="$comment" />
+                        <input type="text" disabled name="empfullname" class="emp_info_10k" value="$emp_fullname" />
+EMP_LIST;
+                  echo "<input type='button' name = 'btn_add_5k_loan' value='Add New Loan' class='btn_add_10k_loan' onclick='addnewloan10k(\"".$empid."\", \"".$formattedString10K."\", \"".$empfname."\", \"".$empmname."\", \"".$emplname."\", \"".$empType."\", \"".$loan_type_10k."\", \"".$la_amount_10k."\", \"".$emp_fullname."\", \"".$mp_rates_10k."\", \"".$cr_rates_10k."\", \"".$debit_pay_10k."\", \"".$interest_10k."\", \"".$beg_bal_10k."\", \"".$date_today_10k."\", \"".$comment_10k."\", \"".$pen_permonth_10k."\", \"".$empoffice."\", \"".$empRank."\", \"".$la10k_count."\", \"".$first_payment_10k."\", \"".$second_payment_10k."\", \"".$third_payment_10k."\", \"".$fourth_payment_10k."\", \"".$fifth_payment_10k."\", \"".$full_payment_10k."\", \"".$status_10k."\");' />";
+                  echo '</div>';
+                  echo '</form>';
+                      ?>
+                      <?php } ?>
+                  </div>
+                  <!-- END OF SEARCH BOX -->
+
+                  <!-- <input type="text" disabled name="txt_5K_newloan_office" id = "txt_5K_newloan_office" /> -->
                 </div>
               </div>
               <hr>
