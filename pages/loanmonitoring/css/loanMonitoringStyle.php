@@ -1103,6 +1103,21 @@ hr {
   margin: 0;
 }
 
+#transaction_box_10k {
+  margin: auto;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13px;
+}
+
+#transaction_box_10k > thead > tr > th{
+  font-size: 13px;
+}
+
+#transaction_box_10kcontainer {
+  margin-top: 15px;
+}
+
 .paymentbox_10k_container {
   position: relative;
   top: 10px;

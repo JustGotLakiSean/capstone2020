@@ -1004,6 +1004,51 @@ if($LoanStatus5k === 'Active'){
           <option value="5th_payment_10k" disabled>5TH Payment</option>
           <option value="full_payment_10k">FULL PAYMENT</option>
         </select>';
+        } else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 0 && $thirdPaymentCol_10k == 0 && $fourthPaymentCol_10k == 0 && $fifthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0){
+          echo '<select name="paymentoption_10k">
+          <option value="1st_payment_10k" disabled>1ST Payment</option>
+          <option value="2nd_payment_10k">2ND Payment</option>
+          <option value="3rd_payment_10k" disabled>3RD Payment</option>
+          <option value="4th_payment_10k" disabled>4TH Payment</option>
+          <option value="5th_payment_10k" disabled>5TH Payment</option>
+          <option value="full_payment_10k">FULL PAYMENT</option>
+        </select>';
+        } else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 0 && $fourthPaymentCol_10k == 0 && $fifthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0){
+          echo '<select name="paymentoption_10k">
+          <option value="1st_payment_10k" disabled>1ST Payment</option>
+          <option value="2nd_payment_10k" disabled>2ND Payment</option>
+          <option value="3rd_payment_10k">3RD Payment</option>
+          <option value="4th_payment_10k" disabled>4TH Payment</option>
+          <option value="5th_payment_10k" disabled>5TH Payment</option>
+          <option value="full_payment_10k">FULL PAYMENT</option>
+        </select>';
+        } else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 1 && $fourthPaymentCol_10k == 0 && $fifthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0){
+          echo '<select name="paymentoption_10k">
+          <option value="1st_payment_10k" disabled>1ST Payment</option>
+          <option value="2nd_payment_10k" disabled>2ND Payment</option>
+          <option value="3rd_payment_10k" disabled>3RD Payment</option>
+          <option value="4th_payment_10k">4TH Payment</option>
+          <option value="5th_payment_10k" disabled>5TH Payment</option>
+          <option value="full_payment_10k">FULL PAYMENT</option>
+        </select>';
+        } else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 1 && $fourthPaymentCol_10k == 1 && $fifthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0){
+          echo '<select name="paymentoption_10k">
+          <option value="1st_payment_10k" disabled>1ST Payment</option>
+          <option value="2nd_payment_10k" disabled>2ND Payment</option>
+          <option value="3rd_payment_10k" disabled>3RD Payment</option>
+          <option value="4th_payment_10k" disabled>4TH Payment</option>
+          <option value="5th_payment_10k">5TH Payment</option>
+          <option value="full_payment_10k">FULL PAYMENT</option>
+        </select>';
+        } else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 1 && $fourthPaymentCol_10k == 1 && $fifthPaymentCol_10k == 1 && $fullPaymentCol_10k == 0){
+          echo '<select name="paymentoption_10k">
+          <option value="1st_payment_10k" disabled>1ST Payment</option>
+          <option value="2nd_payment_10k" disabled>2ND Payment</option>
+          <option value="3rd_payment_10k" disabled>3RD Payment</option>
+          <option value="4th_payment_10k" disabled>4TH Payment</option>
+          <option value="5th_payment_10k" disabled>5TH Payment</option>
+          <option value="full_payment_10k">FULL PAYMENT</option>
+        </select>';
         }
       }
 
@@ -1013,7 +1058,7 @@ if($LoanStatus5k === 'Active'){
 
     $get_dp_and_fp_10k = new db_access();
     $get_data = $get_dp_and_fp_10k->get_dp_and_fp($borrowerID10k, $borrowerFname10k, $borrowerMname10k, $borrowerLname10k, $borrowerOffice10k, $borrowerType10k, $borrowerRank10k);
-    while($rs = $get_data->fetch_array(MYSQLI_ASSOC))
+    while($rs = $get_data->fetch_array(MYSQLI_ASSOC)){
       $dp5k = $rs['dp5k'];
       $dp10k = $rs['dp10k'];
       $dp = $rs['dpCount'];
@@ -1025,7 +1070,7 @@ if($LoanStatus5k === 'Active'){
       $penalty_10k_count = $rs['penalty10k'];
     }
 echo '
-  <form class="newpayment_10k_container" method="post" action="">
+  <form class="newpayment_10k_container" method="post" action="add_new_10k_payment.php">
     <div class="newpayment_10k_titlecontainer">
       <h3 align="center">Add New Payment</h3>
     </div>
@@ -1061,7 +1106,7 @@ echo '
             <input type="hidden" name="fourth_payment_col_10k" value="'.$fourth_payment_col_10k.'" />
             <input type="hidden" name="fifth_payment_col_10k" value="'.$fifth_payment_col_10k.'" />
             <input type="hidden" name="full_payment_col_10k" value="'.$full_payment_col_10k.'" />
-            <input type="text" name="b_fullname_10k" id="b_fullname_10k" value="'.$borrowerFullname10k.'" />
+            <input type="text" name="b_fullname_10k" disabled id="b_fullname_10k" value="'.$borrowerFullname10k.'" />
             <input type="text" disabled value="'.$borrowerOffice10k.'" />
           </div>
         </div>
@@ -1096,8 +1141,45 @@ echo '
           </div>
         </div>';
 
+        // display first loan info
+        $get_10k_info = new db_access();
+        $display_10k_table = $get_10k_info->display_borrower_new_10k_list($LoanID10k, $borrowerID10k, $borrowerFname10k, $borrowerMname10k, $borrowerLname10k, $borrowerType10k, $borrowerRank10k);
+        while($data_10k = $display_10k_table->fetch_array(MYSQLI_ASSOC)){
+          $la_10k = $data_10k['loan_amount_10k_rate'];
+          $mp_10k = $data_10k['monthly_payment_10k_rate'];
+          $dp_10k = $data_10k['debit_pay_10k'];
+          $int_10k = $data_10k['interest_rate_10k'];
+          $com_10k = $data_10k['comment'];
+          $dop_10k = $data_10k['date_of_loan'];
+          $bal_10k = $data_10k['balance_rate_10k'];
+        }
+
+        echo '
+        <div id="transaction_box_10kcontainer">
+          <table border="1" id="transaction_box_10k">
+            <thead>
+              <tr>
+                <th>Debit</th>
+                <th>Interest</th>
+                <th>Balance</th>
+                <th>Remarks</th>
+                <th>Date of Payment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>'.$dp_10k.'</td>
+                <td>'.$int_10k.'</td>
+                <td>'.$bal_10k.'</td>
+                <td>'.$com_10k.'</td>
+                <td>'.$dop_10k.'</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>';
+
         if($LoanStatus10k === 'Active'){
-          echo '                  <div class="paymentbox_10k_container">
+          echo '<div class="paymentbox_10k_container">
           <div class="paymentbox_10k_list">
             <div class="paymentbox10k_title">
               <h5 align="center" style="background: #009245; color: white">Payment Box</h5>
@@ -1106,13 +1188,9 @@ echo '
 
               <div class="paymentbox_10k">
                 <div class="paymentoption_box np10kbox">
-                  <label for="paymentoption_10k">Payment Option</label>
-                  <select name="paymentoption_10k">
-                    <option value="1ST Payment">1ST Payment</option>
-                    <option value="2ND Payment">2ND Payment</option>
-                    <option value="3RD Payment">3RD Payment</option>
-                    <option value="FULL PAYMENT">FULL PAYMENT</option>
-                  </select>
+                  <label for="paymentoption_10k">Payment Option</label>';
+                  echo payment_options_10k($is_new_loan_10k, $first_payment_col_10k, $second_payment_col_10k, $third_payment_col_10k, $fourth_payment_col_10k, $fifth_payment_col_10k, $full_payment_col_10k);
+                echo '
                 </div>
                 <div class="date_of_payment_10k_box np10kbox">
                   <label for="date_of_payment_10k">Date of Payment</label>
@@ -1162,6 +1240,7 @@ echo '
     </form>
 </section>';
   }
+}
   ?>
     </main>
 

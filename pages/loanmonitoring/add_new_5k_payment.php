@@ -22,7 +22,7 @@ if(isset($_POST['pb5k_btn_submit'])){
   $amount_paid = '';//
   $is_paid = ''; // 1 = 'yes'; 0 = 'no'
   $current_interest = '';
-  $balance_rate_5k_5k = ''; // current_balance
+  $balance_rate_5k = ''; // current_balance
   $payment_option = '';//
   $date_of_payment = '';//
   $has_penalty = '';// 1 = 'yes'; 0 = 'no'

@@ -331,6 +331,19 @@ class db_access {
     }
   }
 
+  public function display_borrower_new_10k_list($loan_id_10k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $emp_rank_10k)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_new_10k_loan WHERE loan_id_10k = '$loan_id_10k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND type_of_employee = '$type_of_employee' AND emp_rank_10k = '$emp_rank_10k'";
+    $get_info=$con->query($query);
+    if($get_info){
+      return $get_info;
+    } else {
+      return false;
+    }
+    $con->close();
+  }
+
   // ### Loan payment ### //
   //tbl_1stpayment
   public function first_payment($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $new_current_interest_5k, $new_current_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks)
@@ -805,6 +818,106 @@ class db_access {
       return true;
     } else {
       die($con->error);
+    }
+  }
+
+  // update the payment option on the new 10k loan table
+  // first payment to '1';
+  // is_new_loan to '0';
+  public function update_first_payment_10k($loan_id_10k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_10k_loan SET first_payment_10k = 1 WHERE loan_id_10k = '$loan_id_10k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank_10k = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // second
+  public function update_second_payment_10k($loan_id_10k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_10k_loan SET second_payment_10k = 1 WHERE loan_id_10k = '$loan_id_10k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank_10k = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public function update_third_payment_10k($loan_id_10k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_10k_loan SET third_payment_10k = 1 WHERE loan_id_10k = '$loan_id_10k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank_10k = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public function update_fourth_payment_10k($loan_id_10k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_10k_loan SET fourth_payment_10k = 1 WHERE loan_id_10k = '$loan_id_10k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank_10k = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public function update_fifth_payment_10k($loan_id_10k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_10k_loan SET fifth_payment_10k = 1 WHERE loan_id_10k = '$loan_id_10k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank_10k = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public function update_full_payment_10k($loan_id_10k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_10k_loan SET full_payment_10k = 1 WHERE loan_id_10k = '$loan_id_10k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank_10k = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public function update_loan_status_10k($loan_id_10k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_10k_loan SET loan_status_10k = 1 WHERE loan_id_10k = '$loan_id_10k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank_10k = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public function update_is_new_loan_10k($loan_id_10k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_new_10k_loan SET isNewLoan = 0 WHERE loan_id_10k = '$loan_id_10k' AND borrower_id = '$borrower_id' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND emp_rank_10k = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      return false;
     }
   }
 }
