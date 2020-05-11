@@ -123,6 +123,72 @@ function transaction_table_10k(){
         $ctrl_no_prefix = $row['ctrl_no_prefix'];
         $borrower_id_10k = $row['borrower_id'];
         $_SESSION['borrower_id'] = $row['borrower_id'];
+        $borrower_fname_10k = $row['fname'];
+        $borrower_mname_10k = $row['mname'];
+        $borrower_lname_10k = $row['lname'];
+        $type_of_employee_10k = $row['type_of_employee'];
+        $type_of_loan_account_10k = $row['type_of_loan'];
+        $loan_amount_10k_rate = $row['loan_amount_10k_rate'];
+        $monthly_payment_10k_rate = $row['monthly_payment_10k_rate'];
+        $credit_10k_rate = $row['credit_10k_rate'];
+        $debit_pay_10k = $row['debit_pay_10k'];
+        $interest_rate_10k = $row['interest_rate_10k'];
+        $balance_rate_10k = $row['balance_rate_10k'];
+        $date_of_loan_10k = $row['date_of_loan'];
+        $comment_10k = $row['comment'];
+        $penalty_10k = $row['penalty_10k'];
+        $office_10k = $row['office_10k'];
+        $emp_rank_10k = $row['emp_rank_10k'];
+        $first_payment_10k = $row['first_payment_10k'];
+        $second_payment_10k = $row['second_payment_10k'];
+        $third_payment_10k = $row['third_payment_10k'];
+        $fourth_payment_10k = $row['fourth_payment_10k'];
+        $fifth_payment_10k = $row['fifth_payment_10k'];
+        $full_payment_10k = $row['full_payment_10k'];
+        $loan_status_10k = (($row['loan_status_10k'] == 0) ? 'Active' : 'Not Active');
+        $is_new_loan_10k = $row['isNewLoan'];
+
+        $borrower_fullname_10k = "$borrower_fname_10k $borrower_mname_10k $borrower_lname_10k";
+        $formatted_control_number_10k = "$ctrl_no_prefix$loan_id_10k";
+
+        echo '
+        <tbody>
+          <tr>
+            <input type="hidden" name="formatted_control_number_10k" value="'.$formatted_control_number_10k.'" />
+            <input type="hidden" name="loan_id_10k" value="'.$loan_id_10k.'" />
+            <input type="hidden" name="ctrl_no_prefix" value="'.$ctrl_no_prefix.'" />
+            <input type="hidden" name="borrower_id_10k" value="'.$borrower_id_10k.'" />
+            <input type="hidden" name="borrower_fname_10k" value="'.$borrower_fname_10k.'" />
+            <input type="hidden" name="borrower_mname_10k" value="'.$borrower_mname_10k.'" />
+            <input type="hidden" name="borrower_lname_10k" value="'.$borrower_lname_10k.'" />
+            <input type="hidden" name="type_of_employee_10k" value="'.$type_of_employee_10k.'" />
+            <input type="hidden" name="type_of_loan_account_10k" value="'.$type_of_loan_account_10k.'" />
+            <input type="hidden" name="loan_amount_10k_rate" value="'.$loan_amount_10k_rate.'" />
+            <input type="hidden" name="monthly_payment_10k_rate" value="'.$monthly_payment_10k_rate.'" />
+            <input type="hidden" name="credit_10k_rate" value="'.$credit_10k_rate.'" />
+            <input type="hidden" name="debit_pay_10k" value="'.$debit_pay_10k.'" />
+            <input type="hidden" name="interest_rate_10k" value="'.$interest_rate_10k.'" />
+            <input type="hidden" name="balance_rate_10k" value="'.$balance_rate_10k.'" />
+            <input type="hidden" name="date_of_loan_10k" value="'.$date_of_loan_10k.'" />
+            <input type="hidden" name="comment_10k" value="'.$comment_10k.'" />
+            <input type="hidden" name="penalty_10k" value="'.$penalty_10k.'" />
+            <input type="hidden" name="office_10k" value="'.$office_10k.'" />
+            <input type="hidden" name="emp_rank_10k" value="'.$emp_rank_10k.'" />
+            <input type="hidden" name="first_payment_10k" value="'.$first_payment_10k.'" />
+            <input type="hidden" name="second_payment_10k" value="'.$second_payment_10k.'" />
+            <input type="hidden" name="third_payment_10k" value="'.$third_payment_10k.'" />
+            <input type="hidden" name="fourth_payment_10k" value="'.$fourth_payment_10k.'" />
+            <input type="hidden" name="fifth_payment_10k" value="'.$fifth_payment_10k.'" />
+            <input type="hidden" name="full_payment_10k" value="'.$full_payment_10k.'" />
+            <input type="hidden" name="loan_status_10k" value="'.$loan_status_10k.'" />
+            <td>'.$formatted_control_number_10k.'</td>
+            <td>'.$borrower_fullname_10k.'</td>
+            <td>'.$loan_status_10k.'</td>';
+            echo <<<BUTTON
+            <td><a href="loanMonitoring.php?transaction_number_10k={$_SESSION['loan_id_10k']}">VIEW</a></td>
+BUTTON;
+        echo '</tr>
+        </tbody>';
       }
     echo '</table>
   </div>';
@@ -375,103 +441,6 @@ EMP_LIST;
             </div>
           </section>
 
-          <!-- Add New Payment 10K MODAL -->
-          <section id="newpayment_10k_modal">
-            <form class="newpayment_10k_container" method="post" action="">
-              <div class="newpayment_10k_titlecontainer">
-                <button type="button" id="btn_10k_moreoption">More</button>
-                <h3 align="center">Add New Payment</h3>
-              </div>
-              <div class="bdb-10k-content">
-
-                <div class="bdb-10k-inner-content">
-                  <div class="bdb-10k_container">
-                    <div class="borrowers_detailbox_10k">
-                      <input type="text" name="borrower_name_10k" disabled id="borrower_name_10k" />
-                      <input type="text" name="borrower_office_10k" disabled id="borrower_office_10k" />
-                    </div>
-                  </div>
-                  <div class="current_10K_loantransaction_container">
-                    <div class="clt_header_10k">
-                      <h5>Borrower's Loan History</h5>
-                    </div>
-                    <hr>
-                    <div class="clt_container_10k">
-                      <div class="cltbox10k">
-                        <div class="ctrl_number_box_10k clt">
-                          <label>Control Number</label>
-                          <input type="number" disabled name="txt_ctrl_number_10k" id="txt_ctrl_number_10k" value="0000000" /> 
-                        </div>
-                        <div class="account_type_10k clt">
-                          <label>Account Type:</label>
-                          <input type="text" disabled name="txt_accounttype_10k" id="txt_accounttype_10k" value="10k Account" />
-                        </div>
-                        <div class="balance_10k_box clt">
-                          <label>Current Balance</label>
-                          <input type="number" disabled name="balance_10k" id="balance_10k" value="0000000" /> 
-                        </div>
-                        <div class="currentstatus_10k_box clt">
-                          <label>Status</label>
-                          <input type="text" disabled name="txt_currentstatus_10k" id="txt_currentstatus_10k" value="Status" /> 
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="paymentbox_10k_container">
-                    <div class="paymentbox_10k_list">
-                      <div class="paymentbox10k_title">
-                        <h5 align="center" style="background: #009245; color: white">Payment Box</h5>
-                      </div>
-                      <div class="paymentbox_10k_content">
-
-                        <div class="paymentbox_10k">
-                          <div class="paymentoption_box np10kbox">
-                            <label for="paymentoption_10k">Payment Option</label>
-                            <select name="paymentoption_10k">
-                              <option value="1ST Payment">1ST Payment</option>
-                              <option value="2ND Payment">2ND Payment</option>
-                              <option value="3RD Payment">3RD Payment</option>
-                              <option value="FULL PAYMENT">FULL PAYMENT</option>
-                            </select>
-                          </div>
-                          <div class="date_of_payment_10k_box np10kbox">
-                            <label for="date_of_payment_10k">Date of Payment</label>
-                            <input type="date" name="date_of_payment_10k" id="datepicker_10k"/>
-                          </div>
-                          <div class="amount_payment_10k_box np10kbox">
-                            <label for="txt_amount_payment_10k">Amount Payment</label>
-                            <input type="number" name="txt_amount_payment_10k" id="txt_amount_payment_10k"/>
-                          </div>
-                          <div class="penaltyrate_10k_box np10kbox">
-                            <label>Penalty</label>
-                            <div>
-                              <label for="penaltyrate_10k" style="font-size: 13px;">80 PHP</label>
-                              <input type="radio" name="penaltyrate_10k" id="penaltyrate_10k"/>
-                            </div>
-                          </div>
-                          <div class="interest_10k_box np10kbox">
-                            <label for="txt_interestamount_10k">Interest</label>
-                            <input type="text" disabled name="txt_interestamount_10k" id="txt_interestamount_10k" placeholder="000" />
-                          </div>
-                          <div class="current_balance_10k_box np10kbox">
-                            <label for="txt_currentbalance_10k">Current Balance</label>
-                            <input type="text" disabled name="txt_currentbalance_10k" id="txt_currentbalance_10k" placeholder="000" />
-                          </div>
-                          <div class="pb10k_btnaction">
-                            <input type="submit" name="pb10k_btn_submit" id="pb10k_btn_submit" value="Pay" />
-                            <input type="button" name="pb10k_btn_cancel" id="pb10k_btn_cancel" onclick="document.getElementById('newpayment_10k_modal').style.display='none'" value="Cancel" />
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </form>
-          </section>
-
           <!-- ADD NEW 10K LOAN-->
           <section id="tenKaddnewloan-container">
             <div class="tenKaddnewloanpanel" id="tenKaddnewloan">
@@ -589,10 +558,6 @@ EMP_LIST;
                         echo '</div>';
                         ?>
                         </div>
-                        <!-- <div class="thirdbox" align="center">
-                          <input type="submit" name="submit_tenK_newloan" id="submit_tenK_newloan" value="Submit" />
-                          <input type="button" name="cancel_tenK_newloan" id="cancel_tenK_newloan" value="Cancel" onclick="document.getElementById('tenKaddnewloan-container').style.display='none'" />
-                        </div> -->
                       </div>
                     </div>
                   </div>
@@ -610,7 +575,11 @@ EMP_LIST;
               <p>10K Transaction Table</p>
             </div>
             <div id = "10ktransactiontable">
-              <?php echo 'No 10K Transactions Yet' ?>
+              <form action="" method="POST" id="showLoanPanel">
+                <?PHP
+                transaction_table_10k();
+                ?>
+              </form>
             </div>
           </div>
         </div>
@@ -626,7 +595,10 @@ EMP_LIST;
     $borrowerLname5k = '';
     $borrowerOffice5k = '';
     $borrowerType5k = '';
+    $borrowerRank5k = '';
     $LoanType5k = '';
+    $LoanAmountRate5k = '';
+    $MonthlyPaymentRate5k = '';
     $currentBalance5k = '';
     $interestRate5k = '';
     $creditRate5k = '';
@@ -966,9 +938,230 @@ if($LoanStatus5k === 'Active'){
   </section>
 ';
   }
-} else {
+} else if(isset($_GET['transaction_number_10k'])){
+  $LoanID10k = '';
+  $borrowerID10k = '';
+  $ctrlPrefix10k = '';
+  $borrowerFname10k = '';
+  $borrowerMname10k = '';
+  $borrowerLname10k = '';
+  $borrowerOffice10k = '';
+  $borrowerType10k = '';
+  $borrowerRank10k = '';
+  $LoanType10k = '';
+  $LoanAmountRate10k = '';
+  $MonthlyPaymentRate10k = '';
+  $currentBalance10k = '';
+  $interestRate10k = '';
+  $creditRate10k = '';
+  $LoanStatus10k = '';
+  $is_new_loan_10k = '';
 
-}
+  $first_payment_col_10k = '';
+  $second_payment_col_10k = '';
+  $third_payment_col_10k = '';
+  $fourth_payment_col_10k = '';
+  $fifth_payment_col_10k = '';
+  $full_payment_col_10k = '';
+  if(isset($_SESSION['loan_id_10k'])){
+    echo '<section id="newpayment_10k_modal">';
+    $new_loan10k_access = new db_access();
+    $display_loan10k_panel = $new_loan10k_access->select_new_loan_10k($_GET['transaction_number_10k']);
+
+    while($rs = $display_loan10k_panel->fetch_array(MYSQLI_ASSOC)){
+      $LoanID10k = $rs['loan_id_10k'];
+      $borrowerID10k = $rs['borrower_id'];
+      $ctrlPrefix10k = $rs['ctrl_no_prefix'];
+      $borrowerFname10k = $rs['fname'];
+      $borrowerMname10k = $rs['mname'];
+      $borrowerLname10k = $rs['lname'];
+      $borrowerOffice10k = $rs['office_10k'];
+      $borrowerType10k = $rs['type_of_employee'];
+      $borrowerRank10k = $rs['emp_rank_10k'];
+      $LoanType10k = $rs['type_of_loan'];
+      $LoanAmountRate10k = $rs['loan_amount_10k_rate'];
+      $MonthlyPaymentRate10k = $rs['monthly_payment_10k_rate'];
+      $currentBalance10k = $rs['balance_rate_10k'];
+      $interestRate10k = $rs['interest_rate_10k'];
+      $creditRate10k = $rs['credit_10k_rate'];
+      $LoanStatus10k = (($rs['loan_status_10k'] == 0) ? 'Active' : 'Not Active');
+      $is_new_loan_10k = $rs['isNewLoan'];
+
+      $first_payment_col_10k = $rs['first_payment_10k'];
+      $second_payment_col_10k = $rs['second_payment_10k'];
+      $third_payment_col_10k = $rs['third_payment_10k'];
+      $fourth_payment_col_10k = $rs['fourth_payment_10k'];
+      $fifth_payment_col_10k = $rs['fifth_payment_10k'];
+      $full_payment_col_10k = $rs['full_payment_10k'];
+
+      function payment_options_10k($isNewLoan_10k, $firstPaymentCol_10k, $secondPaymentCol_10k, $thirdPaymentCol_10k, $fourthPaymentCol_10k, $fifthPaymentCol_10k, $fullPaymentCol_10k){
+        if($isNewLoan_10k == 1){
+          echo '<select name="paymentoption_10k">
+          <option value="1st_payment_10k">1ST Payment</option>
+          <option value="2nd_payment_10k" disabled>2ND Payment</option>
+          <option value="3rd_payment_10k" disabled>3RD Payment</option>
+          <option value="4th_payment_10k" disabled>4TH Payment</option>
+          <option value="5th_payment_10k" disabled>5TH Payment</option>
+          <option value="full_payment_10k">FULL PAYMENT</option>
+        </select>';
+        }
+      }
+
+      $borrowerFullname10k = "$borrowerFname10k $borrowerMname10k $borrowerLname10k";
+      $control_number10k = "$ctrlPrefix10k$LoanID10k";
+    }
+
+    $get_dp_and_fp_10k = new db_access();
+    $get_data = $get_dp_and_fp_10k->get_dp_and_fp($borrowerID10k, $borrowerFname10k, $borrowerMname10k, $borrowerLname10k, $borrowerOffice10k, $borrowerType10k, $borrowerRank10k);
+    while($rs = $get_data->fetch_array(MYSQLI_ASSOC))
+      $dp5k = $rs['dp5k'];
+      $dp10k = $rs['dp10k'];
+      $dp = $rs['dpCount'];
+      $fp5k = $rs['fp5k'];
+      $fp10k = $rs['fp10k'];
+      $fp = $rs['fp_count'];
+      $penalty_count = $rs['penaltyCount'];
+      $penalty_5k_count = $rs['penalty5k'];
+      $penalty_10k_count = $rs['penalty10k'];
+    }
+echo '
+  <form class="newpayment_10k_container" method="post" action="">
+    <div class="newpayment_10k_titlecontainer">
+      <h3 align="center">Add New Payment</h3>
+    </div>
+    <div class="bdb-10k-content">
+      <div class="bdb-10k-inner-content">
+        <div class="bdb-10k_container">
+          <div class="borrowers_detailbox_10k">
+            <input type="hidden" name="b_loanID_10k" id="b_loanID_10k" value="'.$LoanID10k.'" />
+            <input type="hidden" name="b_empID_10k" id="b_empID_10k" value="'.$borrowerID10k.'" />
+            <input type="hidden" name="b_ctrl_10k" id="b_ctrl_10k" value="'.$ctrlPrefix10k.'" />
+            <input type="hidden" name="b_fname_10k" id="b_fname_10k" value="'.$borrowerFname10k.'" />
+            <input type="hidden" name="b_mname_10k" id="b_mname_10k" value="'.$borrowerMname10k.'" />
+            <input type="hidden" name="b_lname_10k" id="b_lname_10k" value="'.$borrowerLname10k.'" />
+            <input type="hidden" name="b_type_10k" id="b_type_10k" value="'.$borrowerType10k.'" />
+            <input type="hidden" name="b_rank_10k" id="b_rank_10k" value="'.$borrowerRank10k.'" />
+            <input type="hidden" name="b_loanType_10k" id="b_loanType_10k" value="'.$LoanType10k.'" />
+            <input type="hidden" name="txt_loan10k_amount_rate" value="'.$LoanAmountRate10k.'" />
+            <input type="hidden" name="txt_monthlyPayment_10k_rate" value="'.$MonthlyPaymentRate10k.'" />
+            <input type="hidden" name="b_office_10k" id="b_office_10k" value="'.$borrowerOffice10k.'" />
+            <input type="hidden" name="b_dp5k" value="'.$dp5k.'" />
+            <input type="hidden" name="b_dp10k" value="'.$dp10k.'" />
+            <input type="hidden" name="b_dp" value="'.$dp.'" />
+            <input type="hidden" name="b_fp" value="'.$fp.'" />
+            <input type="hidden" name="b_fp5k" value="'.$fp5k.'" />
+            <input type="hidden" name="b_fp10k" value="'.$fp10k.'" />
+            <input type="hidden" name="b_penalty_count" value="'.$penalty_count.'" />
+            <input type="hidden" name="b_penalty_5k_count" value="'.$penalty_5k_count.'" />
+            <input type="hidden" name="b_penalty_10k_count" value="'.$penalty_10k_count.'" />
+            <input type="hidden" name="is_new_loan_10k" value="'.$is_new_loan_10k.'" />
+            <input type="hidden" name="first_payment_col_10k" value="'.$first_payment_col_10k.'" />
+            <input type="hidden" name="second_payment_col_10k" value="'.$second_payment_col_10k.'" />
+            <input type="hidden" name="third_payment_col_10k" value="'.$third_payment_col_10k.'" />
+            <input type="hidden" name="fourth_payment_col_10k" value="'.$fourth_payment_col_10k.'" />
+            <input type="hidden" name="fifth_payment_col_10k" value="'.$fifth_payment_col_10k.'" />
+            <input type="hidden" name="full_payment_col_10k" value="'.$full_payment_col_10k.'" />
+            <input type="text" name="b_fullname_10k" id="b_fullname_10k" value="'.$borrowerFullname10k.'" />
+            <input type="text" disabled value="'.$borrowerOffice10k.'" />
+          </div>
+        </div>
+        <div class="current_10K_loantransaction_container">
+          <div class="clt_header_10k">
+            <h5>Borrower\'s Loan History</h5>
+          </div>
+          <hr>
+          <div class="clt_container_10k">
+            <div class="cltbox10k">
+              <div class="ctrl_number_box_10k clt">
+                <label>Control Number</label>
+                <input type="hidden" name="txt_ctrl_number_10k" id="txt_ctrl_number_10k" value="'.$control_number10k.'" />
+                <input type="text" disabled value="'.$control_number10k.'" />
+              </div>
+              <div class="account_type_10k clt">
+                <label>Account Type:</label>
+                <input type="hidden" name="txt_accounttype_10k" id="txt_accounttype_10k" value="'.$LoanType10k.'" />
+                <input type="text" disabled value="'.$LoanType10k.'" />
+              </div>
+              <div class="balance_10k_box clt">
+                <label>Current Balance</label>
+                <input type="hidden" name="balance_10k" id="balance_10k" value="'.$currentBalance10k.'" /> 
+                <input type="text" disabled value="'.$currentBalance10k.'" />
+              </div>
+              <div class="currentstatus_10k_box clt">
+                <label>Status</label>
+                <input type="hidden" name="txt_currentstatus_10k" id="txt_currentstatus_10k" value="'.$LoanStatus10k.'" />
+                <input type="text" disabled value="'.$LoanStatus10k.'" /> 
+              </div>
+            </div>
+          </div>
+        </div>';
+
+        if($LoanStatus10k === 'Active'){
+          echo '                  <div class="paymentbox_10k_container">
+          <div class="paymentbox_10k_list">
+            <div class="paymentbox10k_title">
+              <h5 align="center" style="background: #009245; color: white">Payment Box</h5>
+            </div>
+            <div class="paymentbox_10k_content">
+
+              <div class="paymentbox_10k">
+                <div class="paymentoption_box np10kbox">
+                  <label for="paymentoption_10k">Payment Option</label>
+                  <select name="paymentoption_10k">
+                    <option value="1ST Payment">1ST Payment</option>
+                    <option value="2ND Payment">2ND Payment</option>
+                    <option value="3RD Payment">3RD Payment</option>
+                    <option value="FULL PAYMENT">FULL PAYMENT</option>
+                  </select>
+                </div>
+                <div class="date_of_payment_10k_box np10kbox">
+                  <label for="date_of_payment_10k">Date of Payment</label>
+                  <input type="date" name="date_of_payment_10k" id="datepicker_10k"/>
+                </div>
+                <div class="amount_payment_10k_box np10kbox">
+                  <label for="txt_amount_payment_10k">Amount Payment</label>
+                  <input type="number" name="txt_amount_payment_10k" id="txt_amount_payment_10k"/>
+                </div>
+                <div class="penaltyrate_10k_box np10kbox">
+                  <label>Penalty</label>
+                  <div>
+                    <label for="penaltyrate_10k" style="font-size: 13px;">160 PHP</label>
+                    <input type="radio" name="penaltyrate_10k" id="penaltyrate_10k" value="160"/>
+                  </div>
+                </div>
+                <div class="interest_10k_box np10kbox">
+                  <label for="txt_interestamount_10k">Interest</label>
+                  <input type="hidden" name="txt_interestamount_10k" value="'.$interestRate10k.'" />
+                  <input type="text" disabled id="txt_interestamount_10k" value="'.$interestRate10k.'" />
+                </div>
+                <div class="current_balance_10k_box np10kbox">
+                  <label for="txt_currentbalance_10k">Credit</label>
+                  <input type="hidden" name="txt_currentbalance_10k" value="'.$creditRate10k.'" />
+                  <input type="text" id="txt_currentbalance_10k" value="'.$creditRate10k.'" />
+                </div>
+                <div class="pb10k_btnaction">
+                  <input type="submit" name="pb10k_btn_submit" id="pb10k_btn_submit" value="Pay" />
+                  <input type="button" name="pb10k_btn_cancel" id="pb10k_btn_cancel" onclick="window.location.href=\'loanMonitoring.php\'" value="Cancel" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>';
+        } else if($LoanStatus10k === 'Not Active'){
+          echo '
+          <div class="not_active_container" align="center">
+            <h4>Fully Paid</h4>
+          </div>
+          <div class="pb10k_btnaction">
+            <input type="button" name="pb10k_btn_cancel" id="pb10k_btn_cancel" onclick="window.location.href=\'loanMonitoring.php\'" value="Cancel" />
+          </div>';
+        }
+        echo '
+        </div>
+      </div>
+    </form>
+</section>';
+  }
   ?>
     </main>
 

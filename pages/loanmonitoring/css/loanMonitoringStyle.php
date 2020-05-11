@@ -179,6 +179,28 @@ body {
   border: 1px solid rgb(230, 230, 230);
 }
 
+#trasaction_table_10k > table {
+  width: 90%;
+  margin: auto;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+#trasaction_table_10k > table > thead {
+  background: #009245;
+  border: 1px solid rgb(179,179,179);
+}
+
+#trasaction_table_10k > table > thead > tr > th {
+  color: #fff;
+  font-weight: lighter;
+}
+
+#trasaction_table_10k > table > tbody {
+  background: #F2F2F2;
+  border: 1px solid rgb(230, 230, 230);
+}
+
 #btn-addnew5k {
   width: 11rem;
   height: 2.5rem;
@@ -976,19 +998,18 @@ hr {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.9); /* color */
-  display: none; /* making it hidden by default */
 }
 
 .newpayment_10k_container {
   display: block;
-  width: 400px;
-  height: 550px;
+  width: 600px;
+  height: 650px;
   margin: auto;
   background: #F2F2F2;
   border: 1px solid #dadada;
   border-radius: 5px;
   position: relative;
-  top: 40px;
+  top: 5px;
   border: none;
 }
 
@@ -1012,9 +1033,7 @@ hr {
 }
 
 .bdb-10k-content{
-  width: 380px;
-  padding: 5px;
-  height: 520px;
+  width: 550px;
   margin: auto;
 }
 
@@ -1056,8 +1075,8 @@ hr {
 }
 
 .current_10K_loantransaction_container {
-  width: 380px;
-  height: 150px;
+  width: 550px;
+  height: 125px;
   margin: auto;
 }
 
@@ -1075,7 +1094,7 @@ hr {
 .cltbox10k {
   display: grid;
   grid-auto-flow: row;
-  grid-gap: 10px;
+  grid-gap: 2px;
 }
 
 .current_10K_loantransaction_container h5 {
@@ -1091,7 +1110,7 @@ hr {
 }
 
 .paymentbox_10k_content {
-  height: 230px;
+  height: 240px;
   overflow: auto;
 }
 
@@ -1175,8 +1194,7 @@ hr {
 }
 
 .pb10k_btnaction {
-  margin-top: .3rem;
-  margin-left: 15.5rem;
+  margin: auto;
 }
 
 #pb10k_btn_submit {
