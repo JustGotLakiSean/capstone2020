@@ -65,12 +65,12 @@ if(isset($_POST['pb10k_btn_submit'])){
   $fourth_pay_current_interest_10k = '';
 
   $fifth_pay_current_balance_10k = '';
-  $fifth_pay_current_balance_10k = '';
+  $fifth_pay_current_interest_10k = '';
 
   $full_balance_10k = '';
   $full_interest_10k = '';
 
-  $prev_first_pay_bal = '';
+  $prev_fp_bal = '';
   $prev_sec_pay_bal = '';
   $prev_third_pay_bal = '';
   $prev_fourth_pay_bal = '';
@@ -165,6 +165,298 @@ if(isset($_POST['pb10k_btn_submit'])){
       echo "$penalty_10k_count<br>";
       echo "$control_number_10k<br>";
       echo "$borrowerFullname10k<br>";
+
+      $add_new_payment_10k = $db->first_payment($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $borrower_office, $borrower_rank, $loan_amount_10k_rate, $monthly_payment_10k_rate, $credit_rate, $amount_paid, $is_paid, $new_current_interest_10k, $new_current_balance_10k, $payment_option, $date_of_payment, $has_penalty_10k, $is_penalty_10k_paid, $penalty_10k_amount, $remarks);
+      if($add_new_payment_10k){
+        $db->update_first_payment_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+        $db->update_is_new_loan_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+        if($type_of_employee === 'civilian'){
+          $increment_dp = (int)$dp + 1;
+          $increment_dp10k = (int)$dp10k + 1;
+
+          $db->increment_downpayment_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
+          $db->increment_dp10k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp10k);
+        } else if($type_of_employee === 'officer'){
+          $increment_dp = (int)$dp + 1;
+          $increment_dp10k = (int)$dp10k + 1;
+
+          $db->increment_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
+          $db->increment_dp10k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp10k);
+        }
+        header("Location: loanMonitoring.php");
+      } else {
+        printf("%s\n", $con->error);
+      }
+    } else if($payment_option === '2nd_payment_10k'){
+      $remarks = "$borrowerFullname10k New Loan Payment";
+      echo '2nd_payment_option<br>';
+      echo "<strong>2 Load ID 10k</strong>: $loan_id<br>";
+      echo "<strong>3 Type Of Loan Account</strong>: $type_of_loanAccount<br>";
+      echo "<strong>4 Borrower ID</strong>: $borrower_id<br>";
+      echo "<strong>5 PREFIX</strong>: $ctrl_no_prefix<br>";
+      echo "<strong>6 Firstname</strong>: $fname<br>";
+      echo "<strong>7 Middlename</strong>: $mname<br>";
+      echo "<strong>8 Lastname</strong>: $lname<br>";
+      echo "<strong>9 Type Of Employee</strong>: $type_of_employee<br>";
+      echo "<strong>10 Office</strong>: $borrower_office<br>";
+      echo "<strong>11 Rank</strong>: $borrower_rank<br>";
+      echo "<strong>11.5 Loan Amount Rate</strong>: $loan_amount_10k_rate<br>"; // 11
+      echo "<strong>12 Monthly Payment</strong>: $monthly_payment_10k_rate<br>";
+      echo "<strong>13 Credit</strong>: $credit_rate<br>";
+      echo "<strong>14 Amount Paid</strong>: $amount_paid<br>";
+      echo "<strong>15 Is Paid</strong>? $is_paid<br>";
+      echo "<strong>16 Total Current Interest</strong>: $new_current_interest_10k<br>";
+      echo "<strong>17 Total Current Balance</strong>: $new_current_balance_10k<br>";
+      echo "<strong>18 Payment Option</strong>: $payment_option<br>";
+      echo "<strong>19 Date Of Payment</strong>: $date_of_payment<br>";
+      echo "<strong>20 Has Penalty</strong>? $has_penalty_10k<br>";
+      echo "<strong>21 Penalty Paid</strong>: $is_penalty_10k_paid<br>";
+      echo "<strong>22 Penalty Amount</strong>: $penalty_10k_amount<br>";
+      echo "<strong>23 Remarks</strong>: $remarks<br>";
+
+      echo "$dp5k<br>";
+      echo "$dp10k<br>";
+      echo "$dp<br>";
+      echo "$fp<br>";
+      echo "$fp5k<br>";
+      echo "$fp10k<br>";
+      echo "$penalty_count<br>";
+      echo "$penalty_5k_count<br>";
+      echo "$penalty_10k_count<br>";
+      echo "$control_number_10k<br>";
+      echo "$borrowerFullname10k<br>";
+
+      if(isset($_POST['prev_fp_pay']) && isset($_POST['prev_fp_bal']) && isset($_POST['prev_fp_interest'])){
+        $prev_fp_bal = mysqli_real_escape_string($con, $_POST['prev_fp_bal']);
+        $prev_fp_interest = mysqli_real_escape_string($con, $_POST['prev_fp_interest']);
+        $prev_fp_pay = mysqli_real_escape_string($con, $_POST['prev_fp_pay']);
+
+        $second_pay_current_balance_10k = (int)$prev_fp_bal - (int)$amount_paid;
+        $second_pay_current_interest_10k = $prev_fp_interest;
+
+        echo "AMOU PAID: $amount_paid<br>";
+
+        echo "PREV BAL: $prev_fp_bal<br>";
+        echo "PREV INT: $prev_fp_interest<br>";
+        echo "PREV PAY: $prev_fp_pay<br>";
+        echo "NEW BAL: $second_pay_current_balance_10k<br>";
+        echo "NEW INT: $second_pay_current_interest_10k<br>";
+
+        $add_second_payment_10k = $db->add_to_2ndpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $borrower_office, $borrower_rank, $loan_amount_10k_rate, $monthly_payment_10k_rate, $credit_rate, $amount_paid, $is_paid, $second_pay_current_interest_10k, $second_pay_current_balance_10k, $payment_option, $date_of_payment, $has_penalty_10k, $is_penalty_10k_paid, $penalty_10k_amount, $remarks);
+        if($add_second_payment_10k){
+          $db->update_second_payment_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+          echo "Second Payment Done!";
+          header("Location: loanMonitoring.php");
+        } else {
+          printf("%s\n", $con->error);
+        }
+      } else {
+        // do nothing...
+      }
+    } else if($payment_option === '3rd_payment_10k'){
+      echo "3RD PAY<br>";
+      $remarks = "$borrowerFullname10k New Loan Payment";
+      echo '2nd_payment_option<br>';
+      echo "<strong>2 Load ID 10k</strong>: $loan_id<br>";
+      echo "<strong>3 Type Of Loan Account</strong>: $type_of_loanAccount<br>";
+      echo "<strong>4 Borrower ID</strong>: $borrower_id<br>";
+      echo "<strong>5 PREFIX</strong>: $ctrl_no_prefix<br>";
+      echo "<strong>6 Firstname</strong>: $fname<br>";
+      echo "<strong>7 Middlename</strong>: $mname<br>";
+      echo "<strong>8 Lastname</strong>: $lname<br>";
+      echo "<strong>9 Type Of Employee</strong>: $type_of_employee<br>";
+      echo "<strong>10 Office</strong>: $borrower_office<br>";
+      echo "<strong>11 Rank</strong>: $borrower_rank<br>";
+      echo "<strong>11.5 Loan Amount Rate</strong>: $loan_amount_10k_rate<br>"; // 11
+      echo "<strong>12 Monthly Payment</strong>: $monthly_payment_10k_rate<br>";
+      echo "<strong>13 Credit</strong>: $credit_rate<br>";
+      echo "<strong>14 Amount Paid</strong>: $amount_paid<br>";
+      echo "<strong>15 Is Paid</strong>? $is_paid<br>";
+      echo "<strong>16 Total Current Interest</strong>: $new_current_interest_10k<br>";
+      echo "<strong>17 Total Current Balance</strong>: $new_current_balance_10k<br>";
+      echo "<strong>18 Payment Option</strong>: $payment_option<br>";
+      echo "<strong>19 Date Of Payment</strong>: $date_of_payment<br>";
+      echo "<strong>20 Has Penalty</strong>? $has_penalty_10k<br>";
+      echo "<strong>21 Penalty Paid</strong>: $is_penalty_10k_paid<br>";
+      echo "<strong>22 Penalty Amount</strong>: $penalty_10k_amount<br>";
+      echo "<strong>23 Remarks</strong>: $remarks<br>";
+
+      echo "$dp5k<br>";
+      echo "$dp10k<br>";
+      echo "$dp<br>";
+      echo "$fp<br>";
+      echo "$fp5k<br>";
+      echo "$fp10k<br>";
+      echo "$penalty_count<br>";
+      echo "$penalty_5k_count<br>";
+      echo "$penalty_10k_count<br>";
+      echo "$control_number_10k<br>";
+      echo "$borrowerFullname10k<br>";
+
+      if(isset($_POST['prev_second_pay']) && isset($_POST['prev_second_bal']) && isset($_POST['prev_second_interest'])){
+        $prev_second_pay = mysqli_real_escape_string($con, $_POST['prev_second_pay']);
+        $prev_second_bal = mysqli_real_escape_string($con, $_POST['prev_second_bal']);
+        $prev_second_interest = mysqli_real_escape_string($con, $_POST['prev_second_interest']);
+
+        $third_pay_current_balance_10k = (int)$prev_second_bal - (int)$amount_paid;
+        $third_pay_current_interest_10k = $prev_second_interest;
+
+        echo "AMOUNT PAID 3RD: $amount_paid<br>";
+
+        echo "PREV BAL: $prev_second_bal<br>";
+        echo "PREV INT: $prev_second_interest<br>";
+        echo "PREV PAY: $prev_second_pay<br>";
+        echo "NEW BAL: $third_pay_current_balance_10k<br>";
+        echo "NEW INIT: $third_pay_current_interest_10k<br>";
+
+        $add_third_payment_10k = $db->add_to_3rdpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $borrower_office, $borrower_rank, $loan_amount_10k_rate, $monthly_payment_10k_rate, $credit_rate, $amount_paid, $is_paid, $third_pay_current_interest_10k, $third_pay_current_balance_10k, $payment_option, $date_of_payment, $has_penalty_10k, $is_penalty_10k_paid, $penalty_10k_amount, $remarks);
+        if($add_third_payment_10k){
+          $db->update_third_payment_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+          echo "Third Payment<br>";
+          header("Location: loanMonitoring.php");
+        } else {
+          printf("%s\n", $con->error);
+        }
+      } else {
+        // do nothing...
+      }
+
+    } else if($payment_option === '4th_payment_10k'){
+      echo "4th PAY<br>";
+      $remarks = "$borrowerFullname10k New Loan Payment";
+      echo '4th_payment_option<br>';
+      echo "<strong>2 Load ID 10k</strong>: $loan_id<br>";
+      echo "<strong>3 Type Of Loan Account</strong>: $type_of_loanAccount<br>";
+      echo "<strong>4 Borrower ID</strong>: $borrower_id<br>";
+      echo "<strong>5 PREFIX</strong>: $ctrl_no_prefix<br>";
+      echo "<strong>6 Firstname</strong>: $fname<br>";
+      echo "<strong>7 Middlename</strong>: $mname<br>";
+      echo "<strong>8 Lastname</strong>: $lname<br>";
+      echo "<strong>9 Type Of Employee</strong>: $type_of_employee<br>";
+      echo "<strong>10 Office</strong>: $borrower_office<br>";
+      echo "<strong>11 Rank</strong>: $borrower_rank<br>";
+      echo "<strong>11.5 Loan Amount Rate</strong>: $loan_amount_10k_rate<br>"; // 11
+      echo "<strong>12 Monthly Payment</strong>: $monthly_payment_10k_rate<br>";
+      echo "<strong>13 Credit</strong>: $credit_rate<br>";
+      echo "<strong>14 Amount Paid</strong>: $amount_paid<br>";
+      echo "<strong>15 Is Paid</strong>? $is_paid<br>";
+      echo "<strong>16 Total Current Interest</strong>: $new_current_interest_10k<br>";
+      echo "<strong>17 Total Current Balance</strong>: $new_current_balance_10k<br>";
+      echo "<strong>18 Payment Option</strong>: $payment_option<br>";
+      echo "<strong>19 Date Of Payment</strong>: $date_of_payment<br>";
+      echo "<strong>20 Has Penalty</strong>? $has_penalty_10k<br>";
+      echo "<strong>21 Penalty Paid</strong>: $is_penalty_10k_paid<br>";
+      echo "<strong>22 Penalty Amount</strong>: $penalty_10k_amount<br>";
+      echo "<strong>23 Remarks</strong>: $remarks<br>";
+
+      echo "$dp5k<br>";
+      echo "$dp10k<br>";
+      echo "$dp<br>";
+      echo "$fp<br>";
+      echo "$fp5k<br>";
+      echo "$fp10k<br>";
+      echo "$penalty_count<br>";
+      echo "$penalty_5k_count<br>";
+      echo "$penalty_10k_count<br>";
+      echo "$control_number_10k<br>";
+      echo "$borrowerFullname10k<br>";
+
+      if(isset($_POST['prev_third_pay']) && isset($_POST['prev_third_bal']) && isset($_POST['prev_third_interest'])){
+        $prev_third_pay = mysqli_real_escape_string($con, $_POST['prev_third_pay']);
+        $prev_third_bal = mysqli_real_escape_string($con, $_POST['prev_third_bal']);
+        $prev_third_interest = mysqli_real_escape_string($con, $_POST['prev_third_interest']);
+
+        $fourth_pay_current_balance_10k = (int)$prev_third_bal - (int)$amount_paid;
+        $fourth_pay_current_interest_10k = $prev_third_interest;
+
+        echo "AMOUNT PAID 4TH: $amount_paid<br>";
+        echo "PREV BAL: $prev_third_bal<br>";
+        echo "PREV INT: $prev_third_interest<br>";
+        echo "PREV PAY: $prev_third_pay<br>";
+        echo "NEW BAL: $fourth_pay_current_balance_10k<br>";
+        echo "NEW INT: $fourth_pay_current_interest_10k<br>";
+
+        $add_fourth_payment_10k = $db->add_to_4thpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $borrower_office, $borrower_rank, $loan_amount_10k_rate, $monthly_payment_10k_rate, $credit_rate, $amount_paid, $is_paid, $fourth_pay_current_interest_10k, $fourth_pay_current_balance_10k, $payment_option, $date_of_payment, $has_penalty_10k, $is_penalty_10k_paid, $penalty_10k_amount, $remarks);
+        if($add_fourth_payment_10k){
+          $db->update_fourth_payment_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+          echo "FOURTH PAYMENT<br>";
+          header("Location: loanMonitoring.php");
+        } else {
+          printf("%s\n", $con->error);
+        }
+      } else {
+        // do nothing...
+      }
+
+    } else if($payment_option === '5th_payment_10k'){
+      echo "5TH PAYMENT<br>";
+      $remarks = "$borrowerFullname10k New Loan Payment";
+      echo '4th_payment_option<br>';
+      echo "<strong>2 Load ID 10k</strong>: $loan_id<br>";
+      echo "<strong>3 Type Of Loan Account</strong>: $type_of_loanAccount<br>";
+      echo "<strong>4 Borrower ID</strong>: $borrower_id<br>";
+      echo "<strong>5 PREFIX</strong>: $ctrl_no_prefix<br>";
+      echo "<strong>6 Firstname</strong>: $fname<br>";
+      echo "<strong>7 Middlename</strong>: $mname<br>";
+      echo "<strong>8 Lastname</strong>: $lname<br>";
+      echo "<strong>9 Type Of Employee</strong>: $type_of_employee<br>";
+      echo "<strong>10 Office</strong>: $borrower_office<br>";
+      echo "<strong>11 Rank</strong>: $borrower_rank<br>";
+      echo "<strong>11.5 Loan Amount Rate</strong>: $loan_amount_10k_rate<br>"; // 11
+      echo "<strong>12 Monthly Payment</strong>: $monthly_payment_10k_rate<br>";
+      echo "<strong>13 Credit</strong>: $credit_rate<br>";
+      echo "<strong>14 Amount Paid</strong>: $amount_paid<br>";
+      echo "<strong>15 Is Paid</strong>? $is_paid<br>";
+      echo "<strong>16 Total Current Interest</strong>: $new_current_interest_10k<br>";
+      echo "<strong>17 Total Current Balance</strong>: $new_current_balance_10k<br>";
+      echo "<strong>18 Payment Option</strong>: $payment_option<br>";
+      echo "<strong>19 Date Of Payment</strong>: $date_of_payment<br>";
+      echo "<strong>20 Has Penalty</strong>? $has_penalty_10k<br>";
+      echo "<strong>21 Penalty Paid</strong>: $is_penalty_10k_paid<br>";
+      echo "<strong>22 Penalty Amount</strong>: $penalty_10k_amount<br>";
+      echo "<strong>23 Remarks</strong>: $remarks<br>";
+
+      echo "$dp5k<br>";
+      echo "$dp10k<br>";
+      echo "$dp<br>";
+      echo "$fp<br>";
+      echo "$fp5k<br>";
+      echo "$fp10k<br>";
+      echo "$penalty_count<br>";
+      echo "$penalty_5k_count<br>";
+      echo "$penalty_10k_count<br>";
+      echo "$control_number_10k<br>";
+      echo "$borrowerFullname10k<br>";
+
+      if(isset($_POST['prev_fourth_pay']) && isset($_POST['prev_fourth_bal']) && isset($_POST['prev_fourth_interest'])){
+        $prev_fourth_pay = mysqli_real_escape_string($con, $_POST['prev_fourth_pay']);
+        $prev_fourth_bal = mysqli_real_escape_string($con, $_POST['prev_fourth_bal']);
+        $prev_fourth_interest = mysqli_real_escape_string($con, $_POST['prev_fourth_interest']);
+
+        $fifth_pay_current_balance_10k = (int)$prev_fourth_bal - (int)$amount_paid;
+        $fifth_pay_current_interest_10k = (int)$prev_fourth_interest;
+
+        echo "AMOUNT PAID 5TH: $amount_paid<br>";
+        echo "PREV BAL: $prev_fourth_bal<br>";
+        echo "PREV INT: $prev_fourth_interest<br>";
+        echo "PREV PAY: $prev_fourth_pay<br>";
+        echo "NEW BAL: $fifth_pay_current_balance_10k<br>";
+        echo "NEW INT: $fifth_pay_current_interest_10k<br>";
+
+        $add_fifth_payment_10k = $db->add_to_5thpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $borrower_office, $borrower_rank, $loan_amount_10k_rate, $monthly_payment_10k_rate, $credit_rate, $amount_paid, $is_paid, $fifth_pay_current_interest_10k, $fifth_pay_current_balance_10k, $payment_option, $date_of_payment, $has_penalty_10k, $is_penalty_10k_paid, $penalty_10k_amount, $remarks);
+        if($add_fifth_payment_10k){
+          $db->update_fifth_payment_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+          echo "FIFTH PAYMENT<br>";
+          header("Location: loanMonitoring.php");
+        } else {
+          printf("%s\n", $con->error);
+        }
+      } else {
+        // do nothing...
+      }
+
+    } else if($payment_option === 'full_payment_10k'){
+      echo "FULL<br>";
     }
   }
 }

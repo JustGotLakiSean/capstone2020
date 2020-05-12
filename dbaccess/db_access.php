@@ -418,11 +418,11 @@ class db_access {
   }
 
   //tbl_3rdpayment
-  public function add_to_3rdpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $amount_paid, $is_paid, $current_interest, $current_balance, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount)
+  public function add_to_3rdpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $amount_paid, $is_paid, $current_interest, $current_balance, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks)
   {
     $con=$this->getConnection();
-    $query="INSERT INTO tbl_3rdpayment(loan_id, type_of_loanAccount, borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, office, borrower_rank, loan_amount_rate, monthly_payment_rate, credit_rate, amount_paid, is_paid, current_interest, current_balance, payment_option, date_of_payment, has_penalty, is_penalty_paid, penalty_amount)
-    VALUES('$loan_id', '$type_of_loanAccount', '$borrower_id', '$ctrl_no_prefix', '$fname', '$mname', '$lname', '$type_of_employee', '$office', '$borrower_rank', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$amount_paid', '$is_paid', '$current_interest', '$current_balance', '$payment_option', '$date_of_payment', '$has_penalty', '$is_penalty_paid', '$penalty_amount')";
+    $query="INSERT INTO tbl_3rdpayment(loan_id, type_of_loanAccount, borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, office, borrower_rank, loan_amount_rate, monthly_payment_rate, credit_rate, amount_paid, is_paid, current_interest, current_balance, payment_option, date_of_payment, has_penalty, is_penalty_paid, penalty_amount, remarks)
+    VALUES('$loan_id', '$type_of_loanAccount', '$borrower_id', '$ctrl_no_prefix', '$fname', '$mname', '$lname', '$type_of_employee', '$office', '$borrower_rank', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$amount_paid', '$is_paid', '$current_interest', '$current_balance', '$payment_option', '$date_of_payment', '$has_penalty', '$is_penalty_paid', '$penalty_amount', '$remarks')";
     $third_payment = $con->query($query);
     if($third_payment){
       return true;
@@ -432,32 +432,71 @@ class db_access {
     $con->close();
   }
 
-  //tbl_4thpayment
-  public function add_to_4thpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $amount_paid, $is_paid, $current_interest, $current_balance, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount)
+  public function display_3rdpayment($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $borrower_rank)
   {
     $con=$this->getConnection();
-    $query="INSERT INTO tbl_4thpayment(loan_id, type_of_loanAccount, borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, office, borrower_rank, loan_amount_rate, monthly_payment_rate, credit_rate, amount_paid, is_paid, current_interest, current_balance, payment_option, date_of_payment, has_penalty, is_penalty_paid, penalty_amount)
-    VALUES('$loan_id', '$type_of_loanAccount', '$borrower_id', '$ctrl_no_prefix', '$fname', '$mname', '$lname', '$type_of_employee', '$office', '$borrower_rank', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$amount_paid', '$is_paid', '$current_interest', '$current_balance', '$payment_option', '$date_of_payment', '$has_penalty', '$is_penalty_paid', '$penalty_amount')";
+    $query="SELECT * FROM tbl_3rdpayment WHERE loan_id = '$loan_id' AND type_of_loanAccount = '$type_of_loanAccount' AND borrower_id = '$borrower_id' AND ctrl_no_prefix = '$ctrl_no_prefix' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND borrower_rank = '$borrower_rank'";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  //tbl_4thpayment
+  public function add_to_4thpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $amount_paid, $is_paid, $current_interest, $current_balance, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks)
+  {
+    $con=$this->getConnection();
+    $query="INSERT INTO tbl_4thpayment(loan_id, type_of_loanAccount, borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, office, borrower_rank, loan_amount_rate, monthly_payment_rate, credit_rate, amount_paid, is_paid, current_interest, current_balance, payment_option, date_of_payment, has_penalty, is_penalty_paid, penalty_amount, remarks)
+    VALUES('$loan_id', '$type_of_loanAccount', '$borrower_id', '$ctrl_no_prefix', '$fname', '$mname', '$lname', '$type_of_employee', '$office', '$borrower_rank', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$amount_paid', '$is_paid', '$current_interest', '$current_balance', '$payment_option', '$date_of_payment', '$has_penalty', '$is_penalty_paid', '$penalty_amount', '$remarks')";
     $fourth_payment = $con->query($query);
     if($fourth_payment){
       return true;
     } else {
-      return false;
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function display_4thpayment($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $borrower_rank)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_4thpayment WHERE loan_id = '$loan_id' AND type_of_loanAccount = '$type_of_loanAccount' AND borrower_id = '$borrower_id' AND ctrl_no_prefix = '$ctrl_no_prefix' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND borrower_rank = '$borrower_rank'";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
     }
     $con->close();
   }
 
   //tbl_5thpayment
-  public function add_to_5thpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $amount_paid, $is_paid, $current_interest, $current_balance, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount)
+  public function add_to_5thpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $amount_paid, $is_paid, $current_interest, $current_balance, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks)
   {
     $con=$this->getConnection();
-    $query="INSERT INTO tbl_5thpayment(loan_id, type_of_loanAccount, borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, office, borrower_rank, loan_amount_rate, monthly_payment_rate, credit_rate, amount_paid, is_paid, current_interest, current_balance, payment_option, date_of_payment, has_penalty, is_penalty_paid, penalty_amount)
-    VALUES('$loan_id', '$type_of_loanAccount', '$borrower_id', '$ctrl_no_prefix', '$fname', '$mname', '$lname', '$type_of_employee', '$office', '$borrower_rank', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$amount_paid', '$is_paid', '$current_interest', '$current_balance', '$payment_option', '$date_of_payment', '$has_penalty', '$is_penalty_paid', '$penalty_amount')";
+    $query="INSERT INTO tbl_5thpayment(loan_id, type_of_loanAccount, borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, office, borrower_rank, loan_amount_rate, monthly_payment_rate, credit_rate, amount_paid, is_paid, current_interest, current_balance, payment_option, date_of_payment, has_penalty, is_penalty_paid, penalty_amount, remarks)
+    VALUES('$loan_id', '$type_of_loanAccount', '$borrower_id', '$ctrl_no_prefix', '$fname', '$mname', '$lname', '$type_of_employee', '$office', '$borrower_rank', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$amount_paid', '$is_paid', '$current_interest', '$current_balance', '$payment_option', '$date_of_payment', '$has_penalty', '$is_penalty_paid', '$penalty_amount', '$remarks')";
     $fifth_payment = $con->query($query);
     if($fifth_payment){
       return true;
     } else {
-      return false;
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function display_5thpayment($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $borrower_rank)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_5thpayment WHERE loan_id = '$loan_id' AND type_of_loanAccount = '$type_of_loanAccount' AND borrower_id = '$borrower_id' AND ctrl_no_prefix = '$ctrl_no_prefix' AND fname = '$fname' AND mname = '$mname' AND lname = '$lname' AND type_of_employee = '$type_of_employee' AND borrower_rank = '$borrower_rank'";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
     }
     $con->close();
   }
@@ -472,7 +511,7 @@ class db_access {
     if($full_payment){
       return true;
     } else {
-      return false;
+      die($con->error);
     }
     $con->close();
   }
@@ -645,7 +684,7 @@ class db_access {
   }
 
   // dp10k
-  public function update_dp10k_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  public function increment_dp10k_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
   {
     $con=$this->getConnection();
     $query = "UPDATE tbl_officersandep SET dp_10k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
@@ -688,7 +727,7 @@ class db_access {
   }
 
   // fp10k
-  public function update_fp_10k_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  public function increment_fp_10k_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
   {
     $con=$this->getConnection();
     $query = "UPDATE tbl_officersandep SET fp_10k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
@@ -869,7 +908,7 @@ class db_access {
     if($update_query){
       return true;
     } else {
-      return false;
+      die($con->error);
     }
   }
 

@@ -1141,6 +1141,158 @@ echo '
           </div>
         </div>';
 
+        function display_1st_payment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank){
+          $db = new db_access();
+
+          // display borrower's first payment
+          // 'fp' - first payment
+          $display_1st_payment_details = $db->display_1stpayment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank);
+          while($res = $display_1st_payment_details->fetch_array(MYSQLI_ASSOC)){
+            $prev_fp_pay = $res['amount_paid'];
+            $prev_fp_interest = $res['current_interest'];
+            $remarks_fp = $res['remarks'];
+            $date_of_payment_fp = $res['date_of_payment'];
+            $prev_fp_bal = $res['current_balance'];
+
+            if($res > 0){
+              echo '
+              <input type="hidden" name="prev_fp_pay" value="'.$prev_fp_pay.'" />
+              <input type="hidden" name="prev_fp_bal" value="'.$prev_fp_bal.'" />
+              <input type="hidden" name="prev_fp_interest" value="'.$prev_fp_interest.'" />
+              <input type="hidden" name="remarks_fp" value="'.$remarks_fp.'" />
+              <input type="hidden" name="date_of_payment_fp" value="'.$date_of_payment_fp.'" />
+              <td>'.$prev_fp_pay.'</td>
+              <td>'.$prev_fp_interest.'</td>
+              <td>'.$prev_fp_bal.'</td>
+              <td>'.$remarks_fp.'</td>
+              <td>'.$date_of_payment_fp.'</td>
+              ';
+            } else {
+              // do nothing...
+            }
+          }
+        }
+
+        // display borrower's second payment function
+        function display_2nd_payment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank){
+          $db = new db_access();
+
+          $diplay_2nd_payment_details = $db->display_2ndpayment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank);
+          while($row = $diplay_2nd_payment_details->fetch_array(MYSQLI_ASSOC)){
+            $prev_second_pay = $row['amount_paid'];
+            $prev_second_interest = $row['current_interest'];
+            $remarks_sp = $row['remarks'];
+            $date_of_payment_sp = $row['date_of_payment'];
+            $prev_second_bal = $row['current_balance'];
+
+            if($row > 0){
+              echo '
+              <input type="hidden" name="prev_second_pay" value="'.$prev_second_pay.'" />
+              <input type="hidden" name="prev_second_bal" value="'.$prev_second_bal.'" />
+              <input type="hidden" name="prev_second_interest" value="'.$prev_second_interest.'" />
+              <input type="hidden" name="remarks_sp" value="'.$remarks_sp.'" />
+              <input type="hidden" name="date_of_payment_sp" value="'.$date_of_payment_sp.'" />
+              <td>'.$prev_second_pay.'</td>
+              <td>'.$prev_second_interest.'</td>
+              <td>'.$prev_second_bal.'</td>
+              <td>'.$remarks_sp.'</td>
+              <td>'.$date_of_payment_sp.'</td>';
+            } else {
+              // do nothing...
+            }
+          }
+        }
+
+        // display borrower's second payment function
+        function display_3rd_payment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank){
+          $db = new db_access();
+
+          $diplay_3rd_payment_details = $db->display_3rdpayment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank);
+          while($row = $diplay_3rd_payment_details->fetch_array(MYSQLI_ASSOC)){
+            $prev_third_pay = $row['amount_paid'];
+            $prev_third_interest = $row['current_interest'];
+            $remarks_sp = $row['remarks'];
+            $date_of_payment_sp = $row['date_of_payment'];
+            $prev_third_bal = $row['current_balance'];
+
+            if($row > 0){
+              echo '
+              <input type="hidden" name="prev_third_pay" value="'.$prev_third_pay.'" />
+              <input type="hidden" name="prev_third_bal" value="'.$prev_third_bal.'" />
+              <input type="hidden" name="prev_third_interest" value="'.$prev_third_interest.'" />
+              <input type="hidden" name="remarks_sp" value="'.$remarks_sp.'" />
+              <input type="hidden" name="date_of_payment_sp" value="'.$date_of_payment_sp.'" />
+              <td>'.$prev_third_pay.'</td>
+              <td>'.$prev_third_interest.'</td>
+              <td>'.$prev_third_bal.'</td>
+              <td>'.$remarks_sp.'</td>
+              <td>'.$date_of_payment_sp.'</td>';
+            } else {
+              // do nothing...
+            }
+          }
+        }
+
+        // display borrower's second payment function
+        function display_4th_payment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank){
+          $db = new db_access();
+
+          $diplay_4th_payment_details = $db->display_4thpayment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank);
+          while($row = $diplay_4th_payment_details->fetch_array(MYSQLI_ASSOC)){
+            $prev_fourth_pay = $row['amount_paid'];
+            $prev_fourth_interest = $row['current_interest'];
+            $remarks_sp = $row['remarks'];
+            $date_of_payment_sp = $row['date_of_payment'];
+            $prev_fourth_bal = $row['current_balance'];
+
+            if($row > 0){
+              echo '
+              <input type="hidden" name="prev_fourth_pay" value="'.$prev_fourth_pay.'" />
+              <input type="hidden" name="prev_fourth_bal" value="'.$prev_fourth_bal.'" />
+              <input type="hidden" name="prev_fourth_interest" value="'.$prev_fourth_interest.'" />
+              <input type="hidden" name="remarks_sp" value="'.$remarks_sp.'" />
+              <input type="hidden" name="date_of_payment_sp" value="'.$date_of_payment_sp.'" />
+              <td>'.$prev_fourth_pay.'</td>
+              <td>'.$prev_fourth_interest.'</td>
+              <td>'.$prev_fourth_bal.'</td>
+              <td>'.$remarks_sp.'</td>
+              <td>'.$date_of_payment_sp.'</td>';
+            } else {
+              // do nothing...
+            }
+          }
+        }
+
+        // display borrower's second payment function
+        function display_5th_payment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank){
+          $db = new db_access();
+
+          $diplay_5th_payment_details = $db->display_5thpayment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank);
+          while($row = $diplay_5th_payment_details->fetch_array(MYSQLI_ASSOC)){
+            $prev_fifth_pay = $row['amount_paid'];
+            $prev_fifth_interest = $row['current_interest'];
+            $remarks_sp = $row['remarks'];
+            $date_of_payment_sp = $row['date_of_payment'];
+            $prev_fifth_bal = $row['current_balance'];
+
+            if($row > 0){
+              echo '
+              <input type="hidden" name="prev_fifth_pay" value="'.$prev_fifth_pay.'" />
+              <input type="hidden" name="prev_fifth_bal" value="'.$prev_fifth_bal.'" />
+              <input type="hidden" name="prev_fifth_interest" value="'.$prev_fifth_interest.'" />
+              <input type="hidden" name="remarks_sp" value="'.$remarks_sp.'" />
+              <input type="hidden" name="date_of_payment_sp" value="'.$date_of_payment_sp.'" />
+              <td>'.$prev_fifth_pay.'</td>
+              <td>'.$prev_fifth_interest.'</td>
+              <td>'.$prev_fifth_bal.'</td>
+              <td>'.$remarks_sp.'</td>
+              <td>'.$date_of_payment_sp.'</td>';
+            } else {
+              // do nothing...
+            }
+          }
+        }
+
         // display first loan info
         $get_10k_info = new db_access();
         $display_10k_table = $get_10k_info->display_borrower_new_10k_list($LoanID10k, $borrowerID10k, $borrowerFname10k, $borrowerMname10k, $borrowerLname10k, $borrowerType10k, $borrowerRank10k);
@@ -1173,8 +1325,23 @@ echo '
                 <td>'.$bal_10k.'</td>
                 <td>'.$com_10k.'</td>
                 <td>'.$dop_10k.'</td>
-              </tr>
-            </tbody>
+              </tr>';
+        echo '<tr>';
+        echo display_1st_payment($LoanID10k, $LoanType10k, $borrowerID10k, $ctrlPrefix10k, $borrowerFname10k, $borrowerMname10k, $borrowerLname10k, $borrowerType10k, $borrowerRank10k);
+        echo '</tr>';
+        echo '<tr>';
+        echo display_2nd_payment($LoanID10k, $LoanType10k, $borrowerID10k, $ctrlPrefix10k, $borrowerFname10k, $borrowerMname10k, $borrowerLname10k, $borrowerType10k, $borrowerRank10k);
+        echo '</tr>';
+        echo '<tr>';
+        echo display_3rd_payment($LoanID10k, $LoanType10k, $borrowerID10k, $ctrlPrefix10k, $borrowerFname10k, $borrowerMname10k, $borrowerLname10k, $borrowerType10k, $borrowerRank10k);
+        echo '</tr>';
+        echo '<tr>';
+        echo display_4th_payment($LoanID10k, $LoanType10k, $borrowerID10k, $ctrlPrefix10k, $borrowerFname10k, $borrowerMname10k, $borrowerLname10k, $borrowerType10k, $borrowerRank10k);
+        echo '</tr>';
+        echo '<tr>';
+        echo display_5th_payment($LoanID10k, $LoanType10k, $borrowerID10k, $ctrlPrefix10k, $borrowerFname10k, $borrowerMname10k, $borrowerLname10k, $borrowerType10k, $borrowerRank10k);
+        echo '</tr>';
+      echo '</tbody>
           </table>
         </div>';
 
