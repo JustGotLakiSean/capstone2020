@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2020 at 07:44 AM
+-- Generation Time: May 12, 2020 at 05:19 PM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -38,8 +38,8 @@ CREATE TABLE `tbl_1stpayment` (
   `mname` varchar(100) NOT NULL,
   `lname` varchar(100) NOT NULL,
   `type_of_employee` varchar(100) NOT NULL,
-  `office` varchar(100) NOT NULL,
-  `rank` varchar(100) NOT NULL,
+  `borrower_office` varchar(100) NOT NULL,
+  `borrower_rank` varchar(100) NOT NULL,
   `loan_amount_rate` int(11) NOT NULL,
   `monthly_payment_rate` int(11) NOT NULL,
   `credit_rate` int(11) NOT NULL,
@@ -51,7 +51,8 @@ CREATE TABLE `tbl_1stpayment` (
   `date_of_payment` varchar(100) NOT NULL,
   `has_penalty` int(11) NOT NULL,
   `is_penalty_paid` int(11) NOT NULL,
-  `penalty_amount` int(11) NOT NULL
+  `penalty_amount` int(11) NOT NULL,
+  `remarks` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -62,6 +63,7 @@ CREATE TABLE `tbl_1stpayment` (
 
 CREATE TABLE `tbl_2ndpayment` (
   `transaction_id` int(11) NOT NULL,
+  `loan_id` int(11) NOT NULL,
   `type_of_loanAccount` varchar(100) NOT NULL,
   `borrower_id` int(11) NOT NULL,
   `ctrl_no_prefix` varchar(100) NOT NULL,
@@ -70,7 +72,7 @@ CREATE TABLE `tbl_2ndpayment` (
   `lname` varchar(100) NOT NULL,
   `type_of_employee` varchar(100) NOT NULL,
   `office` varchar(100) NOT NULL,
-  `rank` varchar(100) NOT NULL,
+  `borrower_rank` varchar(100) NOT NULL,
   `loan_amount_rank` int(11) NOT NULL,
   `monthly_payment_rate` int(11) NOT NULL,
   `credit_rate` int(11) NOT NULL,
@@ -82,7 +84,8 @@ CREATE TABLE `tbl_2ndpayment` (
   `date_of_payment` varchar(100) NOT NULL,
   `has_penalty` int(11) NOT NULL,
   `is_penalty_paid` int(11) NOT NULL,
-  `penalty_amount` int(11) NOT NULL
+  `penalty_amount` int(11) NOT NULL,
+  `remarks` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -93,6 +96,7 @@ CREATE TABLE `tbl_2ndpayment` (
 
 CREATE TABLE `tbl_3rdpayment` (
   `transaction_id` int(11) NOT NULL,
+  `loan_id` int(11) NOT NULL,
   `type_of_loanAccount` varchar(100) NOT NULL,
   `borrower_id` int(11) NOT NULL,
   `ctrl_no_prefix` varchar(100) NOT NULL,
@@ -101,7 +105,7 @@ CREATE TABLE `tbl_3rdpayment` (
   `lname` varchar(100) NOT NULL,
   `type_of_employee` varchar(100) NOT NULL,
   `office` varchar(100) NOT NULL,
-  `rank` varchar(100) NOT NULL,
+  `borrower_rank` varchar(100) NOT NULL,
   `loan_amount_rate` int(11) NOT NULL,
   `monthly_payment_rate` int(11) NOT NULL,
   `credit_rate` int(11) NOT NULL,
@@ -113,7 +117,8 @@ CREATE TABLE `tbl_3rdpayment` (
   `date_of_payment` varchar(100) NOT NULL,
   `has_penalty` int(11) NOT NULL,
   `is_penalty_paid` int(11) NOT NULL,
-  `penalty_amount` int(11) NOT NULL
+  `penalty_amount` int(11) NOT NULL,
+  `remarks` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -124,7 +129,8 @@ CREATE TABLE `tbl_3rdpayment` (
 
 CREATE TABLE `tbl_4thpayment` (
   `transaction_id` int(11) NOT NULL,
-  `type_of_loanAmount` varchar(100) NOT NULL,
+  `loan_id` int(11) NOT NULL,
+  `type_of_loanAccount` varchar(100) NOT NULL,
   `borrower_id` int(11) NOT NULL,
   `ctrl_no_prefix` varchar(100) NOT NULL,
   `fname` varchar(100) NOT NULL,
@@ -132,7 +138,7 @@ CREATE TABLE `tbl_4thpayment` (
   `lname` varchar(100) NOT NULL,
   `type_of_employee` varchar(100) NOT NULL,
   `office` varchar(100) NOT NULL,
-  `rank` varchar(100) NOT NULL,
+  `borrower_rank` varchar(100) NOT NULL,
   `loan_amount_rate` int(11) NOT NULL,
   `monthly_payment_rate` int(11) NOT NULL,
   `credit_rate` int(11) NOT NULL,
@@ -144,7 +150,8 @@ CREATE TABLE `tbl_4thpayment` (
   `date_of_payment` varchar(100) NOT NULL,
   `has_penalty` int(11) NOT NULL,
   `is_penalty_paid` int(11) NOT NULL,
-  `penalty_amount` int(11) NOT NULL
+  `penalty_amount` int(11) NOT NULL,
+  `remarks` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -180,7 +187,8 @@ INSERT INTO `tbl_5k_rates` (`5k_rates_id`, `type_of_loan`, `5k_loan_amount_rates
 
 CREATE TABLE `tbl_5thpayment` (
   `transaction_id` int(11) NOT NULL,
-  `type_of_loanAmount` varchar(100) NOT NULL,
+  `loan_id` int(11) NOT NULL,
+  `type_of_loanAccount` varchar(100) NOT NULL,
   `borrower_id` int(11) NOT NULL,
   `ctrl_no_prefix` varchar(100) NOT NULL,
   `fname` varchar(100) NOT NULL,
@@ -188,7 +196,7 @@ CREATE TABLE `tbl_5thpayment` (
   `lname` varchar(100) NOT NULL,
   `type_of_employee` varchar(100) NOT NULL,
   `office` varchar(100) NOT NULL,
-  `rank` varchar(100) NOT NULL,
+  `borrower_rank` varchar(100) NOT NULL,
   `loan_amount_rate` int(11) NOT NULL,
   `monthly_payment_rate` int(11) NOT NULL,
   `credit_rate` int(11) NOT NULL,
@@ -200,7 +208,41 @@ CREATE TABLE `tbl_5thpayment` (
   `date_of_payment` varchar(100) NOT NULL,
   `has_penalty` int(11) NOT NULL,
   `is_penalty_paid` int(11) NOT NULL,
-  `penalty_amount` int(11) NOT NULL
+  `penalty_amount` int(11) NOT NULL,
+  `remarks` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_6thpayment`
+--
+
+CREATE TABLE `tbl_6thpayment` (
+  `transaction_id` int(11) NOT NULL,
+  `loan_id` int(11) NOT NULL,
+  `type_of_loanAccount` varchar(100) NOT NULL,
+  `borrower_id` int(11) NOT NULL,
+  `ctrl_no_prefix` varchar(100) NOT NULL,
+  `fname` varchar(100) NOT NULL,
+  `mname` varchar(100) NOT NULL,
+  `lname` varchar(100) NOT NULL,
+  `type_of_employee` varchar(100) NOT NULL,
+  `borrower_office` varchar(100) NOT NULL,
+  `borrower_rank` varchar(100) NOT NULL,
+  `loan_amount_rate` int(11) NOT NULL,
+  `monthly_payment_rate` int(11) NOT NULL,
+  `credit_rate` int(11) NOT NULL,
+  `amount_paid` int(11) NOT NULL,
+  `is_paid` int(11) NOT NULL,
+  `current_interest` int(11) NOT NULL,
+  `current_balance` int(11) NOT NULL,
+  `payment_option` varchar(100) NOT NULL,
+  `date_of_payment` varchar(100) NOT NULL,
+  `has_penalty` int(11) NOT NULL,
+  `is_penalty_paid` int(11) NOT NULL,
+  `penalty_amount` int(11) NOT NULL,
+  `remarks` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -234,10 +276,12 @@ CREATE TABLE `tbl_10k_new_loan` (
 
 CREATE TABLE `tbl_10k_rates` (
   `10k_rates_id` int(11) NOT NULL,
+  `type_of_loan` varchar(100) NOT NULL,
   `10k_loan_amount_rates` double NOT NULL,
   `10k_monthly_payment_rates` double NOT NULL,
   `10k_credit_rates` double NOT NULL,
   `10k_beginning_balance_rates` double NOT NULL,
+  `10k_interest_rate` int(11) NOT NULL,
   `10k_penaltyPercentage_rates` double NOT NULL,
   `10k_penalty_permonth_rates` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -246,8 +290,8 @@ CREATE TABLE `tbl_10k_rates` (
 -- Dumping data for table `tbl_10k_rates`
 --
 
-INSERT INTO `tbl_10k_rates` (`10k_rates_id`, `10k_loan_amount_rates`, `10k_monthly_payment_rates`, `10k_credit_rates`, `10k_beginning_balance_rates`, `10k_penaltyPercentage_rates`, `10k_penalty_permonth_rates`) VALUES
-(1, 9500, 2000, 10000, 10000, 0.016, 160);
+INSERT INTO `tbl_10k_rates` (`10k_rates_id`, `type_of_loan`, `10k_loan_amount_rates`, `10k_monthly_payment_rates`, `10k_credit_rates`, `10k_beginning_balance_rates`, `10k_interest_rate`, `10k_penaltyPercentage_rates`, `10k_penalty_permonth_rates`) VALUES
+(1, '10k', 9500, 2000, 10000, 10000, 500, 0.016, 160);
 
 -- --------------------------------------------------------
 
@@ -317,8 +361,8 @@ CREATE TABLE `tbl_civilian_employee` (
 --
 
 INSERT INTO `tbl_civilian_employee` (`civilian_ID`, `type_of_employee`, `civilian_fName`, `civilian_lName`, `civilian_mName`, `civilian_office`, `civilian_email`, `civilian_contactNumber`, `civilian_birthdate`, `civilian_address`, `civilian_rank`, `downpayment_count`, `dp_5k_count`, `dp_10k_count`, `fullpayment_count`, `fp_5k_count`, `fp_10k_count`, `penalty_count`, `penalty_5k_count`, `penalty_10k_count`, `la_5k_count`, `la_10k_count`) VALUES
-(1, 'civilian', 'CIVILIAN FIRSTNAME', 'CIVILIAN LASTNAME', 'CIVILIAN MIDDLE', 'VSAT', 'CIVILIAN@YAHOO.COM', '1111111111', '2020-04-16', 'CIVILIAN ADDRESS', 'none', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(2, 'civilian', 'CIVILIAN FIRSTNAME 2', 'CIVILIAN LASTNAME', 'CIVILIAN MIDDLE', 'VSAT', 'CIVILIAN2@YAHOO.COM', '1111111111', '2020-04-16', 'CIVILIAN ADDRESS', 'none', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(1, 'civilian', 'CIVILIAN FIRSTNAME', 'CIVILIAN LASTNAME', 'CIVILIAN MIDDLE', 'VSAT', 'CIVILIAN@YAHOO.COM', '1111111111', '2020-04-16', 'CIVILIAN ADDRESS', 'none', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1),
+(2, 'civilian', 'CIVILIAN FIRSTNAME 2', 'CIVILIAN LASTNAME', 'CIVILIAN MIDDLE', 'VSAT', 'CIVILIAN2@YAHOO.COM', '1111111111', '2020-04-16', 'CIVILIAN ADDRESS', 'none', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1),
 (3, 'civilian', 'Steven', 'Jobs', 'Paul', 'Headquarters', 'apple@apple.com', '999999', '1955-02-24', 'San Francisco', 'none', 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
 
 -- --------------------------------------------------------
@@ -350,7 +394,8 @@ CREATE TABLE `tbl_civilian_employee_account` (
 
 CREATE TABLE `tbl_fullpayment` (
   `transaction_id` int(11) NOT NULL,
-  `type_of_loanAmount` varchar(100) NOT NULL,
+  `loan_id` int(11) NOT NULL,
+  `type_of_loanAccount` varchar(100) NOT NULL,
   `borrower_id` int(11) NOT NULL,
   `ctrl_no_prefix` varchar(100) NOT NULL,
   `fname` varchar(100) NOT NULL,
@@ -358,7 +403,7 @@ CREATE TABLE `tbl_fullpayment` (
   `lname` varchar(100) NOT NULL,
   `type_of_employee` varchar(100) NOT NULL,
   `office` varchar(100) NOT NULL,
-  `rank` varchar(100) NOT NULL,
+  `borrower_rank` varchar(100) NOT NULL,
   `loan_amount_rate` int(11) NOT NULL,
   `monthly_payment_rate` int(11) NOT NULL,
   `credit_rate` int(11) NOT NULL,
@@ -370,7 +415,8 @@ CREATE TABLE `tbl_fullpayment` (
   `date_of_payment` varchar(100) NOT NULL,
   `has_penalty` int(11) NOT NULL,
   `is_penalty_paid` int(11) NOT NULL,
-  `penalty_amount` int(11) NOT NULL
+  `penalty_amount` int(11) NOT NULL,
+  `remarks` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -513,6 +559,52 @@ INSERT INTO `tbl_new_5k_loan` (`loan_id_5k`, `borrower_id`, `ctrl_no_prefix`, `f
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_new_10k_loan`
+--
+
+CREATE TABLE `tbl_new_10k_loan` (
+  `loan_id_10k` int(11) NOT NULL,
+  `borrower_id` int(11) NOT NULL,
+  `ctrl_no_prefix` varchar(100) NOT NULL,
+  `fname` varchar(100) NOT NULL,
+  `mname` varchar(100) NOT NULL,
+  `lname` varchar(100) NOT NULL,
+  `type_of_employee` varchar(100) NOT NULL,
+  `type_of_loan` varchar(100) NOT NULL,
+  `loan_amount_10k_rate` int(11) NOT NULL,
+  `monthly_payment_10k_rate` int(11) NOT NULL,
+  `credit_10k_rate` int(11) NOT NULL,
+  `debit_pay_10k` int(11) NOT NULL,
+  `interest_rate_10k` int(11) NOT NULL,
+  `balance_rate_10k` int(11) NOT NULL,
+  `date_of_loan` varchar(100) NOT NULL,
+  `comment` varchar(100) NOT NULL,
+  `penalty_10k` int(11) NOT NULL,
+  `office_10k` varchar(100) NOT NULL,
+  `emp_rank_10k` varchar(50) NOT NULL,
+  `first_payment_10k` int(11) NOT NULL,
+  `second_payment_10k` int(11) NOT NULL,
+  `third_payment_10k` int(11) NOT NULL,
+  `fourth_payment_10k` int(11) NOT NULL,
+  `fifth_payment_10k` int(11) NOT NULL,
+  `sixth_payment_10k` int(11) NOT NULL,
+  `full_payment_10k` int(11) NOT NULL,
+  `loan_status_10k` int(11) NOT NULL,
+  `isNewLoan` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_new_10k_loan`
+--
+
+INSERT INTO `tbl_new_10k_loan` (`loan_id_10k`, `borrower_id`, `ctrl_no_prefix`, `fname`, `mname`, `lname`, `type_of_employee`, `type_of_loan`, `loan_amount_10k_rate`, `monthly_payment_10k_rate`, `credit_10k_rate`, `debit_pay_10k`, `interest_rate_10k`, `balance_rate_10k`, `date_of_loan`, `comment`, `penalty_10k`, `office_10k`, `emp_rank_10k`, `first_payment_10k`, `second_payment_10k`, `third_payment_10k`, `fourth_payment_10k`, `fifth_payment_10k`, `sixth_payment_10k`, `full_payment_10k`, `loan_status_10k`, `isNewLoan`) VALUES
+(12, 3, '950CEISG-000', 'JEAN JOSHUA', 'HAPLASCA', 'VILLANUEVA', 'officer', '10k', 9500, 2000, 10000, 0, 500, 10000, '11-May-20', 'New Loan form JEAN JOSHUA HAPLASCA VILLANUEVA.', 160, '951ST CES', 'LTC', 0, 0, 0, 0, 0, 0, 0, 0, 1),
+(16, 4, '950CEISG-000', 'JOHN RAYMOND', 'E', 'AUSTRIA', 'officer', '10k', 9500, 2000, 10000, 0, 500, 10000, '12-May-20', 'New Loan form JOHN RAYMOND E AUSTRIA.', 160, 'Headquarters', 'LTC', 0, 0, 0, 0, 0, 0, 0, 0, 1),
+(17, 5, '950CEISG-000', 'JESS MATTHEW', 'N', 'SANTILLAN', 'officer', '10k', 9500, 2000, 10000, 0, 500, 10000, '12-May-20', 'New Loan form JESS MATTHEW N SANTILLAN.', 160, 'Headquarters', 'LTC', 0, 0, 0, 0, 0, 0, 0, 0, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_officersandep`
 --
 
@@ -548,9 +640,9 @@ CREATE TABLE `tbl_officersandep` (
 INSERT INTO `tbl_officersandep` (`officer_ID`, `type_of_employee`, `officer_fName`, `officer_lName`, `officer_mName`, `officer_headquarter`, `officer_email`, `officer_contactNumber`, `officer_birthdate`, `officer_address`, `officer_rank`, `downpayment_count`, `dp_5k_count`, `dp_10k_count`, `fullpayment_count`, `fp_5k_count`, `fp_10k_count`, `penalty_count`, `penalty_5k_count`, `penalty_10k_count`, `la_5k_count`, `la_10k_count`) VALUES
 (1, 'officer', 'FIRSTNAME', 'LAST', 'MIDDLE', 'VSAT', 'EMAIL@DOMAIN.COM', '12345', '2020-04-15', 'ADDRESS', 'SMS', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (2, 'officer', 'FIRSTNAME1', 'LASTNAME2', 'MIDDLE2', 'Headquarters', 'EMAIL2@DOMAIN.COM', '22222', '2020-04-06', 'ADDRESS2', 'LTC', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(3, 'officer', 'JEAN JOSHUA', 'VILLANUEVA', 'HAPLASCA', '951ST CES', 'JOSH@GMAIL.COM', '099999999', '2020-03-18', 'PASAY', 'LTC', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(4, 'officer', 'JOHN RAYMOND', 'AUSTRIA', 'E', 'Headquarters', 'JOHNRAY@GMAIL.COM', '099999999', '2020-03-09', 'MALIBAY', 'LTC', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(5, 'officer', 'JESS MATTHEW', 'SANTILLAN', 'N', 'Headquarters', 'JESS@GMAIL.COM', '', '2020-02-19', 'PASAY', 'LTC', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(3, 'officer', 'JEAN JOSHUA', 'VILLANUEVA', 'HAPLASCA', '951ST CES', 'JOSH@GMAIL.COM', '099999999', '2020-03-18', 'PASAY', 'LTC', 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 1),
+(4, 'officer', 'JOHN RAYMOND', 'AUSTRIA', 'E', 'Headquarters', 'JOHNRAY@GMAIL.COM', '099999999', '2020-03-09', 'MALIBAY', 'LTC', 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1),
+(5, 'officer', 'JESS MATTHEW', 'SANTILLAN', 'N', 'Headquarters', 'JESS@GMAIL.COM', '', '2020-02-19', 'PASAY', 'LTC', 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2),
 (6, 'officer', 'FNAME', 'LNAME', 'MNAME', 'Headquarters', 'EMAIL@YAHO.COM', '', '2020-03-02', 'ADD', 'LTC', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (7, 'officer', 'FNAME', 'LNAME', 'MNAME', 'Headquarters', 'EMAIL@YAHO.COM', '', '2020-03-02', 'ADD', 'LTC', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (8, 'officer', 'sfdss', 'd', 'aaa', '', 'g@GMAI.COM', 'q34', '2020-04-01', 'sdf', 'LTC', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
@@ -637,6 +729,12 @@ ALTER TABLE `tbl_5thpayment`
   ADD PRIMARY KEY (`transaction_id`);
 
 --
+-- Indexes for table `tbl_6thpayment`
+--
+ALTER TABLE `tbl_6thpayment`
+  ADD PRIMARY KEY (`transaction_id`);
+
+--
 -- Indexes for table `tbl_10k_new_loan`
 --
 ALTER TABLE `tbl_10k_new_loan`
@@ -703,6 +801,12 @@ ALTER TABLE `tbl_new_5k_loan`
   ADD PRIMARY KEY (`loan_id_5k`);
 
 --
+-- Indexes for table `tbl_new_10k_loan`
+--
+ALTER TABLE `tbl_new_10k_loan`
+  ADD PRIMARY KEY (`loan_id_10k`);
+
+--
 -- Indexes for table `tbl_officersandep`
 --
 ALTER TABLE `tbl_officersandep`
@@ -728,25 +832,25 @@ ALTER TABLE `tbl_seed_money`
 -- AUTO_INCREMENT for table `tbl_1stpayment`
 --
 ALTER TABLE `tbl_1stpayment`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_2ndpayment`
 --
 ALTER TABLE `tbl_2ndpayment`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_3rdpayment`
 --
 ALTER TABLE `tbl_3rdpayment`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_4thpayment`
 --
 ALTER TABLE `tbl_4thpayment`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_5k_rates`
@@ -758,7 +862,13 @@ ALTER TABLE `tbl_5k_rates`
 -- AUTO_INCREMENT for table `tbl_5thpayment`
 --
 ALTER TABLE `tbl_5thpayment`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_6thpayment`
+--
+ALTER TABLE `tbl_6thpayment`
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_10k_new_loan`
@@ -794,7 +904,7 @@ ALTER TABLE `tbl_civilian_employee_account`
 -- AUTO_INCREMENT for table `tbl_fullpayment`
 --
 ALTER TABLE `tbl_fullpayment`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_journal_record`
@@ -825,6 +935,12 @@ ALTER TABLE `tbl_loan_requests`
 --
 ALTER TABLE `tbl_new_5k_loan`
   MODIFY `loan_id_5k` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `tbl_new_10k_loan`
+--
+ALTER TABLE `tbl_new_10k_loan`
+  MODIFY `loan_id_10k` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_officersandep`
