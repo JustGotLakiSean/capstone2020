@@ -571,7 +571,6 @@ EMP_LIST;
           <div id = "10K" class = "tabcontent">
             <div id = "10kadd-button-container">
               <button type="button" id="btn-addnew10k" onclick="document.getElementById('tenKaddnewloan-container').style.display='block'">Add New 10K Loan</button>
-              <button type="button" onclick="document.getElementById('newpayment_10k_modal').style.display='block'">NEW PAYMENT</button>
             </div>
             <div id = "10ktransactiontablename">
               <p>10K Transaction Table</p>
@@ -995,9 +994,10 @@ if($LoanStatus5k === 'Active'){
       $third_payment_col_10k = $rs['third_payment_10k'];
       $fourth_payment_col_10k = $rs['fourth_payment_10k'];
       $fifth_payment_col_10k = $rs['fifth_payment_10k'];
-      $full_payment_col_10k = $rs['full_payment_10k'];
+      $sixth_payment_col_10k = $rs['sixth_payment_10k'];
+      $fullpayment_col_10k = $rs['full_payment_10k'];
 
-      function payment_options_10k($isNewLoan_10k, $firstPaymentCol_10k, $secondPaymentCol_10k, $thirdPaymentCol_10k, $fourthPaymentCol_10k, $fifthPaymentCol_10k, $fullPaymentCol_10k){
+      function payment_options_10k($isNewLoan_10k, $firstPaymentCol_10k, $secondPaymentCol_10k, $thirdPaymentCol_10k, $fourthPaymentCol_10k, $fifthPaymentCol_10k, $sixthPaymentCol_10k, $fullPaymentCol_10k){
         if($isNewLoan_10k == 1){
           echo '<select name="paymentoption_10k">
           <option value="1st_payment_10k">1ST Payment</option>
@@ -1005,51 +1005,67 @@ if($LoanStatus5k === 'Active'){
           <option value="3rd_payment_10k" disabled>3RD Payment</option>
           <option value="4th_payment_10k" disabled>4TH Payment</option>
           <option value="5th_payment_10k" disabled>5TH Payment</option>
+          <option value="6th_payment_10k" disabled>6TH Payment</option>
           <option value="full_payment_10k">FULL PAYMENT</option>
         </select>';
-        } else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 0 && $thirdPaymentCol_10k == 0 && $fourthPaymentCol_10k == 0 && $fifthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0){
+        } else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 0 && $thirdPaymentCol_10k == 0 && $fourthPaymentCol_10k == 0 && $fifthPaymentCol_10k == 0 && $sixthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0){
           echo '<select name="paymentoption_10k">
           <option value="1st_payment_10k" disabled>1ST Payment</option>
           <option value="2nd_payment_10k">2ND Payment</option>
           <option value="3rd_payment_10k" disabled>3RD Payment</option>
           <option value="4th_payment_10k" disabled>4TH Payment</option>
           <option value="5th_payment_10k" disabled>5TH Payment</option>
+          <option value="6th_payment_10k" disabled>6TH Payment</option>
           <option value="full_payment_10k">FULL PAYMENT</option>
         </select>';
-        } else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 0 && $fourthPaymentCol_10k == 0 && $fifthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0){
+        } else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 0 && $fourthPaymentCol_10k == 0 && $fifthPaymentCol_10k == 0 && $sixthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0){
           echo '<select name="paymentoption_10k">
           <option value="1st_payment_10k" disabled>1ST Payment</option>
           <option value="2nd_payment_10k" disabled>2ND Payment</option>
           <option value="3rd_payment_10k">3RD Payment</option>
           <option value="4th_payment_10k" disabled>4TH Payment</option>
           <option value="5th_payment_10k" disabled>5TH Payment</option>
+          <option value="6th_payment_10k" disabled>6TH Payment</option>
           <option value="full_payment_10k">FULL PAYMENT</option>
         </select>';
-        } else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 1 && $fourthPaymentCol_10k == 0 && $fifthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0){
+        } else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 1 && $fourthPaymentCol_10k == 0 && $fifthPaymentCol_10k == 0 && $sixthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0){
           echo '<select name="paymentoption_10k">
           <option value="1st_payment_10k" disabled>1ST Payment</option>
           <option value="2nd_payment_10k" disabled>2ND Payment</option>
           <option value="3rd_payment_10k" disabled>3RD Payment</option>
           <option value="4th_payment_10k">4TH Payment</option>
           <option value="5th_payment_10k" disabled>5TH Payment</option>
+          <option value="6th_payment_10k" disabled>6TH Payment</option>
           <option value="full_payment_10k">FULL PAYMENT</option>
         </select>';
-        } else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 1 && $fourthPaymentCol_10k == 1 && $fifthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0){
+        } else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 1 && $fourthPaymentCol_10k == 1 && $fifthPaymentCol_10k == 0 && $sixthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0){
           echo '<select name="paymentoption_10k">
           <option value="1st_payment_10k" disabled>1ST Payment</option>
           <option value="2nd_payment_10k" disabled>2ND Payment</option>
           <option value="3rd_payment_10k" disabled>3RD Payment</option>
           <option value="4th_payment_10k" disabled>4TH Payment</option>
           <option value="5th_payment_10k">5TH Payment</option>
+          <option value="6th_payment_10k" disabled>6TH Payment</option>
           <option value="full_payment_10k">FULL PAYMENT</option>
         </select>';
-        } else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 1 && $fourthPaymentCol_10k == 1 && $fifthPaymentCol_10k == 1 && $fullPaymentCol_10k == 0){
+        } else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 1 && $fourthPaymentCol_10k == 1 && $fifthPaymentCol_10k == 1 && $sixthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0){
           echo '<select name="paymentoption_10k">
           <option value="1st_payment_10k" disabled>1ST Payment</option>
           <option value="2nd_payment_10k" disabled>2ND Payment</option>
           <option value="3rd_payment_10k" disabled>3RD Payment</option>
           <option value="4th_payment_10k" disabled>4TH Payment</option>
           <option value="5th_payment_10k" disabled>5TH Payment</option>
+          <option value="6th_payment_10k">6TH Payment</option>
+          <option value="full_payment_10k">FULL PAYMENT</option>
+        </select>';       
+        }else if($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 1 && $fourthPaymentCol_10k == 1 && $fifthPaymentCol_10k == 1 && $sixthPaymentCol_10k == 1 && $fullPaymentCol_10k == 0){
+          echo '<select name="paymentoption_10k">
+          <option value="1st_payment_10k" disabled>1ST Payment</option>
+          <option value="2nd_payment_10k" disabled>2ND Payment</option>
+          <option value="3rd_payment_10k" disabled>3RD Payment</option>
+          <option value="4th_payment_10k" disabled>4TH Payment</option>
+          <option value="5th_payment_10k" disabled>5TH Payment</option>
+          <option value="6th_payment_10k" disabled>6TH Payment</option>
           <option value="full_payment_10k">FULL PAYMENT</option>
         </select>';
         }
@@ -1108,7 +1124,8 @@ echo '
             <input type="hidden" name="third_payment_col_10k" value="'.$third_payment_col_10k.'" />
             <input type="hidden" name="fourth_payment_col_10k" value="'.$fourth_payment_col_10k.'" />
             <input type="hidden" name="fifth_payment_col_10k" value="'.$fifth_payment_col_10k.'" />
-            <input type="hidden" name="full_payment_col_10k" value="'.$full_payment_col_10k.'" />
+            <input type="hidden" name="sixth_payment_col_10k" value="'.$sixth_payment_col_10k.'" />
+            <input type="hidden" name="fullpayment_col_10k" value="'.$fullpayment_col_10k.'" />
             <input type="text" name="b_fullname_10k" disabled id="b_fullname_10k" value="'.$borrowerFullname10k.'" />
             <input type="text" disabled value="'.$borrowerOffice10k.'" />
           </div>
@@ -1296,6 +1313,35 @@ echo '
           }
         }
 
+        function display_6th_payment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank){
+          $db = new db_access();
+
+          $diplay_6th_payment_details = $db->display_6thpayment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank);
+          while($row = $diplay_6th_payment_details->fetch_array(MYSQLI_ASSOC)){
+            $prev_sixth_pay = $row['amount_paid'];
+            $prev_sixth_interest = $row['current_interest'];
+            $remarks_sp = $row['remarks'];
+            $date_of_payment_sp = $row['date_of_payment'];
+            $prev_sixth_bal = $row['current_balance'];
+
+            if($row > 0){
+              echo '
+              <input type="hidden" name="prev_sixth_pay" value="'.$prev_sixth_pay.'" />
+              <input type="hidden" name="prev_sixth_bal" value="'.$prev_sixth_bal.'" />
+              <input type="hidden" name="prev_sixth_interest" value="'.$prev_sixth_interest.'" />
+              <input type="hidden" name="remarks_sp" value="'.$remarks_sp.'" />
+              <input type="hidden" name="date_of_payment_sp" value="'.$date_of_payment_sp.'" />
+              <td>'.$prev_sixth_pay.'</td>
+              <td>'.$prev_sixth_interest.'</td>
+              <td>'.$prev_sixth_bal.'</td>
+              <td>'.$remarks_sp.'</td>
+              <td>'.$date_of_payment_sp.'</td>';
+            } else {
+              // do nothing...
+            }
+          }
+        }
+
         // display first loan info
         $get_10k_info = new db_access();
         $display_10k_table = $get_10k_info->display_borrower_new_10k_list($LoanID10k, $borrowerID10k, $borrowerFname10k, $borrowerMname10k, $borrowerLname10k, $borrowerType10k, $borrowerRank10k);
@@ -1344,6 +1390,9 @@ echo '
         echo '<tr>';
         echo display_5th_payment($LoanID10k, $LoanType10k, $borrowerID10k, $ctrlPrefix10k, $borrowerFname10k, $borrowerMname10k, $borrowerLname10k, $borrowerType10k, $borrowerRank10k);
         echo '</tr>';
+        echo '<tr>';
+        echo display_6th_payment($LoanID10k, $LoanType10k, $borrowerID10k, $ctrlPrefix10k, $borrowerFname10k, $borrowerMname10k, $borrowerLname10k, $borrowerType10k, $borrowerRank10k);
+        echo '</tr>';
       echo '</tbody>
           </table>
         </div>';
@@ -1359,7 +1408,7 @@ echo '
               <div class="paymentbox_10k">
                 <div class="paymentoption_box np10kbox">
                   <label for="paymentoption_10k">Payment Option</label>';
-                  echo payment_options_10k($is_new_loan_10k, $first_payment_col_10k, $second_payment_col_10k, $third_payment_col_10k, $fourth_payment_col_10k, $fifth_payment_col_10k, $full_payment_col_10k);
+                  echo payment_options_10k($is_new_loan_10k, $first_payment_col_10k, $second_payment_col_10k, $third_payment_col_10k, $fourth_payment_col_10k, $fifth_payment_col_10k, $sixth_payment_col_10k, $full_payment_col_10k);
                 echo '
                 </div>
                 <div class="date_of_payment_10k_box np10kbox">
@@ -1400,7 +1449,7 @@ echo '
           <div class="not_active_container" align="center">
             <h4>Fully Paid</h4>
           </div>
-          <div class="pb10k_btnaction">
+          <div class="pb10k_btnaction" align="center">
             <input type="button" name="pb10k_btn_cancel" id="pb10k_btn_cancel" onclick="window.location.href=\'loanMonitoring.php\'" value="Cancel" />
           </div>';
         }
