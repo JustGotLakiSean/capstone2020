@@ -1342,6 +1342,35 @@ echo '
           }
         }
 
+        function display_full_payment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank){
+          $db = new db_access();
+
+          $diplay_full_payment_details = $db->display_fullpayment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank);
+          while($row = $diplay_full_payment_details->fetch_array(MYSQLI_ASSOC)){
+            $prev_full_pay = $row['amount_paid'];
+            $prev_full_interest = $row['current_interest'];
+            $remarks_sp = $row['remarks'];
+            $date_of_payment_sp = $row['date_of_payment'];
+            $prev_full_bal = $row['current_balance'];
+
+            if($row > 0){
+              echo '
+              <input type="hidden" name="prev_full_pay" value="'.$prev_full_pay.'" />
+              <input type="hidden" name="prev_full_bal" value="'.$prev_full_bal.'" />
+              <input type="hidden" name="prev_full_interest" value="'.$prev_full_interest.'" />
+              <input type="hidden" name="remarks_sp" value="'.$remarks_sp.'" />
+              <input type="hidden" name="date_of_payment_sp" value="'.$date_of_payment_sp.'" />
+              <td>'.$prev_full_pay.'</td>
+              <td>'.$prev_full_interest.'</td>
+              <td>'.$prev_full_bal.'</td>
+              <td>'.$remarks_sp.'</td>
+              <td>'.$date_of_payment_sp.'</td>';
+            } else {
+              // do nothing...
+            }
+          }
+        }
+
         // display first loan info
         $get_10k_info = new db_access();
         $display_10k_table = $get_10k_info->display_borrower_new_10k_list($LoanID10k, $borrowerID10k, $borrowerFname10k, $borrowerMname10k, $borrowerLname10k, $borrowerType10k, $borrowerRank10k);
@@ -1392,6 +1421,9 @@ echo '
         echo '</tr>';
         echo '<tr>';
         echo display_6th_payment($LoanID10k, $LoanType10k, $borrowerID10k, $ctrlPrefix10k, $borrowerFname10k, $borrowerMname10k, $borrowerLname10k, $borrowerType10k, $borrowerRank10k);
+        echo '</tr>';
+        echo '<tr>';
+        echo display_full_payment($LoanID10k, $LoanType10k, $borrowerID10k, $ctrlPrefix10k, $borrowerFname10k, $borrowerMname10k, $borrowerLname10k, $borrowerType10k, $borrowerRank10k);
         echo '</tr>';
       echo '</tbody>
           </table>
