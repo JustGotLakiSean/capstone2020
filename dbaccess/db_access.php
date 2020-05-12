@@ -292,11 +292,11 @@ class db_access {
   }
 
   // Add New 10k Loan //
-  public function add_new_10k_record($borrower_id, $ctrlno_prefix, $fname, $mname, $lname, $emp_type, $loan_type, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $debit_pay, $interest_rate, $balance_rate, $date_of_loan, $comment_remarks, $penalty_per_month, $emp_office, $emp_rank, $first_payment, $second_payment, $third_payment, $fourth_payment, $fifth_payment, $full_payment, $status, $isNewLoan)
+  public function add_new_10k_record($borrower_id, $ctrlno_prefix, $fname, $mname, $lname, $emp_type, $loan_type, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $debit_pay, $interest_rate, $balance_rate, $date_of_loan, $comment_remarks, $penalty_per_month, $emp_office, $emp_rank, $first_payment, $second_payment, $third_payment, $fourth_payment, $fifth_payment, $sixth_payment, $full_payment, $status, $isNewLoan)
   {
     $con=$this->getConnection();
-    $query="INSERT INTO tbl_new_10k_loan(borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, type_of_loan, loan_amount_10k_rate, monthly_payment_10k_rate, credit_10k_rate, debit_pay_10k, interest_rate_10k, balance_rate_10k, date_of_loan, comment, penalty_10k, office_10k, emp_rank_10k, first_payment_10k, second_payment_10k, third_payment_10k, fourth_payment_10k, fifth_payment_10k, full_payment_10k, loan_status_10k, isNewLoan)
-    VALUES('$borrower_id', '$ctrlno_prefix', '$fname', '$mname', '$lname', '$emp_type', '$loan_type', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$debit_pay', '$interest_rate', '$balance_rate', '$date_of_loan', '$comment_remarks', '$penalty_per_month', '$emp_office', '$emp_rank', '$first_payment', '$second_payment', '$third_payment', '$fourth_payment', '$fifth_payment', '$full_payment', '$status', '$isNewLoan')";
+    $query="INSERT INTO tbl_new_10k_loan(borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, type_of_loan, loan_amount_10k_rate, monthly_payment_10k_rate, credit_10k_rate, debit_pay_10k, interest_rate_10k, balance_rate_10k, date_of_loan, comment, penalty_10k, office_10k, emp_rank_10k, first_payment_10k, second_payment_10k, third_payment_10k, fourth_payment_10k, fifth_payment_10k, sixth_payment_10k, full_payment_10k, loan_status_10k, isNewLoan)
+    VALUES('$borrower_id', '$ctrlno_prefix', '$fname', '$mname', '$lname', '$emp_type', '$loan_type', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$debit_pay', '$interest_rate', '$balance_rate', '$date_of_loan', '$comment_remarks', '$penalty_per_month', '$emp_office', '$emp_rank', '$first_payment', '$second_payment', '$third_payment', '$fourth_payment', '$fifth_payment', '$sixth_payment', '$full_payment', '$status', '$isNewLoan')";
     $insert_query = $con->query($query);
     if($insert_query){
       return true;
@@ -481,6 +481,21 @@ class db_access {
     VALUES('$loan_id', '$type_of_loanAccount', '$borrower_id', '$ctrl_no_prefix', '$fname', '$mname', '$lname', '$type_of_employee', '$office', '$borrower_rank', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$amount_paid', '$is_paid', '$current_interest', '$current_balance', '$payment_option', '$date_of_payment', '$has_penalty', '$is_penalty_paid', '$penalty_amount', '$remarks')";
     $fifth_payment = $con->query($query);
     if($fifth_payment){
+      return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // 6th payment
+  public function add_to_6thpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $amount_paid, $is_paid, $current_interest, $current_balance, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks)
+  {
+    $con=$this->getConnection();
+    $query="INSERT INTO tbl_6thpayment(loan_id, type_of_loanAccount, borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, office, borrower_rank, loan_amount_rate, monthly_payment_rate, credit_rate, amount_paid, is_paid, current_interest, current_balance, payment_option, date_of_payment, has_penalty, is_penalty_paid, penalty_amount, remarks)
+    VALUES('$loan_id', '$type_of_loanAccount', '$borrower_id', '$ctrl_no_prefix', '$fname', '$mname', '$lname', '$type_of_employee', '$office', '$borrower_rank', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$amount_paid', '$is_paid', '$current_interest', '$current_balance', '$payment_option', '$date_of_payment', '$has_penalty', '$is_penalty_paid', '$penalty_amount', '$remarks')";
+    $sixth_payment = $con->query($query);
+    if($sixth_payment){
       return true;
     } else {
       die($con->error);

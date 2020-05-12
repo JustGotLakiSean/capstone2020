@@ -206,7 +206,7 @@ BUTTON;
   </head>
   <body>
     <script src="src/new_loan.js"></script>
-    <script src="src/newLoan10k.js"></script>
+    <script src="src/new_loan_10k.js"></script>
     <header id = "loan-navigation-container">
       <nav id = "loan-global-navigation">
         <ul>
@@ -486,6 +486,7 @@ EMP_LIST;
                       $third_payment_10k = 0;
                       $fourth_payment_10k = 0;
                       $fifth_payment_10k = 0;
+                      $sixth_payment_col_10k = 0;
                       $full_payment_10k = 0;
 echo <<<EMP_LIST
                     <form action="add_new_10k_loan.php" method="POST" class="search_result_box_10k" >
@@ -504,12 +505,13 @@ echo <<<EMP_LIST
                         <input type="hidden" name="third_payment_10k" class="hidden_10k_info" value="$third_payment_10k" />
                         <input type="hidden" name="fourth_payment_10k" class="hidden_10k_info" value="$fourth_payment_10k" />
                         <input type="hidden" name="five_payment_10k" class="hidden_10k_info" value="$fifth_payment_10k" />
+                        <input type="hidden" name="sixth_payment_10k" class="hidden_10k_info" value="$sixth_payment_col_10k" />
                         <input type="hidden" name="full_payment_10k" class="hidden_10k_info" value="$full_payment_10k" />
                         <input type="hidden" name="amount_of_payment_10k" class="hidden_10k_info" value="$debit_pay_10k" />
                         <input type="hidden" name="comment_remarks_10k" class="hidden_10k_info" value="$comment_10k" />
                         <input type="text" disabled name="empfullname_10k" class="emp_info_10k" value="$emp_fullname" />
 EMP_LIST;
-                  echo "<input type='button' name = 'btn_add_10k_loan' value='Add New Loan' class='btn_add_10k_loan' onclick='addnewloan10k(\"".$empid."\", \"".$formattedString10K."\", \"".$empfname."\", \"".$empmname."\", \"".$emplname."\", \"".$empType."\", \"".$loan_type_10k."\", \"".$la_amount_10k."\", \"".$emp_fullname."\", \"".$mp_rates_10k."\", \"".$cr_rates_10k."\", \"".$debit_pay_10k."\", \"".$interest_10k."\", \"".$beg_bal_10k."\", \"".$date_today_10k."\", \"".$comment_10k."\", \"".$pen_permonth_10k."\", \"".$empoffice."\", \"".$empRank."\", \"".$la10k_count."\", \"".$first_payment_10k."\", \"".$second_payment_10k."\", \"".$third_payment_10k."\", \"".$fourth_payment_10k."\", \"".$fifth_payment_10k."\", \"".$full_payment_10k."\", \"".$status_10k."\");' />";
+                  echo "<input type='button' name = 'btn_add_10k_loan' value='Add New Loan' class='btn_add_10k_loan' onclick='addnewloan10k(\"".$empid."\", \"".$formattedString10K."\", \"".$empfname."\", \"".$empmname."\", \"".$emplname."\", \"".$empType."\", \"".$loan_type_10k."\", \"".$la_amount_10k."\", \"".$emp_fullname."\", \"".$mp_rates_10k."\", \"".$cr_rates_10k."\", \"".$debit_pay_10k."\", \"".$interest_10k."\", \"".$beg_bal_10k."\", \"".$date_today_10k."\", \"".$comment_10k."\", \"".$pen_permonth_10k."\", \"".$empoffice."\", \"".$empRank."\", \"".$la10k_count."\", \"".$first_payment_10k."\", \"".$second_payment_10k."\", \"".$third_payment_10k."\", \"".$fourth_payment_10k."\", \"".$fifth_payment_10k."\", \"".$sixth_payment_col_10k."\", \"".$full_payment_10k."\", \"".$status_10k."\");' />";
                   echo '</div>';
                   echo '</form>';
                       ?>
@@ -962,6 +964,7 @@ if($LoanStatus5k === 'Active'){
   $third_payment_col_10k = '';
   $fourth_payment_col_10k = '';
   $fifth_payment_col_10k = '';
+  $sixth_payment_col_10k = '';
   $full_payment_col_10k = '';
   if(isset($_SESSION['loan_id_10k'])){
     echo '<section id="newpayment_10k_modal">';
@@ -1263,7 +1266,7 @@ echo '
           }
         }
 
-        // display borrower's second payment function
+        // display borrower's fifth payment function
         function display_5th_payment($l_id, $typeOfLoanAcount, $b_id, $ctrlPrefix, $b_fname, $b_mname, $b_lname, $b_type, $b_rank){
           $db = new db_access();
 
