@@ -70,6 +70,9 @@ $lr10k = $db->loan_rates_10K();
               $civilian_mName = $res['civilian_mName'];
               $civilian_lName = $res['civilian_lName'];
               $civilian_email = $res['civilian_email'];
+              $civilian_contactNumber = $res['civilian_contactNumber'];
+              $civilian_birthdate = $res['civilian_birthdate'];
+              $civilian_address = $res['civilian_address'];
               $civilian_office = $res['civilian_office'];
               $civilian_rank = $res['civilian_rank'];
               $has_account = $res['has_account'];
@@ -88,7 +91,7 @@ $lr10k = $db->loan_rates_10K();
               $civilian_fullname = "$civilian_fName $civilian_mName $civilian_lName";
 
               echo '
-              <form>
+              <form action = "registerCivilianEmployeeAccount.php" method="POST">
                 <div id="civ_info">
                   <input type="hidden" name="civilian_ID" value="'.$civilian_ID.'" />
                   <input type="hidden" name="type_of_employee" value="'.$type_of_employee.'" />
@@ -96,9 +99,23 @@ $lr10k = $db->loan_rates_10K();
                   <input type="hidden" name="civilian_mName" value="'.$civilian_mName.'" />
                   <input type="hidden" name="civilian_lName" value="'.$civilian_lName.'" />
                   <input type="hidden" name="civilian_email" value="'.$civilian_email.'" />
+                  <input type="hidden" name="civilian_contactNumber" value="'.$civilian_contactNumber.'" />
+                  <input type="hidden" name="civilian_birthdate" value="'.$civilian_birthdate.'" />
+                  <input type="hidden" name="civilian_address" value="'.$civilian_address.'" />
                   <input type="hidden" name="civilian_office" value="'.$civilian_office.'" />
                   <input type="hidden" name="civilian_rank" value="'.$civilian_rank.'" />
                   <input type="hidden" name="has_account" value="'.$has_account.'" />
+                  <input type="hidden" name="downpayment_count" value="'.$downpayment_count.'" />
+                  <input type="hidden" name="dp_5k_count" value="'.$dp_5k_count.'" />
+                  <input type="hidden" name="dp_10k_count" value="'.$dp_10k_count.'" />
+                  <input type="hidden" name="fullpayment_count" value="'.$fullpayment_count.'" />
+                  <input type="hidden" name="fp_5k_count" value="'.$fp_5k_count.'" />
+                  <input type="hidden" name="fp_10k_count" value="'.$fp_10k_count.'" />
+                  <input type="hidden" name="penalty_count" value="'.$penalty_count.'" />
+                  <input type="hidden" name="penalty_5k_count" value="'.$penalty_5k_count.'" />
+                  <input type="hidden" name="penalty_10k_count" value="'.$penalty_10k_count.'" />
+                  <input type="hidden" name="la_5k_count" value="'.$la_5k_count.'" />
+                  <input type="hidden" name="la_10k_count" value="'.$la_10k_count.'" />
                   <input type="text" disabled name="civilian_fullname" class="civ_fullname" value="'.$civilian_fullname.'" />
                   <input type="submit" name="btn_reg_civ_info" class="btn_reg_civ_info" value="Select" />
                 </div>

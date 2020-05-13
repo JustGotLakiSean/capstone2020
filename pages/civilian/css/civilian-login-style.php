@@ -221,7 +221,7 @@ hr {
   position: relative;
   top: 10px;
   width: 380px;
-  height: 120px;
+  height: 450px;
 }
 
 #civ_list {
