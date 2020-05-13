@@ -17,6 +17,7 @@ if(isset($_POST['submitnewofficer'])){
   $oaep_email = '';
   $oaep_contactnumber = '';
   $emp_type = '';
+  $has_account = '';
   $downpayment_count = '';
   $db_5k_count = '';
   $db_10k_count = '';
@@ -40,6 +41,7 @@ if(isset($_POST['submitnewofficer'])){
     $oaep_email = filter_var($_POST['txtofficeremail'], FILTER_SANITIZE_EMAIL);
     $oaep_contactnumber = filter_var($_POST['txtofficercontactnumber'], FILTER_SANITIZE_STRING);
     $emp_type = "officer";
+    $has_account = 0;
     $downpayment_count = 0;
     $db_5k_count = 0;
     $db_10k_count = 0;
@@ -53,7 +55,7 @@ if(isset($_POST['submitnewofficer'])){
     $la_10k_count = 0;
     
     $new_oaep_record = new db_access();
-    $insert_new_oaep = $new_oaep_record->add_new_officers_and_ep($emp_type, $oaep_firstname, $oaep_lastname, $oaep_middlename, $oaep_office, $oaep_email, $oaep_contactnumber, $oaep_birthdate, $oaep_address, $oaep_rank, $downpayment_count, $db_5k_count, $db_10k_count, $fullpayment_count, $fp_5k_count, $fp_10k_count, $penalty_count, $penalty_5k_count, $penalty_10k_count, $la_5k_count, $la_10k_count);
+    $insert_new_oaep = $new_oaep_record->add_new_officers_and_ep($emp_type, $oaep_firstname, $oaep_lastname, $oaep_middlename, $oaep_office, $oaep_email, $oaep_contactnumber, $oaep_birthdate, $oaep_address, $oaep_rank, $has_account, $downpayment_count, $db_5k_count, $db_10k_count, $fullpayment_count, $fp_5k_count, $fp_10k_count, $penalty_count, $penalty_5k_count, $penalty_10k_count, $la_5k_count, $la_10k_count);
     if($insert_new_oaep) {
       echo '<script>
       alert("New Officers And EP Recorded.")
@@ -80,6 +82,7 @@ if(isset($_POST['submitnewcivilian'])){
   $CIVRECORD_EMAIL = '';
   $CIVRECORD_CONTACTNUMBER = '';
   $CIV_RECORD_RANK = '';
+  $has_account = '';
   $emp_type = '';
   $downpayment_count = '';
   $db_5k_count = '';
@@ -104,6 +107,7 @@ if(isset($_POST['submitnewcivilian'])){
     $CIVRECORD_CONTACTNUMBER = filter_var($_POST['txtciviliancontactnumber'], FILTER_SANITIZE_STRING);
     $emp_type = 'civilian';
     $CIV_RECORD_RANK = 'none';
+    $has_account = 0;
     $downpayment_count = 0;
     $db_5k_count = 0;
     $db_10k_count = 0;
@@ -117,7 +121,7 @@ if(isset($_POST['submitnewcivilian'])){
     $la_10k_count = 0;
 
     $NEW_CIVILIAN_RECORD = new db_access();
-    $INSERT_NEW_RECORD = $NEW_CIVILIAN_RECORD->add_new_civilian_record($emp_type, $CIVRECORD_FIRSTNAME, $CIVRECORD_LASTNAME, $CIVRECORD_MIDDLENAME, $CIVRECORD_OFFICE, $CIVRECORD_EMAIL, $CIVRECORD_CONTACTNUMBER, $CIVRECORD_BIRTHDATE, $CIVRECORD_ADDRESS, $CIV_RECORD_RANK, $downpayment_count, $db_5k_count, $db_10k_count, $fullpayment_count, $fp_5k_count, $fp_10k_count, $penalty_count, $penalty_5k_count, $penalty_10k_count, $la_5k_count, $la_10k_count);
+    $INSERT_NEW_RECORD = $NEW_CIVILIAN_RECORD->add_new_civilian_record($emp_type, $CIVRECORD_FIRSTNAME, $CIVRECORD_LASTNAME, $CIVRECORD_MIDDLENAME, $CIVRECORD_OFFICE, $CIVRECORD_EMAIL, $CIVRECORD_CONTACTNUMBER, $CIVRECORD_BIRTHDATE, $CIVRECORD_ADDRESS, $CIV_RECORD_RANK, $has_account, $downpayment_count, $db_5k_count, $db_10k_count, $fullpayment_count, $fp_5k_count, $fp_10k_count, $penalty_count, $penalty_5k_count, $penalty_10k_count, $la_5k_count, $la_10k_count);
     if($INSERT_NEW_RECORD) {
       echo '<script>
       alert("New Civilian Record Added.")

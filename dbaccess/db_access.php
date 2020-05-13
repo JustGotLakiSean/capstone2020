@@ -63,6 +63,32 @@ class db_access {
     $con-close();
   }
 
+  public function select_emp_account()
+  {
+    $con=$this->getConnection();
+    $query = "SELECT civilian_ID as emp_id, type_of_employee as emptype, civilian_fName as emp_fName, civilian_mName as emp_mName, civilian_lName as emp_lName, civilian_email as emp_email, civilian_office as emp_office, civilian_rank as empRank, has_account as empAccount, downpayment_count as dpCount, dp_5k_count as dp5k, dp_10k_count as dp10k, fullpayment_count as fp_count, fp_5k_count as fp5k, fp_10k_count as fp10k, penalty_count as penaltyCount, penalty_5k_count as penalty5k, penalty_10k_count as penalty10k, la_5k_count as la5k, la_10k_count as la10k FROM tbl_civilian_employee WHERE has_account = 0 UNION SELECT officer_ID, type_of_employee, officer_fName, officer_mName, officer_lName, officer_email, officer_headquarter, officer_rank, has_account, downpayment_count, dp_5k_count, dp_10k_count, fullpayment_count, fp_5k_count, fp_10k_count, penalty_count, penalty_5k_count, penalty_10k_count, la_5k_count, la_10k_count FROM tbl_officersandep WHERE has_account = 0";
+    $res = $con->query($query);
+    if($res){
+      return $res;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function select_civ_account()
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_civilian_employee WHERE has_account = 0";
+    $res=$con->query($query);
+    if($res){
+      return $res;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
   // get the downpayment (dp) and fullpayment (dp) column of the employee
   public function get_dp_and_fp($borrower_id, $fname, $mname, $lname, $office, $type_of_employee, $rank)
   {
@@ -91,10 +117,10 @@ class db_access {
   /* --- END OF ADMIN SIDE */
 
   /* OFFICER SIDE */
-  public function add_new_officers_and_ep($emp_type, $oaep_fname, $oaep_lname, $oaep_mname, $oaep_headquarter, $oaep_email, $oaep_contactnumber, $oaep_birthdate, $oaep_address, $oaep_rank, $downpayment_count, $db_5k_count, $db_10k_count, $fullpayment_count, $fp_5k_count, $fp_10k_count, $penalty_count, $penalty_5k_count, $penalty_10k_count, $la_5k_count, $la_10k_count){
+  public function add_new_officers_and_ep($emp_type, $oaep_fname, $oaep_lname, $oaep_mname, $oaep_headquarter, $oaep_email, $oaep_contactnumber, $oaep_birthdate, $oaep_address, $oaep_rank, $has_account, $downpayment_count, $db_5k_count, $db_10k_count, $fullpayment_count, $fp_5k_count, $fp_10k_count, $penalty_count, $penalty_5k_count, $penalty_10k_count, $la_5k_count, $la_10k_count){
     $con = $this->getConnection();
-    $query = "INSERT INTO tbl_officersandep(type_of_employee, officer_fName, officer_lName, officer_mName, officer_headquarter, officer_email, officer_contactNumber, officer_birthdate, officer_address, officer_rank, downpayment_count, dp_5k_count, dp_10k_count, fullpayment_count, fp_5k_count, fp_10k_count, penalty_count, penalty_5k_count, penalty_10k_count, la_5k_count, la_10k_count) 
-    VALUES('$emp_type', '$oaep_fname', '$oaep_lname', '$oaep_mname', '$oaep_headquarter', '$oaep_email', '$oaep_contactnumber', '$oaep_birthdate', '$oaep_address', '$oaep_rank', '$downpayment_count', '$db_5k_count', '$db_10k_count', '$fullpayment_count', '$fp_5k_count', '$fp_10k_count', '$penalty_count', '$penalty_5k_count', '$penalty_10k_count', '$la_5k_count', '$la_10k_count')";
+    $query = "INSERT INTO tbl_officersandep(type_of_employee, officer_fName, officer_lName, officer_mName, officer_headquarter, officer_email, officer_contactNumber, officer_birthdate, officer_address, officer_rank, has_account, downpayment_count, dp_5k_count, dp_10k_count, fullpayment_count, fp_5k_count, fp_10k_count, penalty_count, penalty_5k_count, penalty_10k_count, la_5k_count, la_10k_count) 
+    VALUES('$emp_type', '$oaep_fname', '$oaep_lname', '$oaep_mname', '$oaep_headquarter', '$oaep_email', '$oaep_contactnumber', '$oaep_birthdate', '$oaep_address', '$oaep_rank', '$has_account', '$downpayment_count', '$db_5k_count', '$db_10k_count', '$fullpayment_count', '$fp_5k_count', '$fp_10k_count', '$penalty_count', '$penalty_5k_count', '$penalty_10k_count', '$la_5k_count', '$la_10k_count')";
     $insert_query = $con->query($query);
     if($insert_query){
       return true;
@@ -130,10 +156,10 @@ class db_access {
   /* --- END OF OFFICER SIDE --- */
 
   /* CIVILIAN SIDE */
-  public function add_new_civilian_record($emp_type, $civ_fname, $civ_lname, $civ_mname, $civ_office, $civ_email, $civ_contactnumber, $civ_birthdate, $civ_address, $civ_rank, $downpayment_count, $db_5k_count, $db_10k_count, $fullpayment_count, $fp_5k_count, $fp_10k_count, $penalty_count, $penalty_5k_count, $penalty_10k_count, $la_5k_count, $la_10k_count){
+  public function add_new_civilian_record($emp_type, $civ_fname, $civ_lname, $civ_mname, $civ_office, $civ_email, $civ_contactnumber, $civ_birthdate, $civ_address, $civ_rank, $has_account, $downpayment_count, $db_5k_count, $db_10k_count, $fullpayment_count, $fp_5k_count, $fp_10k_count, $penalty_count, $penalty_5k_count, $penalty_10k_count, $la_5k_count, $la_10k_count){
     $con = $this->getConnection();
-    $query = "INSERT INTO tbl_civilian_employee(type_of_employee, civilian_fName, civilian_lName, civilian_mName, civilian_office, civilian_email, civilian_contactNumber, civilian_birthdate, civilian_address, civilian_rank, downpayment_count, dp_5k_count, dp_10k_count, fullpayment_count, fp_5k_count, fp_10k_count, penalty_count, penalty_5k_count, penalty_10k_count, la_5k_count, la_10k_count)
-    VALUES('$emp_type', '$civ_fname', '$civ_lname', '$civ_mname', '$civ_office', '$civ_email', '$civ_contactnumber', '$civ_birthdate', '$civ_address', '$civ_rank', '$downpayment_count', '$db_5k_count', '$db_10k_count', '$fullpayment_count', '$fp_5k_count', '$fp_10k_count', '$penalty_count', '$penalty_5k_count', '$penalty_10k_count', '$la_5k_count', '$la_10k_count')";
+    $query = "INSERT INTO tbl_civilian_employee(type_of_employee, civilian_fName, civilian_lName, civilian_mName, civilian_office, civilian_email, civilian_contactNumber, civilian_birthdate, civilian_address, civilian_rank, has_account, downpayment_count, dp_5k_count, dp_10k_count, fullpayment_count, fp_5k_count, fp_10k_count, penalty_count, penalty_5k_count, penalty_10k_count, la_5k_count, la_10k_count)
+    VALUES('$emp_type', '$civ_fname', '$civ_lname', '$civ_mname', '$civ_office', '$civ_email', '$civ_contactnumber', '$civ_birthdate', '$civ_address', '$civ_rank', '$has_account', '$downpayment_count', '$db_5k_count', '$db_10k_count', '$fullpayment_count', '$fp_5k_count', '$fp_10k_count', '$penalty_count', '$penalty_5k_count', '$penalty_10k_count', '$la_5k_count', '$la_10k_count')";
     $insert_query = $con->query($query);
     if($insert_query){
       return true;
