@@ -18,6 +18,7 @@ $lr10k = $db->loan_rates_10K();
   <title>Civilian Sign In</title>
 </head>
 <body>
+  <script src="src/validate_ce_account.js"></script>
 
   <header id="cl-header">
     <nav>
@@ -33,10 +34,10 @@ $lr10k = $db->loan_rates_10K();
     <div id = "civilian-signin-label-container">
       <h1>Civilian Sign In Form</h1>
     </div>
-    <form action = "" method = "POST" id = "civilian-signin-form">
+    <form action = "../../gateway/validateUser.php" method = "POST" id = "civilian-signin-form" onsubmit="return validate_ce_login()">
       <div id = "civilian-credentials-container">
-        <input type="text" name = "txt_civilian_username" id = "txt_civilian_username" placeholder="Username"/>
-        <input type="password" name = "txt_civilian_password" id = "txt_civilian_password" placeholder="Password"/>
+        <input type="text" name = "civ_username" id = "civ_username" placeholder="Username"/>
+        <input type="password" name = "civ_password" id = "civ_password" placeholder="Password"/>
         <input type="submit" name="btn-cl-submit" disabled id="btn-cl-submit" value="Log In" />
       </div>
       <hr class="hr-or">
@@ -49,8 +50,7 @@ $lr10k = $db->loan_rates_10K();
       </div>
       <hr>
       <div id = "civilian-options">
-        <a href = "adminForgotPassword.php" id = "civforgotpasslink">Forgot Password</a>
-        <a href = "registerCivilianEmployeeAccount.php" id = "newcivacclink">Don't have an account?</a>
+        <a id = "newcivacclink" onclick="document.getElementById('civilian_info_container').style.display='block'">Don't have an account?</a>
       </div>
     </form>
   </section>
@@ -58,6 +58,7 @@ $lr10k = $db->loan_rates_10K();
     <div id="civilian_info_panel">
       <div id="civilian_info_panel_title_box">
         <h3 id="civilian_info_panel_title">Select Your Name</h3>
+        <a id = "newcivaccclose" align="center" onclick="document.getElementById('civilian_info_container').style.display='none'">Cancel</a>
       </div>
       <div id="civ_list_container" align="center">
         <div id="civ_list_box">

@@ -3,15 +3,6 @@ namespace loan950;
 use \loan950\db_access;
 include('../../dbaccess/db_access.php');
 $db = new db_access();
-
-if(isset($_POST['btn-submit-new-Civilian'])){
-  echo '
-  <script>
-    alert("Successfully Registered.");
-  </script>';
-} else {
-  // do nothing...
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,23 +57,28 @@ if(isset($_POST['btn-submit-new-Civilian'])){
         <section id = "rc-container">
         <h3>Create New Civilian Account</h3>
         <div id = "rc-credentials-container">
-          <form action = "" method = "POST" id = "civilian_register_form" onsubmit="return validate_input()">
+          <form action = "validate_ce_account.php" method = "POST" id = "civilian_register_form" onsubmit="return validate_input()">
             <div id="rc-personaldetails">
               <div class="rc-header">
                 <label>Personal Details</label>
               </div>
               <div id = "rc-input-inner">
-                <input type="hidden" name = "txt_civilian_id" id = "txt_civilian_id" disabled value = "'.$civilian_ID.'" />
-                <input type="hidden" name = "txt_type_of_employee" id = "txt_type_of_employee" disabled value = "'.$type_of_employee.'" />
-                <input type="text" name = "txt_Civilian_firstname" id = "txt_Civilian_firstname" disabled value = "'.$civilian_fName.'" />
-                <input type="text" name = "txt_Civilian_middlename" id = "txt_Civilian_middlename" disabled value = "'.$civilian_mName.'" />
-                <input type="text" name = "txt_Civilian_lastname" id = "txt_Civilian_lastname" disabled value = "'.$civilian_lName.'" />
-                <input type="text" name = "txt_Civilian_email" id = "txt_Civilian_email" disabled value = "'.$civilian_email.'" />
-                <input type="text" name = "txt_Civilian_contactnumber" id = "txt_Civilian_contactnumber" disabled value = "'.$civilian_contactNumber.'" />
-                <input type="hidden" name = "txt_Civilian_birthdate" id = "txt_Civilian_birthdate" disabled value = "'.$civilian_birthdate.'" />
-                <input type="hidden" name = "txt_civilian_address" id = "txt_civilian_address" disabled value = "'.$civilian_address.'" />
-                <input type="hidden" name = "txt_civilian_office" id = "txt_civilian_office" disabled value = "'.$civilian_office.'" />
-                <input type="hidden" name = "txt_civilian_rank" id = "txt_civilian_rank" disabled value = "'.$civilian_rank.'" />
+                <input type="hidden" name = "txt_civilian_id" id = "txt_civilian_id" value = "'.$civilian_ID.'" />
+                <input type="hidden" name = "txt_type_of_employee" id = "txt_type_of_employee" value = "'.$type_of_employee.'" />
+                <input type="hidden" name = "txt_Civilian_birthdate" id = "txt_Civilian_birthdate" value = "'.$civilian_birthdate.'" />
+                <input type="hidden" name = "txt_civilian_address" id = "txt_civilian_address" value = "'.$civilian_address.'" />
+                <input type="hidden" name = "txt_civilian_office" id = "txt_civilian_office" value = "'.$civilian_office.'" />
+                <input type="hidden" name = "txt_civilian_rank" id = "txt_civilian_rank" value = "'.$civilian_rank.'" />
+                <input type="hidden" name = "txt_Civilian_firstname" id = "txt_Civilian_firstname" value = "'.$civilian_fName.'" />
+                <input type="hidden" name = "txt_Civilian_middlename" id = "txt_Civilian_middlename" value = "'.$civilian_mName.'" />
+                <input type="hidden" name = "txt_Civilian_lastname" id = "txt_Civilian_lastname" value = "'.$civilian_lName.'" />
+                <input type="hidden" name = "txt_Civilian_email" id = "txt_Civilian_email" value = "'.$civilian_email.'" />
+                <input type="hidden" name = "txt_Civilian_contactnumber" id = "txt_Civilian_contactnumber" value = "'.$civilian_contactNumber.'" />
+                <input type="text" id = "txt_Civilian_firstname" disabled value = "'.$civilian_fName.'" />
+                <input type="text" id = "txt_Civilian_middlename" disabled value = "'.$civilian_mName.'" />
+                <input type="text" id = "txt_Civilian_lastname" disabled value = "'.$civilian_lName.'" />
+                <input type="text" id = "txt_Civilian_email" disabled value = "'.$civilian_email.'" />
+                <input type="text" id = "txt_Civilian_contactnumber" disabled value = "'.$civilian_contactNumber.'" />
               </div>
             </div>
             <hr>

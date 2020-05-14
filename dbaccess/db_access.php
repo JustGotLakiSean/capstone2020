@@ -156,6 +156,60 @@ class db_access {
   /* --- END OF OFFICER SIDE --- */
 
   /* CIVILIAN SIDE */
+
+  public function register_civilian_account($civilian_id, $civilian_account_fName, $civilian_account_lName, $civilian_account_mName, $type_of_employee, $civilian_account_rank, $civilian_account_office, $civilian_account_email, $civilian_account_contactNumber, $civilian_account_birthdate, $civilian_account_adress, $civilian_username, $civilian_password, $civilian_confirm_password)
+  {
+    $con=$this->getConnection();
+    $query = "INSERT INTO tbl_civilian_employee_account(civilian_id, civilian_account_fName, civilian_account_lName, civilian_account_mName, type_of_employee, civilian_account_rank, civilian_account_office, civilian_account_email, civilian_account_contactNumber, civilian_account_birthdate, civilian_account_adress, civilian_username, civilian_password, civilian_confirm_password)
+    VALUES('$civilian_id', '$civilian_account_fName', '$civilian_account_lName', '$civilian_account_mName', '$type_of_employee', '$civilian_account_rank', '$civilian_account_office', '$civilian_account_email', '$civilian_account_contactNumber', '$civilian_account_birthdate', '$civilian_account_adress', '$civilian_username', '$civilian_password', '$civilian_confirm_password')";
+    $insert_account = $con->query($query);
+    if($insert_account){
+      return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function update_has_account_civilian($civilian_id, $civilian_fname, $civilian_mname, $civilian_lname, $civilian_email, $civilian_rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_civilian_employee SET has_account = 1 WHERE civilian_ID = '$civilian_id' AND civilian_fName = '$civilian_fname' AND civilian_mName = '$civilian_mname' AND civilian_lName = '$civilian_lname' AND civilian_email = '$civilian_email' AND civilian_rank = '$civilian_rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function if_civ_exist($civilian_username)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_civilian_employee_account WHERE civilian_username = '$civilian_username'";
+    $is_exist = $con->query($query);
+    if($is_exist){
+      return $is_exist;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function login_civ($civilian_username, $civilian_password)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_civilian_employee_account WHERE civilian_username = '$civilian_username' AND civilian_password = '$civilian_password'";
+    $log_civ=$con->query($query);
+    if($log_civ){
+      return $log_civ;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
   public function add_new_civilian_record($emp_type, $civ_fname, $civ_lname, $civ_mname, $civ_office, $civ_email, $civ_contactnumber, $civ_birthdate, $civ_address, $civ_rank, $has_account, $downpayment_count, $db_5k_count, $db_10k_count, $fullpayment_count, $fp_5k_count, $fp_10k_count, $penalty_count, $penalty_5k_count, $penalty_10k_count, $la_5k_count, $la_10k_count){
     $con = $this->getConnection();
     $query = "INSERT INTO tbl_civilian_employee(type_of_employee, civilian_fName, civilian_lName, civilian_mName, civilian_office, civilian_email, civilian_contactNumber, civilian_birthdate, civilian_address, civilian_rank, has_account, downpayment_count, dp_5k_count, dp_10k_count, fullpayment_count, fp_5k_count, fp_10k_count, penalty_count, penalty_5k_count, penalty_10k_count, la_5k_count, la_10k_count)
@@ -964,6 +1018,7 @@ class db_access {
     } else {
       die($con->error);
     }
+    $con->close();
   }
 
   public function update_fifth_payment_10k($loan_id_10k, $borrower_id, $fname, $mname, $lname, $type_of_employee, $rank)

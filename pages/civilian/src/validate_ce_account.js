@@ -28,3 +28,23 @@ const validate_input = () => {
 
   return valid;
 }
+
+const validate_ce_login = () => {
+  var valid = true;
+
+  var civ_username = document.getElementById('civ_username').value;
+  var civ_password = document.getElementById('civ_password').value;
+
+  if(civ_username){
+    document.getElementById('civ_username').style.border = '1px solid #FF0C25';
+    valid = false;
+  }
+
+  if(civ_password){
+    document.getElementById('civ_password').style.border = '1px solid #FF0C25';
+    valid = false;
+  }
+
+  return valid;
+
+}

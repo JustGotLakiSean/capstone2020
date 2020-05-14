@@ -80,4 +80,19 @@ if(isset($_POST["btn_submit_login"])){
     }
   }
 }
+
+if(isset($_POST['btn-cl-submit'])){
+  $civilian_username = '';
+  $civilian_password = '';
+
+  if(isset($_POST['civ_username']) && isset($_POST['civ_password'])){
+    include("../dbaccess/db_access.php");
+    $dbaccess = new db_access();
+    $con = $dbaccess->getConnection();
+    $civilian_username = mysqli_real_escape_string($con, $_POST['civ_username']);
+    $civilian_password = mysqli_real_escape_string($con, $_POST['civ_password']);
+
+  }
+
+}
 ?>

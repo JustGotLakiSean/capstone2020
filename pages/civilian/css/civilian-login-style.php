@@ -166,16 +166,14 @@ hr {
 }
 
 #civilian-options {
-  display: flex;
-  justify-content: space-between;
   text-align: center;
-  position: relative;
 }
 
 #civilian-options a {
   text-decoration: none;
   color: #006837;
   font-size: 1rem;
+  cursor: pointer;
 }
 
 #civilian_info_container {
@@ -187,7 +185,7 @@ hr {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.9); /* color */
-  display: block; /* making it hidden by default */
+  display: none; /* making it hidden by default */
 }
 
 #civilian_info_panel {
@@ -206,6 +204,22 @@ hr {
   height: 26px;
   background: rgb(0, 146, 69);
   border-radius: 5px;
+  color: #fff;
+}
+
+#newcivaccclose {
+  position: absolute;
+  top: 1px;
+  right: 10px;
+  cursor: pointer;
+  transition: 100ms ease-in;
+  height: 23px;
+  width: 60px;
+  border-radius: 5px;
+}
+
+#newcivaccclose:hover {
+  background: #006837;
   color: #fff;
 }
 
