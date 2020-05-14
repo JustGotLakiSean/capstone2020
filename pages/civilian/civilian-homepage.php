@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
+  header('location: civilian-login.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +26,7 @@
           <input type="button" name="cl-btnaction" id="cl-btnaction" onclick="document.getElementById('ce_menu_box').style.display='flex'" value="Your Account" />
           <div id="ce_menu_box">
             <a href="#">Account Details</a>
-            <a href="#">Sign Out</a>
+            <a href="logout_civ.php">Sign Out</a>
           </div>
         </li>
       </ul>
@@ -31,14 +38,9 @@
       <div class="ce-inner-content">
         <div class="cepd-container">
           <div class="cepd-header">
-            <h4>Personal Details</h4>
+            <h4>Hello, <?php echo $_SESSION['cuname']; ?></h4>
           </div>
           <div class="cepd-inner-content">
-            <div class="moreoption-button-container">
-              <button type="button" class="ce-btnmo" onclick="document.getElementById('edit_ce_profile_container').style.display='block'">
-                Edit
-              </button>
-            </div>
             <div class="cepd-detailbox">
               <div class="cepd-imagebox-container">
                 <div class="cepd-imagebox">
@@ -47,13 +49,13 @@
               </div>
               <div class="cepd-box">
                 <div class="cepd-fullname-box">
-                  <p id="ce-fullname">Jean Joshua Haplasca Villanueva BSAIT 4-1</p>
+                  <p id="ce-fullname"><?php echo $_SESSION['ce_fullname']; ?></p>
                 </div>
                 <div class="cepd-office-box">
-                  <p>Office</p>
+                  <p><?php echo $_SESSION['ce_office']; ?></p>
                 </div>
                 <div class="cepd-contactnumber-box">
-                  <p>Contact Number</p>
+                  <p><?php echo $_SESSION['ce_contactnumber']; ?></p>
                 </div>
               </div>
             </div>

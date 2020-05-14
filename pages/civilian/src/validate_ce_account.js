@@ -35,12 +35,12 @@ const validate_ce_login = () => {
   var civ_username = document.getElementById('civ_username').value;
   var civ_password = document.getElementById('civ_password').value;
 
-  if(civ_username){
+  if(civ_username == ''){
     document.getElementById('civ_username').style.border = '1px solid #FF0C25';
     valid = false;
   }
 
-  if(civ_password){
+  if(civ_password == ''){
     document.getElementById('civ_password').style.border = '1px solid #FF0C25';
     valid = false;
   }

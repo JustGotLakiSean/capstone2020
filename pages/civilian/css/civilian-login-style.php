@@ -101,6 +101,7 @@ section h1 {
   font-size: 1rem;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 #btn-cl-submit:disabled {

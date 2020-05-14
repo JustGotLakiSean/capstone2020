@@ -84,6 +84,22 @@ if(isset($_POST["btn_submit_login"])){
 if(isset($_POST['btn-cl-submit'])){
   $civilian_username = '';
   $civilian_password = '';
+  $username = '';
+  $password = '';
+  $ce_acc_id = '';
+  $log = '';
+  $ce_id = '';
+  $ce_firstname = '';
+  $ce_middlename = '';
+  $ce_lastname = '';
+  $ce_office = '';
+  $ce_rank = '';
+  $type_of_employee = '';
+  $ce_email = '';
+  $ce_contactnumber = '';
+  $ce_birthday = '';
+  $ce_address = '';
+  $ce_fullname = '';
 
   if(isset($_POST['civ_username']) && isset($_POST['civ_password'])){
     include("../dbaccess/db_access.php");
@@ -92,6 +108,48 @@ if(isset($_POST['btn-cl-submit'])){
     $civilian_username = mysqli_real_escape_string($con, $_POST['civ_username']);
     $civilian_password = mysqli_real_escape_string($con, $_POST['civ_password']);
 
+    $log = $dbaccess->login_civ($civilian_username, $civilian_password);
+
+    while($row = $log->fetch_array(MYSQLI_ASSOC)){
+      $ce_acc_id = $row['civilian_account_id'];
+      $username = $row['civilian_username'];
+      $password = $row['civilian_password'];
+      $ce_id = $row['civilian_id'];
+      $ce_firstname = $row['civilian_account_fName'];
+      $ce_middlename = $row['civilian_account_mName'];
+      $ce_lastname = $row['civilian_account_lName'];
+      $type_of_employee = $row['type_of_employee'];
+      $ce_rank = $row['civilian_account_rank'];
+      $ce_office = $row['civilian_account_office'];
+      $ce_email = $row['civilian_account_email'];
+      $ce_contactnumber = $row['civilian_account_contactNumber'];
+      $ce_birthday = $row['civilian_account_birthdate'];
+      $ce_address = $row['civilian_account_address'];
+      $ce_fullname = "$ce_firstname $ce_middlename $ce_lastname";
+    }
+
+    if($civilian_username === $username && $civilian_password === $password){
+      session_start();
+      $_SESSION['cuname'] = $username;
+      $_SESSION['cuid'] = $ce_acc_id;
+      $_SESSION['fname'] = $ce_firstname;
+      $_SESSION['mname'] = $ce_middlename;
+      $_SESSION['lname'] = $ce_lastname;
+      $_SESSION['type_of_employee'] = $type_of_employee;
+      $_SESSION['ce_rank'] = $ce_rank;
+      $_SESSION['ce_office'] = $ce_office;
+      $_SESSION['ce_email'] = $ce_email;
+      $_SESSION['ce_contactnumber'] = $ce_contactnumber;
+      $_SESSION['ce_birthday'] = $ce_birthday;
+      $_SESSION['ce_address'] = $ce_address;
+      $_SESSION['ce_fullname'] = $ce_fullname;
+      header('location: ../pages/civilian/civilian-homepage.php');
+    } else {
+      header('location: ../pages/civilian/civilian-login.php');
+    }
+
+  } else {
+    // do nothing..
   }
 
 }
