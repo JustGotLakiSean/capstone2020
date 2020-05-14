@@ -1,4 +1,10 @@
 <?php
+namespace loan950;
+use \loan950\db_access;
+include('../../dbaccess/db_access.php');
+$db = new db_access();
+$lr5k = $db->loan_rates_5K();
+$lr10k = $db->loan_rates_10K();
 session_start();
 
 if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
@@ -10,8 +16,10 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/civilian-homepage.css">
-  <link rel="stylesheet" href="css/loanrequest-civ.css">
+  <?php
+  include('css/loanrequest-civ.php');
+  include('css/civilian-homepage-style.php');
+  ?>
   <title>Home | Civilian Employee</title>
 </head>
 <body>
@@ -67,8 +75,11 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
           </div>
           <div class="cela-inner-content">
             <div class="cela-requestbutton-container">
-              <button type="button" id="ce-btnrequest" onclick="document.getElementById('lrf-container').style.display='block'">
-                Request
+              <button type="button" class="ce-btnrequest" onclick="document.getElementById('lrf-container_5k').style.display='block'">
+                Request 5K Loan
+              </button>
+              <button type="button" class="ce-btnrequest" onclick="document.getElementById('lrf-container_10k').style.display='block'">
+                Request 10K Loan
               </button>
             </div>
             <div class="cela-loancategory">
@@ -140,22 +151,19 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
 </section>
 
   <!--Loan Request Form-->
-  <section id="lrf-container">
+  <section id="lrf-container_5k">
     <form action="" method="" id="loanRequestForm">
       <div class="lrf-inner-container">
         <div class="lrf-top-container">
           <div class="lrf-header">
             <h3 align="center">Loan Request Form</h3>
-            <button type="button" class="btn_lrf_close" onclick="document.getElementById('lrf-container').style.display='none'">
+            <button type="button" class="btn_lrf_close" onclick="document.getElementById('lrf-container_5k').style.display='none'">
               Close
             </button>
           </div>
           <div class="lrf-type-of-account-box">
             <label for="type_of_account">Choose type of Account:</label>
-            <select name="type_of_account">
-              <option value="5K">5K Account</option>
-              <option value="10K">10K Account</option>
-            </select>
+            <input type="text" name = "type_of_account" class ="lk_rate" disabled value="5K Account" />
           </div>
         </div>
         <hr>
@@ -182,13 +190,101 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
         <hr>
         <div class="lrf-loanrates">
           <div class="lrf-loanrates-inner">
-            <p>HUHUGUTIN KAY DATABASE PHP</p>
+          <?php
+          while($res = $lr5k->fetch_array(MYSQLI_ASSOC)){
+            $rates_id = $res['5k_rates_id'];
+            $type_of_loan_5k = $res['type_of_loan'];
+            $loan_amount_rates_5k = $res['5k_loan_amount_rates'];
+            $monthly_payment_rates_5k = $res['5k_monthly_payment_rates'];
+            $credit_rates_5k = $res['5k_credit_rates'];
+            $beginning_balance_5k = $res['5k_beginning_balance_rates'];
+            $interest_rates_5k = $res['5k_interest_rate'];
+            $penalty_permonth_rates_5k = $res['5k_penalty_permonth_rates'];
+            $date_today = date("j-M-y");
+            $formatted_string = "950CEISG-000";
+          }
+          echo '<div class="firstbox">';
+          echo '<label for="loan_amount_rates_5k">Loan Amount</label>';
+          echo '<label for="monthly_payment_rates_5k">Monthly Payment</label>';
+          echo '<label for="credit_rates_5k">Credit</label>';
+          echo '<label for="beginning_balance_5k">Beginning Balance</label>';
+          echo '<label for="interest_rates_5k">Interest Rate</label>';
+          echo '<label for="penalty_permonth_rates_5k">Penalty Per Month</label>';
+          echo '<label for="date_today">Date</label>';
+          echo '</div>';
+
+          echo '<div class="secondbox">';
+          echo '<input type="hidden" name="loan_amount_rates_5k" class="lk_rate" value="'.$loan_amount_rates_5k.'" />';
+          echo '<input type="text" id="loan_amount_rates_5k" disabled class="lk_rate" value="'.$loan_amount_rates_5k.'" />';
+          echo '<input type="hidden" name="monthly_payment_rates_5k" class="lk_rate" value="'.$monthly_payment_rates_5k.'" />';
+          echo '<input type="text" id="monthly_payment_rates_5k" disabled class="lk_rate" value="'.$monthly_payment_rates_5k.'" />';
+          echo '<input type="hidden" name="credit_rates_5k" class="lk_rate" value="'.$credit_rates_5k.'" />';
+          echo '<input type="text" id="credit_rates_5k" disabled class="lk_rate" value="'.$credit_rates_5k.'" />';
+          echo '<input type="hidden" name="beginning_balance_5k" class="lk_rate" value="'.$beginning_balance_5k.'" />';
+          echo '<input type="text" id="beginning_balance_5k" disabled class="lk_rate" value="'.$beginning_balance_5k.'" />';
+          echo '<input type="hidden" name="interest_rates_5k" class="lk_rate" value="'.$interest_rates_5k.'" />';
+          echo '<input type="text" id="interest_rates_5k" disabled class="lk_rate" value="'.$interest_rates_5k.'" />';
+          echo '<input type="hidden" name="penalty_permonth_rates_5k" class="lk_rate" value="'.$penalty_permonth_rates_5k.'" />';
+          echo '<input type="text" id="penalty_permonth_rates_5k" disabled class="lk_rate" value="'.$penalty_permonth_rates_5k.'" />';
+          echo '<input type="hidden" name="date_today" class="lk_rate" value="'.$date_today.'" />';
+          echo '<input type="text" id="date_today" disabled class="lk_rate" value="'.$date_today.'" />';
+          echo '</div>';
+          ?>
           </div>
         </div>
         <hr>
         <div class="lrf-btn-action" align='center'>
           <input type="submit" name="lrf_btn_submit" id="lrf_btn_submit" value="Submit" />
           <!-- <input type="button" name="lrf_btn_cancel" id="lrf_btn_cancel" value="Cancel" /> -->
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <section id="lrf-container_10k">
+    <form action="" method="" id="loanRequestForm">
+      <div class="lrf-inner-container">
+        <div class="lrf-top-container">
+          <div class="lrf-header">
+            <h3 align="center">Loan Request Form</h3>
+            <button type="button" class="btn_lrf_close" onclick="document.getElementById('lrf-container_10k').style.display='none'">
+              Close
+            </button>
+          </div>
+          <div class="lrf-type-of-account-box">
+            <label for="type_of_account">Choose type of Account:</label>
+            <input type="text" disabled value="10K Account" />
+          </div>
+        </div>
+        <hr>
+        <div class="lrf-midinputbox">
+          <div class="lrf-midinputbox-inner">
+            <div class="lrf-bfn-container mid_box_item">
+              <label for="lrf-txt-borrowerfname">Firstname</label>
+              <input type="text" disabled name="lrf-txt-borrowerfname" id="lrf-txt-borrowerfname" />
+            </div>
+            <div class="lrf-bmn-container mid_box_item">
+              <label for="lrf-txt-borrowermname">Middle name</label>
+              <input type="text" disabled name="lrf-txt-borrowermname" id="lrf-txt-borrowermname" />
+            </div>
+            <div class="lrf-bln-container mid_box_item">
+              <label for="lrf-txt-borrowerlname">Last name</label>
+              <input type="text" disabled name="lrf-txt-borrowerlname" id="lrf-txt-borrowerlname" />
+            </div>
+            <div class="lrf-boff-container mid_box_item">
+              <label for="lrf-txt-borroweroffice">Office</label>
+              <input type="text" disabled name="lrf-txt-borroweroffice" id="lrf-txt-borroweroffice" />
+            </div>
+          </div>
+        </div>
+        <div class="lrf-loanrates">
+          <div class="lrf-loanrates-inner">
+            <p>HUHUGUTIN KAY DATABASE PHP</p>
+          </div>
+        </div>
+        <hr>
+        <div class="lrf-btn-action" align='center'>
+          <input type="submit" name="lrf_btn_submit" id="lrf_btn_submit" value="Submit" />
         </div>
       </div>
     </form>
