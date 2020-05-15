@@ -132,6 +132,7 @@ if(isset($_POST['btn-cl-submit'])){
       session_start();
       $_SESSION['cuname'] = $username;
       $_SESSION['cuid'] = $ce_acc_id;
+      $_SESSION['ce_id'] = $ce_id;
       $_SESSION['fname'] = $ce_firstname;
       $_SESSION['mname'] = $ce_middlename;
       $_SESSION['lname'] = $ce_lastname;

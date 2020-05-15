@@ -1,3 +1,35 @@
+<?php
+namespace loan950;
+use \loan950\db_access;
+include('../../dbaccess/db_access.php');
+$db = new db_access();
+
+session_start();
+
+if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
+  header('location: civilian-login.php');
+}
+
+function show_granted_loan_5k($ce_id, $ce_loan_type, $ce_fname, $ce_mname, $ce_lname, $ce_emp_type, $ce_office, $ce_rank)
+{
+  $con = new db_access();
+  $granted_loan_5k = $con->view_granted_loan_5k($ce_id, $ce_loan_type, $ce_fname, $ce_mname, $ce_lname, $ce_emp_type, $ce_office, $ce_rank);
+
+  echo '
+  <div id="granted_transaction_list_5k">
+    <div class="title">
+      <h4>Transaction Table</h4>
+    </div>
+    <table border="1">
+      <thead>
+        <tr>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+  </div>';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,81 +58,26 @@
     </nav>
   </header>
 
-  <article onclick="document.getElementById('ce_menu_box').style.display='none'">
+  <article>
     <section class="ce-5ktl-container">
       <div class="ce-5ktl-inner-content">
         <div class="ce-5ktl-header">
           <div class="ce-5ktl-title-container">
+            <h4>Hello, <?php echo $_SESSION['cuname']; ?></h4>
             <h3>5K Account Transaction List</h3>
-          </div>
-          <div class="ce-5ktl-requestbutton-container">
-            <input type="button" name="btn-request" id="btn-request" value="Request" onclick="document.getElementById('lrf-container').style.display='block'" />
           </div>
         </div>
         <hr>
         <div class="ce5ktl-content">
           <div class="ce5ktl-notransaction">
-            <h1>No Transactions for 5K Account</h1>
+            <div>
+
+            </div>
           </div>
         </div>
       </div>
     </section>
   </article>
-
-  <!--Loan Request Form-->
-  <section id="lrf-container">
-    <form action="" method="" id="loanRequestForm">
-      <div class="lrf-inner-container">
-        <div class="lrf-top-container">
-          <div class="lrf-header">
-            <h3 align="center">Loan Request Form</h3>
-            <button type="button" class="btn_lrf_close" onclick="document.getElementById('lrf-container').style.display='none'">
-              Close
-            </button>
-          </div>
-          <div class="lrf-type-of-account-box">
-            <label for="type_of_account">Choose type of Account:</label>
-            <select name="type_of_account">
-              <option value="5K">5K Account</option>
-              <option value="10K">10K Account</option>
-            </select>
-          </div>
-        </div>
-        <hr>
-        <div class="lrf-midinputbox">
-          <div class="lrf-midinputbox-inner">
-            <div class="lrf-bfn-container mid_box_item">
-              <label for="lrf-txt-borrowerfname">Firstname</label>
-              <input type="text" disabled name="lrf-txt-borrowerfname" id="lrf-txt-borrowerfname" />
-            </div>
-            <div class="lrf-bmn-container mid_box_item">
-              <label for="lrf-txt-borrowermname">Middle name</label>
-              <input type="text" disabled name="lrf-txt-borrowermname" id="lrf-txt-borrowermname" />
-            </div>
-            <div class="lrf-bln-container mid_box_item">
-              <label for="lrf-txt-borrowerlname">Last name</label>
-              <input type="text" disabled name="lrf-txt-borrowerlname" id="lrf-txt-borrowerlname" />
-            </div>
-            <div class="lrf-boff-container mid_box_item">
-              <label for="lrf-txt-borroweroffice">Office</label>
-              <input type="text" disabled name="lrf-txt-borroweroffice" id="lrf-txt-borroweroffice" />
-            </div>
-          </div>
-        </div>
-        <hr>
-        <div class="lrf-loanrates">
-          <div class="lrf-loanrates-inner">
-            <p>HUHUGUTIN KAY DATABASE PHP</p>
-          </div>
-        </div>
-        <hr>
-        <div class="lrf-btn-action" align='center'>
-          <input type="submit" name="lrf_btn_submit" id="lrf_btn_submit" value="Submit" />
-          <!-- <input type="button" name="lrf_btn_cancel" id="lrf_btn_cancel" value="Cancel" /> -->
-        </div>
-      </div>
-    </form>
-  </section>
   
 </body>
 </html>

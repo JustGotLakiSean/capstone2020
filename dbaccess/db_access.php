@@ -1080,5 +1080,59 @@ class db_access {
       return false;
     }
   }
+
+  // loan request //
+  public function add_loan_request_5k($borrower_id, $ctrl_no_prefix, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank, $is_granted, $is_declined, $is_pending)
+  {
+    $con=$this->getConnection();
+    $query = "INSERT INTO tbl_loan_request(borrower_id, ctrl_no_prefix, type_of_loan, borrower_fname, borrower_mname, borrower_lname, type_of_employee, borrower_office, borrower_rank, is_granted, is_declined, is_pending)
+    VALUES('$borrower_id', '$ctrl_no_prefix', '$type_of_loan', '$borrower_fname', '$borrower_mname', '$borrower_lname', '$type_of_employee', '$borrower_office', '$borrower_rank', '$is_granted', '$is_declined', '$is_pending')";
+    $insert_query = $con->query($query);
+    if($insert_query){
+      return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function view_granted_loan_5k($borrower_id, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_loan_request WHERE is_granted = 1";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con-close();
+  }
+
+  public function view_pending_loan_5k($borrower_id, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_loan_request WHERE is_pending = 1";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function view_declined_loan_5k($borrower_id, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_loan_request WHERE is_declined = 1";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
 }
 ?>

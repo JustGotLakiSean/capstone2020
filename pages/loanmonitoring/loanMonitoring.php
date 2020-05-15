@@ -18,7 +18,7 @@ function transaction_table_5k(){
             <tr>
               <th>Control Number</th>
               <th>Name</th>
-              <th>Type of Loan Account</th>
+              <th>Status</th>
               <th>View</th>
             </tr>          
           </thead>

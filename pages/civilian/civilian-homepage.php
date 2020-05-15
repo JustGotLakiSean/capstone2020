@@ -90,19 +90,19 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
                 <div class="cela-accounts-box">
                   <div class="cela-5kaccounts-firstbox">
                     <p>5K Account</p>
-                    <p class="5ktransaction-count tc">0 Transaction</p>
+                    <!-- <p class="5ktransaction-count tc">0 Transaction</p> -->
                   </div>
                   <div class="cela-5kaccounts-secondbox">
-                    <a href="#" id="ce-show-link">Show</a>
+                    <a href="civilian-5kloan-transactionlist.php" id="ce-show-link">Show</a>
                   </div>
                 </div>
                 <div class="cela-accounts-box">
                   <div class="cela-10kaccounts-firstbox">
                     <p>10K Account</p>
-                    <p class="10ktransaction-count tc">0 Transaction</p>
+                    <!-- <p class="10ktransaction-count tc">0 Transaction</p> -->
                   </div>
                   <div class="cela-10kaccounts-secondbox">
-                    <a href="#" id="ce-show-link">Show</a>
+                    <a href="civilian-10kloan-transactionlist.php" id="ce-show-link">Show</a>
                   </div>
                 </div>
               </div>
@@ -152,7 +152,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
 
   <!--Loan Request Form-->
   <section id="lrf-container_5k">
-    <form action="" method="" id="loanRequestForm">
+    <form action="loanrequest5k.php" method="POST" id="loanRequestForm">
       <div class="lrf-inner-container">
         <div class="lrf-top-container">
           <div class="lrf-header">
@@ -162,8 +162,9 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
             </button>
           </div>
           <div class="lrf-type-of-account-box">
-            <label for="type_of_account">Choose type of Account:</label>
-            <input type="text" name = "type_of_account" class ="lk_rate" disabled value="5K Account" />
+            <label for="type_of_account">Type of account:</label>
+            <input type="hidden" name = "type_of_account" class ="lk_rate" value="5K Account" />
+            <input type="text" class ="lk_rate" disabled value="5K Account" />
           </div>
         </div>
         <hr>
@@ -171,20 +172,27 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
           <div class="lrf-midinputbox-inner">
             <div class="lrf-bfn-container mid_box_item">
               <label for="lrf-txt-borrowerfname">Firstname</label>
-              <input type="text" disabled name="lrf-txt-borrowerfname" id="lrf-txt-borrowerfname" />
+              <input type="hidden" name="lrf-txt-borrowerid" value="<?php echo $_SESSION['ce_id']; ?>" />
+              <input type="hidden" name="lrf-txt-borrowerfname" id="lrf-txt-borrowerfname" value = "<?php echo $_SESSION['fname']; ?>" />
+              <input type="text" disabled id="lrf-txt-borrowerfname" id="lrf-txt-borrowerfname" value = "<?php echo $_SESSION['fname']; ?>" />
             </div>
             <div class="lrf-bmn-container mid_box_item">
               <label for="lrf-txt-borrowermname">Middle name</label>
-              <input type="text" disabled name="lrf-txt-borrowermname" id="lrf-txt-borrowermname" />
+              <input type="hidden" name="lrf-txt-borrowermname" id="lrf-txt-borrowermname" value = "<?php echo $_SESSION['mname']; ?>" />
+              <input type="text" disabled id="lrf-txt-borrowermname" id="lrf-txt-borrowermname" value = "<?php echo $_SESSION['mname']; ?>" />
             </div>
             <div class="lrf-bln-container mid_box_item">
               <label for="lrf-txt-borrowerlname">Last name</label>
-              <input type="text" disabled name="lrf-txt-borrowerlname" id="lrf-txt-borrowerlname" />
+              <input type="hidden" name="lrf-txt-borrowerlname" id="lrf-txt-borrowerlname" value = "<?php echo $_SESSION['lname']; ?>"/>
+              <input type="text" disabled id="lrf-txt-borrowerlname" id="lrf-txt-borrowerlname" value = "<?php echo $_SESSION['lname']; ?>"/>
             </div>
             <div class="lrf-boff-container mid_box_item">
               <label for="lrf-txt-borroweroffice">Office</label>
-              <input type="text" disabled name="lrf-txt-borroweroffice" id="lrf-txt-borroweroffice" />
+              <input type="hidden" name="lrf-txt-borroweroffice" id="lrf-txt-borroweroffice" value = "<?php echo $_SESSION['ce_office']; ?>" />
+              <input type="text" disabled id="lrf-txt-borroweroffice" id="lrf-txt-borroweroffice" value = "<?php echo $_SESSION['ce_office']; ?>" />
             </div>
+            <input type="hidden" name="lrf-txt-borrowerrank" id="lrf-txt-borrowerrank" value = "<?php echo $_SESSION['ce_rank']; ?>" />
+            <input type="hidden" name="lrf-txt-borrowertype" id="lrf-txt-borrowertype" value = "<?php echo $_SESSION['type_of_employee']; ?>" />
           </div>
         </div>
         <hr>
@@ -214,6 +222,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
           echo '</div>';
 
           echo '<div class="secondbox">';
+          echo '<input type="hidden" name="formatted_string" value="'.$formatted_string.'" />';
           echo '<input type="hidden" name="loan_amount_rates_5k" class="lk_rate" value="'.$loan_amount_rates_5k.'" />';
           echo '<input type="text" id="loan_amount_rates_5k" disabled class="lk_rate" value="'.$loan_amount_rates_5k.'" />';
           echo '<input type="hidden" name="monthly_payment_rates_5k" class="lk_rate" value="'.$monthly_payment_rates_5k.'" />';
@@ -234,7 +243,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
         </div>
         <hr>
         <div class="lrf-btn-action" align='center'>
-          <input type="submit" name="lrf_btn_submit" id="lrf_btn_submit" value="Submit" />
+          <input type="submit" name="lrf_btn_submit_5k" id="lrf_btn_submit_5k" value="Submit" />
           <!-- <input type="button" name="lrf_btn_cancel" id="lrf_btn_cancel" value="Cancel" /> -->
         </div>
       </div>
@@ -284,7 +293,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
         </div>
         <hr>
         <div class="lrf-btn-action" align='center'>
-          <input type="submit" name="lrf_btn_submit" id="lrf_btn_submit" value="Submit" />
+          <input type="submit" name="lrf_btn_submit_10k" id="lrf_btn_submit_10k" value="Submit" />
         </div>
       </div>
     </form>

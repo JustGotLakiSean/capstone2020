@@ -99,10 +99,10 @@ hr {
 }
 
 .lrf-midinputbox-inner {
-  width: 510px;
+  width: 500px;
   display: grid;
   grid-auto-flow: row;
-  grid-gap: 10px;
+  grid-gap: 3px;
   margin: auto;
 }
 
@@ -133,11 +133,20 @@ hr {
   cursor: pointer;
 }
 
-#lrf_btn_submit {
+#lrf_btn_submit_5k {
   background: #0071BC;
 }
 
-#lrf_btn_submit:hover {
+#lrf_btn_submit_5k:hover {
+  box-shadow: 5px 2px 10px rgba(0, 0, 0, 0.2),
+  -5px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+#lrf_btn_submi_10k {
+  background: #0071BC;
+}
+
+#lrf_btn_submit_10k:hover {
   box-shadow: 5px 2px 10px rgba(0, 0, 0, 0.2),
   -5px 2px 10px rgba(0, 0, 0, 0.2);
 }
