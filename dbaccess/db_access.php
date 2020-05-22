@@ -280,11 +280,11 @@ class db_access {
   /* ADD NEW LOAN RECORD */
   // For new 5k record //
   // 'nl' for New Loan //$nl_loanAmount, $nl_credit, $nl_monthlypayment, $nl_beginningBalance, $nl_dateBorrowed, $nl_remarks
-  public function add_new_5k_record($borrower_id, $ctrlno_prefix, $fname, $mname, $lname, $emp_type, $loan_type, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $debit_pay, $interest_rate, $balance_rate, $date_of_loan, $comment_remarks, $penalty_per_month, $emp_office, $emp_rank, $first_payment, $second_payment, $third_payment, $fourth_payment, $fifth_payment, $full_payment, $status, $isNewLoan)
+  public function add_new_5k_record($borrower_id, $ctrlno_prefix, $fname, $mname, $lname, $emp_type, $loan_type, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $debit_pay, $interest_rate, $balance_rate, $date_of_loan, $comment_remarks, $penalty_per_month, $emp_office, $emp_rank, $first_payment, $second_payment, $third_payment, $fourth_payment, $fifth_payment, $full_payment, $status, $isNewLoan, $is_loan_requested)
   {
     $con=$this->getConnection();
-    $query="INSERT INTO tbl_new_5k_loan(borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, type_of_loan, loan_amount_5k_rate, monthly_payment_5k_rate, credit_5k_rate, debit_pay_5k, interest_rate_5k, balance_rate_5k, date_of_loan, comment, penalty, office, emp_rank, first_payment, second_payment, third_payment, fourth_payment, fifth_payment, full_payment, loan_status, isNewLoan)
-    VALUES('$borrower_id', '$ctrlno_prefix', '$fname', '$mname', '$lname', '$emp_type', '$loan_type', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$debit_pay', '$interest_rate', '$balance_rate', '$date_of_loan', '$comment_remarks', '$penalty_per_month', '$emp_office', '$emp_rank', '$first_payment', '$second_payment', '$third_payment', '$fourth_payment', '$fifth_payment', '$full_payment', '$status', '$isNewLoan')";
+    $query="INSERT INTO tbl_new_5k_loan(borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, type_of_loan, loan_amount_5k_rate, monthly_payment_5k_rate, credit_5k_rate, debit_pay_5k, interest_rate_5k, balance_rate_5k, date_of_loan, comment, penalty, office, emp_rank, first_payment, second_payment, third_payment, fourth_payment, fifth_payment, full_payment, loan_status, isNewLoan, is_loan_requested)
+    VALUES('$borrower_id', '$ctrlno_prefix', '$fname', '$mname', '$lname', '$emp_type', '$loan_type', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$debit_pay', '$interest_rate', '$balance_rate', '$date_of_loan', '$comment_remarks', '$penalty_per_month', '$emp_office', '$emp_rank', '$first_payment', '$second_payment', '$third_payment', '$fourth_payment', '$fifth_payment', '$full_payment', '$status', '$isNewLoan', '$is_loan_requested')";
     $insert_query = $con->query($query);
     if($insert_query){
       return true;
@@ -1082,11 +1082,11 @@ class db_access {
   }
 
   // loan request //
-  public function add_loan_request_5k($borrower_id, $ctrl_no_prefix, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank, $is_granted, $is_declined, $is_pending)
+  public function add_loan_request_5k($borrower_id, $ctrl_no_prefix, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_5k_rate, $debit_pay_5k, $interest_rate_5k, $balance_rate_5k, $comment, $penalty, $first_payment, $second_payment, $third_payment, $fourth_payment, $fifth_payment, $full_payment, $loan_status, $is_new_loan, $is_granted, $is_declined, $is_pending, $is_loan_requested_5k)
   {
     $con=$this->getConnection();
-    $query = "INSERT INTO tbl_loan_request(borrower_id, ctrl_no_prefix, type_of_loan, borrower_fname, borrower_mname, borrower_lname, type_of_employee, borrower_office, borrower_rank, is_granted, is_declined, is_pending)
-    VALUES('$borrower_id', '$ctrl_no_prefix', '$type_of_loan', '$borrower_fname', '$borrower_mname', '$borrower_lname', '$type_of_employee', '$borrower_office', '$borrower_rank', '$is_granted', '$is_declined', '$is_pending')";
+    $query = "INSERT INTO tbl_loan_request_5k(borrower_id, ctrl_no_prefix, type_of_loan, borrower_fname, borrower_mname, borrower_lname, type_of_employee, borrower_office, borrower_rank, loan_amount_5k_rate, monthly_payment_5k_rate, credit_5k_rate, debit_pay_5k, interest_rate_5k, balance_rate_5k, comment, penalty, first_payment, second_payment, third_payment, fourth_payment, fifth_payment, full_payment, loan_status, is_new_loan, is_granted, is_declined, is_pending, is_loan_requested_5k)
+    VALUES('$borrower_id', '$ctrl_no_prefix', '$type_of_loan', '$borrower_fname', '$borrower_mname', '$borrower_lname', '$type_of_employee', '$borrower_office', '$borrower_rank', '$loan_amount_5k_rate', '$monthly_payment_5k_rate', '$credit_5k_rate', '$debit_pay_5k', '$interest_rate_5k', '$balance_rate_5k', '$comment', '$penalty', '$first_payment', '$second_payment', '$third_payment', '$fourth_payment', '$fifth_payment', '$full_payment', '$loan_status', '$is_new_loan', '$is_granted', '$is_declined', '$is_pending', '$is_loan_requested_5k')";
     $insert_query = $con->query($query);
     if($insert_query){
       return true;

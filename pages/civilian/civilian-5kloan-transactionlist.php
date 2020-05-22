@@ -3,31 +3,17 @@ namespace loan950;
 use \loan950\db_access;
 include('../../dbaccess/db_access.php');
 $db = new db_access();
-
+$granted_loan_5k =
 session_start();
 
 if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
   header('location: civilian-login.php');
 }
 
-function show_granted_loan_5k($ce_id, $ce_loan_type, $ce_fname, $ce_mname, $ce_lname, $ce_emp_type, $ce_office, $ce_rank)
+function show_approved_loan_5k()
 {
   $con = new db_access();
-  $granted_loan_5k = $con->view_granted_loan_5k($ce_id, $ce_loan_type, $ce_fname, $ce_mname, $ce_lname, $ce_emp_type, $ce_office, $ce_rank);
-
-  echo '
-  <div id="granted_transaction_list_5k">
-    <div class="title">
-      <h4>Transaction Table</h4>
-    </div>
-    <table border="1">
-      <thead>
-        <tr>
-          <th></th>
-        </tr>
-      </thead>
-    </table>
-  </div>';
+  $
 }
 ?>
 <!DOCTYPE html>

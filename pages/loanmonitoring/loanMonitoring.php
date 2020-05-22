@@ -205,7 +205,7 @@ BUTTON;
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
   </head>
   <body>
-    <script src="src/new_loan.js"></script>
+    <script src="src/newloan.js"></script>
     <script src="src/new_loan_10k.js"></script>
     <header id = "loan-navigation-container">
       <nav id = "loan-global-navigation">
@@ -362,6 +362,7 @@ BUTTON;
                       $fourth_payment = 0;
                       $fifth_payment = 0;
                       $full_payment = 0;
+                      $is_loan_requested_5k = 0;
 echo <<<EMP_LIST
                     <form action="add_new_5k_loan.php" method="POST" class="search_result_box" >
                       <div id="emp_list">
@@ -1511,4 +1512,4 @@ echo '
       }
     </script>
   </body>
-</html>
+</html>3

@@ -208,8 +208,16 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
             $beginning_balance_5k = $res['5k_beginning_balance_rates'];
             $interest_rates_5k = $res['5k_interest_rate'];
             $penalty_permonth_rates_5k = $res['5k_penalty_permonth_rates'];
-            $date_today = date("j-M-y");
+            // $date_today = date("j-M-y");
             $formatted_string = "950CEISG-000";
+            $debit_pay_5k = 0;
+            $status = 0;
+            $first_payment = 0;
+            $second_payment = 0;
+            $third_payment = 0;
+            $fourth_payment = 0;
+            $fifth_payment = 0;
+            $full_payment = 0;
           }
           echo '<div class="firstbox">';
           echo '<label for="loan_amount_rates_5k">Loan Amount</label>';
@@ -218,7 +226,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
           echo '<label for="beginning_balance_5k">Beginning Balance</label>';
           echo '<label for="interest_rates_5k">Interest Rate</label>';
           echo '<label for="penalty_permonth_rates_5k">Penalty Per Month</label>';
-          echo '<label for="date_today">Date</label>';
+          // echo '<label for="date_today">Date</label>';
           echo '</div>';
 
           echo '<div class="secondbox">';
@@ -235,8 +243,16 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
           echo '<input type="text" id="interest_rates_5k" disabled class="lk_rate" value="'.$interest_rates_5k.'" />';
           echo '<input type="hidden" name="penalty_permonth_rates_5k" class="lk_rate" value="'.$penalty_permonth_rates_5k.'" />';
           echo '<input type="text" id="penalty_permonth_rates_5k" disabled class="lk_rate" value="'.$penalty_permonth_rates_5k.'" />';
-          echo '<input type="hidden" name="date_today" class="lk_rate" value="'.$date_today.'" />';
-          echo '<input type="text" id="date_today" disabled class="lk_rate" value="'.$date_today.'" />';
+          echo '<input type="hidden" name="debit_pay_5k" value="'.$debit_pay_5k.'" />';
+          echo '<input type="hidden" name="loan_status_5k" value="'.$status.'" />';
+          echo '<input type="hidden" name="first_payment_5k" value="'.$first_payment.'" />';
+          echo '<input type="hidden" name="second_payment_5k" value="'.$second_payment.'" />';
+          echo '<input type="hidden" name="third_payment_5k" value="'.$third_payment.'" />';
+          echo '<input type="hidden" name="fourth_payment_5k" value="'.$fourth_payment.'" />';
+          echo '<input type="hidden" name="fifth_payment_5k" value="'.$fifth_payment.'" />';
+          echo '<input type="hidden" name="full_payment_5k" value="'.$full_payment.'" />';;
+          // echo '<input type="hidden" name="date_today" class="lk_rate" value="'.$date_today.'" />';
+          // echo '<input type="text" id="date_today" disabled class="lk_rate" value="'.$date_today.'" />';
           echo '</div>';
           ?>
           </div>
