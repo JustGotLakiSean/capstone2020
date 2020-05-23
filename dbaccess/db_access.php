@@ -1096,19 +1096,6 @@ class db_access {
     $con->close();
   }
 
-  public function view_granted_loan_5k($borrower_id, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
-  {
-    $con=$this->getConnection();
-    $query="SELECT * FROM tbl_loan_request WHERE is_granted = 1";
-    $get_data = $con->query($query);
-    if($get_data){
-      return $get_data;
-    } else {
-      die($con->error);
-    }
-    $con-close();
-  }
-
   public function view_pending_loan_5k($borrower_id, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
   {
     $con=$this->getConnection();
@@ -1133,6 +1120,12 @@ class db_access {
       die($con->error);
     }
     $con->close();
+  }
+
+  // view civilian's granted loan 5k
+  public function view_granted_loan_5k($borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_rank, $borrower_office)
+  {
+
   }
 }
 ?>

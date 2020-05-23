@@ -3,7 +3,6 @@ namespace loan950;
 use \loan950\db_access;
 include('../../dbaccess/db_access.php');
 $db = new db_access();
-$granted_loan_5k =
 session_start();
 
 if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
@@ -13,7 +12,8 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
 function show_approved_loan_5k()
 {
   $con = new db_access();
-  $
+  $granted_loan_5k = $db->view_granted_loan_5k();
+
 }
 ?>
 <!DOCTYPE html>
@@ -21,8 +21,9 @@ function show_approved_loan_5k()
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/ce5ktransactionlist.css">
+  <!-- <link rel="stylesheet" href=""> -->
   <link rel="stylesheet" href="css/loanrequest-civ.css ">
+  <?php include('css/ce5ktransactionlist.php'); ?>
   <title>5K Account Transaction List</title>
 </head>
 <body>
@@ -56,8 +57,18 @@ function show_approved_loan_5k()
         <hr>
         <div class="ce5ktl-content">
           <div class="ce5ktl-notransaction">
-            <div>
+            <button class = "tablinks">Active Loan</button>
+            <button class= "tablinks">Pending Loan</button>
+          </div>
 
+          <div id = "active_loan_5k_tab" class="tabcontent">
+            <div id="active_loan_5k_tablename">
+              <h4 class="table_header_title">5k Transaction Table</h4>
+            </div>
+            <div id="active_loan_5k_table">
+              <form action ="" method="POST" id="showLoanPanel">
+              
+              </form>
             </div>
           </div>
         </div>
