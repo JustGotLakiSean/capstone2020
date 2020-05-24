@@ -9,12 +9,49 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
   header('location: civilian-login.php');
 }
 
-function show_approved_loan_5k()
-{
+function display_pending_5k_request($borrower_id, $borrower_account_id, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank){
   $con = new db_access();
-  $granted_loan_5k = $db->view_granted_loan_5k();
+  $pending_5k = $con->view_pending_loan_5k($borrower_id, $borrower_account_id, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank);
 
+  echo '
+  <div id="pending_table_5k">
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type of Account</th>
+          <th>Status</th>
+        </tr>
+      </thead>';
+
+      while($row = $pending_5k->fetch_array(MYSQLI_ASSOC)){
+        if($row > 0){
+          $id = $row['borrower_id'];
+          $fname = $row['borrower_fname'];
+          $mname = $row['borrower_mname'];
+          $lname = $row['borrower_lname'];
+          $type_of_loan_account = $row['type_of_loan'];
+          $status = (($row['is_pending'] == 0) ? '' : 'Pending');
+          $fullname = "$fname $mname $lname";
+
+          echo '
+          <tbody>
+            <tr>
+              <td>'.$fullname.'</td>
+              <td>'.$type_of_loan_account.'</td>
+              <td>'.$status.'</td>
+            </tr>
+          </tbody>';
+        } else {
+          echo "No Record";
+        }
+      }
+
+    echo '</table>
+  </div>';
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +64,22 @@ function show_approved_loan_5k()
   <title>5K Account Transaction List</title>
 </head>
 <body>
+
+<script>
+  function openTab(evt, tabName){
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for(i = 0; i < tabcontent.length; i++){
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for(i = 0; i < tablinks.length; i++){
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+</script>
 
   <header id="cl-header">
     <nav>
@@ -57,8 +110,8 @@ function show_approved_loan_5k()
         <hr>
         <div class="ce5ktl-content">
           <div class="ce5ktl-notransaction">
-            <button class = "tablinks">Active Loan</button>
-            <button class= "tablinks">Pending Loan</button>
+            <button class = "tablinks" onclick="openTab(event, 'active_loan_5k_tab')">Active Loan</button>
+            <button class= "tablinks" onclick="openTab(event, 'pending_loan_5k_tab')">Pending Loan</button>
           </div>
 
           <div id = "active_loan_5k_tab" class="tabcontent">
@@ -66,8 +119,32 @@ function show_approved_loan_5k()
               <h4 class="table_header_title">5k Transaction Table</h4>
             </div>
             <div id="active_loan_5k_table">
-              <form action ="" method="POST" id="showLoanPanel">
-              
+              <form action ="" method="POST" id="showActiveLoanPanel">
+                <p>Active Loan Request</p>
+              </form>
+            </div>
+          </div>
+
+          <div id="pending_loan_5k_tab" class="tabcontent">
+            <div id="pending_loan_5k_tablename">
+              <h4 class="table_header_title">Pending Loan Request Table</h4>
+            </div>
+            <div id="pending_loan_5k_table">
+              <form action="" method="POST" id="showPendingLoanPanel">
+                <?php
+                // lr5k -> loan request 5k
+                $lr5k = $db->fetch_loan_request_5k();
+                while($r = $lr5k->fetch_array(MYSQLI_ASSOC)){
+                  $typeOfLoan = $r['type_of_loan'];
+                  $fname = $r['borrower_fname'];
+                  $mname = $r['borrower_mname'];
+                  $lname = $r['borrower_lname'];
+                  $typeOfEmployee = $r['type_of_employee'];
+                  $office = $r['borrower_office'];
+                  $rank = $r['borrower_rank'];
+                }
+                display_pending_5k_request($_SESSION['ce_id'], $_SESSION['cuid'], $typeOfLoan, $_SESSION['fname'], $_SESSION['mname'], $_SESSION['lname'], $_SESSION['type_of_employee'], $_SESSION['ce_office'], $_SESSION['ce_rank']);
+                ?>
               </form>
             </div>
           </div>

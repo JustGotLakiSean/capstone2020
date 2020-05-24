@@ -173,6 +173,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
             <div class="lrf-bfn-container mid_box_item">
               <label for="lrf-txt-borrowerfname">Firstname</label>
               <input type="hidden" name="lrf-txt-borrowerid" value="<?php echo $_SESSION['ce_id']; ?>" />
+              <input type="hidden" name="lrf-txt-borroweraccoundid" value="<?php echo $_SESSION['cuid']; ?>" />
               <input type="hidden" name="lrf-txt-borrowerfname" id="lrf-txt-borrowerfname" value = "<?php echo $_SESSION['fname']; ?>" />
               <input type="text" disabled id="lrf-txt-borrowerfname" id="lrf-txt-borrowerfname" value = "<?php echo $_SESSION['fname']; ?>" />
             </div>

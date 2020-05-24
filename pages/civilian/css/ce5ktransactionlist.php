@@ -1,6 +1,27 @@
 <?php
 echo <<<style
 <style>
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+}
+
+.ce5ktl-notransaction button.active {
+  border-top: 3px solid #0071BC;
+  color: #000000;
+}
+
+.tablinks {
+  width: 570px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.ce5ktl-notransaction {
+  display: grid;
+  grid-auto-flow: column;
+}
+
 body {
   background: #F2F2F2;
   margin: 0;

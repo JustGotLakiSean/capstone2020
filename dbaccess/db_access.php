@@ -1082,11 +1082,11 @@ class db_access {
   }
 
   // loan request //
-  public function add_loan_request_5k($borrower_id, $ctrl_no_prefix, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_5k_rate, $debit_pay_5k, $interest_rate_5k, $balance_rate_5k, $comment, $penalty, $first_payment, $second_payment, $third_payment, $fourth_payment, $fifth_payment, $full_payment, $loan_status, $is_new_loan, $is_granted, $is_declined, $is_pending, $is_loan_requested_5k)
+  public function add_loan_request_5k($borrower_id, $borrower_account_id, $ctrl_no_prefix, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_5k_rate, $debit_pay_5k, $interest_rate_5k, $balance_rate_5k, $comment, $penalty, $first_payment, $second_payment, $third_payment, $fourth_payment, $fifth_payment, $full_payment, $loan_status, $is_new_loan, $is_granted, $is_declined, $is_pending, $is_loan_requested_5k)
   {
     $con=$this->getConnection();
-    $query = "INSERT INTO tbl_loan_request_5k(borrower_id, ctrl_no_prefix, type_of_loan, borrower_fname, borrower_mname, borrower_lname, type_of_employee, borrower_office, borrower_rank, loan_amount_5k_rate, monthly_payment_5k_rate, credit_5k_rate, debit_pay_5k, interest_rate_5k, balance_rate_5k, comment, penalty, first_payment, second_payment, third_payment, fourth_payment, fifth_payment, full_payment, loan_status, is_new_loan, is_granted, is_declined, is_pending, is_loan_requested_5k)
-    VALUES('$borrower_id', '$ctrl_no_prefix', '$type_of_loan', '$borrower_fname', '$borrower_mname', '$borrower_lname', '$type_of_employee', '$borrower_office', '$borrower_rank', '$loan_amount_5k_rate', '$monthly_payment_5k_rate', '$credit_5k_rate', '$debit_pay_5k', '$interest_rate_5k', '$balance_rate_5k', '$comment', '$penalty', '$first_payment', '$second_payment', '$third_payment', '$fourth_payment', '$fifth_payment', '$full_payment', '$loan_status', '$is_new_loan', '$is_granted', '$is_declined', '$is_pending', '$is_loan_requested_5k')";
+    $query = "INSERT INTO tbl_loan_request_5k(borrower_id, account_id, ctrl_no_prefix, type_of_loan, borrower_fname, borrower_mname, borrower_lname, type_of_employee, borrower_office, borrower_rank, loan_amount_5k_rate, monthly_payment_5k_rate, credit_5k_rate, debit_pay_5k, interest_rate_5k, balance_rate_5k, comment, penalty, first_payment, second_payment, third_payment, fourth_payment, fifth_payment, full_payment, loan_status, is_new_loan, is_granted, is_declined, is_pending, is_loan_requested_5k)
+    VALUES('$borrower_id', '$borrower_account_id', '$ctrl_no_prefix', '$type_of_loan', '$borrower_fname', '$borrower_mname', '$borrower_lname', '$type_of_employee', '$borrower_office', '$borrower_rank', '$loan_amount_5k_rate', '$monthly_payment_5k_rate', '$credit_5k_rate', '$debit_pay_5k', '$interest_rate_5k', '$balance_rate_5k', '$comment', '$penalty', '$first_payment', '$second_payment', '$third_payment', '$fourth_payment', '$fifth_payment', '$full_payment', '$loan_status', '$is_new_loan', '$is_granted', '$is_declined', '$is_pending', '$is_loan_requested_5k')";
     $insert_query = $con->query($query);
     if($insert_query){
       return true;
@@ -1096,11 +1096,24 @@ class db_access {
     $con->close();
   }
 
-  public function view_pending_loan_5k($borrower_id, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
+  public function view_pending_loan_5k($borrower_id, $borrower_account_id, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
   {
     $con=$this->getConnection();
-    $query="SELECT * FROM tbl_loan_request WHERE is_pending = 1";
+    $query="SELECT * FROM tbl_loan_request_5k WHERE is_pending = 1 AND borrower_id = '$borrower_id' AND account_id = '$borrower_account_id' AND type_of_loan = '$type_of_loan' AND borrower_fname = '$borrower_fname' AND borrower_mname = '$borrower_mname' AND borrower_lname = '$borrower_lname' AND type_of_employee = '$type_of_employee' AND borrower_office = '$borrower_office' AND borrower_rank = '$borrower_rank'";
     $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function fetch_loan_request_5k()
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_loan_request_5k";
+    $get_data=$con->query($query);
     if($get_data){
       return $get_data;
     } else {
@@ -1123,9 +1136,17 @@ class db_access {
   }
 
   // view civilian's granted loan 5k
-  public function view_granted_loan_5k($borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_rank, $borrower_office)
+  public function view_granted_loan_5k($borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
   {
-
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_new_5k_loan WHERE borrower_id = '$borrower_id' AND fname = '$borrower_fname' AND mname = '$borrower_mname' AND lname = '$borrower_lname' AND type_of_employee = '$type_of_employee' AND office = '$borrower_office' AND emp_rank = '$borrower_rank'";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
   }
 }
 ?>

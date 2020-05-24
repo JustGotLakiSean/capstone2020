@@ -81,6 +81,7 @@ if(isset($_POST["btn_submit_login"])){
   }
 }
 
+// Civilian Login
 if(isset($_POST['btn-cl-submit'])){
   $civilian_username = '';
   $civilian_password = '';
