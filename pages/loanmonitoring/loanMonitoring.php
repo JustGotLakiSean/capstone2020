@@ -219,7 +219,7 @@ BUTTON;
             <div>
               <input type="button" id = "admin-button" value="Admin Button" onclick="document.getElementById('admin_menu_box').style.display='flex'"/>
               <div id="admin_menu_box">
-                <a href="#">View Loan Request</a>
+                <a href="../../pages/admin/adminloanrequest.php">View Loan Request</a>
                 <a href="#">Admin Details</a>
                 <a href="logout.php">Sign Out</a>
               </div>

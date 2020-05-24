@@ -17,6 +17,28 @@ echo <<<style
   cursor: pointer;
 }
 
+#pending_table_5k > table {
+  width: 100%;
+  margin: auto;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+#pending_table_5k > table > thead {
+  background: #009245;
+  border: 1px solid #009245;
+}
+
+#pending_table_5k > table > thead > tr > th {
+  color: #000;
+  font-weight: lighter;
+}
+
+#pending_table_5k > table > tbody {
+  background: #F2F2F2;
+  border: 1px solid rgb(179,179,179);
+}
+
 .ce5ktl-notransaction {
   display: grid;
   grid-auto-flow: column;
