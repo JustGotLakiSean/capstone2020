@@ -10,7 +10,17 @@ function display_pending_5k_request()
   $con = new db_access();
   $pending_5k = $con->fetch_loan_request_5k();
 
-
+  echo '
+  <div id="pending_table_5k">
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type of Account</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>';
 
       while($r = $pending_5k->fetch_array(MYSQLI_ASSOC)){
         if($r > 0){
@@ -49,17 +59,6 @@ function display_pending_5k_request()
           
 
           if($is_pending === 'Pending'){
-            echo '
-            <div id="pending_table_5k">
-              <table border="1">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Type of Account</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>';
             echo "Pending Request<br>";
             echo '
             <tbody>
