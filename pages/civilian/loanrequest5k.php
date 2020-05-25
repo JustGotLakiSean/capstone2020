@@ -11,6 +11,7 @@ if(isset($_POST['lrf_btn_submit_5k'])){
   $lrf_txt_borrowerfname = '';
   $lrf_txt_borrowermname = '';
   $lrf_txt_borrowerlname = '';
+  $lrf_txt_borroweremail = '';
   $lrf_txt_borrowertype = '';
   $lrf_txt_borroweroffice = '';
   $lrf_txt_borrowerrank = '';
@@ -35,7 +36,7 @@ if(isset($_POST['lrf_btn_submit_5k'])){
   $is_new_loan_5k = '';
   $comment = '';
 
-  if(isset($_POST['lrf-txt-borrowerid']) && isset($_POST['lrf-txt-borroweraccoundid']) && isset($_POST['formatted_string']) && isset($_POST['type_of_account']) && isset($_POST['lrf-txt-borrowerfname']) && isset($_POST['lrf-txt-borrowermname']) && isset($_POST['lrf-txt-borrowerlname']) && isset($_POST['lrf-txt-borrowertype']) && isset($_POST['lrf-txt-borroweroffice']) && isset($_POST['lrf-txt-borrowerrank']) && isset($_POST['loan_amount_rates_5k']) && isset($_POST['monthly_payment_rates_5k']) && isset($_POST['credit_rates_5k']) && isset($_POST['beginning_balance_5k']) && isset($_POST['interest_rates_5k']) && isset($_POST['penalty_permonth_rates_5k']) && isset($_POST['debit_pay_5k']) && isset($_POST['loan_status_5k']) && isset($_POST['first_payment_5k']) && isset($_POST['first_payment_5k']) && isset($_POST['second_payment_5k']) && isset($_POST['third_payment_5k']) && isset($_POST['fourth_payment_5k']) && isset($_POST['fifth_payment_5k']) && isset($_POST['full_payment_5k'])){
+  if(isset($_POST['lrf-txt-borrowerid']) && isset($_POST['lrf-txt-borroweraccoundid']) && isset($_POST['formatted_string']) && isset($_POST['type_of_account']) && isset($_POST['lrf-txt-borrowerfname']) && isset($_POST['lrf-txt-borrowermname']) && isset($_POST['lrf-txt-borrowerlname']) && isset($_POST['lrf-txt-borroweremail']) && isset($_POST['lrf-txt-borrowertype']) && isset($_POST['lrf-txt-borroweroffice']) && isset($_POST['lrf-txt-borrowerrank']) && isset($_POST['loan_amount_rates_5k']) && isset($_POST['monthly_payment_rates_5k']) && isset($_POST['credit_rates_5k']) && isset($_POST['beginning_balance_5k']) && isset($_POST['interest_rates_5k']) && isset($_POST['penalty_permonth_rates_5k']) && isset($_POST['debit_pay_5k']) && isset($_POST['loan_status_5k']) && isset($_POST['first_payment_5k']) && isset($_POST['first_payment_5k']) && isset($_POST['second_payment_5k']) && isset($_POST['third_payment_5k']) && isset($_POST['fourth_payment_5k']) && isset($_POST['fifth_payment_5k']) && isset($_POST['full_payment_5k']) && isset($_POST['is_new_loan_5k'])){
     include('../../dbaccess/db_access.php');
     $db = new db_access();
     $con = $db->getConnection();
@@ -46,6 +47,7 @@ if(isset($_POST['lrf_btn_submit_5k'])){
     $lrf_txt_borrowerfname = mysqli_real_escape_string($con, $_POST['lrf-txt-borrowerfname']);
     $lrf_txt_borrowermname = mysqli_real_escape_string($con, $_POST['lrf-txt-borrowermname']);
     $lrf_txt_borrowerlname = mysqli_real_escape_string($con, $_POST['lrf-txt-borrowerlname']);
+    $lrf_txt_borroweremail = mysqli_real_escape_string($con, $_POST['lrf-txt-borroweremail']);
     $lrf_txt_borrowertype = mysqli_real_escape_string($con, $_POST['lrf-txt-borrowertype']);
     $lrf_txt_borroweroffice = mysqli_real_escape_string($con, $_POST['lrf-txt-borroweroffice']);
     $lrf_txt_borrowerrank = mysqli_real_escape_string($con, $_POST['lrf-txt-borrowerrank']);
@@ -63,6 +65,7 @@ if(isset($_POST['lrf_btn_submit_5k'])){
     $fourth_payment_5k = mysqli_real_escape_string($con, $_POST['fourth_payment_5k']);
     $fifth_payment_5k = mysqli_real_escape_string($con, $_POST['fifth_payment_5k']);
     $full_payment_5k = mysqli_real_escape_string($con, $_POST['full_payment_5k']);
+    $is_new_loan_5k = mysqli_real_escape_string($con, $_POST['is_new_loan_5k']);
     $is_loan_requested_5k = 1;
     $is_granted = 0;
     $is_declined = 0;
@@ -76,6 +79,7 @@ if(isset($_POST['lrf_btn_submit_5k'])){
     echo "$lrf_txt_borrowerfname<br>";
     echo "$lrf_txt_borrowermname<br>";
     echo "$lrf_txt_borrowerlname<br>";
+    echo "$lrf_txt_borroweremail<br>";
     echo "$lrf_txt_borrowertype<br>";
     echo "$lrf_txt_borroweroffice<br>";
     echo "$lrf_txt_borrowerrank<br>";
@@ -99,8 +103,9 @@ if(isset($_POST['lrf_btn_submit_5k'])){
     echo "$is_granted<br>";
     echo "$is_declined<br>";
     echo "$is_pending<br>";
+    echo "$is_new_loan_5k<br>";
 
-    $insert_request = $db->add_loan_request_5k($lrf_txt_borrowerid, $lrf_txt_borroweraccoundid, $formatted_string, $type_of_account, $lrf_txt_borrowerfname, $lrf_txt_borrowermname, $lrf_txt_borrowerlname, $lrf_txt_borrowertype, $lrf_txt_borroweroffice, $lrf_txt_borrowerrank, $loan_amount_rates_5k, $monthly_payment_rates_5k, $credit_rates_5k, $debit_pay_5k, $interest_rates_5k, $beginning_balance_5k, $comment, $penalty_permonth_rates_5k, $first_payment_5k, $second_payment_5k, $third_payment_5k, $fourth_payment_5k, $fifth_payment_5k, $full_payment_5k, $loan_status_5k, $is_new_loan_5k, $is_granted, $is_declined, $is_pending, $is_loan_requested_5k);
+    $insert_request = $db->add_loan_request_5k($lrf_txt_borrowerid, $lrf_txt_borroweraccoundid, $formatted_string, $type_of_account, $lrf_txt_borrowerfname, $lrf_txt_borrowermname, $lrf_txt_borrowerlname, $lrf_txt_borroweremail, $lrf_txt_borrowertype, $lrf_txt_borroweroffice, $lrf_txt_borrowerrank, $loan_amount_rates_5k, $monthly_payment_rates_5k, $credit_rates_5k, $debit_pay_5k, $interest_rates_5k, $beginning_balance_5k, $comment, $penalty_permonth_rates_5k, $first_payment_5k, $second_payment_5k, $third_payment_5k, $fourth_payment_5k, $fifth_payment_5k, $full_payment_5k, $loan_status_5k, $is_new_loan_5k, $is_granted, $is_declined, $is_pending, $is_loan_requested_5k);
     if($insert_request){
       header('location: civilian-homepage.php');
     } else {

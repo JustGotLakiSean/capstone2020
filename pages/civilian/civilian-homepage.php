@@ -163,7 +163,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
           </div>
           <div class="lrf-type-of-account-box">
             <label for="type_of_account">Type of account:</label>
-            <input type="hidden" name = "type_of_account" class ="lk_rate" value="5K Account" />
+            <input type="hidden" name = "type_of_account" class ="lk_rate" value="5K" />
             <input type="text" class ="lk_rate" disabled value="5K Account" />
           </div>
         </div>
@@ -174,6 +174,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
               <label for="lrf-txt-borrowerfname">Firstname</label>
               <input type="hidden" name="lrf-txt-borrowerid" value="<?php echo $_SESSION['ce_id']; ?>" />
               <input type="hidden" name="lrf-txt-borroweraccoundid" value="<?php echo $_SESSION['cuid']; ?>" />
+              <input type="hidden" name="lrf-txt-borroweremail" value="<?php echo $_SESSION['ce_email']; ?>" />
               <input type="hidden" name="lrf-txt-borrowerfname" id="lrf-txt-borrowerfname" value = "<?php echo $_SESSION['fname']; ?>" />
               <input type="text" disabled id="lrf-txt-borrowerfname" id="lrf-txt-borrowerfname" value = "<?php echo $_SESSION['fname']; ?>" />
             </div>
@@ -219,6 +220,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
             $fourth_payment = 0;
             $fifth_payment = 0;
             $full_payment = 0;
+            $is_new_loan = 1;
           }
           echo '<div class="firstbox">';
           echo '<label for="loan_amount_rates_5k">Loan Amount</label>';
@@ -251,7 +253,8 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
           echo '<input type="hidden" name="third_payment_5k" value="'.$third_payment.'" />';
           echo '<input type="hidden" name="fourth_payment_5k" value="'.$fourth_payment.'" />';
           echo '<input type="hidden" name="fifth_payment_5k" value="'.$fifth_payment.'" />';
-          echo '<input type="hidden" name="full_payment_5k" value="'.$full_payment.'" />';;
+          echo '<input type="hidden" name="full_payment_5k" value="'.$full_payment.'" />';
+          echo '<input type="hidden" name="is_new_loan_5k" value="'.$is_new_loan.'" />';
           // echo '<input type="hidden" name="date_today" class="lk_rate" value="'.$date_today.'" />';
           // echo '<input type="text" id="date_today" disabled class="lk_rate" value="'.$date_today.'" />';
           echo '</div>';

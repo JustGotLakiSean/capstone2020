@@ -60,7 +60,22 @@ class db_access {
     } else {
       return false;
     }
-    $con-close();
+    $con->close();
+  }
+
+  // get civilian la_5k count for it will update
+  // upon admin's approval;
+  public function get_civilian_la5kcount($civilian_id, $type_of_employee, $civilian_fname, $civilian_mname, $civilian_lname, $civilian_email)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_civilian_employee WHERE civilian_ID = '$civilian_id' AND type_of_employee = '$type_of_employee' AND civilian_fName = '$civilian_fname' AND civilian_mName = '$civilian_mname' AND civilian_lName = '$civilian_lname' AND civilian_email = '$civilian_email'";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      return false;
+    }
+    $con->close();
   }
 
   public function select_emp_account()
@@ -666,7 +681,6 @@ class db_access {
   public function update_officer_la5k_count($id, $fname, $mname, $lname, $emp_type, $increment)
   {
     $con=$this->getConnection();
-    // $query = 'UPDATE tbl_officersandep SET la_5k_count = ' . +1 . ' WHERE officer_ID = ' . $id . ' AND officer_fName = ' . $fname . ' AND officer_mName = ' . $mname . ' AND officer_lName = ' . $lname . ' AND type_of_employee = ' . $emp_type . '';
     $query = "UPDATE tbl_officersandep SET la_5k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$emp_type'";
     $update_query = $con->query($query);
     if($update_query){
@@ -1082,11 +1096,11 @@ class db_access {
   }
 
   // loan request //
-  public function add_loan_request_5k($borrower_id, $borrower_account_id, $ctrl_no_prefix, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_5k_rate, $debit_pay_5k, $interest_rate_5k, $balance_rate_5k, $comment, $penalty, $first_payment, $second_payment, $third_payment, $fourth_payment, $fifth_payment, $full_payment, $loan_status, $is_new_loan, $is_granted, $is_declined, $is_pending, $is_loan_requested_5k)
+  public function add_loan_request_5k($borrower_id, $borrower_account_id, $ctrl_no_prefix, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $borrower_office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_5k_rate, $debit_pay_5k, $interest_rate_5k, $balance_rate_5k, $comment, $penalty, $first_payment, $second_payment, $third_payment, $fourth_payment, $fifth_payment, $full_payment, $loan_status, $is_new_loan, $is_granted, $is_declined, $is_pending, $is_loan_requested_5k)
   {
     $con=$this->getConnection();
-    $query = "INSERT INTO tbl_loan_request_5k(borrower_id, account_id, ctrl_no_prefix, type_of_loan, borrower_fname, borrower_mname, borrower_lname, type_of_employee, borrower_office, borrower_rank, loan_amount_5k_rate, monthly_payment_5k_rate, credit_5k_rate, debit_pay_5k, interest_rate_5k, balance_rate_5k, comment, penalty, first_payment, second_payment, third_payment, fourth_payment, fifth_payment, full_payment, loan_status, is_new_loan, is_granted, is_declined, is_pending, is_loan_requested_5k)
-    VALUES('$borrower_id', '$borrower_account_id', '$ctrl_no_prefix', '$type_of_loan', '$borrower_fname', '$borrower_mname', '$borrower_lname', '$type_of_employee', '$borrower_office', '$borrower_rank', '$loan_amount_5k_rate', '$monthly_payment_5k_rate', '$credit_5k_rate', '$debit_pay_5k', '$interest_rate_5k', '$balance_rate_5k', '$comment', '$penalty', '$first_payment', '$second_payment', '$third_payment', '$fourth_payment', '$fifth_payment', '$full_payment', '$loan_status', '$is_new_loan', '$is_granted', '$is_declined', '$is_pending', '$is_loan_requested_5k')";
+    $query = "INSERT INTO tbl_loan_request_5k(borrower_id, account_id, ctrl_no_prefix, type_of_loan, borrower_fname, borrower_mname, borrower_lname, borrower_email, type_of_employee, borrower_office, borrower_rank, loan_amount_5k_rate, monthly_payment_5k_rate, credit_5k_rate, debit_pay_5k, interest_rate_5k, balance_rate_5k, comment, penalty, first_payment, second_payment, third_payment, fourth_payment, fifth_payment, full_payment, loan_status, is_new_loan, is_granted, is_declined, is_pending, is_loan_requested_5k)
+    VALUES('$borrower_id', '$borrower_account_id', '$ctrl_no_prefix', '$type_of_loan', '$borrower_fname', '$borrower_mname', '$borrower_lname', '$borrower_email', '$type_of_employee', '$borrower_office', '$borrower_rank', '$loan_amount_5k_rate', '$monthly_payment_5k_rate', '$credit_5k_rate', '$debit_pay_5k', '$interest_rate_5k', '$balance_rate_5k', '$comment', '$penalty', '$first_payment', '$second_payment', '$third_payment', '$fourth_payment', '$fifth_payment', '$full_payment', '$loan_status', '$is_new_loan', '$is_granted', '$is_declined', '$is_pending', '$is_loan_requested_5k')";
     $insert_query = $con->query($query);
     if($insert_query){
       return true;
@@ -1143,6 +1157,32 @@ class db_access {
     $get_data = $con->query($query);
     if($get_data){
       return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function update_is_pending_5k($loan_request_id_5k, $borrower_id, $account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_loan_request_5k SET is_pending = 0 WHERE loan_request_id = '$loan_request_id_5k' AND borrower_id = '$borrower_id' AND account_id = '$account_id' AND borrower_fname = '$borrower_fname' AND borrower_mname = '$borrower_mname' AND borrower_lname = '$borrower_lname' AND borrower_email = '$borrower_email' AND type_of_employee = '$type_of_employee' AND borrower_rank = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function update_is_granted_5k($loan_request_id_5k, $borrower_id, $account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_loan_request_5k SET is_granted = 1 WHERE loan_request_id = '$loan_request_id_5k' AND borrower_id = '$borrower_id' AND account_id = '$account_id' AND borrower_fname = '$borrower_fname' AND borrower_mname = '$borrower_mname' AND borrower_lname = '$borrower_lname' AND borrower_email = '$borrower_email' AND type_of_employee = '$type_of_employee' AND borrower_rank = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
     } else {
       die($con->error);
     }
