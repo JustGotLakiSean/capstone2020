@@ -59,7 +59,6 @@ function display_pending_5k_request()
           
 
           if($is_pending === 'Pending'){
-            echo "Pending Request<br>";
             echo '
             <tbody>
               <tr>
@@ -166,6 +165,22 @@ if(isset($_SESSION['admin_username'])){
           <h1>Loan Request</h1>
         </div>
         <hr>
+        <div class="loan_request_tabs">
+          <button class="tablinks">5K Loan Requests</button>
+          <button class="tablinks">10K Loan Requests</button>
+        </div>
+
+        <div id="loan_request_10k_tab" class="tabcontent">
+          <div id="loan_request_10k_tablename">
+            <h4>10K Loan Request List</h4>
+          </div>
+          <div id="loan_request_10k_table">
+            <form action="approveloan10k.php" method="POST" class="loanrequest-panel">
+            
+            </form>
+          </div>
+        </div>
+
         <div id="loan_request_5k_tab" class="tabcontent">
           <div id="loan_request_5k_tablename">
             <h4 class="t">5K Loan request list</h4>

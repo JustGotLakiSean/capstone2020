@@ -1188,5 +1188,18 @@ class db_access {
     }
     $con->close();
   }
+  
+  public function update_is_declined_5k($loan_request_id_5k, $borrower_id, $account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_loan_request_5k SET is_declined = 1 WHERE loan_request_id = '$loan_request_id_5k' AND borrower_id = '$borrower_id' AND account_id = '$account_id' AND borrower_fname = '$borrower_fname' AND borrower_mname = '$borrower_mname' AND borrower_lname = '$borrower_lname' AND borrower_email = '$borrower_email' AND type_of_employee = '$type_of_employee' AND borrower_rank = '$rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
 }
 ?>

@@ -1,6 +1,43 @@
 <?php
 echo <<<STYLE
 <style>
+.loan_request_tabs {
+  overflow: hidden;
+}
+
+.loan_request_tabs button {
+  background-color: #dddddd;
+  border-radius: 5px;
+  border: 1px solid rgb(179,179,179);
+  outline: none;
+  cursor: pointer;
+  height: 30px;
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+#pending_table_5k > table {
+  width: 100%;
+  margin: auto;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+#pending_table_5k > table > thead {
+  background: #0071BC;
+  border: 1px solid rgb(179,179,179);
+}
+
+#pending_table_5k > table > thead > tr > th {
+  color: #000;
+  font-weight: lighter;
+}
+
+#pending_table_5k > table > tbody {
+  background: #F2F2F2;
+  border: 1px solid rgb(179,179,179);
+}
+
 body {
   margin: 0;
   font-family: 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;

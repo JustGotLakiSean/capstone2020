@@ -134,6 +134,53 @@ if(isset($_POST['btn_approve_loan_request_5k'])){
 
 } else if(isset($_POST['btn_decline_loan_request_5k'])){
   echo 'DECLINE';
+  $loan_request_id_5k = '';
+  $borrower_id = '';
+  $borrower_account_id = '';
+  $borrower_fname = '';
+  $borrower_mname = '';
+  $borrower_lname = '';
+  $borrower_email = '';
+  $type_of_employee = '';
+  $rank = '';
+  $con = '';
+
+  if(isset($_POST['loan_request_id_5k']) && isset($_POST['borrower_id']) && isset($_POST['borrower_account_id']) && isset($_POST['borrower_fname']) && isset($_POST['borrower_mname']) && isset($_POST['borrower_mname']) && isset($_POST['borrower_lname']) && isset($_POST['borrower_email']) && isset($_POST['type_of_employee']) && isset($_POST['rank'])){
+    include('../../dbaccess/db_access.php');
+    $db = new db_access();
+    $con = $db->getConnection();
+    $loan_request_id_5k = mysqli_real_escape_string($con, $_POST['loan_request_id_5k']);
+    $borrower_id = mysqli_real_escape_string($con, $_POST['borrower_id']);
+    $borrower_account_id = mysqli_real_escape_string($con, $_POST['borrower_account_id']);
+    $borrower_fname = mysqli_real_escape_string($con, $_POST['borrower_fname']);
+    $borrower_mname = mysqli_real_escape_string($con, $_POST['borrower_mname']);
+    $borrower_lname = mysqli_real_escape_string($con, $_POST['borrower_lname']);
+    $borrower_email = mysqli_real_escape_string($con, $_POST['borrower_email']);
+    $type_of_employee = mysqli_real_escape_string($con, $_POST['type_of_employee']);
+    $rank = mysqli_real_escape_string($con, $_POST['rank']);
+
+    echo "$loan_request_id_5k<br>";
+    echo "$borrower_id<br>";
+    echo "$borrower_account_id<br>";
+    echo "$borrower_fname<br>";
+    echo "$borrower_mname<br>";
+    echo "$borrower_lname<br>";
+    echo "$borrower_email<br>";
+    echo "$type_of_employee<br>";
+    echo "$rank<br>";
+
+    $updateData = $db->update_is_declined_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $rank);
+    if($updateData){
+      $db->update_is_pending_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $rank);
+      header('location: adminloanrequest.php');
+    } else {
+      printf("%s\n", $con->error);
+    }
+
+  } else {
+
+  }
+
 } else {
 
 }
