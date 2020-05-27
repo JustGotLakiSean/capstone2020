@@ -1150,10 +1150,10 @@ class db_access {
   }
 
   // view civilian's granted loan 5k
-  public function view_granted_loan_5k($borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
+  public function view_granted_loan_5k($loan_id, $borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
   {
     $con=$this->getConnection();
-    $query="SELECT * FROM tbl_new_5k_loan WHERE borrower_id = '$borrower_id' AND fname = '$borrower_fname' AND mname = '$borrower_mname' AND lname = '$borrower_lname' AND type_of_employee = '$type_of_employee' AND office = '$borrower_office' AND emp_rank = '$borrower_rank'";
+    $query="SELECT * FROM tbl_new_5k_loan WHERE loan_id_5k = '$loan_id' AND borrower_id = '$borrower_id' AND fname = '$borrower_fname' AND mname = '$borrower_mname' AND lname = '$borrower_lname' AND type_of_employee = '$type_of_employee' AND office = '$borrower_office' AND emp_rank = '$borrower_rank' AND is_loan_requested = 1";
     $get_data = $con->query($query);
     if($get_data){
       return $get_data;

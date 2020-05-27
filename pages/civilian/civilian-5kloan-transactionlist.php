@@ -9,6 +9,56 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
   header('location: civilian-login.php');
 }
 
+function display_active_5k_loan($loan_id, $borrower_id, $borrower_account_id, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank){
+  $con = new db_access();
+  $my_active_loan = $con->view_granted_loan_5k($loan_id, $borrower_id, $borrower_account_id, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank);
+
+  echo '
+  <div id="active_table_5k">
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Control Number</th>
+          <th>Name</th>
+          <th>Status</th>
+          <th>View</th>
+        </tr>
+      </thead>';
+
+      while($row = $my_active_loan->fetch_array(MYSQLI_ASSOC)){
+        if($row > 0){
+          $id = $row['borrower_id'];
+          $transaction_number = $row['loan_id_5k'];
+          $_SESSION['transaction_id'] = $row['loan_id_5k'];
+          $transaction_prefix = $row['ctrl_no_prefix'];
+          $fname = $row['fname'];
+          $mname = $row['mname'];
+          $lname = $row['lname'];
+          $type_of_loan = $row['type_of_loan'];
+          $status = (($row['loan_status'] == 0) ? 'Active' : 'Not Active');
+          $fullname = "$fname $mname $lname";
+          $control_number_5k = "$transaction_number$transaction_prefix";
+
+          echo '
+          <tbody>
+            <tr>
+              <td>'.$control_number_5k.'</td>
+              <td>'.$fullname.'</td>
+              <td>'.$status.'</td>';
+              echo <<<BUT
+              <td><a href="civilian-5kloan-transactionlist.php?transaction_id={$_SESSION['transaction_id']}">VIEW</a></td>
+BUT;
+            echo '</tr>
+          </tbody>';
+        }
+
+      }
+
+    echo '</table>
+  </div>';
+
+}
+
 function display_pending_5k_request($borrower_id, $borrower_account_id, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank){
   $con = new db_access();
   $pending_5k = $con->view_pending_loan_5k($borrower_id, $borrower_account_id, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank);
@@ -125,7 +175,11 @@ function display_pending_5k_request($borrower_id, $borrower_account_id, $type_of
             </div>
             <div id="active_loan_5k_table">
               <form action ="" method="POST" id="showActiveLoanPanel">
-                <p>Active Loan Request</p>
+                <?php
+
+                $fetchData = $db->
+                display_active_5k_loan($_SESSION['ce_id'], $_SESSION['fname'], $_SESSION['mname'], $_SESSION['lname'], );
+                ?>
               </form>
             </div>
           </div>
