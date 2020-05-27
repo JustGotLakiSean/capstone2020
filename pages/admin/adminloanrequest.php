@@ -136,9 +136,66 @@ if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid'])){
 
     }
 
+  } else {
+
   }
 
-} else if(isset($_GET['decline'])){
+} else if(isset($_GET['decline_request']) && isset($_GET['baid']) && isset($_GET['bid'])){
+  $loan_request_id_5k = '';
+  $borrower_id = '';
+  $borrower_account_id = '';
+  $borrower_fname = '';
+  $borrower_mname = '';
+  $borrower_lname = '';
+  $borrower_email = '';
+  $type_of_employee = '';
+  $borrower_rank = '';
+  $con = '';
+
+  if(isset($_SESSION['loan_request_id_5k']) && isset($_SESSION['borrower_account_id']) && isset($_SESSION['borrower_id'])){
+    // echo "$_GET[decline_request]<br>";
+    // echo "$_GET[baid]<br>";
+    // echo "$_GET[bid]<br>";
+
+    $con = $db->getConnection();
+    $fetchData = $db->fetch_civilian_pending_request($_GET['decline_request'], $_GET['baid'], $_GET['bid']);
+    
+    while($res = $fetchData->fetch_array(MYSQLI_ASSOC)){
+      $loan_request_id_5k = $res['loan_request_id'];
+      $borrower_id = $res['borrower_id'];
+      $borrower_account_id = $res['account_id'];
+      $borrower_fname = $res['borrower_fname'];
+      $borrower_mname = $res['borrower_mname'];
+      $borrower_lname = $res['borrower_lname'];
+      $borrower_email = $res['borrower_email'];
+      $type_of_employee = $res['type_of_employee'];
+      $borrower_rank = $res['borrower_rank'];
+
+      // echo "$loan_request_id_5k<br>";
+      // echo "$borrower_id<br>";
+      // echo "$borrower_account_id<br>";
+      // echo "$borrower_fname<br>";
+      // echo "$borrower_mname<br>";
+      // echo "$borrower_lname<br>";
+      // echo "$borrower_email<br>";
+      // echo "$type_of_employee<br>";
+      // echo "$borrower_rank<br>";
+
+      $updateData = $db->update_is_declined_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $borrower_rank);
+      if($updateData){
+        $db->update_is_pending_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $borrower_rank);
+        header('location: adminloanrequest.php');
+      } else {
+        printf("%s\n", $con->error);
+      }
+
+    }
+
+  } else {
+
+  }
+
+} else {
 
 }
 
@@ -238,8 +295,8 @@ function display_pending_5k_request()
                 <td>'.$is_pending.'</td>';
                 echo <<<BUTTON
                 <td>
-                  <a href="adminloanrequest.php?loan_request={$_SESSION['loan_request_id_5k']}&baid={$_SESSION['borrower_account_id']}&bid={$_SESSION['borrower_id']}">Approve</a>
-                  <a href="adminloanrequest.php?decline_request={$_SESSION['loan_request_id_5k']}&baid={$_SESSION['borrower_account_id']}&bid={$_SESSION['borrower_id']}">Decline</a>
+                  <a href="adminloanrequest.php?loan_request={$_SESSION['loan_request_id_5k']}&baid={$_SESSION['borrower_account_id']}&bid={$_SESSION['borrower_id']}" id="approve5k_link">Approve</a>
+                  <a href="adminloanrequest.php?decline_request={$_SESSION['loan_request_id_5k']}&baid={$_SESSION['borrower_account_id']}&bid={$_SESSION['borrower_id']}" id="decline5k_link">Decline</a>
                 </td>
 BUTTON;
                 echo '</tr>
