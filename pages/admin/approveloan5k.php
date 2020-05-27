@@ -104,6 +104,7 @@ if(isset($_POST['btn_approve_loan_request_5k'])){
     echo "$loan_status_5k<br>";
     echo "$is_new_loan_5k<br>";
     echo "$is_loan_requested_5k<br>";
+    echo "$_SESSION[loan_request_id_5k]";
 
     $getData = $db->get_civilian_la5kcount($borrower_id, $type_of_employee, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email);
     while($r = $getData->fetch_array(MYSQLI_ASSOC)){
@@ -114,21 +115,21 @@ if(isset($_POST['btn_approve_loan_request_5k'])){
     $increment = (int)$la5k_count + 1;
     echo $increment;
 
-    $add_new_5kloan = $db->add_new_5k_record($borrower_id, $ctrl_no_prefix, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $type_of_loan, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_5k_rate, $debit_pay_5k, $interest_rate_5k, $balance_rate_5k, $date_today, $comment, $penalty_5k, $office, $rank, $first_payment_5k, $second_payment_5k, $third_payment_5k, $fourth_payment_5k, $fifth_payment_5k, $full_payment_5k, $loan_status_5k, $is_new_loan_5k, $is_loan_requested_5k);
-    if($add_new_5kloan){
-      $db->update_is_pending_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $rank);
-      $db->update_is_granted_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $rank);
-      if($type_of_employee === 'civilian'){
-        // echo "CIVILIAN<br>";
-        $db->update_civilian_la5k_count($borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $increment);
-      } else if($type_of_employee === 'officer'){
-        // echo "OFFICER<br>";
-        $db->update_officer_la5k_count($borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $increment);
-      }
-      header('location: adminloanrequest.php');
-    } else {
-      printf("%s\n", $con->error);
-    }
+    // $add_new_5kloan = $db->add_new_5k_record($borrower_id, $ctrl_no_prefix, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $type_of_loan, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_5k_rate, $debit_pay_5k, $interest_rate_5k, $balance_rate_5k, $date_today, $comment, $penalty_5k, $office, $rank, $first_payment_5k, $second_payment_5k, $third_payment_5k, $fourth_payment_5k, $fifth_payment_5k, $full_payment_5k, $loan_status_5k, $is_new_loan_5k, $is_loan_requested_5k);
+    // if($add_new_5kloan){
+    //   $db->update_is_pending_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $rank);
+    //   $db->update_is_granted_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $rank);
+    //   if($type_of_employee === 'civilian'){
+    //     // echo "CIVILIAN<br>";
+    //     $db->update_civilian_la5k_count($borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $increment);
+    //   } else if($type_of_employee === 'officer'){
+    //     // echo "OFFICER<br>";
+    //     $db->update_officer_la5k_count($borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $increment);
+    //   }
+    //   header('location: adminloanrequest.php');
+    // } else {
+    //   printf("%s\n", $con->error);
+    // }
 
   }
 

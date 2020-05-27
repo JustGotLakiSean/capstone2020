@@ -5,12 +5,150 @@ include('../../dbaccess/db_access.php');
 $db = new db_access();
 session_start();
 
+if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid'])){
+  $loan_request_id_5k = '';
+  $borrower_account_id = '';
+  $borrower_id = '';
+  $ctrl_no_prefix = '';
+  $borrower_fname = '';
+  $borrower_mname = '';
+  $borrower_lname = '';
+  $borrower_email = '';
+  $type_of_employee = '';
+  $type_of_loan = '';
+  $loan_amount_5k_rate = '';
+  $monthly_payment_5k_rate = '';
+  $credit_5k_rate = '';
+  $debit_pay_5k = '';
+  $interest_rate_5k = '';
+  $balance_rate_5k = '';
+  $date_today = '';
+  $comment = '';
+  $penalty_5k = '';
+  $office = '';
+  $rank = '';
+  $first_payment_5k = '';
+  $second_payment_5k = '';
+  $third_payment_5k = '';
+  $fourth_payment_5k = '';
+  $fifth_payment_5k = '';
+  $full_payment_5k = '';
+  $loan_status_5k = '';
+  $is_new_loan_5k = '';
+  $is_loan_requested_5k = '';
+  $con = '';
+  $increment = '';
+
+  if(isset($_SESSION['loan_request_id_5k']) && isset($_SESSION['borrower_account_id']) && isset($_SESSION['borrower_id'])){
+    // echo "$_GET[loan_request]<br>";
+    // echo "$_GET[baid]<br>";
+    // echo "$_GET[bid]<br>";
+
+    $con = $db->getConnection();
+    $fetchData = $db->fetch_civilian_pending_request($_GET['loan_request'], $_GET['baid'], $_GET['bid']);
+
+    while($res = $fetchData->fetch_array(MYSQLI_ASSOC)){
+      $loan_request_id_5k = $res['loan_request_id'];
+      $borrower_account_id = $res['account_id'];
+      $borrower_id = $res['borrower_id'];
+      $ctrl_no_prefix = $res['ctrl_no_prefix'];
+      $type_of_loan = $res['type_of_loan'];
+      $borrower_fname = $res['borrower_fname'];
+      $borrower_mname = $res['borrower_mname'];
+      $borrower_lname = $res['borrower_lname'];
+      $borrower_email = $res['borrower_email'];
+      $type_of_employee = $res['type_of_employee'];
+      $borrower_office = $res['borrower_office'];
+      $borrower_rank = $res['borrower_rank'];
+      $loan_amount_5k_rate = $res['loan_amount_5k_rate'];
+      $monthly_payment_5k_rate = $res['monthly_payment_5k_rate'];
+      $credit_5k_rate = $res['credit_5k_rate'];
+      $debit_pay_5k = $res['debit_pay_5k'];
+      $interest_rate_5k = $res['interest_rate_5k'];
+      $balance_rate_5k = $res['balance_rate_5k'];
+      $comment = $res['comment'];
+      $penalty_5k = $res['penalty'];
+      $first_payment_5k = $res['first_payment'];
+      $second_payment_5k = $res['second_payment'];
+      $third_payment_5k = $res['third_payment'];
+      $fourth_payment_5k = $res['fourth_payment'];
+      $fifth_payment_5k = $res['fifth_payment'];
+      $full_payment_5k = $res['full_payment'];
+      $loan_status_5k = $res['loan_status'];
+      $is_new_loan_5k = $res['is_new_loan'];
+      $is_loan_requested_5k = $res['is_loan_requested_5k'];
+      $date_today = date("j-M-y");
+
+      // echo "LOAN REQUEST ID: $loan_request_id_5k<br>";
+      // echo "ACCOUNT ID: $borrower_account_id<br>";
+      // echo "EMPLOYEE ID: $borrower_id<br>";
+      // echo "PREFIX: $ctrl_no_prefix<br>";
+      // echo "FIRSTNAME: $borrower_fname<br>";
+      // echo "MIDDLENAME:$borrower_mname<br>";
+      // echo "LASTNAME: $borrower_lname<br>";
+      // echo "EMAIL: $borrower_email<br>";
+      // echo "EMP TYPE: $type_of_employee<br>";
+      // echo "TYPE OF LOAN:$type_of_loan<br>";
+      // echo "LOAN AMOUNT: $loan_amount_5k_rate<br>";
+      // echo "MONTHLY PAYMENT: $monthly_payment_5k_rate<br>";
+      // echo "CREDIT RATE: $credit_5k_rate<br>";
+      // echo "DEBIT PAY: $debit_pay_5k<br>";
+      // echo "INTEREST RATE: $interest_rate_5k<br>";
+      // echo "BALANCE RATE: $balance_rate_5k<br>";
+      // echo "DATE TODAY:$date_today<br>";
+      // echo "COMMENT:$comment<br>";
+      // echo "PENALTY: $penalty_5k<br>";
+      // echo "OFFICE: $borrower_office<br>";
+      // echo "RANK: $borrower_rank<br>";
+      // echo "$first_payment_5k<br>";
+      // echo "$second_payment_5k<br>";
+      // echo "$third_payment_5k<br>";
+      // echo "$fourth_payment_5k<br>";
+      // echo "$fifth_payment_5k<br>";
+      // echo "$full_payment_5k<br>";
+      // echo "$loan_status_5k<br>";
+      // echo "$is_new_loan_5k<br>";
+      // echo "$is_loan_requested_5k<br>";
+
+      $getData = $db->get_civilian_la5kcount($borrower_id, $type_of_employee, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email);
+      while($r = $getData->fetch_array(MYSQLI_ASSOC)){
+        $la5k_count = $r['la_5k_count'];
+        echo "LA 5k COUNT: $la5k_count<br>";
+      }
+
+      $increment = (int)$la5k_count + 1;
+      echo $increment;
+
+      $add_new_5kloan = $db->add_new_5k_record($borrower_id, $ctrl_no_prefix, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $type_of_loan, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_5k_rate, $debit_pay_5k, $interest_rate_5k, $balance_rate_5k, $date_today, $comment, $penalty_5k, $borrower_office, $borrower_rank, $first_payment_5k, $second_payment_5k, $third_payment_5k, $fourth_payment_5k, $fifth_payment_5k, $full_payment_5k, $loan_status_5k, $is_new_loan_5k, $is_loan_requested_5k);
+      if($add_new_5kloan){
+        $db->update_is_pending_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $borrower_rank);
+        $db->update_is_granted_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $borrower_rank);
+        if($type_of_employee === 'civilian'){
+          $db->update_civilian_la5k_count($borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $increment);
+        } else if($type_of_employee === 'officer'){
+          $db->update_officer_la5k_count($borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $increment);
+        }
+        header('location: adminloanrequest.php');
+
+      } else {
+        printf("%s\n", $con->error);
+      }
+
+    }
+
+  }
+
+} else if(isset($_GET['decline'])){
+
+}
+
 function display_pending_5k_request()
 {
   $con = new db_access();
   $pending_5k = $con->fetch_loan_request_5k();
 
   echo '
+  <form action = "" method="POST">
   <div id="pending_table_5k">
     <table border="1">
       <thead>
@@ -25,8 +163,11 @@ function display_pending_5k_request()
       while($r = $pending_5k->fetch_array(MYSQLI_ASSOC)){
         if($r > 0){
           $loan_request_id_5k = $r['loan_request_id'];
+          $_SESSION['loan_request_id_5k'] = $r['loan_request_id'];
           $borrower_id = $r['borrower_id'];
+          $_SESSION['borrower_id'] = $r['borrower_id'];
           $borrower_account_id = $r['account_id'];
+          $_SESSION['borrower_account_id'] = $r['account_id'];
           $ctrl_no_prefix = $r['ctrl_no_prefix'];
           $type_of_loan = $r['type_of_loan'];
           $borrower_fname = $r['borrower_fname'];
@@ -97,14 +238,14 @@ function display_pending_5k_request()
                 <td>'.$is_pending.'</td>';
                 echo <<<BUTTON
                 <td>
-                  <input type="submit" name="btn_approve_loan_request_5k" value="Approve" />
-                  <input type="submit" name="btn_decline_loan_request_5k" value="Decline" />
+                  <a href="adminloanrequest.php?loan_request={$_SESSION['loan_request_id_5k']}&baid={$_SESSION['borrower_account_id']}&bid={$_SESSION['borrower_id']}">Approve</a>
+                  <a href="adminloanrequest.php?decline_request={$_SESSION['loan_request_id_5k']}&baid={$_SESSION['borrower_account_id']}&bid={$_SESSION['borrower_id']}">Decline</a>
                 </td>
 BUTTON;
                 echo '</tr>
             </tbody>';
-          } else {
-            echo "No Record.<br>";
+          } else if($is_pending === 'Granted'){
+            
           }
         } else {
           echo "No Record<br>";
@@ -112,7 +253,8 @@ BUTTON;
       }
 
     echo '</table>
-  </div>';
+  </div>
+  </form';
 }
 
 ?>
@@ -126,6 +268,22 @@ BUTTON;
   <title>Loan Requests</title>
 </head>
 <body>
+  <script>
+    function openTab(evt, tabName){
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for(i = 0; i < tabcontent.length; i++){
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for(i = 0; i < tablinks.length; i++){
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+  </script>
+
   <header id = "loan-navigation-container">
     <nav id = "loan-global-navigation">
       <ul>
@@ -166,8 +324,8 @@ if(isset($_SESSION['admin_username'])){
         </div>
         <hr>
         <div class="loan_request_tabs">
-          <button class="tablinks">5K Loan Requests</button>
-          <button class="tablinks">10K Loan Requests</button>
+          <button class="tablinks" onclick="openTab(event, 'loan_request_5k_tab')">5K Loan Requests</button>
+          <button class="tablinks" onclick="openTab(event, 'loan_request_10k_tab')">10K Loan Requests</button>
         </div>
 
         <div id="loan_request_10k_tab" class="tabcontent">
@@ -176,21 +334,19 @@ if(isset($_SESSION['admin_username'])){
           </div>
           <div id="loan_request_10k_table">
             <form action="approveloan10k.php" method="POST" class="loanrequest-panel">
-            
+
             </form>
           </div>
         </div>
 
         <div id="loan_request_5k_tab" class="tabcontent">
           <div id="loan_request_5k_tablename">
-            <h4 class="t">5K Loan request list</h4>
+            <h4>5K Loan request list</h4>
           </div>
           <div id="loan_request_5k_table">
-            <form action="approveloan5k.php" method="POST" class="loanrequest-panel">
-              <?php
-              display_pending_5k_request();
-              ?>
-            </form>
+            <?php
+            display_pending_5k_request();
+            ?>
           </div>
         </div>
       </div>

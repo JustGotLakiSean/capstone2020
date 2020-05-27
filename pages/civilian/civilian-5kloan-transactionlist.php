@@ -34,14 +34,19 @@ function display_pending_5k_request($borrower_id, $borrower_account_id, $type_of
           $status = (($row['is_pending'] == 0) ? '' : 'Pending');
           $fullname = "$fname $mname $lname";
 
-          echo '
-          <tbody>
-            <tr>
-              <td>'.$fullname.'</td>
-              <td>'.$type_of_loan_account.'</td>
-              <td>'.$status.'</td>
-            </tr>
-          </tbody>';
+          if($status === 'Pending'){
+            echo '
+            <tbody>
+              <tr>
+                <td>'.$fullname.'</td>
+                <td>'.$type_of_loan_account.'</td>
+                <td>'.$status.'</td>
+              </tr>
+            </tbody>';
+          } else {
+            echo "No Record<br>";
+          }
+
         } else {
           echo "No Record";
         }

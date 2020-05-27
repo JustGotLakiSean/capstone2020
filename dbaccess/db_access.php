@@ -172,11 +172,11 @@ class db_access {
 
   /* CIVILIAN SIDE */
 
-  public function register_civilian_account($civilian_id, $civilian_account_fName, $civilian_account_lName, $civilian_account_mName, $type_of_employee, $civilian_account_rank, $civilian_account_office, $civilian_account_email, $civilian_account_contactNumber, $civilian_account_birthdate, $civilian_account_adress, $civilian_username, $civilian_password, $civilian_confirm_password)
+  public function register_civilian_account($civilian_id, $civilian_account_fName, $civilian_account_lName, $civilian_account_mName, $type_of_employee, $civilian_account_rank, $civilian_account_office, $civilian_account_email, $civilian_account_contactNumber, $civilian_account_birthdate, $civilian_account_address, $civilian_username, $civilian_password, $civilian_confirm_password)
   {
     $con=$this->getConnection();
-    $query = "INSERT INTO tbl_civilian_employee_account(civilian_id, civilian_account_fName, civilian_account_lName, civilian_account_mName, type_of_employee, civilian_account_rank, civilian_account_office, civilian_account_email, civilian_account_contactNumber, civilian_account_birthdate, civilian_account_adress, civilian_username, civilian_password, civilian_confirm_password)
-    VALUES('$civilian_id', '$civilian_account_fName', '$civilian_account_lName', '$civilian_account_mName', '$type_of_employee', '$civilian_account_rank', '$civilian_account_office', '$civilian_account_email', '$civilian_account_contactNumber', '$civilian_account_birthdate', '$civilian_account_adress', '$civilian_username', '$civilian_password', '$civilian_confirm_password')";
+    $query = "INSERT INTO tbl_civilian_employee_account(civilian_id, civilian_account_fName, civilian_account_lName, civilian_account_mName, type_of_employee, civilian_account_rank, civilian_account_office, civilian_account_email, civilian_account_contactNumber, civilian_account_birthdate, civilian_account_address, civilian_username, civilian_password, civilian_confirm_password)
+    VALUES('$civilian_id', '$civilian_account_fName', '$civilian_account_lName', '$civilian_account_mName', '$type_of_employee', '$civilian_account_rank', '$civilian_account_office', '$civilian_account_email', '$civilian_account_contactNumber', '$civilian_account_birthdate', '$civilian_account_address', '$civilian_username', '$civilian_password', '$civilian_confirm_password')";
     $insert_account = $con->query($query);
     if($insert_account){
       return true;
@@ -1196,6 +1196,19 @@ class db_access {
     $update_query = $con->query($query);
     if($update_query){
       return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function fetch_civilian_pending_request($loan_request_id_5k, $borrower_account_id, $borrower_id)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_loan_request_5k WHERE loan_request_id = '$loan_request_id_5k' AND account_id = '$borrower_account_id' AND borrower_id = '$borrower_id'";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
     } else {
       die($con->error);
     }

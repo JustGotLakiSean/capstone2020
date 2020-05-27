@@ -1,6 +1,22 @@
 <?php
 echo <<<STYLE
 <style>
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+}
+
+.loan_request_tabs button.active {
+  border-top: 3px solid #0071BC;
+  color: #000000;
+}
+
+.tablinks {
+  width: 570px;
+  height: 30px;
+  cursor: pointer;
+}
+
 .loan_request_tabs {
   overflow: hidden;
 }
