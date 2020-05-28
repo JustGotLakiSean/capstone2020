@@ -142,7 +142,7 @@ hr {
   -5px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-#lrf_btn_submi_10k {
+#lrf_btn_submit_10k {
   background: #0071BC;
 }
 

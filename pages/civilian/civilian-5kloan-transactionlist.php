@@ -140,13 +140,13 @@ function display_pending_5k_request($borrower_id, $borrower_account_id, $type_of
     <nav>
       <ul>
         <li>
-          <a href="../index.php" class="ce-home-link">950th CEISG</a>
+          <a href="civilian-homepage.php" class="ce-home-link">950th CEISG</a>
         </li>
         <li>
           <input type="button" name="cl-btnaction" id="cl-btnaction" onclick="document.getElementById('ce_menu_box').style.display='flex'" value="Your Account" />
           <div id="ce_menu_box">
-            <a href="#">Account Details</a>
-            <a href="#">Sign Out</a>
+            <!-- <a href="#">Account Details</a> -->
+            <a href="logout_civ.php">Sign Out</a>
           </div>
         </li>
       </ul>
@@ -419,16 +419,16 @@ function display_pending_5k_request($borrower_id, $borrower_account_id, $type_of
               <div class="pb5k_btnaction" align="center">
                 <input type="button" name="pb5k_btn_cancel" id="pb5k_btn_cancel" onclick="window.location.href=\'civilian-5kloan-transactionlist.php\'" value="Cancel" />
               </div>
-            </div>';
 
-              
+            </div>';
+ 
             echo '</div>
           </div>
         </div>
       </section>';
         
       }
-    echo "FRIEND";
+
     }
 
   }

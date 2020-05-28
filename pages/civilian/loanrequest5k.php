@@ -116,7 +116,43 @@ if(isset($_POST['lrf_btn_submit_5k'])){
     // do nothing...
   }
 
-} else {
-  // do nothing...
+} else if(isset($_POST['lrf_btn_submit_10k'])){
+  echo "NO<br>";
+  $lrf_txt_borrowerid_10k = '';
+  $lrf_txt_borroweraccoundid_10k = '';
+  $formatted_string_10k = '';
+  $type_of_account_10k = '';
+  $lrf_txt_borrowerfname_10k = '';
+  $lrf_txt_borrowermname_10k = '';
+  $lrf_txt_borrowerlname_10k = '';
+  $lrf_txt_borroweremail_10k = '';
+  $lrf_txt_borrowertype_10k = '';
+  $lrf_txt_borroweroffice_10k = '';
+  $lrf_txt_borrowerrank_10k = '';
+  $loan_amount_rates_5k_10k = '';
+  $monthly_payment_rates_5k_10k = '';
+  $credit_rates_5k_10k = '';
+  $beginning_balance_5k_10k = '';
+  $interest_rates_5k_10k = '';
+  $penalty_permonth_rates_5k_10k = '';
+  $debit_pay_5k_10k = '';
+  $loan_status_5k_10k = '';
+  $first_payment_5k_10k = '';
+  $second_payment_5k_10k = '';
+  $third_payment_5k_10k = '';
+  $fourth_payment_5k_10k = '';
+  $fifth_payment_5k_10k = '';
+  $full_payment_5k_10k = '';
+  $is_granted_10k = '';
+  $is_declined_10k = '';
+  $is_pending_10k = '';
+  $is_loan_requested_5k_10k = '';
+  $is_new_loan_5k_10k = '';
+  $comment_10k = '';
+
+  if(isset($_POST['lrf-txt-borrowerid_10k'])){
+    echo "HI BIRTH<br>";
+  }
+
 }
 ?>

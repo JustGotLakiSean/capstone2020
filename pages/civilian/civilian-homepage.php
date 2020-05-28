@@ -28,12 +28,12 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
     <nav>
       <ul>
         <li>
-          <a href="../index.php" class="ce-home-link">950th CEISG</a>
+          <a href="civilian-homepage.php" class="ce-home-link">950th CEISG</a>
         </li>
         <li>
           <input type="button" name="cl-btnaction" id="cl-btnaction" onclick="document.getElementById('ce_menu_box').style.display='flex'" value="Your Account" />
           <div id="ce_menu_box">
-            <a href="#">Account Details</a>
+            <!-- <a href="#">Account Details</a> -->
             <a href="logout_civ.php">Sign Out</a>
           </div>
         </li>
@@ -271,7 +271,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
   </section>
 
   <section id="lrf-container_10k">
-    <form action="" method="" id="loanRequestForm">
+    <form action="loanrequest5k.php" method="POST" id="loanRequestForm">
       <div class="lrf-inner-container">
         <div class="lrf-top-container">
           <div class="lrf-header">
@@ -281,34 +281,100 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
             </button>
           </div>
           <div class="lrf-type-of-account-box">
-            <label for="type_of_account">Choose type of Account:</label>
-            <input type="text" disabled value="10K Account" />
+            <label for="type_of_account">Type of account:</label>
+            <input type="hidden" name = "type_of_account" class ="lk_rate" value="10K" />
+            <input type="text" class ="lk_rate" disabled value="10K Account" />
           </div>
         </div>
         <hr>
         <div class="lrf-midinputbox">
           <div class="lrf-midinputbox-inner">
             <div class="lrf-bfn-container mid_box_item">
-              <label for="lrf-txt-borrowerfname">Firstname</label>
-              <input type="text" disabled name="lrf-txt-borrowerfname" id="lrf-txt-borrowerfname" />
+              <label for="lrf-txt-borrowerfname_10k">Firstname</label>
+              <input type="hidden" name="lrf-txt-borrowerid_10k" value="<?php echo $_SESSION['ce_id']; ?>" />
+              <input type="hidden" name="lrf-txt-borroweraccoundid_10k" value="<?php echo $_SESSION['cuid']; ?>" />
+              <input type="hidden" name="lrf-txt-borroweremail_10k" value="<?php echo $_SESSION['ce_email']; ?>" />
+              <input type="hidden" name="lrf-txt-borrowerfname_10k" id="lrf-txt-borrowerfname" value = "<?php echo $_SESSION['fname']; ?>" />
+              <input type="text" disabled id="lrf-txt-borrowerfname_10k" id="lrf-txt-borrowerfname" value = "<?php echo $_SESSION['fname']; ?>" />
             </div>
             <div class="lrf-bmn-container mid_box_item">
-              <label for="lrf-txt-borrowermname">Middle name</label>
-              <input type="text" disabled name="lrf-txt-borrowermname" id="lrf-txt-borrowermname" />
+              <label for="lrf-txt-borrowermname_10k">Middle name</label>
+              <input type="hidden" name="lrf-txt-borrowermname_10k" id="lrf-txt-borrowermname_10k" value = "<?php echo $_SESSION['mname']; ?>" />
+              <input type="text" disabled id="lrf-txt-borrowermname_10k" id="lrf-txt-borrowermname_10k" value = "<?php echo $_SESSION['mname']; ?>" />
             </div>
             <div class="lrf-bln-container mid_box_item">
-              <label for="lrf-txt-borrowerlname">Last name</label>
-              <input type="text" disabled name="lrf-txt-borrowerlname" id="lrf-txt-borrowerlname" />
+              <label for="lrf-txt-borrowerlname_10k">Last name</label>
+              <input type="hidden" name="lrf-txt-borrowerlname_10k" id="lrf-txt-borrowerlname_10k" value = "<?php echo $_SESSION['lname']; ?>"/>
+              <input type="text" disabled id="lrf-txt-borrowerlname_10k" id="lrf-txt-borrowerlname_10k" value = "<?php echo $_SESSION['lname']; ?>"/>
             </div>
             <div class="lrf-boff-container mid_box_item">
-              <label for="lrf-txt-borroweroffice">Office</label>
-              <input type="text" disabled name="lrf-txt-borroweroffice" id="lrf-txt-borroweroffice" />
+              <label for="lrf-txt-borroweroffice_10k">Office</label>
+              <input type="hidden" name="lrf-txt-borroweroffice_10k" id="lrf-txt-borroweroffice_10k" value = "<?php echo $_SESSION['ce_office']; ?>" />
+              <input type="text" disabled id="lrf-txt-borroweroffice_10k" id="lrf-txt-borroweroffice_10k" value = "<?php echo $_SESSION['ce_office']; ?>" />
             </div>
+            <input type="hidden" name="lrf-txt-borrowerrank_10k" id="lrf-txt-borrowerrank_10k" value = "<?php echo $_SESSION['ce_rank']; ?>" />
+            <input type="hidden" name="lrf-txt-borrowertype_10k" id="lrf-txt-borrowertype_10k" value = "<?php echo $_SESSION['type_of_employee']; ?>" />
           </div>
         </div>
+        <hr>
         <div class="lrf-loanrates">
           <div class="lrf-loanrates-inner">
-            <p>HUHUGUTIN KAY DATABASE PHP</p>
+            <?php
+            while($res = $lr10k->fetch_array(MYSQLI_ASSOC)){
+              $rates_id_10k = $res['10k_rates_id'];
+              $type_of_loan_10k = $res['type_of_loan'];
+              $loan_amount_rates_10k = $res['10k_loan_amount_rates'];
+              $monthly_payment_rates_10k = $res['10k_monthly_payment_rates'];
+              $credit_rates_10k = $res['10k_credit_rates'];
+              $beginning_balance_10k = $res['10k_beginning_balance_rates'];
+              $interest_rates_10k = $res['10k_interest_rate'];
+              $penalty_permonth_rates_10k = $res['10k_penalty_permonth_rates'];
+              $formatted_string_10k = "950CEISG-000";
+              $debit_pay_10k = 0;
+              $status_10k = 0;
+              $first_payment_10k = 0;
+              $second_payment_10k = 0;
+              $third_payment_10k = 0;
+              $fourth_payment_10k = 0;
+              $fifth_payment_10k = 0;
+              $full_payment_10k = 0;
+              $is_new_loan_10k = 1;
+
+            }
+
+            echo '<div class="firstbox">';
+            echo '<label for="loan_amount_rates_10k">Loan Amount</label>';
+            echo '<label for="monthly_payment_rates_10k">Monthly Payment</label>';
+            echo '<label for="credit_rates_10k">Credit</label>';
+            echo '<label for="beginning_balance_10k">Beginning Balance</label>';
+            echo '<label for="interest_rates_10k">Interest Rate</label>';
+            echo '<label for="penalty_permonth_rates_10k">Penalty Per Month</label>';
+            // echo '<label for="date_today">Date</label>';
+            echo '</div>';
+
+            echo '<div class="secondbox">';
+            echo '<input type="hidden" name="formatted_string_10k" class="lk_rate" value="'.$formatted_string_10k.'" />';
+            echo '<input type="hidden" name="loan_amount_rates_10k" class="lk_rate" value="'.$loan_amount_rates_10k.'" />';
+            echo '<input type="text" id="loan_amount_rates_10k" disabled class="lk_rate" value="'.$loan_amount_rates_10k.'" />';
+            echo '<input type="hidden" name="monthly_payment_rates_10k" class="lk_rate" value="'.$monthly_payment_rates_10k.'" />';
+            echo '<input type="text" id="monthly_payment_rates_10k" disabled class="lk_rate" value="'.$monthly_payment_rates_10k.'" />';
+            echo '<input tpye="hidden" name="credit_rates_10k" class="lk_rate" value="'.$credit_rates_10k.'" />';
+            echo '<input type="text" id="credit_rates_10k" disabled class="lk_rate" value="'.$credit_rates_10k.'" />';
+            echo '<input type="hidden" name="beginning_balance_10k" class="lk_rate" value="'.$beginning_balance_10k.'" />';
+            echo '<input type="text" id="beginning_balance_10k" disabled class="lk_rate" value="'.$beginning_balance_10k.'" />';
+            echo '<input type="hidden" name="interest_rates_10k" class="lk_rate" value="'.$interest_rates_10k.'" />';
+            echo '<input type="text" id="interest_rates_10k" disabled class="lk_rate" value="'.$interest_rates_10k.'" />';
+            echo '<input type="hidden" name="penalty_permonth_rates_10k" class="lk_rate" value="'.$penalty_permonth_rates_10k.'" />';
+            echo '<input type="text" id="penalty_permonth_rates_10k" class="lk_rate" value="'.$penalty_permonth_rates_10k.'" />';
+            echo '<input type="hidden" name="debit_pay_10k" value="'.$debit_pay_10k.'" />';
+            echo '<input type="hidden" name="loan_status_10k" value="'.$status_10k.'" />';
+            echo '<input type="hidden" name="first_payment_10k" value="'.$first_payment_10k.'" />';
+            echo '<input type="hidden" name="second_payment_10k" value="'.$second_payment_10k.'" />';
+            echo '<input type="hidden" name="third_payment_10k" value="'.$third_payment_10k.'" />';
+            echo '<input type="hidden" name="fourth_payment_10k" value="'.$fourth_payment_10k.'" />';
+            echo '<input type="hidden" name="fifth_payment_10k" value="'.$fifth_payment_10k.'" />';
+            echo '<input type="hidden" name="full_payment_10k" value="'.$full_payment_10k.'" />';
+            ?>
           </div>
         </div>
         <hr>

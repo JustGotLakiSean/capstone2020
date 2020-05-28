@@ -20,13 +20,12 @@ session_start();
         <li class = "nav-links"><a href = "950th-employee.php">Employee</a></li>
         <li class = "nav-links"><a href = "general-ledger.php">General Ledger</a></li>
         <li class = "nav-links"><a href = "#">Balance Sheet</a></li>
-        <li><input type="text" name = "txt_search_employee" id = "txt_search_employee" placeholder = "Search Employee"/></li>
         <li>
           <div>
             <input type="button" id = "admin-button" value="Admin Button" onclick="document.getElementById('admin_menu_box').style.display='flex'"/>
             <div id="admin_menu_box">
-              <a href="#">View Loan Request</a>
-              <a href="#">Admin Details</a>
+              <a href="../../pages/admin/adminSettings.php">Setting</a>
+              <a href="../../pages/admin/adminloanrequest.php">View Loan Request</a>
               <a href="logout.php">Sign Out</a>
             </div>
           </div>

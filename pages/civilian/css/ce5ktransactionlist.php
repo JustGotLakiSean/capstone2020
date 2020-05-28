@@ -54,7 +54,7 @@ echo <<<style
 
 .newpayment_5k_titlecontainer {
   height: 26px;
-  background: #0071BC;
+  background: #009245;
   border-radius: 5px;
   color: #fff;
 }
