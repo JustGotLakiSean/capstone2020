@@ -6,6 +6,132 @@ echo <<<style
   padding: 6px 12px;
 }
 
+.pb5k_btnaction {
+  margin: auto;
+}
+
+#pb5k_btn_cancel {
+  margin-top: 40px;
+  background: #ED1C24;
+  width: 60px;
+  height: 23px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  transition: 100ms ease-in;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#pb5k_btn_cancel:hover {
+  box-shadow: 5px 2px 10px rgba(0, 0, 0, 0.2),
+  -5px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+#newpayment_5k_modal {
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9); /* color */
+}
+
+#newpayment_5k_container {
+  display: block;
+  width: 600px;
+  height: 300px;
+  margin: auto;
+  background: #F2F2F2;
+  border: 1px solid #dadada;
+  border-radius: 5px;
+  position: relative;
+  top: 40px;
+  border: none;
+}
+
+.newpayment_5k_titlecontainer {
+  height: 26px;
+  background: #0071BC;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.newpayment_5k_titlecontainer > h3 {
+  font-weight: lighter;
+  font-size: 16px;
+  margin: 0;
+}
+
+.bdb-content{
+  width: 550px;
+  margin: auto;
+}
+
+.bdb_container {
+  display: block;
+  height: 85px;
+}
+
+.borrowers_detailbox {
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 5px;
+  margin: auto;
+  position: relative;
+  top: 10px;
+  height: 65px;
+}
+
+.borrowers_detailbox input[type=text]{
+  height: 26px;
+  padding-left: 10px;
+  background: #E6E6E6;
+  border: 1px solid #CCCCCC;
+  border-radius: 3px;
+  font-size: .9rem;
+  color: #666666;
+}
+
+#transaction_box_5kcontainer {
+  margin-top: 15px;
+}
+
+#transaction_box_5k {
+  margin: auto;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13px;
+}
+
+#transaction_box_5k > thead > tr > th {
+  font-size: 13px;
+}
+
+#active_table_5k > table {
+  width: 100%;
+  margin: auto;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+#active_table_5k > table > thead {
+  background: #009245;
+  border: 1px solid #009245;
+}
+
+#active_table_5k > table > thead > tr > th {
+  color: #fff;
+  font-weight: lighter;
+}
+
+#active_table_5k > table > tbody {
+  background: #F2F2F2;
+  border: 1px solid rgb(230, 230, 230);
+}
+
 .ce5ktl-notransaction button.active {
   border-top: 3px solid #0071BC;
   color: #000000;
