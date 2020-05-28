@@ -282,7 +282,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
           </div>
           <div class="lrf-type-of-account-box">
             <label for="type_of_account">Type of account:</label>
-            <input type="hidden" name = "type_of_account" class ="lk_rate" value="10K" />
+            <input type="hidden" name = "type_of_account_10k" class ="lk_rate" value="10K" />
             <input type="text" class ="lk_rate" disabled value="10K Account" />
           </div>
         </div>
@@ -337,6 +337,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
               $third_payment_10k = 0;
               $fourth_payment_10k = 0;
               $fifth_payment_10k = 0;
+              $sixth_payment_10k = 0;
               $full_payment_10k = 0;
               $is_new_loan_10k = 1;
 
@@ -373,7 +374,9 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
             echo '<input type="hidden" name="third_payment_10k" value="'.$third_payment_10k.'" />';
             echo '<input type="hidden" name="fourth_payment_10k" value="'.$fourth_payment_10k.'" />';
             echo '<input type="hidden" name="fifth_payment_10k" value="'.$fifth_payment_10k.'" />';
+            echo '<input type="hidden" name="sixth_payment_10k" value="'.$sixth_payment_10k.'" />';
             echo '<input type="hidden" name="full_payment_10k" value="'.$full_payment_10k.'" />';
+            echo '<input type="hidden" name="is_new_loan_10k" value="'.$is_new_loan_10k.'" />';
             ?>
           </div>
         </div>
