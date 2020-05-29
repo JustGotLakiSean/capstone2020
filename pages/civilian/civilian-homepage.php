@@ -163,7 +163,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
           </div>
           <div class="lrf-type-of-account-box">
             <label for="type_of_account">Type of account:</label>
-            <input type="hidden" name = "type_of_account" class ="lk_rate" value="5K" />
+            <input type="hidden" name = "type_of_account" class ="lk_rate" value="5k" />
             <input type="text" class ="lk_rate" disabled value="5K Account" />
           </div>
         </div>
@@ -282,7 +282,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
           </div>
           <div class="lrf-type-of-account-box">
             <label for="type_of_account">Type of account:</label>
-            <input type="hidden" name = "type_of_account_10k" class ="lk_rate" value="10K" />
+            <input type="hidden" name = "type_of_account_10k" class ="lk_rate" value="10k" />
             <input type="text" class ="lk_rate" disabled value="10K Account" />
           </div>
         </div>

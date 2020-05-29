@@ -387,11 +387,11 @@ class db_access {
   }
 
   // Add New 10k Loan //
-  public function add_new_10k_record($borrower_id, $ctrlno_prefix, $fname, $mname, $lname, $emp_type, $loan_type, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $debit_pay, $interest_rate, $balance_rate, $date_of_loan, $comment_remarks, $penalty_per_month, $emp_office, $emp_rank, $first_payment, $second_payment, $third_payment, $fourth_payment, $fifth_payment, $sixth_payment, $full_payment, $status, $isNewLoan)
+  public function add_new_10k_record($borrower_id, $ctrlno_prefix, $fname, $mname, $lname, $emp_type, $loan_type, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $debit_pay, $interest_rate, $balance_rate, $date_of_loan, $comment_remarks, $penalty_per_month, $emp_office, $emp_rank, $first_payment, $second_payment, $third_payment, $fourth_payment, $fifth_payment, $sixth_payment, $full_payment, $status, $isNewLoan, $is_loan_requested_10k)
   {
     $con=$this->getConnection();
-    $query="INSERT INTO tbl_new_10k_loan(borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, type_of_loan, loan_amount_10k_rate, monthly_payment_10k_rate, credit_10k_rate, debit_pay_10k, interest_rate_10k, balance_rate_10k, date_of_loan, comment, penalty_10k, office_10k, emp_rank_10k, first_payment_10k, second_payment_10k, third_payment_10k, fourth_payment_10k, fifth_payment_10k, sixth_payment_10k, full_payment_10k, loan_status_10k, isNewLoan)
-    VALUES('$borrower_id', '$ctrlno_prefix', '$fname', '$mname', '$lname', '$emp_type', '$loan_type', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$debit_pay', '$interest_rate', '$balance_rate', '$date_of_loan', '$comment_remarks', '$penalty_per_month', '$emp_office', '$emp_rank', '$first_payment', '$second_payment', '$third_payment', '$fourth_payment', '$fifth_payment', '$sixth_payment', '$full_payment', '$status', '$isNewLoan')";
+    $query="INSERT INTO tbl_new_10k_loan(borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, type_of_loan, loan_amount_10k_rate, monthly_payment_10k_rate, credit_10k_rate, debit_pay_10k, interest_rate_10k, balance_rate_10k, date_of_loan, comment, penalty_10k, office_10k, emp_rank_10k, first_payment_10k, second_payment_10k, third_payment_10k, fourth_payment_10k, fifth_payment_10k, sixth_payment_10k, full_payment_10k, loan_status_10k, isNewLoan, is_loan_requested_10k)
+    VALUES('$borrower_id', '$ctrlno_prefix', '$fname', '$mname', '$lname', '$emp_type', '$loan_type', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$debit_pay', '$interest_rate', '$balance_rate', '$date_of_loan', '$comment_remarks', '$penalty_per_month', '$emp_office', '$emp_rank', '$first_payment', '$second_payment', '$third_payment', '$fourth_payment', '$fifth_payment', '$sixth_payment', '$full_payment', '$status', '$isNewLoan', '$is_loan_requested_10k')";
     $insert_query = $con->query($query);
     if($insert_query){
       return true;
@@ -1269,5 +1269,55 @@ class db_access {
     $con->close();
   }
 
+  public function fetch_civilian_pending_request_10k($loan_request_id_10k, $borrower_account_id_10k, $borrower_id_10k)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_loan_request_10k WHERE loan_request_id_10k = '$loan_request_id_10k' AND account_id_10k = '$borrower_account_id_10k' AND borrower_id_10k = '$borrower_id_10k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+  }
+
+  public function update_is_pending_10k($loan_request_id_10k, $borrower_id_10k, $account_id_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $borrower_email_10k, $type_of_employee_10k, $borrower_rank_10k)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_loan_request_10k SET is_pending_10k = 0 WHERE loan_request_id_10k = '$loan_request_id_10k' AND borrower_id_10k = '$borrower_id_10k' AND account_id_10k = '$account_id_10k' AND borrower_fname_10k = '$borrower_fname_10k' AND borrower_mname_10k = '$borrower_mname_10k' AND borrower_lname_10k = '$borrower_lname_10k' AND borrower_email_10k = '$borrower_email_10k' AND type_of_employee_10k = '$type_of_employee_10k' AND borrower_rank_10k = '$borrower_rank_10k'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function update_is_granted_10k($loan_request_id_10k, $borrower_id_10k, $account_id_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $borrower_email_10k, $type_of_employee_10k, $borrower_rank_10k)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_loan_request_10k SET is_granted_10k = 1 WHERE loan_request_id_10k = '$loan_request_id_10k' AND borrower_id_10k = '$borrower_id_10k' AND account_id_10k = '$account_id_10k' AND borrower_fname_10k = '$borrower_fname_10k' AND borrower_mname_10k = '$borrower_mname_10k' AND borrower_lname_10k = '$borrower_lname_10k' AND borrower_email_10k = '$borrower_email_10k' AND type_of_employee_10k = '$type_of_employee_10k' AND borrower_rank_10k = '$borrower_rank_10k'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function update_is_declined_10k($loan_request_id_10k, $borrower_id_10k, $account_id_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $borrower_email_10k, $type_of_employee_10k, $borrower_rank_10k)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_loan_request_10k SET is_declined_10k = 1 WHERE loan_request_id_10k = '$loan_request_id_10k' AND borrower_id_10k = '$borrower_id_10k' AND account_id_10k = '$account_id_10k' AND borrower_fname_10k = '$borrower_fname_10k' AND borrower_mname_10k = '$borrower_mname_10k' AND borrower_lname_10k = '$borrower_lname_10k' AND borrower_email_10k = '$borrower_email_10k' AND type_of_employee_10k = '$type_of_employee_10k' AND borrower_rank_10k = '$borrower_rank_10k'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
 }
 ?>
