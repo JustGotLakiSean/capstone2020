@@ -385,9 +385,14 @@ if(isset($_GET['loan_request_10950']) && isset($_GET['baid10950']) && isset($_GE
       $updateData = $db->update_is_declined_10k($loan_request_id_10k, $borrower_id_10k, $borrower_account_id_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $borrower_email_10k, $type_of_employee_10k, $borrower_rank_10k);
       if($updateData){
         $db->update_is_pending_10k($loan_request_id_10k, $borrower_id_10k, $borrower_account_id_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $borrower_email_10k, $type_of_employee_10k, $borrower_rank_10k);
+        header('location: adminloanrequest.php');
+      } else {
+        printf("%s\n", $con->error);
       }
     }
 
+  } else {
+    
   }
 
 }
