@@ -228,7 +228,14 @@ if(isset($_POST['lrf_btn_submit_5k'])){
     echo "$is_pending_10k<br>";
     echo "$is_new_loan_10k<br>";
 
-    $insert_request_10k - 
+    $insert_request_10k = $db->add_loan_request_10k($lrf_txt_borrowerid_10k, $lrf_txt_borroweraccoundid_10k, $formatted_string_10k, $type_of_account_10k, $lrf_txt_borrowerfname_10k, $lrf_txt_borrowermname_10k, $lrf_txt_borrowerlname_10k, $lrf_txt_borroweremail_10k, $lrf_txt_borrowertype_10k, $lrf_txt_borroweroffice_10k, $lrf_txt_borrowerrank_10k, $loan_amount_rates_10k, $monthly_payment_rates_10k, $credit_rates_10k, $debit_pay_10k, $interest_rates_10k, $beginning_balance_10k, $comment_10k, $penalty_permonth_rates_10k, $first_payment_10k, $second_payment_10k, $third_payment_10k, $fourth_payment_10k, $fifth_payment_10k, $sixth_payment_10k, $full_payment_10k, $loan_status_10k, $is_new_loan_10k, $is_granted_10k, $is_declined_10k, $is_pending_10k, $is_loan_requested_10k);
+    if($insert_request_10k){
+      header('location: civilian-homepage.php');
+    } else {
+      printf("%s\n", $con->error);
+    }
+
+  } else {
 
   }
 

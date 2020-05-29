@@ -1095,7 +1095,7 @@ class db_access {
     }
   }
 
-  // loan request //
+  // loan request 5k //
   public function add_loan_request_5k($borrower_id, $borrower_account_id, $ctrl_no_prefix, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $borrower_office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_5k_rate, $debit_pay_5k, $interest_rate_5k, $balance_rate_5k, $comment, $penalty, $first_payment, $second_payment, $third_payment, $fourth_payment, $fifth_payment, $full_payment, $loan_status, $is_new_loan, $is_granted, $is_declined, $is_pending, $is_loan_requested_5k)
   {
     $con=$this->getConnection();
@@ -1222,6 +1222,21 @@ class db_access {
     $get_data = $con->query($query);
     if($get_data){
       return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // loan request 10k //
+  public function add_loan_request_10k($borrower_id_10k, $borrower_account_id_10k, $ctrl_no_prefix_10k, $type_of_loan_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $borrower_email_10k, $type_of_employee_10k, $borrower_office_10k, $borrower_rank_10k, $loan_amount_10k_rate, $monthly_payment_10k_rate, $credit_10k_rate, $debit_pay_10k, $interest_rate_10k, $balance_rate_10k, $comment_10k, $penalty_10k, $first_payment_10k, $second_payment_10k, $third_payment_10k, $fourth_payment_10k, $fifth_payment_10k, $sixth_payment_10k, $full_payment_10k, $loan_status_10k, $is_new_loan_10k, $is_granted_10k, $is_declined_10k, $is_pending_10k, $is_loan_requested_10k)
+  {
+    $con=$this->getConnection();
+    $query="INSERT INTO tbl_loan_request_10k(borrower_id_10k, account_id_10k, ctrl_no_prefix_10k, type_of_loan_10k, borrower_fname_10k, borrower_mname_10k, borrower_lname_10k, borrower_email_10k, type_of_employee_10k, borrower_office_10k, borrower_rank_10k, loan_amount_10k_rate, monthly_payment_10k_rate, credit_10k_rate, debit_pay_10k, interest_rate_10k, balance_rate_10k, comment_10k, penalty_10k, first_payment_10k, second_payment_10k, third_payment_10k, fourth_payment_10k, fifth_payment_10k, sixth_payment_10k, full_payment_10k, loan_status_10k, is_new_loan_10k, is_granted_10k, is_declined_10k, is_pending_10k, is_loan_requested_10k)
+    VALUES('$borrower_id_10k', '$borrower_account_id_10k', '$ctrl_no_prefix_10k', '$type_of_loan_10k', '$borrower_fname_10k', '$borrower_mname_10k', '$borrower_lname_10k', '$borrower_email_10k', '$type_of_employee_10k', '$borrower_office_10k', '$borrower_rank_10k', '$loan_amount_10k_rate', '$monthly_payment_10k_rate', '$credit_10k_rate', '$debit_pay_10k', '$interest_rate_10k', '$balance_rate_10k', '$comment_10k', '$penalty_10k', '$first_payment_10k', '$second_payment_10k', '$third_payment_10k', '$fourth_payment_10k', '$fifth_payment_10k', '$sixth_payment_10k', '$full_payment_10k', '$loan_status_10k', '$is_new_loan_10k', '$is_granted_10k', '$is_declined_10k', '$is_pending_10k', $is_loan_requested_10k)";
+    $insert_query = $con->query($query);
+    if($insert_query){
+      return true;
     } else {
       die($con->error);
     }
