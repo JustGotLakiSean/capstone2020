@@ -1242,5 +1242,32 @@ class db_access {
     }
     $con->close();
   }
+
+  public function view_pending_loan_10k($borrower_id_10k, $borrower_account_id_10k, $type_of_loan_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $type_of_employee_10k, $borrower_office_10k, $borrower_rank_10k)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_loan_request_10k WHERE is_pending_10k = 1 AND borrower_id_10k = '$borrower_id_10k' AND account_id_10k = '$borrower_account_id_10k' AND type_of_loan_10k = '$type_of_loan_10k' AND borrower_fname_10k = '$borrower_fname_10k' AND borrower_mname_10k = '$borrower_mname_10k' AND borrower_lname_10k = '$borrower_lname_10k' AND type_of_employee_10k = '$type_of_employee_10k' AND borrower_office_10k = '$borrower_office_10k' AND borrower_rank_10k = '$borrower_rank_10k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function fetch_loan_request_10k()
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_loan_request_10k";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
 }
 ?>

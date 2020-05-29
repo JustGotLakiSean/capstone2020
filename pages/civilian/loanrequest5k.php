@@ -186,7 +186,7 @@ if(isset($_POST['lrf_btn_submit_5k'])){
     $is_loan_requested_10k = 1;
     $is_granted_10k = 0;
     $is_declined_10k = 0;
-    $is_pending_10k = 0;
+    $is_pending_10k = 1;
     $comment_10k = "New 10K Loan for $lrf_txt_borrowerfname_10k $lrf_txt_borrowermname_10k $lrf_txt_borrowerlname_10k";
     
 

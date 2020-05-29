@@ -8,6 +8,54 @@ session_start();
 if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
   header('location: civilian-login.php');
 }
+
+function display_pending_10k_request($borrower_id_10k, $borrower_account_id_10k, $type_of_loan_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $type_of_employee_10k, $borrower_office_10k, $borrower_rank_10k){
+  $con = new db_access();
+  $pending_10k = $con->view_pending_loan_10k($borrower_id_10k, $borrower_account_id_10k, $type_of_loan_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $type_of_employee_10k, $borrower_office_10k, $borrower_rank_10k);
+
+  echo '
+  <div id="pending_table_10k">
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type of Account</th>
+          <th>Status</th>
+        </tr>
+      </thead>';
+
+      while($row = $pending_10k->fetch_array(MYSQLI_ASSOC)){
+        if($row > 0){
+          $id = $row['borrower_id_10k'];
+          $fname = $row['borrower_fname_10k'];
+          $mname = $row['borrower_mname_10k'];
+          $lname = $row['borrower_lname_10k'];
+          $type_of_loan_10k = $row['type_of_loan_10k'];
+          $status_10k = (($row['is_pending_10k'] == 0) ? '' : 'Pending');
+          $fullname = "$fname $mname $lname";
+
+          if($status_10k === 'Pending'){
+            echo '
+            <tbody>
+              <tr>
+                <td>'.$fullname.'</td>
+                <td>'.$type_of_loan_10k.'</td>
+                <td>'.$status_10k.'</td>
+              </tr>
+            </tbody>';
+          } else {
+            echo "No Record<br>";
+          }
+
+        } else {
+          echo "No Record";
+        }
+
+      }
+
+    echo '</table>
+  </div>';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +68,22 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
   <title>10K Account Transaction List</title>
 </head>
 <body>
+
+<script>
+  function openTab(evt, tabName){
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for(i = 0; i < tabcontent.length; i++){
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for(i = 0; i < tablinks.length; i++){
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+</script>
 
   <header id="cl-header">
     <nav>
@@ -43,14 +107,53 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
       <div class="ce-10ktl-inner-content">
         <div class="ce-10ktl-header">
           <div class="ce-10ktl-title-container">
+            <h4>Hello, <?php echo $_SESSION['cuname']; ?></h4>
             <h3>10K Account Transaction List</h3>
           </div>
         </div>
         <hr>
         <div class="10ktl-content">
-          <div class="10ktl-notransaction">
-            <h1>No Transactions for 10k Account</h1>
+          <div class="ce10ktl-notransaction">
+            <button class="tablinks" onclick="openTab(event, 'active_loan_10k_tab')">Active Loan</button>
+            <button class="tablinks" onclick="openTab(event, 'pending_loan_10k_tab')">Pending Loan</button>
           </div>
+          
+          <div id="active_loan_10k_tab" class="tabcontent">
+            <div id="active_loan_10k_tablename">
+              <h4 class="table_header_title">10K Transaction Table</h4>
+            </div>
+            <div id="active_loan_10k_table">
+              <form action="" method="POST" id="showActiveLoanPanel">
+              
+              </form>
+            </div>
+          </div>
+
+          <div id="pending_loan_10k_tab" class="tabcontent">
+            <div id="pending_loan_10k_tablename">
+              <h4 class="table_header_title">Pending Loan Request Table</h4>
+            </div>
+            <div id="pending_loan_5k_table">
+              <form action="" method="POST" id="showPendingLoanPanel">
+                <?php
+
+                //lr10k -> loan request 10k
+                $lr10k = $db->fetch_loan_request_10k();
+                while($r = $lr10k->fetch_array(MYSQLI_ASSOC)){
+                  $typeOfLoan10K = $r['type_of_loan_10k'];
+                  $fname = $r['borrower_fname_10k'];
+                  $mname = $r['borrower_mname_10k'];
+                  $lname = $r['borrower_lname_10k'];
+                  $typeOfEmployee10k = $r['type_of_employee_10k'];
+                  $office = $r['borrower_office_10k'];
+                  $rank = $r['borrower_rank_10k'];
+                }
+                display_pending_10k_request($_SESSION['ce_id'], $_SESSION['cuid'], $typeOfLoan10K, $_SESSION['fname'], $_SESSION['mname'], $_SESSION['lname'], $_SESSION['type_of_employee'], $_SESSION['ce_office'], $_SESSION['ce_rank'])
+                ?>
+              </form>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

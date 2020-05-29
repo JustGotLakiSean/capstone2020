@@ -199,6 +199,57 @@ if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid'])){
 
 }
 
+if(isset($_GET['loan_request_10950']) && isset($_GET['baid10950']) && isset($_GET['bid10950'])){
+  echo "$_GET[loan_request_10950]<br>";
+  echo "$_GET[baid10950]<br>";
+  echo "$_GET[bid10950]<br>";
+
+  $loan_request_id_10k = '';
+  $borrower_account_id_10k = '';
+  $borrower_id_10k = '';
+  $ctrl_no_prefix_10k = '';
+  $borrower_fname_10k = '';
+  $borrower_mname_10k = '';
+  $borrower_lname_10k = '';
+  $borrower_email_10k = '';
+  $type_of_employee_10k = '';
+  $type_of_loan_10k = '';
+  $loan_amount_10k_rate = '';
+  $monthly_payment_10k_rate = '';
+  $credit_10k_rate = '';
+  $debit_pay_10k = '';
+  $interest_rate_10k = '';
+  $balance_rate_10k = '';
+  $date_today_10k = '';
+  $comment_10k = '';
+  $penalty_10k = '';
+  $borrower_office_10k = '';
+  $borrower_rank_10k = '';
+  $first_payment_10k = '';
+  $second_payment_10k = '';
+  $third_payment_10k = '';
+  $fourth_payment_10k = '';
+  $fifth_payment_10k = '';
+  $sixth_payment_10k = '';
+  $full_payment_10k = '';
+  $loan_status_10k = '';
+  $is_new_loan_10k = '';
+  $is_loan_requested_10k = '';
+  $con = '';
+  $increment_10k = '';
+
+  if(isset($_SESSION['loan_request_id_10k']) && isset($_SESSION['borrower_account_id_10k']) && isset($_SESSION['borrower_id_10k'])){
+    // echo "$_GET[loan_request_10950]<br>";
+    // echo "$_GET[baid10950]<br>";
+    // echo "$_GET[bid10950]<br>";
+
+    $con = $db->getConnection();
+    
+
+  }
+
+}
+
 function display_pending_5k_request()
 {
   $con = new db_access();
@@ -314,6 +365,124 @@ BUTTON;
   </form';
 }
 
+function display_pending_10k_request()
+{
+  $con = new db_access();
+  $pending_10k = $con->fetch_loan_request_10k();
+
+  echo '
+  <form action ="" method="POST">
+    <div id="pending_table_10k">
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type of Account</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>';
+
+        while($r = $pending_10k->fetch_array(MYSQLI_ASSOC)){
+          if($r > 0){
+            $loan_request_id_10k = $r['loan_request_id_10k'];
+            $_SESSION['loan_request_id_10k'] = $r['loan_request_id_10k'];
+            $borrower_id_10k = $r['borrower_id_10k'];
+            $_SESSION['borrower_id_10k'] = $r['borrower_id_10k'];
+            $borrower_account_id_10k = $r['account_id_10k'];
+            $_SESSION['borrower_account_id_10k'] = $r['account_id_10k'];
+            $ctrl_no_prefix_10k = $r['ctrl_no_prefix_10k'];
+            $type_of_loan_10k = $r['type_of_loan_10k'];
+            $borrower_fname_10k = $r['borrower_fname_10k'];
+            $borrower_mname_10k = $r['borrower_mname_10k'];
+            $borrower_lname_10k = $r['borrower_lname_10k'];
+            $borrower_email_10k = $r['borrower_email_10k'];
+            $type_of_employee_10k = $r['type_of_employee_10k'];
+            $borrower_office_10k = $r['borrower_office_10k'];
+            $borrower_rank_10k = $r['borrower_rank_10k'];
+            $loan_amount_10k_rate = $r['loan_amount_10k_rate'];
+            $monthly_payment_10k_rate = $r['monthly_payment_10k_rate'];
+            $credit_10k_rate = $r['credit_10k_rate'];
+            $debit_pay_10k = $r['debit_pay_10k'];
+            $interest_rate_10k = $r['interest_rate_10k'];
+            $balance_rate_10k = $r['balance_rate_10k'];
+            $comment_10k = $r['comment_10k'];
+            $penalty_10k = $r['penalty_10k'];
+            $first_payment_10k = $r['first_payment_10k'];
+            $second_payment_10k = $r['second_payment_10k'];
+            $third_payment_10k = $r['third_payment_10k'];
+            $fourth_payment_10k = $r['fourth_payment_10k'];
+            $fifth_payment_10k = $r['fifth_payment_10k'];
+            $sixth_payment_10k = $r['sixth_payment_10k'];
+            $full_payment_10k = $r['full_payment_10k'];
+            $loan_status_10k = $r['loan_status_10k'];
+            $is_new_loan_10k = $r['is_new_loan_10k'];
+            $is_loan_requested_10k = $r['is_loan_requested_10k'];
+            $is_pending_10k = (($r['is_pending_10k'] == 0) ? 'Granted' : 'Pending');
+            $fullname_10k = "$borrower_fname_10k $borrower_mname_10k $borrower_lname_10k";
+            $date_today_10k = date("j-M-y");
+
+
+            if($is_pending_10k === 'Pending'){
+              echo '
+              <tbody>
+                <tr>
+                  <input type="text" name="loan_request_id_5k" value="'.$loan_request_id_10k.'" />
+                  <input type="text" name="borrower_account_id_10k" value="'.$borrower_account_id_10k.'" />
+                  <input type="text" name="borrower_id_10k" value="'.$borrower_id_10k.'" />
+                  <input type="text" name="ctrl_no_prefix_10k" value="'.$ctrl_no_prefix_10k.'" />
+                  <input type="text" name="borrower_fname_10k" value="'.$borrower_fname_10k.'" />
+                  <input type="text" name="borrower_mname_10k" value="'.$borrower_mname_10k.'" />
+                  <input type="text" name="borrower_lname_10k" value="'.$borrower_lname_10k.'" />
+                  <input type="text" name="borrower_email_10k" value="'.$borrower_email_10k.'" />
+                  <input type="text" name="type_of_employee_10k" value="'.$type_of_employee_10k.'" />
+                  <input type="text" name="type_of_loan_10k" value="'.$type_of_loan_10k.'" />
+                  <input type="text" name="loan_amount_10k_rate" value="'.$loan_amount_10k_rate.'" />
+                  <input type="text" name="monthly_payment_10k_rate" value="'.$monthly_payment_10k_rate.'" />
+                  <input type="text" name="credit_10k_rate" value="'.$credit_10k_rate.'" />
+                  <input type="text" name="debit_pay_10k" value="'.$debit_pay_10k.'" />
+                  <input type="text" name="interest_rate_10k" value="'.$interest_rate_10k.'" />
+                  <input type="text" name="balance_rate_10k" value="'.$balance_rate_10k.'" />
+                  <input type="text" name="date_today_10k" value="'.$date_today_10k.'" />
+                  <input type="text" name="comment_10k" value="'.$comment_10k.'" />
+                  <input type="text" name="penalty_10k" value="'.$penalty_10k.'" />
+                  <input type="text" name="office_10k" value="'.$borrower_office_10k.'" />
+                  <input type="text" name="rank_10k" value="'.$borrower_rank_10k.'" />
+                  <input type="text" name="first_payment_10k" value="'.$first_payment_10k.'" />
+                  <input type="text" name="second_payment_10k" value="'.$second_payment_10k.'" />
+                  <input type="text" name="third_payment_10k" value="'.$third_payment_10k.'" />
+                  <input type="text" name="fourth_payment_10k" value="'.$fourth_payment_10k.'" />
+                  <input type="text" name="fifth_payment_10k" value="'.$fifth_payment_10k.'" />
+                  <input type="text" name="sixth_payment_10k" value="'.$sixth_payment_10k.'" />
+                  <input type="text" name="full_payment_10k" value="'.$full_payment_10k.'" />
+                  <input type="text" name="loan_status_10k" value="'.$loan_status_10k.'" />
+                  <input type="text" name="is_new_loan_10k" value="'.$is_new_loan_10k.'" />
+                  <input type="text" name="is_loan_requested_10k" value="'.$is_loan_requested_10k.'" />
+                  <td>'.$fullname_10k.'</td>
+                  <td>'.$type_of_loan_10k.'</td>
+                  <td>'.$is_pending_10k.'</td>';
+                  echo <<<BUTTON
+                  <td>
+                    <a href="adminloanrequest.php?loan_request_10950={$_SESSION['loan_request_id_10k']}&baid10950={$_SESSION['borrower_account_id_10k']}&bid10950={$_SESSION['borrower_id_10k']}" id="approve10k_link">Approve</a>
+                    <a href="adminloanrequest.php?decline_request_10950={$_SESSION['loan_request_id_10k']}&baid10950={$_SESSION['borrower_account_id_10k']}&bid10950={$_SESSION['borrower_id_10k']}" id="decline10k_link">Decline</a>
+
+                  </td>
+BUTTON;
+                  
+                echo '</tr>
+              </tbody>';
+
+            }
+
+          }
+
+        }
+
+      echo '</table>
+    </div>
+  </form>';
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -390,8 +559,10 @@ if(isset($_SESSION['admin_username'])){
             <h4>10K Loan Request List</h4>
           </div>
           <div id="loan_request_10k_table">
-            <form action="approveloan10k.php" method="POST" class="loanrequest-panel">
-
+            <form action="" method="POST" class="loanrequest-panel">
+              <?php
+              display_pending_10k_request();
+              ?>
             </form>
           </div>
         </div>
