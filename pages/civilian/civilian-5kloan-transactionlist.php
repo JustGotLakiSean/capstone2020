@@ -13,17 +13,17 @@ function display_active_5k_loan($loan_id, $borrower_id, $borrower_fname, $borrow
   $con = new db_access();
   $my_active_loan = $con->view_granted_loan_5k($loan_id, $borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank);
 
-  echo '
-  <div id="active_table_5k">
-    <table border="1">
-      <thead>
-        <tr>
-          <th>Control Number</th>
-          <th>Name</th>
-          <th>Status</th>
-          <th>View</th>
-        </tr>
-      </thead>';
+  // echo '
+  // <div id="active_table_5k">
+  //   <table border="1">
+  //     <thead>
+  //       <tr>
+  //         <th>Control Number</th>
+  //         <th>Name</th>
+  //         <th>Status</th>
+  //         <th>View</th>
+  //       </tr>
+  //     </thead>';
 
       while($row = $my_active_loan->fetch_array(MYSQLI_ASSOC)){
         if($row > 0){
@@ -54,8 +54,8 @@ BUT;
 
       }
 
-    echo '</table>
-  </div>';
+  //   echo '</table>
+  // </div>';
 
 }
 
@@ -177,14 +177,36 @@ function display_pending_5k_request($borrower_id, $borrower_account_id, $type_of
               <form action ="" method="POST" id="showActiveLoanPanel">
                 <?php
 
+            echo '
+            <div id="active_table_5k">
+              <table border="1">
+                <thead>
+                  <tr>
+                    <th>Control Number</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>View</th>
+                  </tr>
+                </thead>';
+
                 $fetchData = $db->get_5k_loan_id($_SESSION['ce_id'], $_SESSION['fname'], $_SESSION['mname'], $_SESSION['lname'], $_SESSION['type_of_employee'], $_SESSION['ce_office'], $_SESSION['ce_rank']);
                 while($row = $fetchData->fetch_array(MYSQLI_ASSOC)){
                   if($row > 0){
                     $loan_id = $row['loan_id_5k'];
+                    if(isset($loan_id) && isset($_SESSION['ce_id']) && isset($_SESSION['fname']) && isset($_SESSION['mname']) && isset($_SESSION['lname']) && isset($_SESSION['type_of_employee']) && isset($_SESSION['ce_office']) && isset($_SESSION['ce_rank'])){
+                      display_active_5k_loan($loan_id, $_SESSION['ce_id'], $_SESSION['fname'], $_SESSION['mname'], $_SESSION['lname'], $_SESSION['type_of_employee'], $_SESSION['ce_office'], $_SESSION['ce_rank']);
+                    } else {
+                      echo "<h2 class='table_header_title' align='center'>No Record</h2>";
+                    }
+                  } else {
+                    echo "<h2 class='table_header_title' align='center'>No Record</h2>";
                   }
-                }
 
-                display_active_5k_loan($loan_id, $_SESSION['ce_id'], $_SESSION['fname'], $_SESSION['mname'], $_SESSION['lname'], $_SESSION['type_of_employee'], $_SESSION['ce_office'], $_SESSION['ce_rank']);
+                }
+              echo '</table>
+              </div>';
+
+                // display_active_5k_loan($loan_id, $_SESSION['ce_id'], $_SESSION['fname'], $_SESSION['mname'], $_SESSION['lname'], $_SESSION['type_of_employee'], $_SESSION['ce_office'], $_SESSION['ce_rank']);
                 ?>
               </form>
             </div>
@@ -207,8 +229,20 @@ function display_pending_5k_request($borrower_id, $borrower_account_id, $type_of
                   $typeOfEmployee = $r['type_of_employee'];
                   $office = $r['borrower_office'];
                   $rank = $r['borrower_rank'];
+                  $is_loan_requested_5k = $r['is_loan_requested_5k'];
+                  $is_declined = $r['is_declined'];
                 }
-                display_pending_5k_request($_SESSION['ce_id'], $_SESSION['cuid'], $typeOfLoan, $_SESSION['fname'], $_SESSION['mname'], $_SESSION['lname'], $_SESSION['type_of_employee'], $_SESSION['ce_office'], $_SESSION['ce_rank']);
+
+                if(isset($_SESSION['ce_id']) && isset($_SESSION['cuid']) && isset($typeOfLoan) && isset($_SESSION['fname']) && isset($_SESSION['mname']) && isset($_SESSION['lname']) && isset($_SESSION['type_of_employee']) && isset($_SESSION['ce_office']) && isset($_SESSION['ce_rank']) && isset($is_loan_requested_5k)){
+                  if($is_loan_requested_5k == 1){
+                    display_pending_5k_request($_SESSION['ce_id'], $_SESSION['cuid'], $typeOfLoan, $_SESSION['fname'], $_SESSION['mname'], $_SESSION['lname'], $_SESSION['type_of_employee'], $_SESSION['ce_office'], $_SESSION['ce_rank']);
+                  } else {
+                    echo "<h2 class='table_header_title' align='center'>No Record</h2>";
+                  }
+
+                } else {
+                  echo "<h2 class='table_header_title' align='center'>No Record</h2>";
+                }
                 ?>
               </form>
             </div>

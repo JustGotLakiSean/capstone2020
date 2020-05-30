@@ -39,7 +39,19 @@ echo <<<STYLE
   text-align: center;
 }
 
+#pending_table_10k > table {
+  width: 100%;
+  margin: auto;
+  border-collapse: collapse;
+  text-align: center;
+}
+
 #pending_table_5k > table > thead {
+  background: #0071BC;
+  border: 1px solid rgb(179,179,179);
+}
+
+#pending_table_10k > table > thead {
   background: #0071BC;
   border: 1px solid rgb(179,179,179);
 }
@@ -49,7 +61,17 @@ echo <<<STYLE
   font-weight: lighter;
 }
 
+#pending_table_10k > table > thead > tr > th {
+  color: #000;
+  font-weight: lighter;
+}
+
 #pending_table_5k > table > tbody {
+  background: #F2F2F2;
+  border: 1px solid rgb(179,179,179);
+}
+
+#pending_table_10k > table > tbody {
   background: #F2F2F2;
   border: 1px solid rgb(179,179,179);
 }

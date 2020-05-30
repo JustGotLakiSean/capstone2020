@@ -1319,5 +1319,33 @@ class db_access {
     }
     $con->close();
   }
+
+  // view civilian's granted loan 10k
+  public function view_granted_loan_10k($loan_id_10k, $borrower_id_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $type_of_employee_10k, $borrower_office_10k, $borrower_rank_10k)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_new_10k_loan WHERE loan_id_10k = '$loan_id_10k' AND borrower_id = '$borrower_id_10k' AND fname = '$borrower_fname_10k' AND mname = '$borrower_mname_10k' AND lname = '$borrower_lname_10k' AND type_of_employee = '$type_of_employee_10k' AND office_10k = '$borrower_office_10k' AND emp_rank_10k = '$borrower_rank_10k' AND is_loan_requested_10k = 1";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get the loan_id_10k of the borrower's requested loan
+  public function get_10k_loan_id($borrower_id_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $type_of_employee_10k, $borrower_office_10k, $borrower_rank_10k)
+  {
+    $con=$this->getConnection();
+    $query="SELECT loan_id_10k FROM tbl_new_10k_loan WHERE borrower_id = '$borrower_id_10k' AND fname = '$borrower_fname_10k' AND mname = '$borrower_mname_10k' AND lname = '$borrower_lname_10k' AND type_of_employee = '$type_of_employee_10k' AND office_10k = '$borrower_office_10k' AND emp_rank_10k = '$borrower_rank_10k' AND is_loan_requested_10k = 1";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
 }
 ?>
