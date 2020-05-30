@@ -31,7 +31,7 @@ $off_list = $db->select_off_account();
     <div id = "oep-signin-label-container">
       <h1>Officers Sign In Form</h1>
     </div>
-    <form action = "" method = "POST" id = "oep-signin-form">
+    <form action = "../../gateway/validateUser.php" method = "POST" id = "oep-signin-form">
       <div id = "oep-credentials-container">
         <input type="text" name = "txt_oep_username" id = "txt_oep_username" required placeholder="Username"/>
         <input type="password" name = "txt_oep_password" id = "txt_oep_password" required placeholder="Password" />

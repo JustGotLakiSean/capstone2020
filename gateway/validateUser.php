@@ -155,4 +155,97 @@ if(isset($_POST['btn-cl-submit'])){
   }
 
 }
+
+if(isset($_POST['btn_oepsubmit_login'])){
+  $txt_officer_username = '';
+  $txt_officer_password = '';
+  $officer_username = '';
+  $officer_password = '';
+  $officer_account_id = '';
+  $log = '';
+  $officer_id = '';
+  $officer_fName = '';
+  $officer_mName = '';
+  $officer_lName = '';
+  $officer_headquarter = '';
+  $officer_rank = '';
+  $type_of_employee = '';
+  $officer_email = '';
+  $officer_contactNumber = '';
+  $officer_birthday = '';
+  $officer_address = '';
+  $officer_fullname = '';
+
+  if(isset($_POST['txt_oep_username']) && isset($_POST['txt_oep_password'])){
+    // echo "YW<br>";
+    // echo "$_POST[txt_oep_username]<br>";
+    // echo "$_POST[txt_oep_password]<br>";
+    include("../dbaccess/db_access.php");
+    $dbaccess = new db_access();
+    $con = $dbaccess->getConnection();
+    $txt_officer_username = mysqli_real_escape_string($con, $_POST['txt_oep_username']);
+    $txt_officer_password = mysqli_real_escape_string($con, $_POST['txt_oep_password']);
+
+    $log = $dbaccess->login_officer($txt_officer_username, $txt_officer_password);
+    while($row = $log->fetch_array(MYSQLI_ASSOC)){
+      $officer_account_id = $row['officer_account_id'];
+      $officer_username = $row['officer_account_username'];
+      $officer_password = $row['officer_account_password'];
+      $officer_id = $row['officer_id'];
+      $officer_fName = $row['officer_account_fName'];
+      $officer_mName = $row['officer_account_mName'];
+      $officer_lName = $row['officer_account_lName'];
+      $type_of_employee = $row['type_of_employee'];
+      $officer_rank = $row['officer_account_rank'];
+      $officer_headquarter = $row['officer_account_headquarter'];
+      $officer_email = $row['officer_account_email'];
+      $officer_contactNumber = $row['officer_account_contactNumber'];
+      $officer_birthday = $row['officer_account_birthdate'];
+      $officer_address = $row['officer_account_address'];
+      $officer_fullname = "$officer_fName $officer_mName $officer_lName";
+    }
+
+    // echo "$officer_account_id<br>";
+    // echo "$officer_username<br>";
+    // echo "$officer_password<br>";
+    // echo "$officer_id<br>";
+    // echo "$officer_fName<br>";
+    // echo "$officer_mName<br>";
+    // echo "$officer_lName<br>";
+    // echo "$type_of_employee<br>";
+    // echo "$officer_rank<br>";
+    // echo "$officer_headquarter<br>";
+    // echo "$officer_email<br>";
+    // echo "$officer_contactNumber<br>";
+    // echo "$officer_birthday<br>";
+    // echo "$officer_address<br>";
+
+    if($txt_officer_username === $officer_username && $txt_officer_password === $officer_password){
+      session_start();
+      $_SESSION['officer_username'] = $officer_username;
+      $_SESSION['officer_account_id'] = $officer_account_id;
+      $_SESSION['officer_id'] = $officer_id;
+      $_SESSION['officer_fName'] = $officer_fName;
+      $_SESSION['officer_mName'] = $officer_mName;
+      $_SESSION['officer_lName'] = $officer_lName;
+      $_SESSION['type_of_employee'] = $type_of_employee;
+      $_SESSION['officer_rank'] = $officer_rank;
+      $_SESSION['officer_headquarter'] = $officer_headquarter;
+      $_SESSION['officer_email'] = $officer_email;
+      $_SESSION['officer_contactNumber'] = $officer_contactNumber;
+      $_SESSION['officer_birthdate'] = $officer_birthday;
+      $_SESSION['officer_address'] = $officer_address;
+      $_SESSION['officer_fullname'] = $officer_fullname;
+      header('location: ../pages/officersandep/officer-homepage.php');
+
+    } else {
+      header('location: ../pages/officersandep/officer-ep-login.php');
+    }
+
+
+  } else {
+
+  }
+
+}
 ?>

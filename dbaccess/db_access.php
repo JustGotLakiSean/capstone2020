@@ -185,6 +185,19 @@ class db_access {
     $con->close();
   }
 
+  public function login_officer($officer_username, $officer_password)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_officersandep_account WHERE officer_account_username = '$officer_username' AND officer_account_password = '$officer_password'";
+    $login_officer = $con->query($query);
+    if($login_officer){
+      return $login_officer;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
   public function view_oaep_profile($oaep_ID)
   {
     $con = $this->getConnection();
