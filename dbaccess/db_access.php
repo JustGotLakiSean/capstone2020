@@ -132,6 +132,34 @@ class db_access {
   /* --- END OF ADMIN SIDE */
 
   /* OFFICER SIDE */
+
+  public function register_officer_account($officer_id, $officer_account_fName, $officer_account_lName, $officer_account_mName, $type_of_employee, $officer_account_rank, $officer_account_headquarter, $officer_account_email, $officer_account_contactNumber, $officer_account_birthdate, $officer_account_address, $officer_account_username, $officer_account_password, $officer_confirm_password)
+  {
+    $con=$this->getConnection();
+    $query="INSERT INTO tbl_officersandep_account(officer_id, officer_account_fName, officer_account_lName, officer_account_mName, type_of_employee, officer_account_rank, officer_account_headquarter, officer_account_email, officer_account_contactNumber, officer_account_birthdate, officer_account_address, officer_account_username, officer_account_password, officer_confirm_password)
+    VALUES('$officer_id', '$officer_account_fName', '$officer_account_lName', '$officer_account_mName', '$type_of_employee', '$officer_account_rank', '$officer_account_headquarter', '$officer_account_email', '$officer_account_contactNumber', '$officer_account_birthdate', '$officer_account_address', '$officer_account_username', '$officer_account_password', '$officer_confirm_password')";
+    $insert_account = $con->query($query);
+    if($insert_account){
+      return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function update_has_account_officer($officer_id, $officer_account_fName, $officer_account_lName, $officer_account_mName, $officer_account_email, $officer_account_rank)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_officersandep SET has_account = 1 WHERE officer_ID = '$officer_id' AND officer_fName = '$officer_account_fName' AND officer_lName = '$officer_account_lName' AND officer_mName = '$officer_account_mName' AND officer_email = '$officer_account_email' AND officer_rank = '$officer_account_rank'";
+    $update_query = $con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
   public function add_new_officers_and_ep($emp_type, $oaep_fname, $oaep_lname, $oaep_mname, $oaep_headquarter, $oaep_email, $oaep_contactnumber, $oaep_birthdate, $oaep_address, $oaep_rank, $has_account, $downpayment_count, $db_5k_count, $db_10k_count, $fullpayment_count, $fp_5k_count, $fp_10k_count, $penalty_count, $penalty_5k_count, $penalty_10k_count, $la_5k_count, $la_10k_count){
     $con = $this->getConnection();
     $query = "INSERT INTO tbl_officersandep(type_of_employee, officer_fName, officer_lName, officer_mName, officer_headquarter, officer_email, officer_contactNumber, officer_birthdate, officer_address, officer_rank, has_account, downpayment_count, dp_5k_count, dp_10k_count, fullpayment_count, fp_5k_count, fp_10k_count, penalty_count, penalty_5k_count, penalty_10k_count, la_5k_count, la_10k_count) 
@@ -142,6 +170,19 @@ class db_access {
     } else {
       return false;
     }
+  }
+
+  public function if_off_exist($officer_username)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_officersandep_account WHERE officer_account_username = '$officer_username'";
+    $is_exist=$con->query($query);
+    if($is_exist){
+      return $is_exist;
+    } else {
+      die($con->error);
+    }
+    $con->close();
   }
 
   public function view_oaep_profile($oaep_ID)
@@ -165,6 +206,19 @@ class db_access {
       return $oaep_list;
     } else {
       return false;
+    }
+    $con->close();
+  }
+
+  public function select_off_account()
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_officersandep WHERE has_account = 0";
+    $res=$con->query($query);
+    if($res){
+      return $res;
+    } else {
+      die($con->error);
     }
     $con->close();
   }
