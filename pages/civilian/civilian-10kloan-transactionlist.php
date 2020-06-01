@@ -60,9 +60,9 @@ BUTTON;
 
 }
 
-function display_pending_10k_request($borrower_id_10k, $borrower_account_id_10k, $type_of_loan_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $type_of_employee_10k, $borrower_office_10k, $borrower_rank_10k){
+function display_pending_10k_request($borrower_id_10k, $borrower_account_id_10k, $type_of_loan_10k, $borrower_username_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $type_of_employee_10k, $borrower_office_10k, $borrower_rank_10k){
   $con = new db_access();
-  $pending_10k = $con->view_pending_loan_10k($borrower_id_10k, $borrower_account_id_10k, $type_of_loan_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $type_of_employee_10k, $borrower_office_10k, $borrower_rank_10k);
+  $pending_10k = $con->view_pending_loan_10k($borrower_id_10k, $borrower_account_id_10k, $type_of_loan_10k, $borrower_username_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $type_of_employee_10k, $borrower_office_10k, $borrower_rank_10k);
 
   echo '
   <div id="pending_table_10k">
@@ -237,7 +237,7 @@ function display_pending_10k_request($borrower_id_10k, $borrower_account_id_10k,
                 }
 
                 if(isset($_SESSION['ce_id']) && $_SESSION['cuid'] && isset($typeOfLoan10K) && isset($_SESSION['fname']) && isset($_SESSION['mname']) && isset($_SESSION['lname']) && isset($_SESSION['type_of_employee']) && isset($_SESSION['ce_office']) && isset($_SESSION['ce_rank'])){
-                  display_pending_10k_request($_SESSION['ce_id'], $_SESSION['cuid'], $typeOfLoan10K, $_SESSION['fname'], $_SESSION['mname'], $_SESSION['lname'], $_SESSION['type_of_employee'], $_SESSION['ce_office'], $_SESSION['ce_rank']);
+                  display_pending_10k_request($_SESSION['ce_id'], $_SESSION['cuid'], $typeOfLoan10K, $_SESSION['cuname'], $_SESSION['fname'], $_SESSION['mname'], $_SESSION['lname'], $_SESSION['type_of_employee'], $_SESSION['ce_office'], $_SESSION['ce_rank']);
                 } else {
                   echo "<h2 class='table_header_title' align='center'>No Record</h2>";
                 }

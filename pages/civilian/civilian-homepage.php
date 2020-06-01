@@ -172,6 +172,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
           <div class="lrf-midinputbox-inner">
             <div class="lrf-bfn-container mid_box_item">
               <label for="lrf-txt-borrowerfname">Firstname</label>
+              <input type="hidden" name="civilian_username" value="<?php echo $_SESSION['cuname']; ?>" />
               <input type="hidden" name="lrf-txt-borrowerid" value="<?php echo $_SESSION['ce_id']; ?>" />
               <input type="hidden" name="lrf-txt-borroweraccoundid" value="<?php echo $_SESSION['cuid']; ?>" />
               <input type="hidden" name="lrf-txt-borroweremail" value="<?php echo $_SESSION['ce_email']; ?>" />
@@ -291,6 +292,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
           <div class="lrf-midinputbox-inner">
             <div class="lrf-bfn-container mid_box_item">
               <label for="lrf-txt-borrowerfname_10k">Firstname</label>
+              <input type="hidden" name="civilian_username_10k" value="<?php echo $_SESSION['cuname']; ?>" />
               <input type="hidden" name="lrf-txt-borrowerid_10k" value="<?php echo $_SESSION['ce_id']; ?>" />
               <input type="hidden" name="lrf-txt-borroweraccoundid_10k" value="<?php echo $_SESSION['cuid']; ?>" />
               <input type="hidden" name="lrf-txt-borroweremail_10k" value="<?php echo $_SESSION['ce_email']; ?>" />

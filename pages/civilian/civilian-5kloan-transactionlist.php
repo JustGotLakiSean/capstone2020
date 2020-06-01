@@ -59,9 +59,9 @@ BUT;
 
 }
 
-function display_pending_5k_request($borrower_id, $borrower_account_id, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank){
+function display_pending_5k_request($borrower_id, $borrower_account_id, $type_of_loan, $borrower_username, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank){
   $con = new db_access();
-  $pending_5k = $con->view_pending_loan_5k($borrower_id, $borrower_account_id, $type_of_loan, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank);
+  $pending_5k = $con->view_pending_loan_5k($borrower_id, $borrower_account_id, $type_of_loan, $borrower_username, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank);
 
   echo '
   <div id="pending_table_5k">
@@ -235,7 +235,7 @@ function display_pending_5k_request($borrower_id, $borrower_account_id, $type_of
 
                 if(isset($_SESSION['ce_id']) && isset($_SESSION['cuid']) && isset($typeOfLoan) && isset($_SESSION['fname']) && isset($_SESSION['mname']) && isset($_SESSION['lname']) && isset($_SESSION['type_of_employee']) && isset($_SESSION['ce_office']) && isset($_SESSION['ce_rank']) && isset($is_loan_requested_5k)){
                   if($is_loan_requested_5k == 1){
-                    display_pending_5k_request($_SESSION['ce_id'], $_SESSION['cuid'], $typeOfLoan, $_SESSION['fname'], $_SESSION['mname'], $_SESSION['lname'], $_SESSION['type_of_employee'], $_SESSION['ce_office'], $_SESSION['ce_rank']);
+                    display_pending_5k_request($_SESSION['ce_id'], $_SESSION['cuid'], $typeOfLoan, $_SESSION['cuname'], $_SESSION['fname'], $_SESSION['mname'], $_SESSION['lname'], $_SESSION['type_of_employee'], $_SESSION['ce_office'], $_SESSION['ce_rank']);
                   } else {
                     echo "<h2 class='table_header_title' align='center'>No Record</h2>";
                   }

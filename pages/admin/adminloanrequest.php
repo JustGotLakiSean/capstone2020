@@ -5,11 +5,13 @@ include('../../dbaccess/db_access.php');
 $db = new db_access();
 session_start();
 
-if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid'])){
+if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid']) && isset($_GET['emp_type']) && isset($_GET['bfname']) && isset($_GET['bmname']) && isset($_GET['blname']) && isset($_GET['busername'])){
+  echo "YOW<br>";
   $loan_request_id_5k = '';
   $borrower_account_id = '';
   $borrower_id = '';
   $ctrl_no_prefix = '';
+  $borrower_username = '';
   $borrower_fname = '';
   $borrower_mname = '';
   $borrower_lname = '';
@@ -39,13 +41,19 @@ if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid'])){
   $con = '';
   $increment = '';
 
-  if(isset($_SESSION['loan_request_id_5k']) && isset($_SESSION['borrower_account_id']) && isset($_SESSION['borrower_id'])){
+  if(isset($_SESSION['loan_request_id_5k']) && isset($_SESSION['borrower_account_id']) && isset($_SESSION['borrower_id']) && isset($_SESSION['type_of_employee']) && isset($_SESSION['borrower_fname']) && isset($_SESSION['borrower_mname']) && isset($_SESSION['borrower_lname']) && isset($_SESSION['borrower_username'])){
     // echo "$_GET[loan_request]<br>";
     // echo "$_GET[baid]<br>";
     // echo "$_GET[bid]<br>";
+    // echo "$_GET[busername]<br>";
+    // echo "$_GET[emp_type]<br>";
+    // echo "$_GET[bfname]<br>";
+    // echo "$_GET[bmname]<br>";
+    // echo "$_GET[blname]<br>";
+    // echo "$_GET[busername]<br>";
 
     $con = $db->getConnection();
-    $fetchData = $db->fetch_civilian_pending_request($_GET['loan_request'], $_GET['baid'], $_GET['bid']);
+    $fetchData = $db->fetch_pending_request($_GET['loan_request'], $_GET['baid'], $_GET['bid'], $_GET['emp_type'], $_GET['bfname'], $_GET['bmname'], $_GET['blname'], $_GET['busername']);
 
     while($res = $fetchData->fetch_array(MYSQLI_ASSOC)){
       $loan_request_id_5k = $res['loan_request_id'];
@@ -53,6 +61,7 @@ if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid'])){
       $borrower_id = $res['borrower_id'];
       $ctrl_no_prefix = $res['ctrl_no_prefix'];
       $type_of_loan = $res['type_of_loan'];
+      $borrower_username = $res['borrower_username'];
       $borrower_fname = $res['borrower_fname'];
       $borrower_mname = $res['borrower_mname'];
       $borrower_lname = $res['borrower_lname'];
@@ -83,6 +92,7 @@ if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid'])){
       // echo "ACCOUNT ID: $borrower_account_id<br>";
       // echo "EMPLOYEE ID: $borrower_id<br>";
       // echo "PREFIX: $ctrl_no_prefix<br>";
+      // echo "USERNAME: $borrower_username<br>";
       // echo "FIRSTNAME: $borrower_fname<br>";
       // echo "MIDDLENAME:$borrower_mname<br>";
       // echo "LASTNAME: $borrower_lname<br>";
@@ -121,8 +131,8 @@ if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid'])){
 
       $add_new_5kloan = $db->add_new_5k_record($borrower_id, $ctrl_no_prefix, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $type_of_loan, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_5k_rate, $debit_pay_5k, $interest_rate_5k, $balance_rate_5k, $date_today, $comment, $penalty_5k, $borrower_office, $borrower_rank, $first_payment_5k, $second_payment_5k, $third_payment_5k, $fourth_payment_5k, $fifth_payment_5k, $full_payment_5k, $loan_status_5k, $is_new_loan_5k, $is_loan_requested_5k);
       if($add_new_5kloan){
-        $db->update_is_pending_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $borrower_rank);
-        $db->update_is_granted_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $borrower_rank);
+        $db->update_is_pending_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_username, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $borrower_rank);
+        $db->update_is_granted_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_username, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $borrower_rank);
         if($type_of_employee === 'civilian'){
           $db->update_civilian_la5k_count($borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $increment);
         } else if($type_of_employee === 'officer'){
@@ -140,10 +150,11 @@ if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid'])){
 
   }
 
-} else if(isset($_GET['decline_request']) && isset($_GET['baid']) && isset($_GET['bid'])){
+} else if(isset($_GET['decline_request']) && isset($_GET['baid']) && isset($_GET['bid']) && isset($_GET['emp_type']) && isset($_GET['bfname']) && isset($_GET['bmname']) && isset($_GET['blname']) && isset($_GET['busername'])){
   $loan_request_id_5k = '';
   $borrower_id = '';
   $borrower_account_id = '';
+  $borrower_username = '';
   $borrower_fname = '';
   $borrower_mname = '';
   $borrower_lname = '';
@@ -152,18 +163,24 @@ if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid'])){
   $borrower_rank = '';
   $con = '';
 
-  if(isset($_SESSION['loan_request_id_5k']) && isset($_SESSION['borrower_account_id']) && isset($_SESSION['borrower_id'])){
+  if(isset($_SESSION['loan_request_id_5k']) && isset($_SESSION['borrower_account_id']) && isset($_SESSION['borrower_id']) && isset($_SESSION['type_of_employee']) && isset($_SESSION['borrower_fname']) && isset($_SESSION['borrower_mname']) && isset($_SESSION['borrower_lname']) && isset($_SESSION['borrower_username'])){
     // echo "$_GET[decline_request]<br>";
     // echo "$_GET[baid]<br>";
     // echo "$_GET[bid]<br>";
+    // echo "$_GET[emp_type]<br>";
+    // echo "$_GET[bfname]<br>";
+    // echo "$_GET[bmname]<br>";
+    // echo "$_GET[blname]<br>";
+    // echo "$_GET[busername]<br>";
 
     $con = $db->getConnection();
-    $fetchData = $db->fetch_civilian_pending_request($_GET['decline_request'], $_GET['baid'], $_GET['bid']);
+    $fetchData = $db->fetch_pending_request($_GET['decline_request'], $_GET['baid'], $_GET['bid'], $_GET['emp_type'], $_GET['bfname'], $_GET['bmname'], $_GET['blname'], $_GET['busername']);
     
     while($res = $fetchData->fetch_array(MYSQLI_ASSOC)){
       $loan_request_id_5k = $res['loan_request_id'];
       $borrower_id = $res['borrower_id'];
       $borrower_account_id = $res['account_id'];
+      $borrower_username = $res['borrower_username'];
       $borrower_fname = $res['borrower_fname'];
       $borrower_mname = $res['borrower_mname'];
       $borrower_lname = $res['borrower_lname'];
@@ -174,6 +191,7 @@ if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid'])){
       // echo "$loan_request_id_5k<br>";
       // echo "$borrower_id<br>";
       // echo "$borrower_account_id<br>";
+      // echo "$borrower_username<br>";
       // echo "$borrower_fname<br>";
       // echo "$borrower_mname<br>";
       // echo "$borrower_lname<br>";
@@ -181,9 +199,9 @@ if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid'])){
       // echo "$type_of_employee<br>";
       // echo "$borrower_rank<br>";
 
-      $updateData = $db->update_is_declined_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $borrower_rank);
+      $updateData = $db->update_is_declined_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_username, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $borrower_rank);
       if($updateData){
-        $db->update_is_pending_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $borrower_rank);
+        $db->update_is_pending_5k($loan_request_id_5k, $borrower_id, $borrower_account_id, $borrower_username, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $type_of_employee, $borrower_rank);
         header('location: adminloanrequest.php');
       } else {
         printf("%s\n", $con->error);
@@ -199,15 +217,21 @@ if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid'])){
 
 }
 
-if(isset($_GET['loan_request_10950']) && isset($_GET['baid10950']) && isset($_GET['bid10950'])){
+if(isset($_GET['loan_request_10950']) && isset($_GET['baid10950']) && isset($_GET['bid10950']) && isset($_GET['emp_type_10']) && isset($_GET['bfname_10']) && isset($_GET['bmname_10']) && isset($_GET['blname_10']) && isset($_GET['busername_10'])){
   echo "$_GET[loan_request_10950]<br>";
   echo "$_GET[baid10950]<br>";
   echo "$_GET[bid10950]<br>";
+  echo "$_GET[emp_type_10]<br>";
+  echo "$_GET[bfname_10]<br>";
+  echo "$_GET[bmname_10]<br>";
+  echo "$_GET[blname_10]<br>";
+  echo "$_GET[busername_10]<br>";
 
   $loan_request_id_10k = '';
   $borrower_account_id_10k = '';
   $borrower_id_10k = '';
   $ctrl_no_prefix_10k = '';
+  $borrower_username_10k = '';
   $borrower_fname_10k = '';
   $borrower_mname_10k = '';
   $borrower_lname_10k = '';
@@ -238,13 +262,18 @@ if(isset($_GET['loan_request_10950']) && isset($_GET['baid10950']) && isset($_GE
   $con = '';
   $increment_10k = '';
 
-  if(isset($_SESSION['loan_request_id_10k']) && isset($_SESSION['borrower_account_id_10k']) && isset($_SESSION['borrower_id_10k'])){
+  if(isset($_SESSION['loan_request_id_10k']) && isset($_SESSION['borrower_account_id_10k']) && isset($_SESSION['borrower_id_10k']) && isset($_SESSION['type_of_employee_10k']) && isset($_SESSION['borrower_fname_10k']) && isset($_SESSION['borrower_mname_10k']) && isset($_SESSION['borrower_lname_10k']) && isset($_SESSION['borrower_username_10k'])){
     // echo "$_GET[loan_request_10950]<br>";
     // echo "$_GET[baid10950]<br>";
     // echo "$_GET[bid10950]<br>";
+    // echo "$_GET[emp_type_10]<br>";
+    // echo "$_GET[bfname_10]<br>";
+    // echo "$_GET[bmname_10]<br>";
+    // echo "$_GET[blname_10]<br>";
+    // echo "$_GET[busername_10]<br>";
 
     $con = $db->getConnection();
-    $fetch_data_10k = $db->fetch_civilian_pending_request_10k($_GET['loan_request_10950'], $_GET['baid10950'], $_GET['bid10950']);
+    $fetch_data_10k = $db->fetch_pending_request_10k($_GET['loan_request_10950'], $_GET['baid10950'], $_GET['bid10950'], $_GET['emp_type_10'], $_GET['bfname_10'], $_GET['bmname_10'], $_GET['blname_10'], $_GET['busername_10']);
 
     while($res = $fetch_data_10k->fetch_array(MYSQLI_ASSOC)){
       $loan_request_id_10k = $res['loan_request_id_10k'];
@@ -252,6 +281,7 @@ if(isset($_GET['loan_request_10950']) && isset($_GET['baid10950']) && isset($_GE
       $borrower_id_10k = $res['borrower_id_10k'];
       $ctrl_no_prefix_10k = $res['ctrl_no_prefix_10k'];
       $type_of_loan_10k = $res['type_of_loan_10k'];
+      $borrower_username_10k = $res['borrower_username_10k'];
       $borrower_fname_10k = $res['borrower_fname_10k'];
       $borrower_mname_10k = $res['borrower_mname_10k'];
       $borrower_lname_10k = $res['borrower_lname_10k'];
@@ -283,6 +313,7 @@ if(isset($_GET['loan_request_10950']) && isset($_GET['baid10950']) && isset($_GE
       // echo "ACOUTN ID: $borrower_account_id_10k<br>";
       // echo "ID: $borrower_id_10k<br>";
       // echo "CTRL $ctrl_no_prefix_10k<br>";
+      // echo "USERNAME: $borrower_username_10k<br>";
       // echo "FNAME $borrower_fname_10k<br>";
       // echo "$borrower_mname_10k<br>";
       // echo "$borrower_lname_10k<br>";
@@ -322,8 +353,8 @@ if(isset($_GET['loan_request_10950']) && isset($_GET['baid10950']) && isset($_GE
 
       $add_new_10kloan = $db->add_new_10k_record($borrower_id_10k, $ctrl_no_prefix_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $type_of_employee_10k, $type_of_loan_10k, $loan_amount_10k_rate, $monthly_payment_10k_rate, $credit_10k_rate, $debit_pay_10k, $interest_rate_10k, $balance_rate_10k, $date_today_10k, $comment_10k, $penalty_10k, $borrower_office_10k, $borrower_rank_10k, $first_payment_10k, $second_payment_10k, $third_payment_10k, $fourth_payment_10k, $fifth_payment_10k, $sixth_payment_10k, $full_payment_10k, $loan_status_10k, $is_new_loan_10k, $is_loan_requested_10k);
       if($add_new_10kloan){
-        $db->update_is_pending_10k($loan_request_id_10k, $borrower_id_10k, $borrower_account_id_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $borrower_email_10k, $type_of_employee_10k, $borrower_rank_10k);
-        $db->update_is_granted_10k($loan_request_id_10k, $borrower_id_10k, $borrower_account_id_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $borrower_email_10k, $type_of_employee_10k, $borrower_rank_10k);
+        $db->update_is_pending_10k($loan_request_id_10k, $borrower_id_10k, $borrower_account_id_10k, $borrower_username_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $borrower_email_10k, $type_of_employee_10k, $borrower_rank_10k);
+        $db->update_is_granted_10k($loan_request_id_10k, $borrower_id_10k, $borrower_account_id_10k, $borrower_username_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $borrower_email_10k, $type_of_employee_10k, $borrower_rank_10k);
         if($type_of_employee_10k === 'civilian'){
           $db->update_civilian_la10k_count($borrower_id_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $type_of_employee_10k, $increment_10k);
         } else if($type_of_employee_10k === 'officer'){
@@ -341,10 +372,11 @@ if(isset($_GET['loan_request_10950']) && isset($_GET['baid10950']) && isset($_GE
 
   }
 
-} else if(isset($_GET['decline_request_10950']) && isset($_GET['baid10950']) && isset($_GET['bid10950'])){
+} else if(isset($_GET['decline_request_10950']) && isset($_GET['baid10950']) && isset($_GET['bid10950']) && isset($_GET['emp_type_10']) && isset($_GET['bfname_10']) && isset($_GET['bmname_10']) && isset($_GET['blname_10']) && isset($_GET['busername_10'])){
   $loan_request_id_10k = '';
   $borrower_id_10k = '';
   $borrower_account_id_10k = '';
+  $borrower_username_10k = '';
   $borrower_fname_10k = '';
   $borrower_mname_10k = '';
   $borrower_lname_10k = '';
@@ -353,18 +385,24 @@ if(isset($_GET['loan_request_10950']) && isset($_GET['baid10950']) && isset($_GE
   $borrower_rank_10k = '';
   $con = '';
 
-  if(isset($_SESSION['loan_request_id_5k']) && isset($_SESSION['borrower_account_id']) && isset($_SESSION['borrower_id'])){
+  if(isset($_SESSION['loan_request_id_10k']) && isset($_SESSION['borrower_account_id']) && isset($_SESSION['borrower_id']) && isset($_SESSION['type_of_employee_10k']) && isset($_SESSION['borrower_fname_10k']) && isset($_SESSION['borrower_mname_10k']) && isset($_SESSION['borrower_lname_10k']) && isset($_SESSION['borrower_username_10k'])){
     echo "$_GET[decline_request_10950]<br>";
     echo "$_GET[baid10950]<br>";
     echo "$_GET[bid10950]<br>";
+    echo "$_GET[emp_type_10]<br>";
+    echo "$_GET[bfname_10]<br>";
+    echo "$_GET[bmname_10]<br>";
+    echo "$_GET[blname_10]<br>";
+    echo "$_GET[busername_10]<br>";
 
     $con = $db->getConnection();
-    $fetch_data_10k = $db->fetch_civilian_pending_request_10k($_GET['decline_request_10950'], $_GET['baid10950'], $_GET['bid10950']);
+    $fetch_data_10k = $db->fetch_pending_request_10k($_GET['decline_request_10950'], $_GET['baid10950'], $_GET['bid10950'], $_GET['emp_type_10'], $_GET['bfname_10'], $_GET['bmname_10'], $_GET['blname_10'], $_GET['busername_10']);
 
     while($res = $fetch_data_10k->fetch_array(MYSQLI_ASSOC)){
       $loan_request_id_10k = $res['loan_request_id_10k'];
       $borrower_id_10k = $res['borrower_id_10k'];
       $borrower_account_id_10k = $res['account_id_10k'];
+      $borrower_username_10k = $res['borrower_username_10k'];
       $borrower_fname_10k = $res['borrower_fname_10k'];
       $borrower_mname_10k = $res['borrower_mname_10k'];
       $borrower_lname_10k = $res['borrower_lname_10k'];
@@ -372,19 +410,20 @@ if(isset($_GET['loan_request_10950']) && isset($_GET['baid10950']) && isset($_GE
       $type_of_employee_10k = $res['type_of_employee_10k'];
       $borrower_rank_10k = $res['borrower_rank_10k'];
 
-      echo "$loan_request_id_10k<br>";
-      echo "$borrower_id_10k<br>";
-      echo "$borrower_account_id_10k<br>";
-      echo "$borrower_fname_10k<br>";
-      echo "$borrower_mname_10k<br>";
-      echo "$borrower_lname_10k<br>";
-      echo "$borrower_email_10k<br>";
-      echo "$type_of_employee_10k<br>";
-      echo "$borrower_rank_10k<br>";
+      // echo "$loan_request_id_10k<br>";
+      // echo "$borrower_id_10k<br>";
+      // echo "$borrower_account_id_10k<br>";
+      // echo "$borrower_username_10k<br>";
+      // echo "$borrower_fname_10k<br>";
+      // echo "$borrower_mname_10k<br>";
+      // echo "$borrower_lname_10k<br>";
+      // echo "$borrower_email_10k<br>";
+      // echo "$type_of_employee_10k<br>";
+      // echo "$borrower_rank_10k<br>";
 
-      $updateData = $db->update_is_declined_10k($loan_request_id_10k, $borrower_id_10k, $borrower_account_id_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $borrower_email_10k, $type_of_employee_10k, $borrower_rank_10k);
+      $updateData = $db->update_is_declined_10k($loan_request_id_10k, $borrower_id_10k, $borrower_account_id_10k, $borrower_username_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $borrower_email_10k, $type_of_employee_10k, $borrower_rank_10k);
       if($updateData){
-        $db->update_is_pending_10k($loan_request_id_10k, $borrower_id_10k, $borrower_account_id_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $borrower_email_10k, $type_of_employee_10k, $borrower_rank_10k);
+        $db->update_is_pending_10k($loan_request_id_10k, $borrower_id_10k, $borrower_account_id_10k, $borrower_username_10k, $borrower_fname_10k, $borrower_mname_10k, $borrower_lname_10k, $borrower_email_10k, $type_of_employee_10k, $borrower_rank_10k);
         header('location: adminloanrequest.php');
       } else {
         printf("%s\n", $con->error);
@@ -425,11 +464,17 @@ function display_pending_5k_request()
           $_SESSION['borrower_account_id'] = $r['account_id'];
           $ctrl_no_prefix = $r['ctrl_no_prefix'];
           $type_of_loan = $r['type_of_loan'];
+          $borrower_username = $r['borrower_username'];
+          $_SESSION['borrower_username'] = $r['borrower_username'];
           $borrower_fname = $r['borrower_fname'];
+          $_SESSION['borrower_fname'] = $r['borrower_fname'];
           $borrower_mname = $r['borrower_mname'];
+          $_SESSION['borrower_mname'] = $r['borrower_mname'];
           $borrower_lname = $r['borrower_lname'];
+          $_SESSION['borrower_lname'] = $r['borrower_lname'];
           $borrower_email = $r['borrower_email'];
           $type_of_employee = $r['type_of_employee'];
+          $_SESSION['type_of_employee'] = $r['type_of_employee'];
           $borrower_office = $r['borrower_office'];
           $borrower_rank = $r['borrower_rank'];
           $loan_amount_5k_rate = $r['loan_amount_5k_rate'];
@@ -462,6 +507,7 @@ function display_pending_5k_request()
                 <input type="hidden" name="borrower_account_id" value="'.$borrower_account_id.'" />
                 <input type="hidden" name="borrower_id" value="'.$borrower_id.'" />
                 <input type="hidden" name="ctrl_no_prefix" value="'.$ctrl_no_prefix.'" />
+                <input type="hidden" name="borrower_username" value="'.$borrower_username.'" />
                 <input type="hidden" name="borrower_fname" value="'.$borrower_fname.'" />
                 <input type="hidden" name="borrower_mname" value="'.$borrower_mname.'" />
                 <input type="hidden" name="borrower_lname" value="'.$borrower_lname.'" />
@@ -493,8 +539,8 @@ function display_pending_5k_request()
                 <td>'.$is_pending.'</td>';
                 echo <<<BUTTON
                 <td>
-                  <a href="adminloanrequest.php?loan_request={$_SESSION['loan_request_id_5k']}&baid={$_SESSION['borrower_account_id']}&bid={$_SESSION['borrower_id']}" id="approve5k_link">Approve</a>
-                  <a href="adminloanrequest.php?decline_request={$_SESSION['loan_request_id_5k']}&baid={$_SESSION['borrower_account_id']}&bid={$_SESSION['borrower_id']}" id="decline5k_link">Decline</a>
+                  <a href="adminloanrequest.php?loan_request={$_SESSION['loan_request_id_5k']}&baid={$_SESSION['borrower_account_id']}&bid={$_SESSION['borrower_id']}&emp_type={$_SESSION['type_of_employee']}&bfname={$_SESSION['borrower_fname']}&bmname={$_SESSION['borrower_mname']}&blname={$_SESSION['borrower_lname']}&busername={$_SESSION['borrower_username']}" id="approve5k_link">Approve</a>
+                  <a href="adminloanrequest.php?decline_request={$_SESSION['loan_request_id_5k']}&baid={$_SESSION['borrower_account_id']}&bid={$_SESSION['borrower_id']}&emp_type={$_SESSION['type_of_employee']}&bfname={$_SESSION['borrower_fname']}&bmname={$_SESSION['borrower_mname']}&blname={$_SESSION['borrower_lname']}&busername={$_SESSION['borrower_username']}" id="decline5k_link">Decline</a>
                 </td>
 BUTTON;
                 echo '</tr>
@@ -540,11 +586,17 @@ function display_pending_10k_request()
             $_SESSION['borrower_account_id_10k'] = $r['account_id_10k'];
             $ctrl_no_prefix_10k = $r['ctrl_no_prefix_10k'];
             $type_of_loan_10k = $r['type_of_loan_10k'];
+            $borrower_username_10k = $r['borrower_username_10k'];
+            $_SESSION['borrower_username_10k'] = $r['borrower_username_10k'];
             $borrower_fname_10k = $r['borrower_fname_10k'];
+            $_SESSION['borrower_fname_10k'] = $r['borrower_fname_10k'];
             $borrower_mname_10k = $r['borrower_mname_10k'];
+            $_SESSION['borrower_mname_10k'] = $r['borrower_mname_10k'];
             $borrower_lname_10k = $r['borrower_lname_10k'];
+            $_SESSION['borrower_lname_10k'] = $r['borrower_lname_10k'];
             $borrower_email_10k = $r['borrower_email_10k'];
             $type_of_employee_10k = $r['type_of_employee_10k'];
+            $_SESSION['type_of_employee_10k'] = $r['type_of_employee_10k'];
             $borrower_office_10k = $r['borrower_office_10k'];
             $borrower_rank_10k = $r['borrower_rank_10k'];
             $loan_amount_10k_rate = $r['loan_amount_10k_rate'];
@@ -578,6 +630,7 @@ function display_pending_10k_request()
                   <input type="hidden" name="borrower_account_id_10k" value="'.$borrower_account_id_10k.'" />
                   <input type="hidden" name="borrower_id_10k" value="'.$borrower_id_10k.'" />
                   <input type="hidden" name="ctrl_no_prefix_10k" value="'.$ctrl_no_prefix_10k.'" />
+                  <input type="hidden" name="borrower_username_10k" value="'.$borrower_username_10k.'" />
                   <input type="hidden" name="borrower_fname_10k" value="'.$borrower_fname_10k.'" />
                   <input type="hidden" name="borrower_mname_10k" value="'.$borrower_mname_10k.'" />
                   <input type="hidden" name="borrower_lname_10k" value="'.$borrower_lname_10k.'" />
@@ -610,8 +663,8 @@ function display_pending_10k_request()
                   <td>'.$is_pending_10k.'</td>';
                   echo <<<BUTTON
                   <td>
-                    <a href="adminloanrequest.php?loan_request_10950={$_SESSION['loan_request_id_10k']}&baid10950={$_SESSION['borrower_account_id_10k']}&bid10950={$_SESSION['borrower_id_10k']}" id="approve10k_link">Approve</a>
-                    <a href="adminloanrequest.php?decline_request_10950={$_SESSION['loan_request_id_10k']}&baid10950={$_SESSION['borrower_account_id_10k']}&bid10950={$_SESSION['borrower_id_10k']}" id="decline10k_link">Decline</a>
+                    <a href="adminloanrequest.php?loan_request_10950={$_SESSION['loan_request_id_10k']}&baid10950={$_SESSION['borrower_account_id_10k']}&bid10950={$_SESSION['borrower_id_10k']}&emp_type_10={$_SESSION['type_of_employee_10k']}&bfname_10={$_SESSION['borrower_fname_10k']}&bmname_10={$_SESSION['borrower_mname_10k']}&blname_10={$_SESSION['borrower_lname_10k']}&busername_10={$_SESSION['borrower_username_10k']}" id="approve10k_link">Approve</a>
+                    <a href="adminloanrequest.php?decline_request_10950={$_SESSION['loan_request_id_10k']}&baid10950={$_SESSION['borrower_account_id_10k']}&bid10950={$_SESSION['borrower_id_10k']}&emp_type_10={$_SESSION['type_of_employee_10k']}&bfname_10={$_SESSION['borrower_fname_10k']}&bmname_10={$_SESSION['borrower_mname_10k']}&blname_10={$_SESSION['borrower_lname_10k']}&busername_10={$_SESSION['borrower_username_10k']}" id="decline10k_link">Decline</a>
 
                   </td>
 BUTTON;
