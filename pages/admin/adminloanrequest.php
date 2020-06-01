@@ -5,6 +5,7 @@ include('../../dbaccess/db_access.php');
 $db = new db_access();
 session_start();
 
+// approve 5k loan request
 if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid']) && isset($_GET['emp_type']) && isset($_GET['bfname']) && isset($_GET['bmname']) && isset($_GET['blname']) && isset($_GET['busername'])){
   echo "YOW<br>";
   $loan_request_id_5k = '';
@@ -120,10 +121,19 @@ if(isset($_GET['loan_request']) && isset($_GET['baid']) && isset($_GET['bid']) &
       // echo "$is_new_loan_5k<br>";
       // echo "$is_loan_requested_5k<br>";
 
-      $getData = $db->get_civilian_la5kcount($borrower_id, $type_of_employee, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email);
-      while($r = $getData->fetch_array(MYSQLI_ASSOC)){
-        $la5k_count = $r['la_5k_count'];
-        echo "LA 5k COUNT: $la5k_count<br>";
+      if($type_of_employee === 'civilian'){
+        echo "CIVI<br>";
+        $getData = $db->get_civilian_la5kcount($borrower_id, $type_of_employee, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email);
+        while($r = $getData->fetch_array(MYSQLI_ASSOC)){
+          $la5k_count = $r['la_5k_count'];
+          echo "LA 5k COUNT: $la5k_count<br>";
+        }
+      } else if($type_of_employee === 'officer'){
+        echo "OFF<br>";
+        $getData = $db->get_officer_lacount($borrower_id, $type_of_employee, $borrower_fname, $borrower_mname, $borrower_lname, $borrower_email, $borrower_rank);
+        while($r = $getData->fetch_array(MYSQLI_ASSOC)){
+          $la5k_count = $r['la_5k_count'];
+        }
       }
 
       $increment = (int)$la5k_count + 1;

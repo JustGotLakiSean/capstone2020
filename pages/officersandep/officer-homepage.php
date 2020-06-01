@@ -97,7 +97,7 @@ if(!isset($_SESSION['officer_account_id']) && !isset($_SESSION['officer_username
                     <p>5K Account</p>
                   </div>
                   <div class="oaepla-5kaccounts-secondbox">
-                    <a href="#" id="oep-show-link">Show</a>
+                    <a href="officer-5kloan-transactionlist.php" id="oep-show-link">Show</a>
                   </div>
                 </div>
                 <div class="oaepla-accounts-box">
@@ -106,7 +106,7 @@ if(!isset($_SESSION['officer_account_id']) && !isset($_SESSION['officer_username
                     <!-- <p class="10ktransaction-count tc">0 Transaction</p> -->
                   </div>
                   <div class="oaepla-10kaccounts-secondbox">
-                    <a href="#" id="oep-show-link">Show</a>
+                    <a href="officer-10kloan-transactionlist.php" id="oep-show-link">Show</a>
                   </div>
                 </div>
               </div>
@@ -176,6 +176,7 @@ if(!isset($_SESSION['officer_account_id']) && !isset($_SESSION['officer_username
           <div class="lrf-midinputbox-inner">
             <div class="lrf-bfn-container mid_box_item">
               <label for="lrf-txt-borrowerfname">Firstname</label>
+              <input type="hidden" name="officer_username" value="<?php echo $_SESSION['officer_username']; ?>" />
               <input type="hidden" name="lrf-txt-borrowerid" value="<?php echo $_SESSION['officer_id']; ?>" />
               <input type="hidden" name="lrf-txt-borroweraccountid" value="<?php echo $_SESSION['officer_account_id']; ?>" />
               <input type="hidden" name="lrf-txt-borroweremail" value="<?php echo $_SESSION['officer_email']; ?>" />
@@ -275,7 +276,7 @@ if(!isset($_SESSION['officer_account_id']) && !isset($_SESSION['officer_username
   </section>
 
   <section id="lrf-container_10k">
-    <form action="loanrequest5k.php" method="POST" id="loanRequestForm">
+    <form action="oaep_loanrequest5k.php" method="POST" id="loanRequestForm">
       <div class="lrf-inner-container">
         <div class="lrf-top-container">
           <div class="lrf-header">
@@ -295,6 +296,7 @@ if(!isset($_SESSION['officer_account_id']) && !isset($_SESSION['officer_username
           <div class="lrf-midinputbox-inner">
             <div class="lrf-bfn-container mid_box_item">
               <label for="lrf-txt-borrowerfname_10k">Firstname</label>
+              <input type="hidden" name="officer_username_10k" value="<?php echo $_SESSION['officer_username']; ?>" />
               <input type="hidden" name="lrf-txt-borrowerid_10k" value="<?php echo $_SESSION['officer_id']; ?>" />
               <input type="hidden" name="lrf-txt-borroweraccoundid_10k" value="<?php echo $_SESSION['officer_account_id']; ?>" />
               <input type="hidden" name="lrf-txt-borroweremail_10k" value="<?php echo $_SESSION['officer_email']; ?>" />

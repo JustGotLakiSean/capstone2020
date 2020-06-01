@@ -1416,5 +1416,20 @@ class db_access {
     }
     $con->close();
   }
+
+  // get officer la count for it will update
+  // upon admin's approval
+  public function get_officer_lacount($officer_id, $type_of_employee, $officer_fname, $officer_mname, $officer_lname, $officer_email, $officer_rank)
+  {
+    $con=$this->getConnection();
+    $query="SELECT * FROM tbl_officersandep WHERE officer_ID = '$officer_id' AND type_of_employee = '$type_of_employee' AND officer_fName = '$officer_fname' AND officer_mName = '$officer_mname' AND officer_lName = '$officer_lname' AND officer_email = '$officer_email' AND officer_rank = '$officer_rank'";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
 }
 ?>
