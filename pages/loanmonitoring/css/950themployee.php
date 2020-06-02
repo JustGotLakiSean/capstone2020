@@ -1,6 +1,5 @@
 <?PHP
 
-
 echo <<<STYLE
 <style type="text/css">
 body {
@@ -126,7 +125,7 @@ body {
 }
 
 #employeetabs button.active {
-  border-top: 3px solid #375623;
+  border-top: 3px solid #1A1A1A;
   color: #000000;
 }
 
@@ -140,7 +139,7 @@ body {
 #btn-add-oaep {
   width: 11rem;
   height: 2.5rem;
-  background: #375623;
+  background: #0071BC;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -150,7 +149,7 @@ body {
 #btn-add-ce {
   width: 11rem;
   height: 2.5rem;
-  background: #C65911;
+  background: #0071BC;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -177,20 +176,20 @@ body {
 
 .oae_profile_container {
   display: block;
-  width: 32vw;
-  height: 85vh;
+  width: 450px;
+  height: 550px;
   margin: auto;
   background: #F2F2F2;
   border: 1px solid #dadada;
   border-radius: 5px;
   position: relative;
   top: 3rem;
-  border: 0;
+  border: 0;3
 }
 
 .oaefirstbox {
-  height: 13vh;
-  background: #37563C;
+  height: 90px;
+  background: #0071BC;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
@@ -199,14 +198,23 @@ body {
   margin-left: 85%;
   position: relative;
   top: 10px;
+  background: #0071BC;
+  border: none;
+  border-radius: 5px;
+  transition: 200ms ease-in;
+  color: #fff;
+  cursor: pointer;
+  height: 30px;
+}
+
+#oaemorebutton:hover {
+  background: #0067ac;
 }
 
 .bottom-box {
-  display: flex;
-  flex-flow: row;
-  justify-content: space-between;
+
   position: relative;
-  top: 47px;
+  top: 20px;
   margin: 0;
 }
 
@@ -218,12 +226,10 @@ body {
 }
 
 .oaeofficelogo {
-  position: absolute;
-  top: -115%;
-  left: 22rem;
+  margin: auto;
   width: 70px;
   height: 70px;
-  border: 5px solid #37563C;
+  border: 5px solid #0071BC;
   border-radius: 66px;
   box-shadow: 5px 2px 10px rgba(0, 0, 0, 0.2),
   -5px 2px 10px rgba(0, 0, 0, 0.2);
@@ -238,7 +244,7 @@ body {
 }
 
 .oaeimageboxcontainer {
-  height: 15vh;
+  height: 50px;
   margin: auto;
 }
 
@@ -259,7 +265,7 @@ body {
   display: flex;
   flex-flow: row;
   justify-content: space-between;
-  height: 5vh;
+  height: 45px;
 }
 
 .oaebox input[type="text"] {
@@ -287,8 +293,8 @@ body {
 
 #AddNewOfficerAndEPRecord {
   display: block;
-  width: 35vw;
-  height: 98vh;
+  width: 450px;
+  height: 650px;
   margin: auto;
   background: #F2F2F2;
   border: 1px solid #dadada;
@@ -300,7 +306,7 @@ body {
 
 .addoaeformtitlebox {
   height: 26px;
-  background: #375623;
+  background: #0071BC;
   border-radius: 5px;
   color: #fff;
 }
@@ -373,7 +379,7 @@ body {
 }
 
 .add_info_box input[type="text"], input[type="email"] {
-  height: 4vh;
+  height: 30px;
   background: #E6E6E6;
   border: 1px solid #CCCCCC;
   border-radius: 5px;
@@ -387,7 +393,7 @@ body {
 }
 
 .add_info_box select {
-  height: 4vh;
+  height: 30px;
   width: 10vw;
   background: #fff;
   border: none;
@@ -402,7 +408,7 @@ body {
 }
 
 .addofficercommand input[type="submit"] {
-  height: 5vh;
+  height: 30px;
   border: none;
   border-radius: 5px;
   color: #fff;
@@ -417,7 +423,7 @@ body {
   border: none;
   color: #fff;
   font-size: .8rem;
-  background: #009245;
+  background: #0071BC;
   border-radius: 2px;
   transition: 200ms ease-in;
   text-decoration: none;
@@ -438,9 +444,38 @@ body {
 }
 
 #civRecord_table > thead {
-  background: #C65911;
-  color: white;
+  background: #0071BC;
+  color: #fff;
+  font-weight: lighter;
   border: 1px solid #E6E6E6;
+}
+
+#civRecord_table > thead > tr > th {
+  font-weight: lighter;
+  border: 1px solid #0071BC;
+}
+
+#civRecord_table > tbody {
+  background: #F2F2F2;
+  border: 1px solid rgb(230, 230, 230);
+}
+
+#btn-view-ce {
+  padding: 2px;
+  height: 50vh;
+  width: 4vw;
+  border: none;
+  color: #fff;
+  font-size: .8rem;
+  background: #0071BC;
+  border-radius: 2px;
+  transition: 200ms ease-in;
+  text-decoration: none;
+}
+
+#btn-view-ce:hover {
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2),
+  -1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 #oaep_table {
@@ -453,17 +488,29 @@ body {
 }
 
 #oaep_table > thead {
-  background: #375623;
-  color: white;
+  background: #0071BC;
+  color: #fff;
+  font-weight: lighter;
   border: 1px solid #E6E6E6;
+}
+
+#oaep_table > thead > tr > th {
+  font-weight: lighter;
+  border: 1px solid #0071BC;
 }
 
 #oaep_table > tbody > tr > td {
   padding: 3px;
 }
 
+#oaep_table > tbody {
+  background: #F2F2F2;
+  border: 1px solid rgb(230, 230, 230);
+}
+
 #submitnewofficer {
   background: #0071BC;
+  cursor: pointer;
 }
 
 #submitnewofficer:hover {
@@ -473,6 +520,13 @@ body {
 
 #canceloperation {
   background: #FF0C25;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  transition: 200ms ease-in;
+  font-size: 12px;
+  cursor: pointer;
 }
 
 #canceloperation:hover {
@@ -495,8 +549,8 @@ body {
 
 #AddNewCivilianEmployeeRecord {
   display: block;
-  width: 35vw;
-  height: 98vh;
+  width: 450px;
+  height: 650px;
   margin: auto;
   background: #F2F2F2;
   border: 1px solid #dadada;
@@ -508,7 +562,7 @@ body {
 
 .addnewcetitlebox {
   height: 26px;
-  background: #DF4511;
+  background: #0071BC;
   border-radius: 5px;
   color: #fff;
 }
@@ -570,7 +624,7 @@ body {
 }
 
 .addciviliancommand input[type="submit"] {
-  height: 5vh;
+  height: 30px;
   border: none;
   border-radius: 5px;
   color: #fff;
@@ -607,8 +661,8 @@ body {
 
 .civilianemployeerofilepanel {
   display: block;
-  width: 32vw;
-  height: 85vh;
+  width: 450px;
+  height: 550px;
   margin: auto;
   background: #F2F2F2;
   border: 1px solid #dadada;
@@ -619,8 +673,8 @@ body {
 }
 
 .cefirstbox {
-  height: 13vh;
-  background: #C65911;
+  height: 90px;
+  background: #0071BC;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
@@ -629,14 +683,23 @@ body {
   margin-left: 85%;
   position: relative;
   top: 10px;
+  background: #0071BC;
+  border: none;
+  border-radius: 5px;
+  transition: 200ms ease-in;
+  color: #fff;
+  cursor: pointer;
+  height: 30px;
+}
+
+#cemorebutton:hover {
+  background: #0067ac;
 }
 
 .ce-bottom-box {
-  display: flex;
-  flex-flow: row;
-  justify-content: space-between;
+
   position: relative;
-  top: 47px;
+  top: 20px;
   margin: 0;
 }
 
@@ -648,12 +711,10 @@ body {
 }
 
 .ceofficelogo {
-  position: absolute;
-  top: -115%;
-  left: 22rem;
+  margin: auto;
   width: 70px;
   height: 70px;
-  border: 5px solid #C65911;
+  border: 5px solid #0071BC;
   border-radius: 66px;
   box-shadow: 5px 2px 10px rgba(0, 0, 0, 0.2),
   -5px 2px 10px rgba(0, 0, 0, 0.2);
@@ -668,7 +729,7 @@ body {
 }
 
 .ceimageboxcontainer {
-  height: 15vh;
+  height: 50px;
   margin: auto;
 }
 
@@ -689,11 +750,11 @@ body {
   display: flex;
   flex-flow: row;
   justify-content: space-between;
-  height: 5vh;
+  height: 45px;
 }
 
 .cebox input[type="text"] {
-  width: 20vw;
+  width: 270px;
   height: 30px;
   border: 1px solid #CCCCCC;
   border-radius: 3px;

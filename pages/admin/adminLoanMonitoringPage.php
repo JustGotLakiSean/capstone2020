@@ -27,33 +27,29 @@ function DISPLAY_5K_RATES(){
         <div class="5k-loanamount-rate-box">
           <input type="hidden" name="txt-5kloanrates-id" id="txt-5kloanrates-id" value="$LOANRATES_5K_ID" />
           <label>Loan Amount</label>
-          <input type="text" name="txt-5kloanamount-rate" id="txt-5kloanamount-rate" value="$LOANRATES_5K_LOANAMOUNT" />
+          <input type="text" name="txt-5kloanamount-rate" disabled id="txt-5kloanamount-rate" value="$LOANRATES_5K_LOANAMOUNT" />
         </div>
         <div class="5k-monthlypayment-rate-box">
           <label>Monthly Payment</label>
-          <input type="text" name="txt-5kmonthlypayment-rate" id="txt-5kmonthlypayment-rate" value="$LOANRATES_5K_MONTHLYPAYMENT" />
+          <input type="text" name="txt-5kmonthlypayment-rate" disabled id="txt-5kmonthlypayment-rate" value="$LOANRATES_5K_MONTHLYPAYMENT" />
         </div>
         <div class="5k-credit-rate-box">
           <label>Credit</label>
-          <input type="text" name="txt-5kcredit-rate" id="txt-5kcredit-rate" value="$LOANRATES_5K_CREDIT" />
+          <input type="text" name="txt-5kcredit-rate" disabled id="txt-5kcredit-rate" value="$LOANRATES_5K_CREDIT" />
         </div>
         <div class="5k-beginningBalance-rate-box">
           <label>Beginning Balance</label>
-          <input type="text" name="txt-5kbeginningbalance-rate" id="txt-5kbeginningbalance-rate" value="$LOANRATES_5K_BEGINNING_BALANCE" />
+          <input type="text" name="txt-5kbeginningbalance-rate" disabled id="txt-5kbeginningbalance-rate" value="$LOANRATES_5K_BEGINNING_BALANCE" />
         </div>
         <div class="5k-penalty-rate-box">
           <label>Penalty Rate</label>
-          <input type="text" name="txt-5kpenalty-rate" id="txt-5kpenalty-rate" value="$LOANRATES_5K_PENALTY_PERCENTAGE" />
+          <input type="text" name="txt-5kpenalty-rate" disabled id="txt-5kpenalty-rate" value="$LOANRATES_5K_PENALTY_PERCENTAGE" />
         </div>
         <div class="5k-penaltyPerMonth-rate-box">
           <label>Penalty Per Month</label>
-          <input type="text" name="txt-5kpenaltypermonth-rate" id="txt-5kpenaltypermonth-rate" value="$LOANRATES_5K_PENALTY_PERMONTH" />
+          <input type="text" name="txt-5kpenaltypermonth-rate" disabled id="txt-5kpenaltypermonth-rate" value="$LOANRATES_5K_PENALTY_PERMONTH" />
         </div>
-        <div class="save-button-container">
-          <button type="button" class="save-button">
-            Save
-          </button>
-        </div>
+
       </div>
     </div>
 DISPLAY5K;
@@ -87,33 +83,29 @@ function DISPLAY_10K_RATES()
       <div class="10k-loanamount-rate-box">
         <input type="hidden" name="txt-10kloanrates-id" id="txt-10kloanrates-id" value="$LOANRATES_10K_ID" />
         <label>Loan Amount</label>
-        <input type="text" name="txt-10kloanamount-rate" id="txt-10kloanamount-rate" value="$LOANRATES_10K_LOANAMOUNT" />
+        <input type="text" name="txt-10kloanamount-rate" disabled id="txt-10kloanamount-rate" value="$LOANRATES_10K_LOANAMOUNT" />
       </div>
       <div class="10k-monthlypayment-rate-box">
         <label>Monthly Payment</label>
-        <input type="text" name="txt-10kmonthlypayment-rate" id="txt-10kmonthlypayment-rate" value="$LOANRATES_10K_MONTHLYPAYMENT" />
+        <input type="text" name="txt-10kmonthlypayment-rate" disabled id="txt-10kmonthlypayment-rate" value="$LOANRATES_10K_MONTHLYPAYMENT" />
       </div>
       <div class="10k-credit-rate-box">
         <label>Credit</label>
-        <input type="text" name="txt-10kcredit-rate" id="txt-10kcredit-rate" value="$LOANRATES_10K_CREDIT" />
+        <input type="text" name="txt-10kcredit-rate" disabled id="txt-10kcredit-rate" value="$LOANRATES_10K_CREDIT" />
       </div>
       <div class="10k-beginningBalance-rate-box">
         <label>Beginning Balance</label>
-        <input type="text" name="txt-10kbeginningbalance-rate" id="txt-10kbeginningbalance-rate" value="$LOANRATES_10K_BEGINNING_BALANCE" />
+        <input type="text" name="txt-10kbeginningbalance-rate" disabled id="txt-10kbeginningbalance-rate" value="$LOANRATES_10K_BEGINNING_BALANCE" />
       </div>
       <div class="10k-penalty-rate-box">
         <label>Penalty Rate</label>
-        <input type="text" name="txt-10kpenalty-rate" id="txt-10kpenalty-rate" value="$LOANRATES_10K_PENALTY_PERCENTAGE" />
+        <input type="text" name="txt-10kpenalty-rate" disabled id="txt-10kpenalty-rate" value="$LOANRATES_10K_PENALTY_PERCENTAGE" />
       </div>
       <div class="10k-penaltyPerMonth-rate-box">
         <label>Penalty Per Month</label>
-        <input type="text" name="txt-10kpenaltypermonth-rate" id="txt-10kpenaltypermonth-rate" value="$LOANRATES_10K_PENALTY_PERMONTH" />
+        <input type="text" name="txt-10kpenaltypermonth-rate" disabled id="txt-10kpenaltypermonth-rate" value="$LOANRATES_10K_PENALTY_PERMONTH" />
       </div>
-      <div class="save-button-10k-container">
-      <button type="button" class="save-button-10k">
-        Save
-      </button>
-    </div>
+
     </div>
   </div>
 DISPLAY10K;

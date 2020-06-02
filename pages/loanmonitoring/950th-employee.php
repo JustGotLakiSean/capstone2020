@@ -196,7 +196,6 @@ function show_oaep_table(){
               <th>NR</th>
               <th>RANK</th>
               <th>NAME</th>
-              <th>CONTRIBUTIONS</th>
               <th>ACTION</th>
             </tr>
           </thead>
@@ -233,7 +232,6 @@ THEAD;
                 <input type="hidden" name="OFFICER_BIRTHDATE" value="$oaep_birthdate" />
                 <input type="hidden" name="OFFICER_ADDRESS" value="$oaep_address" />
                 <td>$oaep_fullname</td>
-                <td>$oaep_contribution</td>
                 <td><a type="submit" id="btn-view-oaep" name="btn-view-oaep" href="950th-employee.php?officer_id={$_SESSION['oaep_id']}">View<a/></td>
               </tr>
             </tbody>
@@ -456,14 +454,14 @@ if(isset($_SESSION['admin_username'])){
             <h3 align="center">Add New Officer</h3>
           </div>
           <div class="oaeinputbox">
-            <div class="oaeaddimageboxcontainer">
+            <!-- <div class="oaeaddimageboxcontainer">
               <div class="add_oaeimagebox">
                 <img src="" id="add_oae_avatar" />
               </div>
               <div class="addimagelink">
                 <input type="button" id="oaeaddimagebutton" value="Choose Image Profile" capture="user"/>
               </div>
-            </div>
+            </div> -->
             <div class="oaetextfieldcontainer">
               <div class="add_oae_personaldetails add_info_box">
                 <input type="text" name="txtofficerfirstname" id="txtofficerfirstname" placeholder="Firstname" required />
@@ -555,19 +553,15 @@ if(isset($_GET['civilian_id'])){
         </button>
       </div>
       <div class="ce-bottom-box">
-        <div class="cetitleholder">
-          <h3 id="cetitle">Civilian Employee Profile</h3>
-        </div>
+
         <div class="ceofficelogo">
-          <!-- 950th LOGO -->
+          <img src="src/950ceisg.png" height = "70" width = "70" alt="950 CEISG LOGO"/>
         </div>
       </div>
     </div>
     <div class="cesecondbox">
       <div class="ceimageboxcontainer">
-        <div class="ceimagebox">
-          <img src="" id="ce_avatar" />
-        </div>
+
       </div>
       <div class="cedetailsboxcontainer">
         <div class="ce_name cebox">
@@ -639,18 +633,15 @@ if(isset($_GET['officer_id'])){
               </button>
             </div>
             <div class="bottom-box">
-              <div class="oaetitleholder">
-                <h3 id="oaetitle">Officers and EP Profile</h3>
-              </div>
-              <div class="oaeofficelogo">
+
+              <div class="oaeofficelogo" align="center">
+                <img src="src/950ceisg.png" height = "70" width = "70" alt="950 CEISG LOGO"/>
               </div>
             </div>
           </div>
           <div class="oaesecondbox">
             <div class="oaeimageboxcontainer">
-              <div class="oaeimagebox">
-                <img src="" id="oae_avatar" />
-              </div>
+
             </div>
             <div class="oaedetailbox">
               <div class="oae_name oaebox">
@@ -703,14 +694,14 @@ echo '</section>';
             <h3 align="center">Add New civilian</h3>
           </div>
           <div class="add_ceinputbox">
-            <div class="ceaddimageboxcontainer">
+            <!-- <div class="ceaddimageboxcontainer">
               <div class="add_ceimagebox">
                 <img src="" id="add_ce_avatar" />
               </div>
               <div class="addimagelink">
                 <input type="button" id="ceaddimagebutton" value="Choose Image Profile" />
               </div>
-            </div>
+            </div> -->
             <div class="cetextfieldcontainer">
               <div class="add_ce_personaldetails add_info_box">
                 <input type="text" name="txtcivilianfirstname" id="txtcivilianfirstname" placeholder="Firstname" required />
