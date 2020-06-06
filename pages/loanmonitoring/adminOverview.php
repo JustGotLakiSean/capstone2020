@@ -6,6 +6,8 @@ session_start();
 $db = new db_access();
 $get_total_num_borrower = $db->total_num_borrowers();
 $typeOfLoanCount = $db->get_type_of_loan_count();
+$getTotalNumberOfEmployee = $db->getTotalNumberOfEmployee();
+$getTypeOfEmployee = $db->getTypeOfEmployee();
 
 ?>
 <!DOCTYPE html>
@@ -16,7 +18,7 @@ $typeOfLoanCount = $db->get_type_of_loan_count();
   <title>Admin Overview</title>
   <!-- <link rel="stylesheet" href="css/adminOverview.css"> -->
   <?php include('css/adminOverviewStyle.php'); ?>
-  <script src="../../gateway/src/canvasjs.min.js"></script>
+  <script src="../../gateway/src/canvasjs-2.3.2/canvasjs.min.js"></script>
   <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
 </head>
 <body>
@@ -58,6 +60,7 @@ if(isset($_SESSION['admin_username'])){
 ?>
       <h1>Overview</h1>
       <div id = "transaction-cards" class = "card-container">
+
         <div id = "borrower_number_cards" class = "cards first-card">
           <div id = "first-card-label-container">
             <?php
@@ -69,6 +72,125 @@ if(isset($_SESSION['admin_username'])){
           </div>
           <hr>
           <div id = "first-card-value-container">
+
+          <?php
+          $dataPoint = array();
+            // while($get_count = $typeOfLoanCount->fetch_array(MYSQLI_ASSOC)){
+            //   $typeOfLoan = $get_count['type_of_loan'];
+            //   $totalCount = $get_count['totalNum'];
+            //   // echo "$typeOfLoan : $totalCount<br>";
+            //   echo "['".$typeOfLoan."', ".$totalCount."],";
+
+              
+            // }
+
+            foreach($typeOfLoanCount as $row){
+              array_push($dataPoint, array("Type Of Loan" => $row['type_of_loan'], "y" => $row['totalNum']));
+            }
+
+            // echo json_encode($dataPoint, JSON_NUMERIC_CHECK);
+          ?>
+
+<?php
+            $emp_result = array();
+            foreach($getTypeOfEmployee as $res1){
+              array_push($emp_result, array(
+                "Employee Type" => $res1['type_of_employee'],
+                "y" => $res1['totalEMP']
+              ));
+            }
+
+            // echo json_encode($emp_result, JSON_NUMERIC_CHECK);
+
+            ?>
+
+          <script type="text/javascript">
+          window.onload = function(){
+            CanvasJS.addColorSet("colorSet1",
+              [
+                '#007aff',
+                '#5ac8fb',
+                '#1a1a1a',
+                '#009245'
+              ]);
+            CanvasJS.addColorSet("colorSet2",
+              [
+                '#1a1a1a',
+                '#009245'
+              ]);
+            var chart = new CanvasJS.Chart("chartContainer", {
+              title: {
+                text: "Percentage per Loan Account",
+                fontFamily: 'Helvetica',
+                fontWeight: 'lighter',
+                fontColor: '#ff9501',
+                // verticalAlign: "center",
+		            // dockInsidePlotArea: true,
+                fontSize: 14
+              },
+              legend: {
+                fontFamily: 'Helvetica',
+                fontWeight: 'lighter',
+                fontSize: 14
+              },
+              toolTip: {
+                content: "{Type Of Loan} = #percent%",
+                fontFamily: 'Helvetica',
+                fontWeight: 'lighter',
+                fontSize: 14,
+                backgroundColor: '#87edf5'
+              },
+              data: [{
+                type: 'pie',
+                showInLegend: true,
+                legendText: "{Type Of Loan} - {y}",
+                indexLabel: "#percent%",
+                indexLabelFontSize: 15,
+                indexLabelFontFamily: 'Helvetica',
+                colorSet: "colorSet1",
+                dataPoints: <?php echo json_encode($dataPoint, JSON_NUMERIC_CHECK); ?>
+              }]
+
+            });
+
+            var total_borrower_chart = new CanvasJS.Chart("totalBorrowerBox",{
+              title: {
+                text: "Total number of Employee",
+                fontFamily: 'Helvetica',
+                fontWeight: 'lighter',
+                fontColor: '#47ee5c',
+                fontSize: 14
+              },
+              legend: {
+                fontFamily: 'Helvetica',
+                fontWeight: 'lighter',
+                fontSize: 14
+              },
+              toolTip: {
+                content: "{Employee Type} = #percent%",
+                fontFamily: 'Helvetica',
+                fontWeight: 'lighter',
+                fontSize: 14,
+                backgroundColor: '#87edf5'
+              },
+              data: [{
+                type: 'doughnut',
+                showInLegend: true,
+                legendText: "{Employee Type} - {y}",
+                indexLabel: "#percent%",
+                indexLabelFontSize: 15,
+                indexLabelFontFamily: 'Helvetica',
+                colorSet: "colorSet1",
+                dataPoints: <?php echo json_encode($emp_result, JSON_NUMERIC_CHECK);?>
+              }]
+            })
+
+            chart.render();
+            total_borrower_chart.render();
+          }
+          </script>
+
+
             <!-- <p id = "first-card-value">0</p> -->
 <!-- 
             <script type="text/javascript">
@@ -115,9 +237,10 @@ if(isset($_SESSION['admin_username'])){
               }
             </script> -->
 
-            <div id="piechart"></div>
+            <div id="chartContainer" style="width: 400px; height: 270px;"></div>
           </div>
         </div>
+
         <div id = "loan_received_cards" class = "cards second-card">
           <div id = "second-card-label-container">
             <p id = "second-card-label">Loan Received</p>
@@ -126,14 +249,26 @@ if(isset($_SESSION['admin_username'])){
             <p id = "second-card-value">0</p>
           </div>
         </div>
+
         <div id = "collectibles_cards" class = "cards third-card">
           <div id = "third-card-label-container">
-            <p id = "third-card-label">Collectibles</p>
+          <?php
+          while($count = $getTotalNumberOfEmployee->fetch_array(MYSQLI_ASSOC)){
+            $empID = $count['totalBorrower'];
+          }
+          ?>
+            <p id = "third-card-label">NUMBER OF EMPLOYEE : <?php echo "<span style='color: #47ee5c;'>$empID</span><br>"; ?></p>
           </div>
+          <hr>
           <div id = "third-card-value-container">
-            <p id = "third-card-value">0</p>
+
+            <script type="text/javascript">
+
+            </script>
+            <div id="totalBorrowerBox" style="width: 400px; height: 270px;" ></div>
           </div>
         </div>
+
         <div id = "openloan_cards" class = "cards fourth-card">
           <div id = "fourth-card-label-container">
             <p id = "fourth-card-label">Open Loans</p>

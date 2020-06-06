@@ -1459,5 +1459,33 @@ class db_access {
       die($con->error);
     }
   }
+
+  // get overall number of Employee (Civilian and Officer)
+  public function getTotalNumberOfEmployee()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM((SELECT count(civilian_id) as empID FROM tbl_civilian_employee) + (SELECT count(officer_ID) as empID FROM tbl_officersandep))as totalBorrower";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get Civilian counts and Officers and EP count
+  public function getTypeOfEmployee()
+  {
+    $con=$this->getConnection();
+    $query="SELECT type_of_employee, count(*) as totalEMP FROM tbl_civilian_employee UNION SELECT type_of_employee, count(*) as totalEMP FROM  tbl_officersandep";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
 }
 ?>
