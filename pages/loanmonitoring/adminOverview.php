@@ -1,6 +1,11 @@
 <?PHP
-
+namespace loan950;
+use \loan950\db_access;
+include('../../dbaccess/db_access.php');
 session_start();
+$db = new db_access();
+$get_total_num_borrower = $db->total_num_borrowers();
+$typeOfLoanCount = $db->get_type_of_loan_count();
 
 ?>
 <!DOCTYPE html>
@@ -9,7 +14,10 @@ session_start();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Overview</title>
-  <link rel="stylesheet" href="css/adminOverview.css">
+  <!-- <link rel="stylesheet" href="css/adminOverview.css"> -->
+  <?php include('css/adminOverviewStyle.php'); ?>
+  <script src="../../gateway/src/canvasjs.min.js"></script>
+  <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
 </head>
 <body>
   <header id = "loan-navigation-container">
@@ -52,10 +60,62 @@ if(isset($_SESSION['admin_username'])){
       <div id = "transaction-cards" class = "card-container">
         <div id = "borrower_number_cards" class = "cards first-card">
           <div id = "first-card-label-container">
-            <p id = "first-card-label">Number of Borrowers</p>
+            <?php
+              while($count = $get_total_num_borrower->fetch_array(MYSQLI_ASSOC)){
+                $bID = $count['totSum'];
+              }
+            ?>
+            <p id = "first-card-label">TOTAL NUMBER OF LOAN : <?php echo "<span style='color: #ff9501;'>$bID</span><br>"; ?></p>
           </div>
+          <hr>
           <div id = "first-card-value-container">
-            <p id = "first-card-value">0</p>
+            <!-- <p id = "first-card-value">0</p> -->
+<!-- 
+            <script type="text/javascript">
+              // google.charts.load('current', {'packages':['corechart']});  
+              // google.charts.setOnLoadCallback(drawChart);
+
+              // function drawChart()
+              // {
+              //   var data = google.visualization.arrayToDataTable([
+              //     ['Type of Loan', 'Total'],
+              //     // <?php
+              //     // // while($get_count = $typeOfLoanCount->fetch_array(MYSQLI_ASSOC)){
+              //     // //   $typeOfLoan = $get_count['type_of_loan'];
+              //     // //   $totalCount = $get_count['totalNum'];
+              //     // //   // echo "$typeOfLoan : $totalCount<br>";
+              //     // //   echo "['".$typeOfLoan."', ".$totalCount."],";
+              //     // }
+              //     // ?>
+              //   ]);
+
+                // var option = {
+                //   title: 'Percentage per Type of Loan Account',
+                //   width: 400,
+                //   height: 270,
+                //   pieSliceBorderColor: 'transparent',
+                //   // pieHole: 0.1,
+                //   colors: ['#5ac8fb', '#007aff'],
+                //   fontName: 'Helvetica',
+                //   fontSize: 14,
+                //   titleTextStyle: {
+                //     fontSize: 13,
+                //     bold: false,
+                //     italic: false
+                //   },
+                //   tooltip: {
+                //     textStyle: {
+                //       bold: false
+                //     }
+                //   }
+                // };
+
+                // var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                // chart.draw(data, option);
+              }
+            </script> -->
+
+            <div id="piechart"></div>
           </div>
         </div>
         <div id = "loan_received_cards" class = "cards second-card">

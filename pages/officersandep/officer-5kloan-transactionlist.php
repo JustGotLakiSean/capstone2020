@@ -243,7 +243,7 @@ function display_pending_5k_request($borrower_id, $borrower_account_id, $type_of
   </article>
 
   <!--Loan Request Form-->
-  <section id="lrf-container">
+  <!-- <section id="lrf-container">
     <form action="" method="" id="loanRequestForm">
       <div class="lrf-inner-container">
         <div class="lrf-top-container">
@@ -291,15 +291,15 @@ function display_pending_5k_request($borrower_id, $borrower_account_id, $type_of
         <hr>
         <div class="lrf-btn-action" align='center'>
           <input type="submit" name="lrf_btn_submit" id="lrf_btn_submit" value="Submit" />
-          <!-- <input type="button" name="lrf_btn_cancel" id="lrf_btn_cancel" value="Cancel" /> -->
+          <input type="button" name="lrf_btn_cancel" id="lrf_btn_cancel" value="Cancel" />
         </div>
       </div>
     </form>
-  </section>
+  </section> -->
 
   <?php
   if(isset($_GET['transaction_idal5k'])){
-    echo "YOW<br>";
+    // echo "YOW<br>";
     $LoanID5k = '';
     $borrowerID5k = '';
     $ctrlPrefix5k = '';

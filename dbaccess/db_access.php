@@ -362,11 +362,11 @@ class db_access {
   /* ADD NEW LOAN RECORD */
   // For new 5k record //
   // 'nl' for New Loan //$nl_loanAmount, $nl_credit, $nl_monthlypayment, $nl_beginningBalance, $nl_dateBorrowed, $nl_remarks
-  public function add_new_5k_record($borrower_id, $ctrlno_prefix, $fname, $mname, $lname, $emp_type, $loan_type, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $debit_pay, $interest_rate, $balance_rate, $date_of_loan, $comment_remarks, $penalty_per_month, $emp_office, $emp_rank, $first_payment, $second_payment, $third_payment, $fourth_payment, $fifth_payment, $full_payment, $status, $isNewLoan, $is_loan_requested)
+  public function add_new_5k_record($borrower_id, $ctrlno_prefix, $fname, $mname, $lname, $emp_type, $loan_type, $loan_amount_rate, $monthly_payment_rate, $credit_rate, $debit_pay, $interest_rate, $balance_rate, $date_of_loan, $comment_remarks, $penalty_per_month, $emp_office, $emp_rank, $first_payment, $second_payment, $third_payment, $fourth_payment, $fifth_payment, $sixth_payment, $full_payment, $status, $isNewLoan, $is_loan_requested)
   {
     $con=$this->getConnection();
-    $query="INSERT INTO tbl_new_5k_loan(borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, type_of_loan, loan_amount_5k_rate, monthly_payment_5k_rate, credit_5k_rate, debit_pay_5k, interest_rate_5k, balance_rate_5k, date_of_loan, comment, penalty, office, emp_rank, first_payment, second_payment, third_payment, fourth_payment, fifth_payment, full_payment, loan_status, isNewLoan, is_loan_requested)
-    VALUES('$borrower_id', '$ctrlno_prefix', '$fname', '$mname', '$lname', '$emp_type', '$loan_type', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$debit_pay', '$interest_rate', '$balance_rate', '$date_of_loan', '$comment_remarks', '$penalty_per_month', '$emp_office', '$emp_rank', '$first_payment', '$second_payment', '$third_payment', '$fourth_payment', '$fifth_payment', '$full_payment', '$status', '$isNewLoan', '$is_loan_requested')";
+    $query="INSERT INTO tbl_new_5k_loan(borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, type_of_loan, loan_amount_5k_rate, monthly_payment_5k_rate, credit_5k_rate, debit_pay_5k, interest_rate_5k, balance_rate_5k, date_of_loan, comment, penalty, office, emp_rank, first_payment, second_payment, third_payment, fourth_payment, fifth_payment, sixth_payment, full_payment, loan_status, isNewLoan, is_loan_requested)
+    VALUES('$borrower_id', '$ctrlno_prefix', '$fname', '$mname', '$lname', '$emp_type', '$loan_type', '$loan_amount_rate', '$monthly_payment_rate', '$credit_rate', '$debit_pay', '$interest_rate', '$balance_rate', '$date_of_loan', '$comment_remarks', '$penalty_per_month', '$emp_office', '$emp_rank', '$first_payment', '$second_payment', '$third_payment', '$fourth_payment', '$fifth_payment', '$sixth_payment', '$full_payment', '$status', '$isNewLoan', '$is_loan_requested')";
     $insert_query = $con->query($query);
     if($insert_query){
       return true;
@@ -1430,6 +1430,34 @@ class db_access {
       die($con->error);
     }
     $con->close();
+  }
+
+  // DATA ANALYTICS //
+  // Count all the total number of Borrowers (5K and 10K)
+  public function total_num_borrowers()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM((SELECT count(loan_id_5k) FROM tbl_new_5k_loan) + (SELECT count(loan_id_10k) FROM tbl_new_10k_loan)) as totSum";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // Get 5k and 10k count for pie Chart
+  public function get_type_of_loan_count()
+  {
+    $con=$this->getConnection();
+    $query="SELECT type_of_loan, count(*) as totalNum FROM tbl_new_5k_loan UNION SELECT type_of_loan, count(*) as totNum FROM tbl_new_10k_loan";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
   }
 }
 ?>

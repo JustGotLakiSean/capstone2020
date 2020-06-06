@@ -251,7 +251,7 @@ function display_pending_10k_request($borrower_id_10k, $borrower_account_id_10k,
   </article>
 
   <!--Loan Request Form-->
-  <section id="lrf-container">
+  <!-- <section id="lrf-container">
     <form action="" method="" id="loanRequestForm">
       <div class="lrf-inner-container">
         <div class="lrf-top-container">
@@ -299,11 +299,11 @@ function display_pending_10k_request($borrower_id_10k, $borrower_account_id_10k,
         <hr>
         <div class="lrf-btn-action" align='center'>
           <input type="submit" name="lrf_btn_submit" id="lrf_btn_submit" value="Submit" />
-          <!-- <input type="button" name="lrf_btn_cancel" id="lrf_btn_cancel" value="Cancel" /> -->
+          <input type="button" name="lrf_btn_cancel" id="lrf_btn_cancel" value="Cancel" />
         </div>
       </div>
     </form>
-  </section>
+  </section> -->
 
   <?php
   if(isset($_GET['transaction_idla10k'])){

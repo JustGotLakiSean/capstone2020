@@ -361,6 +361,7 @@ BUTTON;
                       $third_payment = 0;
                       $fourth_payment = 0;
                       $fifth_payment = 0;
+                      $sixth_payment = 0;
                       $full_payment = 0;
                       $is_loan_requested_5k = 0;
 echo <<<EMP_LIST
@@ -380,6 +381,7 @@ echo <<<EMP_LIST
                         <input type="hidden" name="third_payment" class="hidden_5k_info" value="$third_payment" />
                         <input type="hidden" name="fourth_payment" class="hidden_5k_info" value="$fourth_payment" />
                         <input type="hidden" name="five_payment" class="hidden_5k_info" value="$fifth_payment" />
+                        <input type="hidden" name="sixth_payment" class="hidden_5k_info" value="$sixth_payment" />
                         <input type="hidden" name="full_payment" class="hidden_5k_info" value="$full_payment" />
                         <input type="hidden" name="amount_of_payment" class="hidden_5k_info" value="$debit_pay" />
                         <input type="hidden" name="comment_remarks" class="hidden_5k_info" value="$comment" />
