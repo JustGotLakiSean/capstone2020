@@ -6,8 +6,18 @@ session_start();
 $db = new db_access();
 $get_total_num_borrower = $db->total_num_borrowers();
 $typeOfLoanCount = $db->get_type_of_loan_count();
+
 $getTotalNumberOfEmployee = $db->getTotalNumberOfEmployee();
 $getTypeOfEmployee = $db->getTypeOfEmployee();
+
+$getOverallTotalOfCreditRate = $db->getOverallTotalOfCreditRate();
+$getSumOfEachCreditRate = $db->getSumOfEachCreditRate();
+
+$getTotalActiveLoan = $db->getTotalActiveLoan();
+$getOverallActiveLoan = $db->getOverallActiveLoan();
+
+$getActiveLoanList = $db->getActiveLoanList();
+$getHighestLoanCount = $db->getHighestLoanCount();
 
 ?>
 <!DOCTYPE html>
@@ -19,7 +29,6 @@ $getTypeOfEmployee = $db->getTypeOfEmployee();
   <!-- <link rel="stylesheet" href="css/adminOverview.css"> -->
   <?php include('css/adminOverviewStyle.php'); ?>
   <script src="../../gateway/src/canvasjs-2.3.2/canvasjs.min.js"></script>
-  <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
 </head>
 <body>
   <header id = "loan-navigation-container">
@@ -68,7 +77,7 @@ if(isset($_SESSION['admin_username'])){
                 $bID = $count['totSum'];
               }
             ?>
-            <p id = "first-card-label">TOTAL NUMBER OF LOAN : <?php echo "<span style='color: #ff9501;'>$bID</span><br>"; ?></p>
+            <p id = "first-card-label">OVERALL NUMBER OF LOAN : <?php echo "<span style='color: #1558f4;'>$bID</span><br>"; ?></p>
           </div>
           <hr>
           <div id = "first-card-value-container">
@@ -91,7 +100,7 @@ if(isset($_SESSION['admin_username'])){
             // echo json_encode($dataPoint, JSON_NUMERIC_CHECK);
           ?>
 
-<?php
+          <?php
             $emp_result = array();
             foreach($getTypeOfEmployee as $res1){
               array_push($emp_result, array(
@@ -102,14 +111,23 @@ if(isset($_SESSION['admin_username'])){
 
             // echo json_encode($emp_result, JSON_NUMERIC_CHECK);
 
-            ?>
+          ?>
+
+          <?php
+          $credit_rate_result = array();
+          foreach($getSumOfEachCreditRate as $res2){
+            array_push($credit_rate_result, array("label" => $res2['type_of_loan'], "y" => $res2['credit_rate_sum']));
+          }
+
+          // echo json_encode($credit_rate_result, JSON_NUMERIC_CHECK);
+          ?>
 
           <script type="text/javascript">
           window.onload = function(){
             CanvasJS.addColorSet("colorSet1",
               [
                 '#007aff',
-                '#5ac8fb',
+                '#38dbdc',
                 '#1a1a1a',
                 '#009245'
               ]);
@@ -122,8 +140,8 @@ if(isset($_SESSION['admin_username'])){
               title: {
                 text: "Percentage per Loan Account",
                 fontFamily: 'Helvetica',
-                fontWeight: 'lighter',
-                fontColor: '#ff9501',
+                fontWeight: 'bold',
+                fontColor: '#1558f4',
                 // verticalAlign: "center",
 		            // dockInsidePlotArea: true,
                 fontSize: 14
@@ -147,7 +165,8 @@ if(isset($_SESSION['admin_username'])){
                 indexLabel: "#percent%",
                 indexLabelFontSize: 15,
                 indexLabelFontFamily: 'Helvetica',
-                colorSet: "colorSet1",
+                indexLabelPlacement: "inside",
+                fontColor: "#fff",
                 dataPoints: <?php echo json_encode($dataPoint, JSON_NUMERIC_CHECK); ?>
               }]
 
@@ -157,8 +176,8 @@ if(isset($_SESSION['admin_username'])){
               title: {
                 text: "Total number of Employee",
                 fontFamily: 'Helvetica',
-                fontWeight: 'lighter',
-                fontColor: '#47ee5c',
+                fontWeight: 'bold',
+                fontColor: '#1558f4',
                 fontSize: 14
               },
               legend: {
@@ -183,10 +202,41 @@ if(isset($_SESSION['admin_username'])){
                 colorSet: "colorSet1",
                 dataPoints: <?php echo json_encode($emp_result, JSON_NUMERIC_CHECK);?>
               }]
-            })
+            });
+
+            var loan_released_chart = new CanvasJS.Chart("loan_released_chart", {
+              title: {
+                text: "Overall Loan Released",
+                fontFamily: 'Helvetica',
+                fontWeight: 'bold',
+                fontColor: '#1558f4',
+                fontSize: 14
+              },
+              axisY: {
+                prefix: "₱",
+              },
+              toolTip: {
+                content: "{label} : ₱{y}",
+                fontFamily: 'Helvetica',
+                fontWeight: 'lighter',
+                fontSize: 14,
+                backgroundColor: '#87edf5',
+              },
+              data: [{
+                type: "column",
+                indexLabel: "₱{y}",
+                indexLabelPlacement: "inside",
+                indexLabelFontSize: 15,
+                indexLabelFontFamily: 'Helvetica',
+                dataPoints: <?php echo json_encode($credit_rate_result, JSON_NUMERIC_CHECK); ?>
+              }]
+
+            });
 
             chart.render();
             total_borrower_chart.render();
+            loan_released_chart.render();
+
           }
           </script>
 
@@ -238,15 +288,23 @@ if(isset($_SESSION['admin_username'])){
             </script> -->
 
             <div id="chartContainer" style="width: 400px; height: 270px;"></div>
+            <!-- <canvas id="chartContainer" width="400px" height="270px"></canvas> -->
           </div>
         </div>
 
         <div id = "loan_received_cards" class = "cards second-card">
           <div id = "second-card-label-container">
-            <p id = "second-card-label">Loan Received</p>
+            <?php
+            while($count = $getOverallTotalOfCreditRate->fetch_array(MYSQLI_ASSOC)){
+              $overallLoanReleased = $count['overallLoanReleased'];
+            }
+            ?>
+            <p id = "second-card-label">TOTAL LOAN RELEASED : <?php echo "<span style='color: #1558f4;'>₱$overallLoanReleased</span>"; ?></p>
           </div>
+          <hr>
           <div id = "second-card-value-container">
-            <p id = "second-card-value">0</p>
+            <!-- <p id = "second-card-value">0</p> -->
+            <div id="loan_released_chart" style="width: 400px; height: 270px;"></div>
           </div>
         </div>
 
@@ -257,7 +315,7 @@ if(isset($_SESSION['admin_username'])){
             $empID = $count['totalBorrower'];
           }
           ?>
-            <p id = "third-card-label">NUMBER OF EMPLOYEE : <?php echo "<span style='color: #47ee5c;'>$empID</span><br>"; ?></p>
+            <p id = "third-card-label">NUMBER OF EMPLOYEE : <?php echo "<span style='color: #1558f4;'>$empID</span><br>"; ?></p>
           </div>
           <hr>
           <div id = "third-card-value-container">
@@ -269,9 +327,9 @@ if(isset($_SESSION['admin_username'])){
           </div>
         </div>
 
-        <div id = "openloan_cards" class = "cards fourth-card">
+        <!-- <div id = "active_cards" class = "fourth-card">
           <div id = "fourth-card-label-container">
-            <p id = "fourth-card-label">Open Loans</p>
+            <p id = "fourth-card-label">Active Loans</p>
           </div>
           <div id = "fourth-card-value-container">
             <p id = "fourth-card-value">30</p>
@@ -316,8 +374,95 @@ if(isset($_SESSION['admin_username'])){
           <div id = "ninth-card-value-container">
             <p id = "ninth-card-value">11000</p>
           </div>
+        </div> -->
+      </div>
+
+      <!-- ACTIVE LOAN CHART -->
+      <!-- Get the total of active loan -->
+      <div id = "active_cards" class = "fourth-card">
+        <div id = "fourth-card-label-container">
+          <?php
+          while($count = $getTotalActiveLoan->fetch_array(MYSQLI_ASSOC)){
+            $allActiveLoan = $count['allActiveLoan'];
+            echo "<p id = 'fourth-card-label'>Total Active Loans : <span>$allActiveLoan</span</p>";
+          }
+          ?>
+        </div>
+        <!-- Get total active loan for each loan account (5K and 10K) -->
+        <div id = "fourth-card-value-container">
+        <?php
+        while($count = $getOverallActiveLoan->fetch_array(MYSQLI_ASSOC)){
+          $typeOfLoan = $count['type_of_loan'];
+          $loanStatusCount = $count['loanStatusCount'];
+          echo "<p class='loanStatusCount'>$typeOfLoan : <span>$loanStatusCount</span></p>";
+        }
+        ?>
         </div>
       </div>
+
+      <!-- Active Loan List -->
+      <div id = "active_borrower_cards" class = "fifth-card">
+        <?php
+        while($getData = $getActiveLoanList->fetch_array(MYSQLI_ASSOC)){
+          $activeFname = $getData['fname'];
+          $activeMname = $getData['mname'];
+          $activeLname = $getData['lname'];
+          $activeOffice = $getData['empOffice'];
+          $activeFullname = "$activeFname $activeMname $activeLname";
+          $activeEmpType = $getData['type_of_employee'] == 'civilian' ? 'Civilian' : 'Officer';
+
+          echo '
+          <div class="active_borroweR_list">
+            <p class="active_borrower_name">'.$activeFullname.'</p>
+            <p class="active_borrower_office">'.$activeEmpType.'</p>
+          </div>
+          <hr>';
+        }
+        ?>
+      </div>
+
+      <!-- Most picked Loan account -->
+      <div id = "totalinterest_cards" class = "cards sixth-card">
+        <?php
+        // while($getData = $getHighestLoanCount->fetch_array(MYSQLI_ASSOC)){
+        //   $la5k_sum = $getData['la5kSum'];
+
+        //   echo "$la5k_sum<br>";
+        // }
+        ?>
+        <!-- <div id = "sixth-card-label-container">
+          <p id = "sixth-card-label">Total Interest</p>
+        </div>
+        <div id = "sixth-card-value-container">
+          <p id = "sixth-card-value">13000</p>
+        </div>
+      </div> -->
+
+      <div id = "totalemployee_cards" class = "cards seventh-card">
+        <div id = "seventh-card-label-container">
+          <p id = "seventh-card-label">Total Employee</p>
+        </div>
+        <div id = "seventh-card-value-container">
+          <p id = "seventh-card-value">400</p>
+        </div>
+      </div>
+      <div id = "totalamountpayment_cards" class = "cards eigth-card">
+        <div id = "eigth-card-label-container">
+          <p id = "eigth-card-label">Total Amount Payment</p>
+        </div>
+        <div id = "eigth-card-value-container">
+          <p id = "eigth-card-value">30</p>
+        </div>
+      </div>
+      <div id = "totalcontributions_cards" class = "cards ninth-card">
+        <div id = "ninth-card-label-container">
+          <p id = "ninth-card-label">Contribution Total</p>
+        </div>
+        <div id = "ninth-card-value-container">
+          <p id = "ninth-card-value">11000</p>
+        </div>
+      </div>
+
     </div>
   </main>
 </body>

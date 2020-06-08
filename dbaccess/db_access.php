@@ -1478,7 +1478,7 @@ class db_access {
   public function getTypeOfEmployee()
   {
     $con=$this->getConnection();
-    $query="SELECT type_of_employee, count(*) as totalEMP FROM tbl_civilian_employee UNION SELECT type_of_employee, count(*) as totalEMP FROM  tbl_officersandep";
+    $query="SELECT type_of_employee, count(*) as totalEMP FROM tbl_civilian_employee UNION SELECT type_of_employee, count(*) as totalEMP FROM tbl_officersandep";
     $get_data=$con->query($query);
     if($get_data){
       return $get_data;
@@ -1487,5 +1487,91 @@ class db_access {
     }
     $con->close();
   }
+
+  // get overall sum of credit rate (5K and 10k)
+  public function getOverallTotalOfCreditRate()
+  {
+    $con=$this->getConnection();
+    // $query="SELECT SUM((SELECT COUNT(credit_5k_rate) as creditRate FROM tbl_new_5k_loan) + (SELECT COUNT(credit_10k_rate) AS creditRate FROM tbl_new_10k_loan)) AS overallLoanReleased";
+    $query="SELECT SUM((SELECT SUM(credit_5k_rate) AS creditRate FROM tbl_new_5k_loan) + (SELECT SUM(credit_10k_rate) AS creditRate FROM tbl_new_10k_loan)) AS overallLoanReleased";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get sum of credit rate for each loan type (5k, 10k)
+  public function getSumOfEachCreditRate()
+  {
+    $con=$this->getConnection();
+    $query="SELECT type_of_loan, SUM(credit_5k_rate) AS credit_rate_sum FROM tbl_new_5k_loan UNION SELECT type_of_loan, SUM(credit_10k_rate) AS credit_rate_sum FROM tbl_new_10k_loan";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get overall active loan
+  public function getTotalActiveLoan()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM((SELECT COUNT(loan_status) AS loan_status_count FROM tbl_new_5k_loan WHERE loan_status = 0) + (SELECT COUNT(loan_status_10k) AS loan_status_count FROM tbl_new_10k_loan WHERE loan_status_10k = 0)) AS allActiveLoan";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get all active loan counts (5k and 10k)
+  public function getOverallActiveLoan()
+  {
+    $con=$this->getConnection();
+    $query="SELECT type_of_loan, loan_status AS loanStatus, count(loan_status) AS loanStatusCount FROM tbl_new_5k_loan WHERE loan_status = 0 UNION SELECT type_of_loan, loan_status_10k AS loanStatus, count(loan_status_10k) AS loanStatusCount FROM tbl_new_10k_loan WHERE loan_status_10k = 0";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get full name for active loan list (5k and 10k)
+  // if "0" is the value of loan_status, it means it is active
+  public function getActiveLoanList()
+  {
+    $con=$this->getConnection();
+    $query="SELECT fname, mname, lname, type_of_loan, type_of_employee, office as empOffice, loan_status as loanStatus FROM tbl_new_5k_loan WHERE loan_status = 0 UNION SELECT fname, mname, lname, type_of_loan, type_of_employee, office_10k as empOffice, loan_status_10k as loanStatus FROM tbl_new_10k_loan WHERE loan_status_10k = 0";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // rank the most picked loan account
+  // public function getHighestLoanCount()
+  // {
+  //   $con=$this->getConnection();
+  //   $query="SELECT SUM((SELECT SUM(la_5k_count) AS la5kSum FROM tbl_civilian_employee) + (SELECT SUM(la_5k_count) AS la5kSum FROM tbl_officersandep)) AS la5k_SUM";
+  //   $get_data=$con->query($query);
+  //   if($get_data){
+  //     return $get_data;
+  //   } else {
+  //     die($con->error);
+  //   }
+  //   $con->close();
+  // }
 }
 ?>

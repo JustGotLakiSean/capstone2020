@@ -4,6 +4,7 @@ echo <<<STYLE
 body {
   margin: 0;
   font-family: 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
+  //background: linear-gradient(286deg, rgba(0,255,56,0.6839110644257703) 4%, rgba(147,48,204,1) 50%, rgba(0,255,188,1) 100%);
   background: #F2F2F2;
 }
 
@@ -107,11 +108,13 @@ body {
   margin-bottom: 10px;
   height: 102px;
   width: 180px;
+  //background: rgba(255, 255, 255, 0.2);
   background: #FFFFFF;
   font-size: 1.2rem;
   border-radius: 5px;
   box-shadow: 5px 2px 10px rgba(126, 125, 125, .1),
   -5px 2px 10px rgba(126, 125, 125, .1);
+  //backdrop-filter: blur(8px);
 }
 
 #loan-summary-content p{
@@ -231,7 +234,8 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9); /* color */
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.4); /* color */
   display: none; /* making it hidden by default */
 }
 
@@ -490,7 +494,8 @@ hr {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9); /* color */
+  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.3); /* color */
   display: none; /* making it hidden by default */
 }
 
@@ -718,7 +723,8 @@ hr {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9); /* color */
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.4); /* color */
 }
 
 #newpayment_5k_container {
@@ -997,7 +1003,8 @@ hr {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9); /* color */
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.4); /* color */
 }
 
 .newpayment_10k_container {

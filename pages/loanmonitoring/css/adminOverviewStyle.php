@@ -91,7 +91,7 @@ body {
 
 #overview-container {
   width: 90%;
-  height: 100%;
+  height: 950px;
   margin: auto;
 }
 
@@ -102,26 +102,45 @@ body {
 }
 
 #transaction-cards {
-  width: 400px;
   display: grid;
   grid-template-columns: auto auto auto;
   grid-gap: 10px;
+  margin: auto;
 }
 
 #transaction-cards .cards {
   padding: 5px;
-  width: 395px;
-  height: 300px;
   background: #FFFFFF;
   font-size: 1.5rem;
   border-radius: 10px;
 
 }
 
+.first-card {
+  width: 395px;
+  height: 300px;
+}
+
+.second-card {
+  width: 395px;
+  height: 300px;
+}
+
+.third-card {
+  width: 395px;
+  height: 300px;
+}
+
+#openloan_cards {
+  width: 395px;
+  height: 300px;
+}
+
 .cards p {
   margin: 0;
   font-size: 16px;
   font-weight: lighter;
+  color: #aeaeb2;
 }
 
 hr {
@@ -129,7 +148,7 @@ hr {
   padding: 0;
   border: 0;
   height: 1px;
-  background: #dadada;
+  background: #dddddd;
   overflow: visible;
   text-align: center;
 }
