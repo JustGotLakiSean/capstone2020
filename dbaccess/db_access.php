@@ -1564,7 +1564,8 @@ class db_access {
   // public function getHighestLoanCount()
   // {
   //   $con=$this->getConnection();
-  //   $query="SELECT SUM((SELECT SUM(la_5k_count) AS la5kSum FROM tbl_civilian_employee) + (SELECT SUM(la_5k_count) AS la5kSum FROM tbl_officersandep)) AS la5k_SUM";
+  //   $query="SELECT SUM((SELECT SUM(la_5k_count) FROM tbl_civilian_employee) + (SELECT SUM(la_5k_count) FROM tbl_officersandep)) UNION SELECT SUM((SELECT SUM(la_10k_count) FROM tbl_civilian_employee) + (SELECT SUM(la_10k_count) FROM tbl_officersandep))";
+  //   // $query="SELECT SUM((SELECT SUM(la_5k_count) FROM tbl_civilian_employee)"
   //   $get_data=$con->query($query);
   //   if($get_data){
   //     return $get_data;
@@ -1573,5 +1574,342 @@ class db_access {
   //   }
   //   $con->close();
   // }
+
+  // get the overall loan released PER month
+  public function getLoanReleasedPerMonth()
+  {
+    $con=$this->getConnection();
+    $query="SELECT loan_id_5k AS loanID, date_of_loan, type_of_loan, credit_5k_rate AS creditRate FROM tbl_new_5k_loan UNION SELECT loan_id_10k AS loanID, date_of_loan, type_of_loan, credit_10k_rate AS creditRate FROM tbl_new_10k_loan ORDER BY date_of_loan DESC";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get the 5K loan released PER month
+  public function get5KLoanReleasedPerMonth()
+  {
+    $con=$this->getConnection();
+    $query="SELECT loan_id_5k, date_of_loan, type_of_loan, credit_5k_rate FROM tbl_new_5k_loan ORDER BY date_of_loan DESC";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get overall payment received
+  // public function getOverallPaymentReceived()
+  // {
+  //   $con=$this->getConnection();
+  //   // $query="SELECT transaction_id, SUM(amount_paid) as overallPaymentReceived FROM tbl_1stpayment";
+  //   $query="SELECT SUM((SELECT SUM(amount_paid) FROM tbl_1stpayment) + (SELECT SUM(amount_paid) FROM tbl_2ndpayment) + (SELECT SUM(amount_paid) FROM tbl_3rdpayment) + (SELECT SUM(amount_paid) FROM tbl_fullpayment)) AS overallPaymentReceived";
+  //   $get_data=$con->query($query);
+  //   if($get_data){
+  //     return $get_data;
+  //   } else {
+  //     die($con->error);
+  //   }
+  //   $con->close();
+  // }
+
+  // get total amount_paid for first payment
+  public function getFirstPaymentAmountPaid()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS overallFirstAmountPaid FROM tbl_1stpayment";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount_paid for second payment
+  public function getSecondPaymentAmountPaid()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS overallSecondAmountPaid FROM tbl_2ndpayment";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount_paid for third_payment
+  public function getThirdPaymentAmountPaid()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS overallThirdAmountPaid FROM tbl_3rdpayment";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for fourth_payment
+  public function getFourthPaymentAmountPaid()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS overallFourthAmountPaid FROM tbl_4thpayment";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for fifth_payment
+  public function getFifthPaymentAmountPaid()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS overallFifthAmountPaid FROM tbl_5thpayment";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for sixth_payment
+  public function getSixthPaymentAmountPaid()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS overallSixthAmountPaid FROM tbl_6thpayment";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for full payment
+  public function getFullPaymentAmountPaid()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS overallFullAmountPaid FROM tbl_fullpayment";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for 5K, first payment
+  public function get5KAmountPaidFirstPayment()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS total5KFirstPayment FROM tbl_1stpayment WHERE type_of_loanAccount = '5k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for 10K, first payment
+  public function get10KAmountPaidFirstPayment()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS total10KFirstPayment FROM tbl_1stpayment WHERE type_of_loanAccount = '10k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+  
+  // get total amount paid for 5k, second payment
+  public function get5KAmountPaidSecondPayment()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS total5KSecondPayment FROM tbl_2ndpayment WHERE type_of_loanAccount = '5k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for 10k, second payment
+  public function get10KAmountPaidSecondPayment()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS total10KSecondPayment FROM tbl_2ndpayment WHERE type_of_loanAccount = '10k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for 5k, third payment
+  public function get5KAmountPaidThirdPayment()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS total5KThirdPayment FROM tbl_3rdpayment WHERE type_of_loanAccount = '5k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for 10k, third payment
+  public function get10KAmountPaidThirdPayment()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS total10KThirdPayment FROM tbl_3rdpayment WHERE type_of_loanAccount = '10k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for 5k, fourth payment
+  public function get5KAmountPaidFourthPayment()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS total5KFourthPayment FROM tbl_4thpayment WHERE type_of_loanAccount = '5k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for 10k, fourth payment
+  public function get10KAmountPaidFourthPayment()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS total10KFourthPayment FROM tbl_4thpayment WHERE type_of_loanAccount = '10k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  //get total amount paid for 5k, fifth payment
+  public function get5KAmountPaidFifthPayment()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS total5KFifthPayment FROM tbl_5thpayment WHERE type_of_loanAccount = '5k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for 10k, fifth payment
+  public function get10KAmountPaidFifthPayment()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS total10KFifthPayment FROM tbl_5thpayment WHERE type_of_loanAccount = '10k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for 5k, sixth payment
+  public function get5KAmountPaidSixthPayment()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS total5KSixthPayment FROM tbl_6thpayment WHERE type_of_loanAccount = '5k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for 10k, sixth payment
+  public function get10KAmountPaidSixthPayment()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS total10KSixthPayment FROM tbl_6thpayment WHERE type_of_loanAccount = '10k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for 5k, full payment
+  public function get5KAmountPaidFullPayment()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS total5KFullPayment FROM tbl_fullpayment WHERE type_of_loanAccount = '5k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total amount paid for 10k, full payment
+  public function get10KAmountPaidFullPayment()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(amount_paid) AS total10KFullPayment FROM tbl_fullpayment WHERE type_of_loanAccount = '10k'";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
 }
 ?>
