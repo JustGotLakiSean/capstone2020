@@ -1,10 +1,37 @@
 <?php
 echo <<<STYLE
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Roboto', 'Helvetica', 'sans-serif';
   background: #F2F2F2;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  display: none;
+  background: #E6E6E6;
+  border-radius: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 7px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #808080;
 }
 
 #loan-navigation-container {
@@ -13,7 +40,9 @@ body {
 }
 
 #loan-navigation-container nav {
+  //background-color: rgba(0, 113, 188, 0.9);
   background-color: #0071BC;
+  // backdrop-filter: blur(3px);
   color: #eee;
 }
 
@@ -109,26 +138,94 @@ body {
 }
 
 #transaction-cards .cards {
-  padding: 5px;
+  padding: 10px;
   background: #FFFFFF;
   font-size: 1.5rem;
-  border-radius: 10px;
+  border-radius: 15px;
 
 }
 
 .first-card {
-  width: 395px;
-  height: 300px;
+  width: 410px;
+  height: 310px;
 }
 
 .second-card {
-  width: 395px;
-  height: 300px;
+  width: 410px;
+  height: 310px;
 }
 
 .third-card {
-  width: 395px;
+  width: 410px;
+  height: 310px;
+}
+
+#active_cards {
+  width: 410px;
+  height: 130px;
+  background: #FFFFFF;
+  border-radius: 15px;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+#fourth-card-label-container {
+  padding: 5px 0px 5px 10px;
+}
+
+.active_inner {
+  margin: 0;
+}
+
+.loanStatusCount {
+  color: #aeaeb2;
+}
+
+.active_inner_container {
+  width: 100px;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+#active_borrower_cards {
+  width: 410px;
+  height: 320px;
+  outline: none;
+  // overflow: auto;
+  background: #FFFFFF;
+  border-radius: 15px;
+  margin-top: 10px;
+  padding: 10px;
+  position: relative;
+}
+
+.active_borrower_name {
+  font-size: 18px;
+}
+
+.active_borrower_office {
+  font-size: 12px;
+  color: #666666;
+
+}
+
+#active_borrower_cards p {
+  margin: 0;
+}
+
+.active_borrower_list {
+  height: 280px;
+  overflow: auto;
+  margin-top: 14px;
+}
+
+#totalinterest_cards {
+  width: 410px;
   height: 300px;
+  background: #FFFFFF;
+  border-radius: 15px;
+  margin-top: 10px;
+  padding: 10px;
 }
 
 #openloan_cards {

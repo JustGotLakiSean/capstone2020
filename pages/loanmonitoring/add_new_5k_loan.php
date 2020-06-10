@@ -51,4 +51,3 @@ echo json_encode($emp_detail);
   echo 'ERR';
 }
 echo json_encode($emp_detail);
-?>
