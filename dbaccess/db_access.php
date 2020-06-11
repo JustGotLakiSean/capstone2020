@@ -1987,3 +1987,80 @@ class db_access
     $con->close();
   }
 }
+
+
+// <!-- Active Loan List -->
+//         <div id="active_borrower_cards" class="fifth-card">
+//           <h5 style="margin: 0; color: #666666;">ACTIVE LOAN LIST</h5>
+//           <div class="active_borrower_list">
+//             <?php
+//             // while ($get_data = $getActiveLoanList->fetch_array(MYSQLI_ASSOC)) {
+//             //   $activeFname = $get_data['fname'];
+//             //   $activeMname = $get_data['mname'];
+//             //   $activeLname = $get_data['lname'];
+//             //   $activeOffice = $get_data['empOffice'];
+//             //   $activeFullname = "$activeFname $activeMname $activeLname";
+//             //   $activeEmpType = $get_data['type_of_employee'] == 'civilian' ? 'Civilian' : 'Officer';
+
+//             //   echo '<p class="active_borrower_name">' . ucwords(strtolower($activeFullname)) . '</p>';
+//             //   echo '<p class="active_borrower_office">' . $activeEmpType . '</p>';
+//             //   echo '<hr style="background: #e6e6e6;">';
+//             // }
+//             
+//           </div>
+//           <!-- <p class="read-more" style="text-align:center;"><a href="#" class="readMoreButton">SHOW MORE</a></p> -->
+//         </div>
+
+//         <div id="most_borrower_cards" class="eigth-card">
+//           <h5 style="margin: 0; color: #666666;">MOST BORROWER</h5>
+//           
+//           // while ($getData = $getTopLoaner->fetch_array(MYSQLI_ASSOC)) {
+//           //   $empID = $getData['empID'];
+//           //   $empFname = $getData['empFname'];
+//           //   $empMname = $getData['empMname'];
+//           //   $empLname = $getData['empLname'];
+//           //   $empFullname = "$empFname $empMname $empLname";
+//           //   $laCount = $getData['laCount'];
+
+//           //   if ($laCount != 0) {
+//           //     $laCountPercentage = $laCount / 100;
+//           //     // echo "<p style='font-size: 16px; margin: 0;'>" . ucwords(strtolower($empFullname)) . "</p>";
+//           //     // echo "<p style='font-size: 22px; margin: 0;'>$laCount <span style='font-size: 12px;'>counts</span></p>";
+
+//           //     // // $co = $laCount * $laCount;
+//           //     // echo "<hr class='hr-or' style='width: " . $laCountPercentage . "vw; height: 5px; border-radius: 5px; background: linear-gradient(118deg, rgba(180,67,255,1) 0%, rgba(255,26,209,1) 50%, rgba(255,58,58,1) 100%);'>";
+//           //     // echo '<hr style="margin: 10px 0 10px 0;">';
+//           //   } else {
+//           //   }
+//           // }
+//           
+//         </div>
+
+//         <div id="penalty_list_box">
+//           <h5 style="margin: 0; color: #666666;">PENALTY</h5>
+//           
+//           // echo '<div class="penalty_list_card">';
+//           // while ($getData = $getHighestPenalty->fetch_array(MYSQLI_ASSOC)) {
+//           //   $p_empFname = $getData['empFname'];
+//           //   $p_empMname = $getData['empMname'];
+//           //   $p_empLname = $getData['empLname'];
+//           //   $p_typeOfEmployee = $getData['typeOfEmployee'];
+//           //   $p_empFullname = "$p_empFname $p_empMname $p_empLname";
+//           //   $penaltyCount = $getData['penaltyCount'];
+
+//           //   if (isset($penaltyCount)) {
+//           //     // echo "HE";
+//           //     if ($penaltyCount != 1) {
+//           //       $penaltyPercentage = $penaltyCount / 100;
+//           //       // echo '<p class="p_borrower_name" style="font-size: 16px; margin: 0;">' . ucwords(strtolower($p_empFullname)) . '</p>';
+//           //       // echo '<p class="borrower_penalty_count" style="font-size: 22px; margin: 0;">' . $penaltyCount . ' <span style="font-size: 12px;">counts</span></p>';
+//           //       // echo "<hr style='height: 5px; border-radius: 5px; width: " . $penaltyPercentage . "vw; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%)'>";
+//           //       // echo '<hr>';
+//           //     } else if ($penaltyCount == 0) {
+//           //     }
+//           //   } else {
+//           //   }
+//           // }
+//           // echo '</div>';
+//           
+//         </div>

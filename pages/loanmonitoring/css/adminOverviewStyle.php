@@ -9,6 +9,15 @@ body {
   margin: 0;
   font-family: 'Roboto', 'Helvetica', 'sans-serif';
   background: #F2F2F2;
+  //background: linear-gradient(118deg, rgba(226,30,255,1) 9%, rgba(242,146,61,0.8295693277310925) 50%, rgba(44,91,229,1) 90%) no-repeat center center fixed;
+  // background: rgb(226,30,255);
+  // background: linear-gradient(199deg, rgba(226,30,255,1) 0%, rgba(255,0,131,0.865983893557423) 25%, rgba(205,0,255,0.8295693277310925) 50%, rgba(255,0,236,0.8995973389355743) 77%, rgba(44,91,229,1) 100%) no-repeat center center fixed;
+  // height: 100%;
+  // background-position: center;
+  // -webkit-background-size: cover;
+  // -moz-background-size: cover;
+  // -o-background-size: cover;
+  // background-size: cover;
 }
 
 /* width */
@@ -47,7 +56,7 @@ body {
 }
 
 #loan-navigation-container nav ul {
-  height: 6vh;
+  height: 42px;
   display: flex;
   justify-content: space-evenly;
   padding: 0;
@@ -119,7 +128,7 @@ body {
 }
 
 #overview-container {
-  width: 90%;
+  width: 92%;
   height: 950px;
   margin: auto;
 }
@@ -133,16 +142,17 @@ body {
 #transaction-cards {
   display: grid;
   grid-template-columns: auto auto auto;
-  grid-gap: 10px;
-  margin: auto;
+  grid-gap: 12px;
+  width: 1254px;
 }
 
 #transaction-cards .cards {
+  height: auto;
   padding: 10px;
   background: #FFFFFF;
-  font-size: 1.5rem;
   border-radius: 15px;
-
+  // background-color: rgba(250, 250, 250, 0.4);
+  // backdrop-filter: blur(3px);
 }
 
 .first-card {
@@ -160,12 +170,16 @@ body {
   height: 310px;
 }
 
+.sixth-card {
+  width: 410px;
+  height: 310px;
+}
+
 #active_cards {
   width: 410px;
-  height: 130px;
+  height: 140px;
   background: #FFFFFF;
   border-radius: 15px;
-  margin-top: 10px;
   padding: 10px;
 }
 
@@ -182,50 +196,135 @@ body {
 }
 
 .active_inner_container {
-  width: 100px;
+  width: 230px;
   display: grid;
   grid-template-columns: auto auto;
+  grid-gap: 32px;
+}
+
+.payment_received_inner {
+  width: 230px;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 32px;
+}
+
+.payment_received_inner p {
+  margin: 5px 0 5px 0;
+}
+
+.title_payment_received {
+  color: #aeaeb2;
+}
+
+#third_line {
+  // display: flex;
+  // justify-content: space-between;
+  // margin-top: 12px;
+  // width: 1254px;
+  // height: 400px;
+  overflow: hidden;
+  width: 1254px;
 }
 
 #active_borrower_cards {
   width: 410px;
-  height: 320px;
-  outline: none;
+  // max-height: 400px;
+  height: auto;
+  // outline: none;
   // overflow: auto;
   background: #FFFFFF;
   border-radius: 15px;
-  margin-top: 10px;
   padding: 10px;
-  position: relative;
+  // position: relative;
+  box-sizing: border-box;
+  float: left;
+  margin: 12px 12px 0 0;
+}
+
+#most_borrower_cards {
+  width: 410px;
+  height: auto;
+  // overflow: auto;
+  background: #FFFFFF;
+  border-radius: 15px;
+  padding: 10px;
+  box-sizing: border-box;
+  // position: relative;
+  float: left;
+  margin: 12px 12px 0 0;
+}
+
+#penalty_list_box {
+  width: 410px;
+  height: auto;
+  // outline: none;
+  // overflow: hidden;
+  background: #FFFFFF;
+  border-radius: 15px;
+  padding: 10px;
+  box-sizing: border-box;
+  // position: relative;
+  float: left;
+  // margin: 12px;
+  margin-top: 12px;
 }
 
 .active_borrower_name {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .active_borrower_office {
   font-size: 12px;
   color: #666666;
-
 }
 
 #active_borrower_cards p {
   margin: 0;
 }
 
-.active_borrower_list {
-  height: 280px;
-  overflow: auto;
-  margin-top: 14px;
-}
+// .active_borrower_list {
+//   height: 334px;
+//   overflow: auto;
+//   margin-top: 14px;
+// }
 
-#totalinterest_cards {
+// .penalty_list_card {
+//   max-height: 334px;
+//   overflow: auto;
+//   margin-top: 14px;
+// }
+
+#totalpayment_cards {
   width: 410px;
-  height: 300px;
+  height: 140px;
   background: #FFFFFF;
   border-radius: 15px;
-  margin-top: 10px;
   padding: 10px;
+}
+
+#paymentoption_cards {
+  width: 410px;
+  height: 140px;
+  background: #FFFFFF;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.payment_option_box {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: auto auto;
+  margin: auto;
+  background: #f2f2f7;
+  border-radius: 15px;
+  margin-top: 10px;
+}
+
+.fullpayment_box, .downpayment_box {
+  width: 190px;
+  height: 90px;
+  color: #48484a;
 }
 
 #openloan_cards {
@@ -235,9 +334,6 @@ body {
 
 .cards p {
   margin: 0;
-  font-size: 16px;
-  font-weight: lighter;
-  color: #aeaeb2;
 }
 
 hr {
@@ -251,4 +347,3 @@ hr {
 }
 </style>
 STYLE;
-?>

@@ -6,6 +6,7 @@ use \loan950\db_access;
 
 include('../../dbaccess/db_access.php');
 session_start();
+date_default_timezone_set('Asia/Manila');
 $db = new db_access();
 $get_total_num_borrower = $db->total_num_borrowers();
 $typeOfLoanCount = $db->get_type_of_loan_count();
@@ -113,27 +114,20 @@ $getHighestPenalty = $db->getHighestPenalty();
       <div id="transaction-cards" class="card-container">
 
         <div id="borrower_number_cards" class="cards first-card">
+          <h5 style="margin: 0; color: #666666;">LOAN RECORD</h5>
           <div id="first-card-label-container">
             <?php
             while ($count = $get_total_num_borrower->fetch_array(MYSQLI_ASSOC)) {
               $bID = $count['totSum'];
             }
             ?>
-            <p id="first-card-label">OVERALL NUMBER OF LOAN : <?php echo "<span style='color: #1558f4;'>$bID</span><br>"; ?></p>
+            <?php echo "<p><span style='font-size: 32px;'>$bID <span style='font-size: 18px;'>overall loan</span></span></p>";?>
           </div>
           <hr>
           <div id="first-card-value-container">
 
             <?php
             $dataPoint = array();
-            // while($get_count = $typeOfLoanCount->fetch_array(MYSQLI_ASSOC)){
-            //   $typeOfLoan = $get_count['type_of_loan'];
-            //   $totalCount = $get_count['totalNum'];
-            //   // echo "$typeOfLoan : $totalCount<br>";
-            //   echo "['".$typeOfLoan."', ".$totalCount."],";
-
-
-            // }
 
             foreach ($typeOfLoanCount as $row) {
               array_push($dataPoint, array("Type Of Loan" => $row['type_of_loan'], "y" => $row['totalNum']));
@@ -145,10 +139,7 @@ $getHighestPenalty = $db->getHighestPenalty();
             <?php
             $emp_result = array();
             foreach ($getTypeOfEmployee as $res1) {
-              array_push($emp_result, array(
-                "Employee Type" => $res1['type_of_employee'],
-                "y" => $res1['totalEMP']
-              ));
+              array_push($emp_result, array("Employee Type" => $res1['type_of_employee'],"y" => $res1['totalEMP']));
             }
 
             // echo json_encode($emp_result, JSON_NUMERIC_CHECK);
@@ -197,6 +188,7 @@ $getHighestPenalty = $db->getHighestPenalty();
                     '#009245'
                   ]);
                 var chart = new CanvasJS.Chart("chartContainer", {
+                  // backgroundColor: "rgba(255, 255, 255, 0)",
                   title: {
                     text: "Percentage per Loan Account",
                     fontFamily: 'Helvetica',
@@ -238,7 +230,7 @@ $getHighestPenalty = $db->getHighestPenalty();
                     fontFamily: 'Helvetica',
                     fontWeight: 'bold',
                     fontColor: '#1558f4',
-                    fontSize: 14
+                    fontSize: 14,
                   },
                   legend: {
                     fontFamily: 'Helvetica',
@@ -338,15 +330,17 @@ $getHighestPenalty = $db->getHighestPenalty();
         </div>
 
         <div id="loan_received_cards" class="cards second-card">
+          <h5 style="margin: 0; color: #666666;">LOAN RELEASED</h5>
           <div id="second-card-label-container">
             <?php
             while ($count = $getOverallTotalOfCreditRate->fetch_array(MYSQLI_ASSOC)) {
               $overallLoanReleased = $count['overallLoanReleased'];
             }
             ?>
-            <p id="second-card-label">TOTAL LOAN RELEASED : <?php echo "<span style='color: #1558f4;'>₱$overallLoanReleased</span>"; ?></p>
+            <?php echo "<p><span style='font-size: 32px;'>₱$overallLoanReleased <span style='font-size: 18px;'> loan released</span></span>"; ?></p>
           </div>
           <hr>
+
           <div id="second-card-value-container">
             <!-- <p id = "second-card-value">0</p> -->
             <div id="loan_released_chart" style="width: 385px; height: 260px;"></div>
@@ -354,13 +348,15 @@ $getHighestPenalty = $db->getHighestPenalty();
         </div>
 
         <div id="collectibles_cards" class="cards third-card">
+          <h5 style="margin: 0; color: #666666;">NUMBER OF EMPLOYEE</h5>
           <div id="third-card-label-container">
             <?php
             while ($count = $getTotalNumberOfEmployee->fetch_array(MYSQLI_ASSOC)) {
               $empID = $count['totalBorrower'];
+              $if_one = (($empID == 1) ? 'total employee' : 'total employees');
             }
             ?>
-            <p id="third-card-label">NUMBER OF EMPLOYEE : <?php echo "<span style='color: #1558f4;'>$empID</span><br>"; ?></p>
+            <?php echo "<p><span style='font-size: 32px;'>$empID <span style='font-size: 18px;'>$if_one</span></span><br>"; ?></p>
           </div>
           <hr>
           <div id="third-card-value-container">
@@ -368,350 +364,420 @@ $getHighestPenalty = $db->getHighestPenalty();
             <div id="totalBorrowerBox" style="width: 385px; height: 260px;"></div>
           </div>
         </div>
-      </div>
 
-      <!-- ACTIVE LOAN CHART -->
-      <!-- Get the total of active loan -->
-      <div id="active_cards" class="fourth-card">
-        <h5 style="margin: 0; color: #666666;">ACTIVE LOAN</h5>
-        <div id="fourth-card-label-container">
-          <?php
-          while ($count = $getTotalActiveLoan->fetch_array(MYSQLI_ASSOC)) {
-            $allActiveLoan = $count['allActiveLoan'];
-            echo "<p class = 'fourth-card-label active_inner'><span style='font-size: 32px;'>$allActiveLoan</span> <span style='font-size: 18px;'>active loan</span></p>";
-          }
-          ?>
-          <hr>
-          <div class="active_inner_container" style="width: 300px;">
+        <!-- ACTIVE LOAN CHART -->
+        <!-- Get the total of active loan -->
+        <div id="active_cards" class="fourth-card">
+          <h5 style="margin: 0; color: #666666;">ACTIVE LOAN</h5>
+          <div id="fourth-card-label-container">
             <?php
-            while ($count = $getOverallActiveLoan->fetch_array(MYSQLI_ASSOC)) {
-              $typeOfLoan = $count['type_of_loan'];
-              $loanStatusCount = $count['loanStatusCount'];
-              echo "<div class='active_inner_value'>";
-              echo "<p class='loanStatusCount active_inner'>" . strrev(ucfirst(strrev($typeOfLoan))) . "</p>";
-              echo "<span style='font-size: 22px;'>$loanStatusCount <span style='font-size: 12px;'>active loans</span></span>";
-              echo "</div>";
+            while ($get_total_active_loan = $getTotalActiveLoan->fetch_array(MYSQLI_ASSOC)) {
+              $allActiveLoan = $get_total_active_loan['allActiveLoan'];
+              echo "<p class = 'fourth-card-label active_inner'><span style='font-size: 32px;'>$allActiveLoan</span> <span style='font-size: 18px;'>active loan</span></p>";
+            }
+            ?>
+            <hr>
+            <div class="active_inner_container" style="width: 300px;">
+              <?php
+              while ($get_overall_active_loan = $getOverallActiveLoan->fetch_array(MYSQLI_ASSOC)) {
+                if ($get_overall_active_loan > 0) {
+                  $typeOfLoan = $get_overall_active_loan['type_of_loan'];
+                  $loanStatusCount = $get_overall_active_loan['loanStatusCount'];
+                } else if ($get_overall_active_loan < 0) {
+                  $typeOfLoan = "";
+                  $loanStatusCount = 0;
+                }
+                echo "<div class='active_inner_value'>";
+                echo "<p class='loanStatusCount active_inner'>" . strrev(ucfirst(strrev($typeOfLoan))) . "</p>";
+                echo "<span style='font-size: 22px;'>$loanStatusCount <span style='font-size: 12px;'>active loans</span></span>";
+                echo "</div>";
+              }
+              ?>
+            </div>
+          </div>
+        </div>
+
+        <div id="totalpayment_cards" class="seventh-card">
+          <?php
+          echo '<h5 style="margin: 0; color: #666666;"><span>PAYMENT RECEIVED</span> <span style="float: right; font-weight: lighter; font-size: 12px;"> Today at ' . date("h:i A") . '</span></h5>';
+
+          while ($getData = $getFirstPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $overallFirstAmountPaid = $getData['overallFirstAmountPaid'];
+            } else {
+              $overallFirstAmountPaid = 0;
+            }
+          }
+
+          // echo "$overallFirstAmountPaid<br>";
+
+          while ($getData = $get5KAmountPaidFirstPayment->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $total5KFirstPayment = $getData['total5KFirstPayment'];
+            } else {
+              $total5KFirstPayment = 0;
+            }
+          }
+
+          // echo "$total5KFirstPayment<br>";
+
+          while ($getData = $get10KAmountPaidFirstPayment->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $total10KFirstPayment = $getData['total10KFirstPayment'];
+            } else {
+              $total10KFirstPayment = 0;
+            }
+          }
+
+          // echo "$total10KFirstPayment<br>";
+
+          while ($getData = $getSecondPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $overallSecondAmountPaid = $getData['overallSecondAmountPaid'];
+            } else {
+              $overallSecondAmountPaid = 0;
+            }
+          }
+
+          // echo "$overallSecondAmountPaid<br>";
+
+          while ($getData = $get5KAmountPaidSecondPayment->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $total5KSecondPayment = $getData['total5KSecondPayment'];
+            } else {
+              $total5KSecondPayment = 0;
+            }
+          }
+
+          // echo "$total5KSecondPayment<br>";
+
+          while ($getData = $get10KAmountPaidSecondPayment->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $total10KSecondPayment = $getData['total10KSecondPayment'];
+            } else {
+              $total10KSecondPayment = 0;
+            }
+          }
+
+          // echo "$total10KSecondPayment<br>";
+
+          while ($getData = $getThirdPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $overallThirdAmountPaid = $getData['overallThirdAmountPaid'];
+            } else {
+              $overallThirdAmountPaid = 0;
+            }
+          }
+
+          // echo "$overallThirdAmountPaid<br>";
+
+          while ($getData = $get5KAmountPaidThirdPayment->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $total5KThirdPayment = $getData['total5KThirdPayment'];
+            } else {
+              $total5KThirdPayment = 0;
+            }
+          }
+
+          // echo "$total5KThirdPayment<br>";
+
+          while ($getData = $get10KAmountPaidThirdPayment->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $total10KThirdPayment = $getData['total10KThirdPayment'];
+            } else {
+              $total10KThirdPayment = 0;
+            }
+          }
+
+          // echo "$total10KThirdPayment<br>";
+
+          while ($getData = $getFourthPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $overallFourthAmountPaid = $getData['overallFourthAmountPaid'];
+            } else {
+              $overallFourthAmountPaid = 0;
+            }
+          }
+
+          // echo "$overallFourthAmountPaid<br>";
+
+          while ($getData = $get5KAmountPaidFourthPayment->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $total5KFourthPayment = $getData['total5KFourthPayment'];
+            } else {
+              $total5KFourthPayment = 0;
+            }
+          }
+
+          // echo "$total5KFourthPayment<br>";
+
+          while ($getData = $get10KAmountPaidFourthPayment->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $total10KFourthPayment = $getData['total10KFourthPayment'];
+            } else {
+              $total10KFourthPayment = 0;
+            }
+          }
+
+          // echo "$total10KFourthPayment<br>";
+
+          while ($getData = $getFifthPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $overallFifthAmountPaid = $getData['overallFifthAmountPaid'];
+            } else {
+              $overallFifthAmountPaid = 0;
+            }
+          }
+
+          // echo "$overallFifthAmountPaid<br>";
+
+          while ($getData = $get5KAmountPaidFifthPayment->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $total5KFifthPayment = $getData['total5KFifthPayment'];
+            } else {
+              $total5KFifthPayment = 0;
+            }
+          }
+
+          // echo "$total5KFifthPayment<br>";
+
+          while ($getData = $get10KAmountPaidFifthPayment->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $total10KFifthPayment = $getData['total10KFifthPayment'];
+            } else {
+              $total10KFifthPayment = 0;
+            }
+          }
+
+          // echo "$total10KFifthPayment<br>";
+
+          while ($getData = $getSixthPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $overallSixthAmountPaid = $getData['overallSixthAmountPaid'];
+            } else {
+              $overallSixthAmountPaid = 0;
+            }
+          }
+
+          // echo "$overallSixthAmountPaid<br>";
+
+          while ($getData = $get5KAmountPaidSixthPayment->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $total5KSixthPayment = $getData['total5KSixthPayment'];
+            } else {
+              $total5KSixthPayment = 0;
+            }
+          }
+
+          // echo "$total5KSixthPayment<br>";
+
+          while ($getData = $get10KAmountPaidSixthPayment->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $total10KSixthPayment = $getData['total10KSixthPayment'];
+            } else {
+              $total10KSixthPayment = 0;
+            }
+          }
+
+          // echo "$total10KSixthPayment<br>";
+
+          while ($getData = $getFullPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $overallFullAmountPaid = $getData['overallFullAmountPaid'];
+            } else {
+              $overallFullAmountPaid = 0;
+            }
+          }
+
+          // echo "$overallFullAmountPaid<br>";
+
+          while ($getData = $get5KAmountPaidFullPayment->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $total5KFullPayment = $getData['total5KFullPayment'];
+            } else {
+              $total5KFullPayment = 0;
+            }
+          }
+
+          // echo "$total5KFullPayment<br>";
+
+          while ($getData = $get10KAmountPaidFullPayment->fetch_array(MYSQLI_ASSOC)) {
+            if ($getData > 0) {
+              $total10KFullPayment = $getData['total10KFullPayment'];
+            } else {
+              $total10KFullPayment = 0;
+            }
+          }
+
+          // echo "$total10KFullPayment<br>";
+
+          $overallTotalPaymentReceived = $overallFirstAmountPaid + $overallSecondAmountPaid + $overallThirdAmountPaid + $overallFourthAmountPaid + $overallFifthAmountPaid + $overallSixthAmountPaid + $overallFullAmountPaid;
+          $overallTotal5KPaymentReceived = $total5KFirstPayment + $total5KSecondPayment + $total5KThirdPayment + $total5KFourthPayment + $total5KFifthPayment + $total5KSixthPayment + $total5KFullPayment + $total5KFullPayment;
+          $overallTotal10KPaymentReceived = $total10KFirstPayment + $total10KSecondPayment + $total10KThirdPayment + $total10KFourthPayment + $total10KFifthPayment + $total10KSixthPayment + $total10KFullPayment;
+          if (isset($overallTotalPaymentReceived)) {
+            if ($overallTotalPaymentReceived != 0) {
+              if (isset($overallTotal5KPaymentReceived)) {
+                if ($overallTotal5KPaymentReceived != 0) {
+                  if (isset($overallTotal10KPaymentReceived)) {
+                    if ($overallTotal10KPaymentReceived != 0) {
+                    } else {
+                      $overallTotal10KPaymentReceived = 0;
+                    }
+                  } else {
+                    $overallTotal10KPaymentReceived = 0;
+                  }
+                } else {
+                  $overallTotal5KPaymentReceived = 0;
+                }
+              } else {
+                $overallTotal5KPaymentReceived = 0;
+              }
+            } else {
+              $overallTotalPaymentReceived = 0;
+            }
+          } else {
+            $overallTotalPaymentReceived = 0;
+          }
+          echo "<p style='margin: 0;'><span style='font-size: 32px;'>₱$overallTotalPaymentReceived</span></p>";
+          echo '<hr>';
+          echo '<div class="payment_received_inner">';
+          echo '<div>';
+          echo "<p><span class='title_payment_received'>5K</span></p>";
+          echo "<span style='font-size: 22px;'>₱$overallTotal5KPaymentReceived</span>";
+          echo '</div>';
+          echo '<div>';
+          echo "<p><span class='title_payment_received'>10K</span></p>";
+          echo "<span style='font-size: 22px;'>₱$overallTotal10KPaymentReceived</span>";
+          echo '</div>';
+          echo '</div>';
+
+          ?>
+        </div>
+
+        <div id="paymentoption_cards" class="ninth-card">
+          <h5 style="margin: 0; color: #666666;">PAYMENT OPTION</h5>
+          <?php
+          // echo '<hr style="margin-bottom: 15px;">';
+          echo '<div class="payment_option_box" align="center">';
+          echo '<div class="fullpayment_box">';
+          while ($get_overall_fp_count = $getOverallFullpaymentCount->fetch_array(MYSQLI_ASSOC)) {
+            $overallFullpaymentCount = $get_overall_fp_count['overallFullpaymentCount'];
+            echo "<p style='margin: 15px 0 0 0; font-weight: bold;'>Fullpayment</p>";
+            echo "<span style='font-size: 36px;'>$overallFullpaymentCount</span>";
+            //echo '<hr style="height: 5px; border-radius: 5px; width: ' . $overallFullpaymentCount . 'vw; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%)">';
+          }
+          echo '</div>';
+
+          echo '<div class="downpayment_box">';
+          while ($get_overall_dp_count = $getOverallDownpaymentCount->fetch_array(MYSQLI_ASSOC)) {
+            $overallDownpaymentCount = $get_overall_dp_count['overallDownpaymentCount'];
+            echo "<p style='margin: 15px 0 0 0; font-weight: bold;'>Downpayment</p>";
+            echo "<span style='font-size: 36px;'>$overallDownpaymentCount</span>";
+            // echo "<hr style='height: 5px; border-radius: 5px; width: " . $overallDownpaymentCount . "%; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%)'>";
+          }
+          echo '</div>';
+          echo '</div>';
+          ?>
+
+        </div>
+
+        <!-- <div id="totalinterest_cards" class="cards sixth-card">
+          <div id="loan_released_per_month_chart" style="width: 385px; height: 260px;"></div>
+        </div> -->
+
+      </div>
+      <!-- end of transaction card -->
+
+      <div id="third_line">
+        <!-- Active Loan List -->
+        <div id="active_borrower_cards" class="fifth-card">
+          <h5 style="margin: 0 0 12px 0; color: #666666;">ACTIVE LOAN LIST</h5>
+          <div class="active_borrower_list">
+            <?php
+            while ($get_active_list_data = $getActiveLoanList->fetch_array(MYSQLI_ASSOC)) {
+              if (isset($get_active_list_data)) {
+                if ($get_active_list_data > 0) {
+                  $activeFname = $get_active_list_data['fname'];
+                  $activeMname = $get_active_list_data['mname'];
+                  $activeLname = $get_active_list_data['lname'];
+                  $activeOffice = $get_active_list_data['empOffice'];
+                  $activeFullname = "$activeFname $activeMname $activeLname";
+                  $activeEmpType = $get_active_list_data['type_of_employee'] == 'civilian' ? 'Civilian' : 'Officer';
+
+                  echo '<p class="active_borrower_name">' . ucwords(strtolower($activeFullname)) . '</p>';
+                  echo '<p class="active_borrower_office">' . $activeEmpType . '</p>';
+                  echo '<hr style="background: #e6e6e6;">';
+                } else {
+                }
+              }
             }
             ?>
           </div>
         </div>
-      </div>
 
-      <!-- Active Loan List -->
-      <div id="active_borrower_cards" class="fifth-card">
-        <h5 style="margin: 0; color: #666666;">ACTIVE LOAN LIST</h5>
-        <div class="active_borrower_list">
+        <div id="most_borrower_cards" class="eigth-card">
+          <h5 style="margin: 0 0 12px 0; color: #666666;">MOST BORROWER</h5>
           <?php
-          while ($get_data = $getActiveLoanList->fetch_array(MYSQLI_ASSOC)) {
-            $activeFname = $get_data['fname'];
-            $activeMname = $get_data['mname'];
-            $activeLname = $get_data['lname'];
-            $activeOffice = $get_data['empOffice'];
-            $activeFullname = "$activeFname $activeMname $activeLname";
-            $activeEmpType = $get_data['type_of_employee'] == 'civilian' ? 'Civilian' : 'Officer';
+          while ($get_lacount_data = $getTopLoaner->fetch_array(MYSQLI_ASSOC)) {
+            if ($get_lacount_data > 0) {
+              $empID = $get_lacount_data['empID'];
+              $empFname = $get_lacount_data['empFname'];
+              $empMname = $get_lacount_data['empMname'];
+              $empLname = $get_lacount_data['empLname'];
+              $empFullname = "$empFname $empMname $empLname";
+              $laCount = $get_lacount_data['laCount'];
 
-            echo '<p class="active_borrower_name">' . ucwords(strtolower($activeFullname)) . '</p>';
-            echo '<p class="active_borrower_office">' . $activeEmpType . '</p>';
-            echo '<hr style="background: #e6e6e6;">';
+              if (isset($laCount)) {
+                if ($laCount != 0) {
+                  $laCountPercentage = $laCount / 100;
+                  echo "<p style='font-size: 16px; margin: 0;'>" . ucwords(strtolower($empFullname)) . "</p>";
+                  echo "<p style='font-size: 22px; margin: 0;'>$laCount <span style='font-size: 12px;'>counts</span></p>";
+
+                  // $co = $laCount * $laCount;
+                  echo "<hr class='hr-or' style='width: " . $laCountPercentage . "vw; height: 5px; border-radius: 5px; background: linear-gradient(118deg, rgba(180,67,255,1) 0%, rgba(255,26,209,1) 50%, rgba(255,58,58,1) 100%);'>";
+                  echo '<hr style="margin: 10px 0 10px 0;">';
+                } else {
+                }
+              } else {
+              }
+            } else {
+            }
           }
           ?>
         </div>
-        <!-- <p class="read-more" style="text-align:center;"><a href="#" class="readMoreButton">SHOW MORE</a></p> -->
-      </div>
 
-      <!-- Most picked Loan account -->
-      <div id="totalinterest_cards" class="sixth-card">
-        <div id="loan_released_per_month_chart" style="width: 385px; height: 260px;"></div>
-      </div>
+        <div id="penalty_list_box">
+          <h5 style="margin: 0 0 12px 0; color: #666666;">PENALTY</h5>
+          <?php
+          echo '<div class="penalty_list_card">';
+          while ($get_penalty_data = $getHighestPenalty->fetch_array(MYSQLI_ASSOC)) {
+            if ($get_penalty_data > 0) {
+              $p_empFname = $get_penalty_data['empFname'];
+              $p_empMname = $get_penalty_data['empMname'];
+              $p_empLname = $get_penalty_data['empLname'];
+              $p_typeOfEmployee = $get_penalty_data['typeOfEmployee'];
+              $p_empFullname = "$p_empFname $p_empMname $p_empLname";
+              $penaltyCount = $get_penalty_data['penaltyCount'];
 
-      <div id="totalemployee_cards" class="seventh-card">
-        <?php
-        echo '<p>TOTAL PAYMENT</p>';
-
-        while ($getData = $getFirstPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $overallFirstAmountPaid = $getData['overallFirstAmountPaid'];
-          } else {
-            $overallFirstAmountPaid = 0;
+              if (isset($penaltyCount)) {
+                if ($penaltyCount >= 1) {
+                  $penaltyPercentage = $penaltyCount / 100;
+                  echo '<p class="p_borrower_name" style="font-size: 16px; margin: 0;">' . ucwords(strtolower($p_empFullname)) . '</p>';
+                  echo '<p class="borrower_penalty_count" style="font-size: 22px; margin: 0;">' . $penaltyCount . ' <span style="font-size: 12px;">counts</span></p>';
+                  echo "<hr style='height: 5px; border-radius: 5px; width: " . $penaltyPercentage . "vw; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%)'>";
+                  echo '<hr>';
+                } else if ($penaltyCount == 0) {
+                  // echo '<p style="margin: 0; color: #666666; text-align: center;">No record</p>';
+                  break;
+                }
+              } else {
+              }
+            } else {
+            }
           }
-        }
-
-        // echo "$overallFirstAmountPaid<br>";
-
-        while ($getData = $get5KAmountPaidFirstPayment->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $total5KFirstPayment = $getData['total5KFirstPayment'];
-          } else {
-            $total5KFirstPayment = 0;
-          }
-        }
-
-        // echo "$total5KFirstPayment<br>";
-
-        while ($getData = $get10KAmountPaidFirstPayment->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $total10KFirstPayment = $getData['total10KFirstPayment'];
-          } else {
-            $total10KFirstPayment = 0;
-          }
-        }
-
-        // echo "$total10KFirstPayment<br>";
-
-        while ($getData = $getSecondPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $overallSecondAmountPaid = $getData['overallSecondAmountPaid'];
-          } else {
-            $overallSecondAmountPaid = 0;
-          }
-        }
-
-        // echo "$overallSecondAmountPaid<br>";
-
-        while ($getData = $get5KAmountPaidSecondPayment->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $total5KSecondPayment = $getData['total5KSecondPayment'];
-          } else {
-            $total5KSecondPayment = 0;
-          }
-        }
-
-        // echo "$total5KSecondPayment<br>";
-
-        while ($getData = $get10KAmountPaidSecondPayment->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $total10KSecondPayment = $getData['total10KSecondPayment'];
-          } else {
-            $total10KSecondPayment = 0;
-          }
-        }
-
-        // echo "$total10KSecondPayment<br>";
-
-        while ($getData = $getThirdPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $overallThirdAmountPaid = $getData['overallThirdAmountPaid'];
-          } else {
-            $overallThirdAmountPaid = 0;
-          }
-        }
-
-        // echo "$overallThirdAmountPaid<br>";
-
-        while ($getData = $get5KAmountPaidThirdPayment->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $total5KThirdPayment = $getData['total5KThirdPayment'];
-          } else {
-            $total5KThirdPayment = 0;
-          }
-        }
-
-        // echo "$total5KThirdPayment<br>";
-
-        while ($getData = $get10KAmountPaidThirdPayment->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $total10KThirdPayment = $getData['total10KThirdPayment'];
-          } else {
-            $total10KThirdPayment = 0;
-          }
-        }
-
-        // echo "$total10KThirdPayment<br>";
-
-        while ($getData = $getFourthPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $overallFourthAmountPaid = $getData['overallFourthAmountPaid'];
-          } else {
-            $overallFourthAmountPaid = 0;
-          }
-        }
-
-        // echo "$overallFourthAmountPaid<br>";
-
-        while ($getData = $get5KAmountPaidFourthPayment->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $total5KFourthPayment = $getData['total5KFourthPayment'];
-          } else {
-            $total5KFourthPayment = 0;
-          }
-        }
-
-        // echo "$total5KFourthPayment<br>";
-
-        while ($getData = $get10KAmountPaidFourthPayment->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $total10KFourthPayment = $getData['total10KFourthPayment'];
-          } else {
-            $total10KFourthPayment = 0;
-          }
-        }
-
-        // echo "$total10KFourthPayment<br>";
-
-        while ($getData = $getFifthPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $overallFifthAmountPaid = $getData['overallFifthAmountPaid'];
-          } else {
-            $overallFifthAmountPaid = 0;
-          }
-        }
-
-        // echo "$overallFifthAmountPaid<br>";
-
-        while ($getData = $get5KAmountPaidFifthPayment->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $total5KFifthPayment = $getData['total5KFifthPayment'];
-          } else {
-            $total5KFifthPayment = 0;
-          }
-        }
-
-        // echo "$total5KFifthPayment<br>";
-
-        while ($getData = $get10KAmountPaidFifthPayment->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $total10KFifthPayment = $getData['total10KFifthPayment'];
-          } else {
-            $total10KFifthPayment = 0;
-          }
-        }
-
-        // echo "$total10KFifthPayment<br>";
-
-        while ($getData = $getSixthPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $overallSixthAmountPaid = $getData['overallSixthAmountPaid'];
-          } else {
-            $overallSixthAmountPaid = 0;
-          }
-        }
-
-        // echo "$overallSixthAmountPaid<br>";
-
-        while ($getData = $get5KAmountPaidSixthPayment->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $total5KSixthPayment = $getData['total5KSixthPayment'];
-          } else {
-            $total5KSixthPayment = 0;
-          }
-        }
-
-        // echo "$total5KSixthPayment<br>";
-
-        while ($getData = $get10KAmountPaidSixthPayment->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $total10KSixthPayment = $getData['total10KSixthPayment'];
-          } else {
-            $total10KSixthPayment = 0;
-          }
-        }
-
-        // echo "$total10KSixthPayment<br>";
-
-        while ($getData = $getFullPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $overallFullAmountPaid = $getData['overallFullAmountPaid'];
-          } else {
-            $overallFullAmountPaid = 0;
-          }
-        }
-
-        // echo "$overallFullAmountPaid<br>";
-
-        while ($getData = $get5KAmountPaidFullPayment->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $total5KFullPayment = $getData['total5KFullPayment'];
-          } else {
-            $total5KFullPayment = 0;
-          }
-        }
-
-        // echo "$total5KFullPayment<br>";
-
-        while ($getData = $get10KAmountPaidFullPayment->fetch_array(MYSQLI_ASSOC)) {
-          if ($getData > 0) {
-            $total10KFullPayment = $getData['total10KFullPayment'];
-          } else {
-            $total10KFullPayment = 0;
-          }
-        }
-
-        // echo "$total10KFullPayment<br>";
-
-        $overallTotalPaymentReceived = $overallFirstAmountPaid + $overallSecondAmountPaid + $overallThirdAmountPaid + $overallFourthAmountPaid + $overallFifthAmountPaid + $overallSixthAmountPaid + $overallFullAmountPaid;
-        $overallTotal5KPaymentReceived = $total5KFirstPayment + $total5KSecondPayment + $total5KThirdPayment + $total5KFourthPayment + $total5KFifthPayment + $total5KSixthPayment + $total5KFullPayment + $total5KFullPayment;
-        $overallTotal10KPaymentReceived = $total10KFirstPayment + $total10KSecondPayment + $total10KThirdPayment + $total10KFourthPayment + $total10KFifthPayment + $total10KSixthPayment + $total10KFullPayment;
-        echo "<p>TOTAL PAYMENT RECEIVED: <span>$overallTotalPaymentReceived</span></p>";
-        echo "<p>5K : <span>$overallTotal5KPaymentReceived</span></p>";
-        echo "<p>10K : <span>$overallTotal10KPaymentReceived</span></p>";
-
-        ?>
-      </div>
-
-      <div id="totalamountpayment_cards" class="cards eigth-card" style="width: 390px;">
-        <h5>MOST BORROWER</h5>
-        <?php
-        while ($getData = $getTopLoaner->fetch_array(MYSQLI_ASSOC)) {
-          $empID = $getData['empID'];
-          $empFname = $getData['empFname'];
-          $empMname = $getData['empMname'];
-          $empLname = $getData['empLname'];
-          $empFullname = "$empFname $empMname $empLname";
-          $laCount = $getData['laCount'];
-
-          if ($laCount != 0) {
-            echo "" . ucwords(strtolower($empFullname)) . " : $laCount<br>";
-            // $co = $laCount * $laCount;
-            echo "<hr style='width: " . $laCount . "%; height: 5px; border-radius: 5px; background: linear-gradient(118deg, rgba(180,67,255,1) 0%, rgba(255,26,209,1) 50%, rgba(255,58,58,1) 100%);'>";
-          } else {
-          }
-        }
-        ?>
-      </div>
-
-      <div id="totalcontributions_cards" class="ninth-card">
-        <h5>Payment Option</h5>
-        <?php
-        echo '<div>';
-        while ($count = $getOverallFullpaymentCount->fetch_array(MYSQLI_ASSOC)) {
-          $overallFullpaymentCount = $count['overallFullpaymentCount'];
-
-          echo "<p style='margin: 0;'>Fullpayment</p>";
-          echo "<span>$overallFullpaymentCount</span>";
-          echo '<hr style="height: 5px; border-radius: 5px; width: ' . $overallFullpaymentCount . 'vw; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%)">';
-        }
-        echo '</div>';
-
-        echo '<div>';
-        while ($count = $getOverallDownpaymentCount->fetch_array(MYSQLI_ASSOC)) {
-          $overallDownpaymentCount = $count['overallDownpaymentCount'];
-          echo "<p style='margin: 0;'>Downpayment</p>";
-          echo "<span>$overallDownpaymentCount</span>";
-          echo "<hr style='height: 5px; border-radius: 5px; width: " . $overallDownpaymentCount . "%; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%)'>";
-        }
-        echo '</div>';
-        ?>
-
-      </div>
-
-      <div>
-        <h5>PENALTY</h5>
-        <?php
-        echo '<div>';
-        while ($getData = $getHighestPenalty->fetch_array(MYSQLI_ASSOC)) {
-          $p_empFname = $getData['empFname'];
-          $p_empMname = $getData['empMname'];
-          $p_empLname = $getData['empLname'];
-          $p_typeOfEmployee = $getData['typeOfEmployee'];
-          $p_empFullname = "$p_empFname $p_empMname $p_empLname";
-          $penaltyCount = $getData['penaltyCount'];
-
-          if ($penaltyCount >= 0) {
-            echo '<p class="p_borrower_name">' . ucwords(strtolower($p_empFullname)) . '</p>';
-          }
-        }
-        echo '</div>';
-        ?>
+          echo '</div>';
+          ?>
+        </div>
       </div>
 
     </div>
