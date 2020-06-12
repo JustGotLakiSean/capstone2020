@@ -22,12 +22,11 @@ body {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 2px;
+  width: 6px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  display: none;
   background: #E6E6E6;
   border-radius: 2px;
 }
@@ -189,6 +188,7 @@ body {
 
 .active_inner {
   margin: 0;
+  color: #333333;
 }
 
 .loanStatusCount {
@@ -271,11 +271,13 @@ body {
 }
 
 .active_borrower_name {
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333333;
 }
 
 .active_borrower_office {
-  font-size: 12px;
+  font-size: 14px;
   color: #666666;
 }
 

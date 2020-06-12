@@ -1,9 +1,14 @@
 <?php
 echo <<<STYLE
 <style>
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Roboto', 'Helvetica', 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
   //background: linear-gradient(286deg, rgba(0,255,56,0.6839110644257703) 4%, rgba(147,48,204,1) 50%, rgba(0,255,188,1) 100%);
   background: #F2F2F2;
 }
@@ -19,7 +24,7 @@ body {
 }
 
 #loan-navigation-container nav ul {
-  height: 6vh;
+  height: 42px;
   display: flex;
   justify-content: space-evenly;
   padding: 0;
@@ -57,7 +62,7 @@ body {
   background: #dddddd;
   border: none;
   border-radius: 3px;
-  height: 4vh;
+  height: 26px;
   cursor: pointer;
   color: #fff;
   position: relative;
@@ -91,12 +96,14 @@ body {
 }
 
 #loanmonitoring-container {
-  max-width: 1180px;
+  max-width: 92%;
   margin: auto;
-  margin-top: 20px;
+  height: 740px;
 }
 
 #loan-summary-content {
+  position: relative;
+  // top: 58px;
   width: 100%;
   display: flex;
   flex-flow: row wrap;
@@ -104,35 +111,37 @@ body {
 }
 
 #loan-summary-content .summarycard {
-  padding: 5px;
+  padding: 3px;
   margin-bottom: 10px;
-  height: 102px;
-  width: 180px;
+  height: auto;
+  width: 200px;
   //background: rgba(255, 255, 255, 0.2);
   background: #FFFFFF;
-  font-size: 1.2rem;
+  font-size: 20px;
   border-radius: 5px;
   box-shadow: 5px 2px 10px rgba(126, 125, 125, .1),
   -5px 2px 10px rgba(126, 125, 125, .1);
   //backdrop-filter: blur(8px);
 }
-
-#loan-summary-content p{
+#loan-summary-content p, h5{
+  text-align: center;
   margin: 0;
   padding: 0;
 }
 
-#loan-summary-content .ls-value {
-  text-align: right;
-  font-size: 2rem;
-  margin-top: 1rem;
-}
+// #loan-summary-content .ls-value {
+//   text-align: right;
+//   font-size: 2rem;
+//   margin-top: 1rem;
+// }
 
 #loantransactionform {
   width: 100%;
   height: 520px;
   margin: 0;
   background: #fff;
+  box-shadow: 5px 2px 10px rgba(126, 125, 125, .1),
+  -5px 2px 10px rgba(126, 125, 125, .1);
 }
 
 #loantabs {
@@ -234,7 +243,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(10px);
   background-color: rgba(0, 0, 0, 0.4); /* color */
   display: none; /* making it hidden by default */
 }
@@ -244,6 +253,10 @@ body {
   height: 650px;
   margin: auto;
   background: #F2F2F2;
+  // background: rgba(255, 255, 255, 0.9);
+  // backdrop-filter: blur(10px);
+  position: relative;
+  top: 8px;
   border-radius: 5px;
   border: none;
 }
@@ -312,7 +325,7 @@ body {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 6px;
 }
 
 /* Track */
@@ -384,7 +397,7 @@ hr {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 6px;
 }
 
 /* Track */
@@ -494,8 +507,8 @@ hr {
   left: 0;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(8px);
-  background-color: rgba(0, 0, 0, 0.3); /* color */
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.4); /* color */
   display: none; /* making it hidden by default */
 }
 
@@ -602,7 +615,7 @@ hr {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 6px;
 }
 
 /* Track */
@@ -723,7 +736,7 @@ hr {
   left: 0;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(10px);
   background-color: rgba(0, 0, 0, 0.4); /* color */
 }
 
@@ -1003,7 +1016,7 @@ hr {
   left: 0;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(10px);
   background-color: rgba(0, 0, 0, 0.4); /* color */
 }
 

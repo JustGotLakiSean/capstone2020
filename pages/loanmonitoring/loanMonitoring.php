@@ -11,6 +11,8 @@ $dt = $db->view_all_employee();
 $lr5k = $db->loan_rates_5K();
 $lr10k = $db->loan_rates_10K();
 
+$getTotalActiveLoan = $db->getTotalActiveLoan();
+
 function transaction_table_5k()
 {
   $con = new db_access();
@@ -225,7 +227,7 @@ BUTTON;
         <li>
           <div>
             <input type="button" id="admin-button" value="Admin Button" onclick="document.getElementById('admin_menu_box').style.display='flex'" />
-            <div id="admin_menu_box">
+            <div id="admin_menu_box" style="z-index: 1;">
               <a href="../../pages/admin/adminSettings.php">Setting</a>
               <a href="../../pages/admin/adminloanrequest.php">View Loan Request</a>
               <a href="logout.php">Sign Out</a>
@@ -251,17 +253,26 @@ BUTTON;
       }
       ?>
       <div id="loan-summary-content">
+
         <div id="totalborrowers" class="summarycard">
           <div id="totalborrowerslabel">
-            <p>Total Borrowers</p>
+            <h5 style="margin: 0; color: #666666;">Active loan</h5>
           </div>
           <div id="totalborrowercount">
-            <p class="ls-value">0</p>
+            <?php
+            while($get_total_active_loan = $getTotalActiveLoan->fetch_array(MYSQLI_ASSOC)){
+              if(isset($get_total_active_loan)){
+                $totalActiveLoan = $get_total_active_loan['allActiveLoan'];
+                echo '<p style="font-size: 32px;">' . $totalActiveLoan . '</p>';
+              } else {
+              }
+            }
+            ?>
           </div>
         </div>
         <div id="collectibles" class="summarycard">
           <div id="collectibleslabel">
-            <p>Collectibles</p>
+            <h5 style="margin: 0; color: #666666;">Overall balance received</h5>
           </div>
           <div id="collectiblescount">
             <p class="ls-value">0</p>
@@ -283,22 +294,7 @@ BUTTON;
             <p class="ls-value">0</p>
           </div>
         </div>
-        <div id="expectedinterest" class="summarycard">
-          <div id="expectedinterestlabel">
-            <p>Expected Interest Amount</p>
-          </div>
-          <div id="expectedinterestcount">
-            <p class="ls-value">0</p>
-          </div>
-        </div>
-        <div id="expectedloanamount" class="summarycard">
-          <div id="expectedloanamountlabel">
-            <p>Expected Loan Amount</p>
-          </div>
-          <div id="expectedloanamountcount">
-            <p class="ls-value">0</p>
-          </div>
-        </div>
+
       </div>
 
       <div id="loantransactionform">
@@ -687,7 +683,7 @@ EMP_LIST;
         echo '
     <form id="newpayment_5k_container" method="POST" action="add_new_5k_payment.php">
       <div class="newpayment_5k_titlecontainer">
-        <h3 id="new_payment_title_5k"align="center">Add New Payment</h3>
+        <h3 id="new_payment_title_5k"align="center">Loan details</h3>
       </div>
       <div class="bdb-content">
         <div class="bdb-inner-content">
@@ -723,9 +719,7 @@ EMP_LIST;
             </div>
           </div>
           <div class="current_loantransaction_container">
-            <div class="clt_header">
-              <h5>Borrower\'s Loan Detail</h5>
-            </div>
+
             <hr>
             <div class="clt_container">
               <div class="cltbox">
@@ -1105,7 +1099,7 @@ EMP_LIST;
         echo '
   <form class="newpayment_10k_container" method="post" action="add_new_10k_payment.php">
     <div class="newpayment_10k_titlecontainer">
-      <h3 align="center">Add New Payment</h3>
+      <h3 align="center">Loan details</h3>
     </div>
     <div class="bdb-10k-content">
       <div class="bdb-10k-inner-content">
@@ -1146,7 +1140,6 @@ EMP_LIST;
         </div>
         <div class="current_10K_loantransaction_container">
           <div class="clt_header_10k">
-            <h5>Borrower\'s Loan History</h5>
           </div>
           <hr>
           <div class="clt_container_10k">

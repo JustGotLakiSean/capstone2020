@@ -479,10 +479,104 @@ class db_access
     if ($insert_query) {
       return true;
     } else {
-      return false;
+      die($con->error);
     }
     $con->close();
   }
+
+  // // add has_penalty_10k, is_penalty_10k_paid, and penalty_10k_amount with "1" value;
+  // // public function update_1st_10k_penalty($has_penalty, $is_penalty_paid, $penalty_amount, $loan_id, $type_of_loanAccount, $borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
+  // public function add_1st_10k_penalty($has_penalty, $is_penalty_paid, $penalty_amount)
+  // {
+  //   $con=$this->getConnection();
+  //   // $query="UPDATE tbl_1stpayment SET has_penalty = '$has_penalty' AND is_penalty_paid = '$is_penalty_paid' AND penalty_amount = '$penalty_amount' WHERE loan_id = '$loan_id' AND type_of_loanAccount = '$type_of_loanAccount' AND borrower_id = '$borrower_id' AND fname = '$borrower_fname' AND mname = '$borrower_mname' AND lname = '$borrower_lname' AND type_of_employee = '$type_of_employee' AND borrower_office = '$borrower_office' AND borrower_rank = '$borrower_rank'";
+  //   $query="INSERT INTO tbl_1stpayment(has_penalty, is_penalty_paid, penalty_amount) VALUE('$has_penalty', '$is_penalty_paid', '$penalty_amount')";
+  //   $insert_query=$con->query($query);
+  //   if($insert_query){
+  //     return true;
+  //   } else {
+  //     die($con->error);
+  //   }
+  //   $con->close();
+  // }
+
+  // public function update_2nd_10k_penalty_data($has_penalty, $is_penalty_paid, $penalty_amount, $loan_id, $type_of_loanAccount, $borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
+  // {
+  //   $con=$this->getConnection();
+  //   $query="UPDATE tbl_2ndpayment SET has_penalty = '$has_penalty' AND is_penalty_paid = '$is_penalty_paid' AND penalty_amount = '$penalty_amount' WHERE loan_id = '$loan_id' AND type_of_loanAccount = '$type_of_loanAccount' AND borrower_id = '$borrower_id' AND fname = '$borrower_fname' AND mname = '$borrower_mname' AND lname = '$borrower_lname' AND type_of_employee = '$type_of_employee' AND borrower_office = '$borrower_office' AND borrower_rank = '$borrower_rank'";
+  //   $insert_query=$con->query($query);
+  //   if($insert_query){
+  //     return true;
+  //   } else {
+  //     die($con->error);
+  //   }
+  //   $con->close();
+  // }
+
+  // public function update_3rd_10k_penalty_data($has_penalty, $is_penalty_paid, $penalty_amount, $loan_id, $type_of_loanAccount, $borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
+  // {
+  //   $con=$this->getConnection();
+  //   $query="UPDATE tbl_3rdpayment SET has_penalty = '$has_penalty' AND is_penalty_paid = '$is_penalty_paid' AND penalty_amount = '$penalty_amount' WHERE loan_id = '$loan_id' AND type_of_loanAccount = '$type_of_loanAccount' AND borrower_id = '$borrower_id' AND fname = '$borrower_fname' AND mname = '$borrower_mname' AND lname = '$borrower_lname' AND type_of_employee = '$type_of_employee' AND borrower_office = '$borrower_office' AND borrower_rank = '$borrower_rank'";
+  //   $insert_query=$con->query($query);
+  //   if($insert_query){
+  //     return true;
+  //   } else {
+  //     die($con->error);
+  //   }
+  //   $con->close();
+  // }
+
+  // public function update_4th_10k_penalty_data($has_penalty, $is_penalty_paid, $penalty_amount, $loan_id, $type_of_loanAccount, $borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
+  // {
+  //   $con=$this->getConnection();
+  //   $query="UPDATE tbl_4thpayment SET has_penalty = '$has_penalty' AND is_penalty_paid = '$is_penalty_paid' AND penalty_amount = '$penalty_amount' WHERE loan_id = '$loan_id' AND type_of_loanAccount = '$type_of_loanAccount' AND borrower_id = '$borrower_id' AND fname = '$borrower_fname' AND mname = '$borrower_mname' AND lname = '$borrower_lname' AND type_of_employee = '$type_of_employee' AND borrower_office = '$borrower_office' AND borrower_rank = '$borrower_rank'";
+  //   $insert_query=$con->query($query);
+  //   if($insert_query){
+  //     return true;
+  //   } else {
+  //     die($con->error);
+  //   }
+  //   $con->close();
+  // }
+
+  // public function update_5th_10k_penalty_data($has_penalty, $is_penalty_paid, $penalty_amount, $loan_id, $type_of_loanAccount, $borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
+  // {
+  //   $con=$this->getConnection();
+  //   $query="UPDATE tbl_5thpayment SET has_penalty = '$has_penalty' AND is_penalty_paid = '$is_penalty_paid' AND penalty_amount = '$penalty_amount' WHERE loan_id = '$loan_id' AND type_of_loanAccount = '$type_of_loanAccount' AND borrower_id = '$borrower_id' AND fname = '$borrower_fname' AND mname = '$borrower_mname' AND lname = '$borrower_lname' AND type_of_employee = '$type_of_employee' AND borrower_office = '$borrower_office' AND borrower_rank = '$borrower_rank'";
+  //   $insert_query=$con->query($query);
+  //   if($insert_query){
+  //     return true;
+  //   } else {
+  //     die($con->error);
+  //   }
+  //   $con->close();
+  // }
+
+  // public function update_6th_10k_penalty_data($has_penalty, $is_penalty_paid, $penalty_amount, $loan_id, $type_of_loanAccount, $borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
+  // {
+  //   $con=$this->getConnection();
+  //   $query="UPDATE tbl_6thpayment SET has_penalty = '$has_penalty' AND is_penalty_paid = '$is_penalty_paid' AND penalty_amount = '$penalty_amount' WHERE loan_id = '$loan_id' AND type_of_loanAccount = '$type_of_loanAccount' AND borrower_id = '$borrower_id' AND fname = '$borrower_fname' AND mname = '$borrower_mname' AND lname = '$borrower_lname' AND type_of_employee = '$type_of_employee' AND borrower_office = '$borrower_office' AND borrower_rank = '$borrower_rank'";
+  //   $insert_query=$con->query($query);
+  //   if($insert_query){
+  //     return true;
+  //   } else {
+  //     die($con->error);
+  //   }
+  //   $con->close();
+  // }
+
+  // public function update_full_10k_penalty_data($has_penalty, $is_penalty_paid, $penalty_amount, $loan_id, $type_of_loanAccount, $borrower_id, $borrower_fname, $borrower_mname, $borrower_lname, $type_of_employee, $borrower_office, $borrower_rank)
+  // {
+  //   $con=$this->getConnection();
+  //   $query="UPDATE tbl_fullpayment SET has_penalty = '$has_penalty' AND is_penalty_paid = '$is_penalty_paid' AND penalty_amount = '$penalty_amount' WHERE loan_id = '$loan_id' AND type_of_loanAccount = '$type_of_loanAccount' AND borrower_id = '$borrower_id' AND fname = '$borrower_fname' AND mname = '$borrower_mname' AND lname = '$borrower_lname' AND type_of_employee = '$type_of_employee' AND borrower_office = '$borrower_office' AND borrower_rank = '$borrower_rank'";
+  //   $insert_query=$con->query($query);
+  //   if($insert_query){
+  //     return true;
+  //   } else {
+  //     die($con->error);
+  //   }
+  //   $con->close();
+  // }
 
   public function select_new_loan_10k($loan_id)
   {
@@ -797,7 +891,7 @@ class db_access
     if ($update_query) {
       return true;
     } else {
-      return true;
+      return false;
     }
     $con->close();
   }
@@ -811,7 +905,7 @@ class db_access
     if ($update_query) {
       return true;
     } else {
-      return true;
+      die($con->error);
     }
     $con->close();
   }
@@ -825,7 +919,7 @@ class db_access
     if ($update_query) {
       return true;
     } else {
-      return true;
+      die($con->error);
     }
     $con->close();
   }
@@ -840,7 +934,7 @@ class db_access
     if ($update_query) {
       return true;
     } else {
-      return true;
+      die($con->error);
     }
     $con->close();
   }
@@ -854,7 +948,7 @@ class db_access
     if ($update_query) {
       return true;
     } else {
-      return true;
+      die($con->error);
     }
     $con->close();
   }
@@ -868,7 +962,49 @@ class db_access
     if ($update_query) {
       return true;
     } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // increment penalty 5k; civilian
+  public function increment_penalty5k_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_civilian_employee SET penalty_5k_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query=$con->query($query);
+    if($update_query){
       return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // increment penalty 10k; civilian
+  public function increment_penalty10k_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_civilian_employee SET penalty_10k_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query=$con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // increment civilian penalty count
+  public function increment_penalty_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_civilian_employee SET penalty_count ='$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query=$con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      die($con->error);
     }
     $con->close();
   }
@@ -883,7 +1019,7 @@ class db_access
     if ($update_query) {
       return true;
     } else {
-      return true;
+      die($con->error);
     }
     $con->close();
   }
@@ -897,7 +1033,7 @@ class db_access
     if ($update_query) {
       return true;
     } else {
-      return true;
+      die($con->error);
     }
     $con->close();
   }
@@ -911,7 +1047,7 @@ class db_access
     if ($update_query) {
       return true;
     } else {
-      return true;
+      die($con->error);
     }
     $con->close();
   }
@@ -926,7 +1062,7 @@ class db_access
     if ($update_query) {
       return true;
     } else {
-      return true;
+      die($con->error);
     }
     $con->close();
   }
@@ -940,7 +1076,7 @@ class db_access
     if ($update_query) {
       return true;
     } else {
-      return true;
+      die($con->error);
     }
     $con->close();
   }
@@ -949,12 +1085,54 @@ class db_access
   public function increment_fullpayment_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
   {
     $con = $this->getConnection();
-    $query = "UPDATE tbl_officersandep SET fullpayment_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $query = "UPDATE tbl_officersandep SET fullpayment_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
     $update_query = $con->query($query);
     if ($update_query) {
       return true;
     } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // increment penalty 5k; officer
+  public function increment_penalty5k_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_officersandep SET penalty_5k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query=$con->query($query);
+    if($update_query){
       return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // increment penalty 10k; officer
+  public function increment_penalty10k_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_officersandep SET penalty_10k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query=$con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // increment officer penalty count
+  public function increment_penalty_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
+  {
+    $con=$this->getConnection();
+    $query="UPDATE tbl_officersandep SET penalty_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query=$con->query($query);
+    if($update_query){
+      return true;
+    } else {
+      die($con->error);
     }
     $con->close();
   }
@@ -1520,6 +1698,34 @@ class db_access
     $con->close();
   }
 
+  // get 5k sum of credit
+  public function get_5k_credit_rate_sum()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(credit_5k_rate) AS currCredit5kRate FROM tbl_new_5k_loan";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get 10k sum of credit
+  public function get_10k_credit_rate_sum()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(credit_10k_rate) AS currCredit10kRate FROM tbl_new_10k_loan";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
   // get sum of credit rate for each loan type (5k, 10k)
   public function getSumOfEachCreditRate()
   {
@@ -1987,80 +2193,3 @@ class db_access
     $con->close();
   }
 }
-
-
-// <!-- Active Loan List -->
-//         <div id="active_borrower_cards" class="fifth-card">
-//           <h5 style="margin: 0; color: #666666;">ACTIVE LOAN LIST</h5>
-//           <div class="active_borrower_list">
-//             <?php
-//             // while ($get_data = $getActiveLoanList->fetch_array(MYSQLI_ASSOC)) {
-//             //   $activeFname = $get_data['fname'];
-//             //   $activeMname = $get_data['mname'];
-//             //   $activeLname = $get_data['lname'];
-//             //   $activeOffice = $get_data['empOffice'];
-//             //   $activeFullname = "$activeFname $activeMname $activeLname";
-//             //   $activeEmpType = $get_data['type_of_employee'] == 'civilian' ? 'Civilian' : 'Officer';
-
-//             //   echo '<p class="active_borrower_name">' . ucwords(strtolower($activeFullname)) . '</p>';
-//             //   echo '<p class="active_borrower_office">' . $activeEmpType . '</p>';
-//             //   echo '<hr style="background: #e6e6e6;">';
-//             // }
-//             
-//           </div>
-//           <!-- <p class="read-more" style="text-align:center;"><a href="#" class="readMoreButton">SHOW MORE</a></p> -->
-//         </div>
-
-//         <div id="most_borrower_cards" class="eigth-card">
-//           <h5 style="margin: 0; color: #666666;">MOST BORROWER</h5>
-//           
-//           // while ($getData = $getTopLoaner->fetch_array(MYSQLI_ASSOC)) {
-//           //   $empID = $getData['empID'];
-//           //   $empFname = $getData['empFname'];
-//           //   $empMname = $getData['empMname'];
-//           //   $empLname = $getData['empLname'];
-//           //   $empFullname = "$empFname $empMname $empLname";
-//           //   $laCount = $getData['laCount'];
-
-//           //   if ($laCount != 0) {
-//           //     $laCountPercentage = $laCount / 100;
-//           //     // echo "<p style='font-size: 16px; margin: 0;'>" . ucwords(strtolower($empFullname)) . "</p>";
-//           //     // echo "<p style='font-size: 22px; margin: 0;'>$laCount <span style='font-size: 12px;'>counts</span></p>";
-
-//           //     // // $co = $laCount * $laCount;
-//           //     // echo "<hr class='hr-or' style='width: " . $laCountPercentage . "vw; height: 5px; border-radius: 5px; background: linear-gradient(118deg, rgba(180,67,255,1) 0%, rgba(255,26,209,1) 50%, rgba(255,58,58,1) 100%);'>";
-//           //     // echo '<hr style="margin: 10px 0 10px 0;">';
-//           //   } else {
-//           //   }
-//           // }
-//           
-//         </div>
-
-//         <div id="penalty_list_box">
-//           <h5 style="margin: 0; color: #666666;">PENALTY</h5>
-//           
-//           // echo '<div class="penalty_list_card">';
-//           // while ($getData = $getHighestPenalty->fetch_array(MYSQLI_ASSOC)) {
-//           //   $p_empFname = $getData['empFname'];
-//           //   $p_empMname = $getData['empMname'];
-//           //   $p_empLname = $getData['empLname'];
-//           //   $p_typeOfEmployee = $getData['typeOfEmployee'];
-//           //   $p_empFullname = "$p_empFname $p_empMname $p_empLname";
-//           //   $penaltyCount = $getData['penaltyCount'];
-
-//           //   if (isset($penaltyCount)) {
-//           //     // echo "HE";
-//           //     if ($penaltyCount != 1) {
-//           //       $penaltyPercentage = $penaltyCount / 100;
-//           //       // echo '<p class="p_borrower_name" style="font-size: 16px; margin: 0;">' . ucwords(strtolower($p_empFullname)) . '</p>';
-//           //       // echo '<p class="borrower_penalty_count" style="font-size: 22px; margin: 0;">' . $penaltyCount . ' <span style="font-size: 12px;">counts</span></p>';
-//           //       // echo "<hr style='height: 5px; border-radius: 5px; width: " . $penaltyPercentage . "vw; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%)'>";
-//           //       // echo '<hr>';
-//           //     } else if ($penaltyCount == 0) {
-//           //     }
-//           //   } else {
-//           //   }
-//           // }
-//           // echo '</div>';
-//           
-//         </div>

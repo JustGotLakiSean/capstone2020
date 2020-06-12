@@ -17,6 +17,9 @@ $getTypeOfEmployee = $db->getTypeOfEmployee();
 $getOverallTotalOfCreditRate = $db->getOverallTotalOfCreditRate();
 $getSumOfEachCreditRate = $db->getSumOfEachCreditRate();
 
+$get_5k_credit_rate_sum = $db->get_5k_credit_rate_sum();
+$get_10k_credit_rate_sum = $db->get_10k_credit_rate_sum();
+
 $getTotalActiveLoan = $db->getTotalActiveLoan();
 $getOverallActiveLoan = $db->getOverallActiveLoan();
 
@@ -121,7 +124,7 @@ $getHighestPenalty = $db->getHighestPenalty();
               $bID = $count['totSum'];
             }
             ?>
-            <?php echo "<p><span style='font-size: 32px;'>$bID <span style='font-size: 18px;'>overall loan</span></span></p>";?>
+            <?php echo "<p style='color: #333333;'><span style='font-size: 32px;'>$bID <span style='font-size: 18px;'>overall loan</span></span></p>";?>
           </div>
           <hr>
           <div id="first-card-value-container">
@@ -333,11 +336,25 @@ $getHighestPenalty = $db->getHighestPenalty();
           <h5 style="margin: 0; color: #666666;">LOAN RELEASED</h5>
           <div id="second-card-label-container">
             <?php
-            while ($count = $getOverallTotalOfCreditRate->fetch_array(MYSQLI_ASSOC)) {
-              $overallLoanReleased = $count['overallLoanReleased'];
+            while($get5kCreditRate = $get_5k_credit_rate_sum->fetch_array(MYSQLI_ASSOC)){
+              if($get5kCreditRate > 0){
+                $currCredit5kRate = $get5kCreditRate['currCredit5kRate'];
+              } else {
+                $currCredit5kRate = 0;
+              }
             }
+
+            while($get10kCreditRate = $get_10k_credit_rate_sum->fetch_array(MYSQLI_ASSOC)){
+              if($get10kCreditRate > 0){
+                $currCredit10kRate = $get10kCreditRate['currCredit10kRate'];
+              } else {
+                $currCredit10kRate = 0;
+              }
+            }
+
+            $overallLoanReleased = $currCredit5kRate + $currCredit10kRate;
+            echo "<p style='color:#333333;'><span style='font-size: 32px;'>₱$overallLoanReleased <span style='font-size: 18px;'> loan released</span></span></p>";
             ?>
-            <?php echo "<p><span style='font-size: 32px;'>₱$overallLoanReleased <span style='font-size: 18px;'> loan released</span></span>"; ?></p>
           </div>
           <hr>
 
@@ -356,7 +373,7 @@ $getHighestPenalty = $db->getHighestPenalty();
               $if_one = (($empID == 1) ? 'total employee' : 'total employees');
             }
             ?>
-            <?php echo "<p><span style='font-size: 32px;'>$empID <span style='font-size: 18px;'>$if_one</span></span><br>"; ?></p>
+            <?php echo "<p style='color: #333333;'><span style='font-size: 32px;'>$empID <span style='font-size: 18px;'>$if_one</span></span><br>"; ?></p>
           </div>
           <hr>
           <div id="third-card-value-container">
@@ -380,10 +397,10 @@ $getHighestPenalty = $db->getHighestPenalty();
             <div class="active_inner_container" style="width: 300px;">
               <?php
               while ($get_overall_active_loan = $getOverallActiveLoan->fetch_array(MYSQLI_ASSOC)) {
-                if ($get_overall_active_loan > 0) {
+                if ($get_overall_active_loan) {
                   $typeOfLoan = $get_overall_active_loan['type_of_loan'];
                   $loanStatusCount = $get_overall_active_loan['loanStatusCount'];
-                } else if ($get_overall_active_loan < 0) {
+                } else {
                   $typeOfLoan = "";
                   $loanStatusCount = 0;
                 }
@@ -638,16 +655,16 @@ $getHighestPenalty = $db->getHighestPenalty();
           } else {
             $overallTotalPaymentReceived = 0;
           }
-          echo "<p style='margin: 0;'><span style='font-size: 32px;'>₱$overallTotalPaymentReceived</span></p>";
+          echo "<p style='margin: 0;'><span style='font-size: 32px; color:#333333;'>₱$overallTotalPaymentReceived</span></p>";
           echo '<hr>';
           echo '<div class="payment_received_inner">';
           echo '<div>';
           echo "<p><span class='title_payment_received'>5K</span></p>";
-          echo "<span style='font-size: 22px;'>₱$overallTotal5KPaymentReceived</span>";
+          echo "<span style='font-size: 22px; color: #333333;'>₱$overallTotal5KPaymentReceived</span>";
           echo '</div>';
           echo '<div>';
           echo "<p><span class='title_payment_received'>10K</span></p>";
-          echo "<span style='font-size: 22px;'>₱$overallTotal10KPaymentReceived</span>";
+          echo "<span style='font-size: 22px; color: #333333;'>₱$overallTotal10KPaymentReceived</span>";
           echo '</div>';
           echo '</div>';
 
@@ -662,8 +679,8 @@ $getHighestPenalty = $db->getHighestPenalty();
           echo '<div class="fullpayment_box">';
           while ($get_overall_fp_count = $getOverallFullpaymentCount->fetch_array(MYSQLI_ASSOC)) {
             $overallFullpaymentCount = $get_overall_fp_count['overallFullpaymentCount'];
-            echo "<p style='margin: 15px 0 0 0; font-weight: bold;'>Fullpayment</p>";
-            echo "<span style='font-size: 36px;'>$overallFullpaymentCount</span>";
+            echo "<p style='margin: 15px 0 0 0; font-weight: bold; color: #333333;'>Fullpayment</p>";
+            echo "<span style='font-size: 36px; color: #333333;'>$overallFullpaymentCount</span>";
             //echo '<hr style="height: 5px; border-radius: 5px; width: ' . $overallFullpaymentCount . 'vw; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%)">';
           }
           echo '</div>';
@@ -671,8 +688,8 @@ $getHighestPenalty = $db->getHighestPenalty();
           echo '<div class="downpayment_box">';
           while ($get_overall_dp_count = $getOverallDownpaymentCount->fetch_array(MYSQLI_ASSOC)) {
             $overallDownpaymentCount = $get_overall_dp_count['overallDownpaymentCount'];
-            echo "<p style='margin: 15px 0 0 0; font-weight: bold;'>Downpayment</p>";
-            echo "<span style='font-size: 36px;'>$overallDownpaymentCount</span>";
+            echo "<p style='margin: 15px 0 0 0; font-weight: bold; color: #333333;'>Downpayment</p>";
+            echo "<span style='font-size: 36px; color: #333333;'>$overallDownpaymentCount</span>";
             // echo "<hr style='height: 5px; border-radius: 5px; width: " . $overallDownpaymentCount . "%; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%)'>";
           }
           echo '</div>';
@@ -709,6 +726,7 @@ $getHighestPenalty = $db->getHighestPenalty();
                   echo '<hr style="background: #e6e6e6;">';
                 } else {
                 }
+              } else {
               }
             }
             ?>
@@ -719,7 +737,7 @@ $getHighestPenalty = $db->getHighestPenalty();
           <h5 style="margin: 0 0 12px 0; color: #666666;">MOST BORROWER</h5>
           <?php
           while ($get_lacount_data = $getTopLoaner->fetch_array(MYSQLI_ASSOC)) {
-            if ($get_lacount_data > 0) {
+            if ($get_lacount_data) {
               $empID = $get_lacount_data['empID'];
               $empFname = $get_lacount_data['empFname'];
               $empMname = $get_lacount_data['empMname'];
@@ -728,10 +746,10 @@ $getHighestPenalty = $db->getHighestPenalty();
               $laCount = $get_lacount_data['laCount'];
 
               if (isset($laCount)) {
-                if ($laCount != 0) {
+                if ($laCount >= 15) {
                   $laCountPercentage = $laCount / 100;
-                  echo "<p style='font-size: 16px; margin: 0;'>" . ucwords(strtolower($empFullname)) . "</p>";
-                  echo "<p style='font-size: 22px; margin: 0;'>$laCount <span style='font-size: 12px;'>counts</span></p>";
+                  echo "<p style='font-size: 16px; margin: 0; color: #333333; font-weight: bold;'>" . ucwords(strtolower($empFullname)) . "</p>";
+                  echo "<p style='font-size: 22px; margin: 0; color: #333333;'>$laCount <span style='font-size: 12px;'>counts</span></p>";
 
                   // $co = $laCount * $laCount;
                   echo "<hr class='hr-or' style='width: " . $laCountPercentage . "vw; height: 5px; border-radius: 5px; background: linear-gradient(118deg, rgba(180,67,255,1) 0%, rgba(255,26,209,1) 50%, rgba(255,58,58,1) 100%);'>";
