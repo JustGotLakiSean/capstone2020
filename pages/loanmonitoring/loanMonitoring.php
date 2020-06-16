@@ -8,8 +8,44 @@ include('../../dbaccess/db_access.php');
 session_start();
 $db = new db_access();
 $dt = $db->view_all_employee();
+$dt2 = $db->view_all_employee_10k();
 $lr5k = $db->loan_rates_5K();
 $lr10k = $db->loan_rates_10K();
+
+$total_interest_1st_payment = $db->total_interest_1st_payment();
+$total_interest_2nd_payment = $db->total_interest_2nd_payment();
+$total_interest_3rd_payment = $db->total_interest_3rd_payment();
+$total_interest_4th_payment = $db->total_interest_4th_payment();
+$total_interest_5th_payment = $db->total_interest_5th_payment();
+$total_interest_6th_payment = $db->total_interest_6th_payment();
+$total_interest_full_payment = $db->total_interest_full_payment();
+
+$current_balance_1 = $db->current_balance_1();
+$current_balance_2 = $db->current_balance_2();
+$current_balance_3 = $db->current_balance_3();
+$current_balance_4 = $db->current_balance_4();
+$current_balance_5 = $db->current_balance_5();
+$current_balance_6 = $db->current_balance_6();
+$current_balance_full = $db->current_balance_full();
+
+$total_penalty_1 = $db->total_penalty_1();
+$total_penalty_2 = $db->total_penalty_2();
+$total_penalty_3 = $db->total_penalty_3();
+$total_penalty_4 = $db->total_penalty_4();
+$total_penalty_5 = $db->total_penalty_5();
+$total_penalty_6 = $db->total_penalty_6();
+$total_penalty_full = $db->total_penalty_full();
+
+$getFirstPaymentAmountPaid = $db->getFirstPaymentAmountPaid();
+$getSecondPaymentAmountPaid = $db->getSecondPaymentAmountPaid();
+$getThirdPaymentAmountPaid = $db->getThirdPaymentAmountPaid();
+$getFourthPaymentAmountPaid = $db->getFourthPaymentAmountPaid();
+$getFifthPaymentAmountPaid = $db->getFifthPaymentAmountPaid();
+$getSixthPaymentAmountPaid = $db->getSixthPaymentAmountPaid();
+$getFullPaymentAmountPaid = $db->getFullPaymentAmountPaid();
+
+$get5kActiveLoan = $db->get5kActiveLoan();
+$get10kActiveLoan = $db->get10kActiveLoan();
 
 $getTotalActiveLoan = $db->getTotalActiveLoan();
 
@@ -31,41 +67,43 @@ function transaction_table_5k()
   ';
 
   while ($row = $list5K->fetch_assoc()) {
-    $transaction_number = $row['loan_id_5k'];
-    $_SESSION['transaction_number'] = $row['loan_id_5k'];
-    $transaction_prefix = $row['ctrl_no_prefix'];
-    $borrower_id = $row['borrower_id'];
-    $_SESSION['borrower_id'] = $row['borrower_id'];
-    $borrower_fname = $row['fname'];
-    $borrower_mname = $row['mname'];
-    $borrower_lname = $row['lname'];
-    $type_of_employee = $row['type_of_employee'];
-    $type_of_loan_account = $row['type_of_loan'];
-    $loan_amount_5k_rate = $row['loan_amount_5k_rate'];
-    $monthly_payment_5k_rate = $row['monthly_payment_5k_rate'];
-    $credit_5k_rate = $row['credit_5k_rate'];
-    $debit_pay_5k = $row['debit_pay_5k'];
-    $interest_rate_5k = $row['interest_rate_5k'];
-    $balance_rate_5k = $row['balance_rate_5k'];
-    $date_of_loan = $row['date_of_loan'];
-    $comment = $row['comment'];
-    $penalty = $row['penalty'];
-    $office = $row['office'];
-    $emp_rank = $row['emp_rank'];
-    $first_payment = $row['first_payment'];
-    $second_payment = $row['second_payment'];
-    $third_payment = $row['third_payment'];
-    $fourth_payment = $row['fourth_payment'];
-    $fifth_payment = $row['fifth_payment'];
-    $full_payment = $row['full_payment'];
-    $loan_status = (($row['loan_status'] == 0) ? 'Active' : 'Not Active');
-    // $loan_status = $row['loan_status'];
-    $isNewLoan = $row['isNewLoan'];
+    if (isset($row)) {
+      if ($row > 0) {
+        $transaction_number = $row['loan_id_5k'];
+        $_SESSION['transaction_number'] = $row['loan_id_5k'];
+        $transaction_prefix = $row['ctrl_no_prefix'];
+        $borrower_id = $row['borrower_id'];
+        $_SESSION['borrower_id'] = $row['borrower_id'];
+        $borrower_fname = $row['fname'];
+        $borrower_mname = $row['mname'];
+        $borrower_lname = $row['lname'];
+        $type_of_employee = $row['type_of_employee'];
+        $type_of_loan_account = $row['type_of_loan'];
+        $loan_amount_5k_rate = $row['loan_amount_5k_rate'];
+        $monthly_payment_5k_rate = $row['monthly_payment_5k_rate'];
+        $credit_5k_rate = $row['credit_5k_rate'];
+        $debit_pay_5k = $row['debit_pay_5k'];
+        $interest_rate_5k = $row['interest_rate_5k'];
+        $balance_rate_5k = $row['balance_rate_5k'];
+        $date_of_loan = $row['date_of_loan'];
+        $comment = $row['comment'];
+        $penalty = $row['penalty'];
+        $office = $row['office'];
+        $emp_rank = $row['emp_rank'];
+        $first_payment = $row['first_payment'];
+        $second_payment = $row['second_payment'];
+        $third_payment = $row['third_payment'];
+        $fourth_payment = $row['fourth_payment'];
+        $fifth_payment = $row['fifth_payment'];
+        $full_payment = $row['full_payment'];
+        $loan_status = (($row['loan_status'] == 0) ? 'Active' : 'Not Active');
+        // $loan_status = $row['loan_status'];
+        $isNewLoan = $row['isNewLoan'];
 
-    $borrower_fullname = "$borrower_fname $borrower_mname $borrower_lname";
-    $formatted_control_number = "$transaction_prefix$transaction_number";
+        $borrower_fullname = "$borrower_fname $borrower_mname $borrower_lname";
+        $formatted_control_number = "$transaction_prefix$transaction_number";
 
-    echo '
+        echo '
     <tbody>
       <tr>
         <input type="hidden" name="control_number" value="' . $formatted_control_number . '" />
@@ -95,13 +133,17 @@ function transaction_table_5k()
         <input type="hidden" name="full_payment" value="' . $full_payment . '" />
         <input type="hidden" name="loan_status" value="' . $loan_status . '" />
         <td>' . $formatted_control_number . '</td>
-        <td>' . $borrower_fullname . '</td>
+        <td>' . ucwords(strtolower($borrower_fullname)) . '</td>
         <td>' . $loan_status . '</td>';
-    echo <<<BUT
+        echo <<<BUT
         <td><a type="button" href="loanMonitoring.php?transaction_number={$_SESSION['transaction_number']}">VIEW</a></td>
 BUT;
-    echo '</tr>
+        echo '</tr>
     </tbody>';
+      } else {
+      }
+    } else {
+    }
   }
   echo '</table>';
   echo '</div>';
@@ -125,40 +167,42 @@ function transaction_table_10k()
       ';
 
   while ($row = $list10k->fetch_array(MYSQLI_ASSOC)) {
-    $loan_id_10k = $row['loan_id_10k'];
-    $_SESSION['loan_id_10k'] = $row['loan_id_10k'];
-    $ctrl_no_prefix = $row['ctrl_no_prefix'];
-    $borrower_id_10k = $row['borrower_id'];
-    $_SESSION['borrower_id'] = $row['borrower_id'];
-    $borrower_fname_10k = $row['fname'];
-    $borrower_mname_10k = $row['mname'];
-    $borrower_lname_10k = $row['lname'];
-    $type_of_employee_10k = $row['type_of_employee'];
-    $type_of_loan_account_10k = $row['type_of_loan'];
-    $loan_amount_10k_rate = $row['loan_amount_10k_rate'];
-    $monthly_payment_10k_rate = $row['monthly_payment_10k_rate'];
-    $credit_10k_rate = $row['credit_10k_rate'];
-    $debit_pay_10k = $row['debit_pay_10k'];
-    $interest_rate_10k = $row['interest_rate_10k'];
-    $balance_rate_10k = $row['balance_rate_10k'];
-    $date_of_loan_10k = $row['date_of_loan'];
-    $comment_10k = $row['comment'];
-    $penalty_10k = $row['penalty_10k'];
-    $office_10k = $row['office_10k'];
-    $emp_rank_10k = $row['emp_rank_10k'];
-    $first_payment_10k = $row['first_payment_10k'];
-    $second_payment_10k = $row['second_payment_10k'];
-    $third_payment_10k = $row['third_payment_10k'];
-    $fourth_payment_10k = $row['fourth_payment_10k'];
-    $fifth_payment_10k = $row['fifth_payment_10k'];
-    $full_payment_10k = $row['full_payment_10k'];
-    $loan_status_10k = (($row['loan_status_10k'] == 0) ? 'Active' : 'Not Active');
-    $is_new_loan_10k = $row['isNewLoan'];
+    if (isset($row)) {
+      if ($row > 0) {
+        $loan_id_10k = $row['loan_id_10k'];
+        $_SESSION['loan_id_10k'] = $row['loan_id_10k'];
+        $ctrl_no_prefix = $row['ctrl_no_prefix'];
+        $borrower_id_10k = $row['borrower_id'];
+        $_SESSION['borrower_id'] = $row['borrower_id'];
+        $borrower_fname_10k = $row['fname'];
+        $borrower_mname_10k = $row['mname'];
+        $borrower_lname_10k = $row['lname'];
+        $type_of_employee_10k = $row['type_of_employee'];
+        $type_of_loan_account_10k = $row['type_of_loan'];
+        $loan_amount_10k_rate = $row['loan_amount_10k_rate'];
+        $monthly_payment_10k_rate = $row['monthly_payment_10k_rate'];
+        $credit_10k_rate = $row['credit_10k_rate'];
+        $debit_pay_10k = $row['debit_pay_10k'];
+        $interest_rate_10k = $row['interest_rate_10k'];
+        $balance_rate_10k = $row['balance_rate_10k'];
+        $date_of_loan_10k = $row['date_of_loan'];
+        $comment_10k = $row['comment'];
+        $penalty_10k = $row['penalty_10k'];
+        $office_10k = $row['office_10k'];
+        $emp_rank_10k = $row['emp_rank_10k'];
+        $first_payment_10k = $row['first_payment_10k'];
+        $second_payment_10k = $row['second_payment_10k'];
+        $third_payment_10k = $row['third_payment_10k'];
+        $fourth_payment_10k = $row['fourth_payment_10k'];
+        $fifth_payment_10k = $row['fifth_payment_10k'];
+        $full_payment_10k = $row['full_payment_10k'];
+        $loan_status_10k = (($row['loan_status_10k'] == 0) ? 'Active' : 'Not Active');
+        $is_new_loan_10k = $row['isNewLoan'];
 
-    $borrower_fullname_10k = "$borrower_fname_10k $borrower_mname_10k $borrower_lname_10k";
-    $formatted_control_number_10k = "$ctrl_no_prefix$loan_id_10k";
+        $borrower_fullname_10k = "$borrower_fname_10k $borrower_mname_10k $borrower_lname_10k";
+        $formatted_control_number_10k = "$ctrl_no_prefix$loan_id_10k";
 
-    echo '
+        echo '
         <tbody>
           <tr>
             <input type="hidden" name="formatted_control_number_10k" value="' . $formatted_control_number_10k . '" />
@@ -189,13 +233,15 @@ function transaction_table_10k()
             <input type="hidden" name="full_payment_10k" value="' . $full_payment_10k . '" />
             <input type="hidden" name="loan_status_10k" value="' . $loan_status_10k . '" />
             <td>' . $formatted_control_number_10k . '</td>
-            <td>' . $borrower_fullname_10k . '</td>
+            <td>' . ucwords(strtolower($borrower_fullname_10k)) . '</td>
             <td>' . $loan_status_10k . '</td>';
-    echo <<<BUTTON
+        echo <<<BUTTON
             <td><a href="loanMonitoring.php?transaction_number_10k={$_SESSION['loan_id_10k']}">VIEW</a></td>
 BUTTON;
-    echo '</tr>
+        echo '</tr>
         </tbody>';
+      }
+    }
   }
   echo '</table>
   </div>';
@@ -256,12 +302,12 @@ BUTTON;
 
         <div id="totalborrowers" class="summarycard">
           <div id="totalborrowerslabel">
-            <h5 style="margin: 0; color: #666666;">Active loan</h5>
+            <h6 style="margin: 0; color: #666666;">ACTIVE LOAN</h6>
           </div>
           <div id="totalborrowercount">
             <?php
-            while($get_total_active_loan = $getTotalActiveLoan->fetch_array(MYSQLI_ASSOC)){
-              if(isset($get_total_active_loan)){
+            while ($get_total_active_loan = $getTotalActiveLoan->fetch_array(MYSQLI_ASSOC)) {
+              if (isset($get_total_active_loan)) {
                 $totalActiveLoan = $get_total_active_loan['allActiveLoan'];
                 echo '<p style="font-size: 32px;">' . $totalActiveLoan . '</p>';
               } else {
@@ -272,26 +318,333 @@ BUTTON;
         </div>
         <div id="collectibles" class="summarycard">
           <div id="collectibleslabel">
-            <h5 style="margin: 0; color: #666666;">Overall balance received</h5>
+            <h6 style="margin: 0; color: #666666;">CURRENT INTEREST</h6>
           </div>
           <div id="collectiblescount">
-            <p class="ls-value">0</p>
+            <?php
+            while ($getCurrInt1 = $total_interest_1st_payment->fetch_array(MYSQLI_ASSOC)) {
+              if ($getCurrInt1 > 0) {
+                $currFirstInterest = $getCurrInt1['curr_first_interest'];
+                if ($currFirstInterest > 0) {
+                  $curr_first_interest = $currFirstInterest;
+                } else {
+                  $curr_first_interest = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$curr_first_interest<br>";
+
+            while ($getCurrInt2 = $total_interest_2nd_payment->fetch_array(MYSQLI_ASSOC)) {
+              if ($getCurrInt2 > 0) {
+                $currSecondInterest = $getCurrInt2['curr_second_interest'];
+                if ($currSecondInterest > 0) {
+                  $curr_second_interest = $currSecondInterest;
+                } else {
+                  $curr_second_interest = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$curr_second_interest<br>";
+
+            while ($getCurrInt3 = $total_interest_3rd_payment->fetch_array(MYSQLI_ASSOC)) {
+              if ($getCurrInt3 > 0) {
+                $currThirdInterest = $getCurrInt3['curr_third_interest'];
+                if ($currThirdInterest > 0) {
+                  $curr_third_interest = $currThirdInterest;
+                } else {
+                  $curr_third_interest = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$curr_third_interest<br>";
+
+            while ($getCurrInt4 = $total_interest_4th_payment->fetch_array(MYSQLI_ASSOC)) {
+              if ($getCurrInt4 > 0) {
+                $currFourthInterest = $getCurrInt4['curr_fourth_interest'];
+                if ($currFourthInterest > 0) {
+                  $curr_fourth_interest = $currFourthInterest;
+                } else {
+                  $curr_fourth_interest = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$curr_fourth_interest<br>";
+
+            while ($getCurrInt5 = $total_interest_5th_payment->fetch_array(MYSQLI_ASSOC)) {
+              if ($getCurrInt5 > 0) {
+                $currFifthInterest = $getCurrInt5['curr_fifth_interest'];
+                if ($currFifthInterest > 0) {
+                  $curr_fifth_interest = $currFifthInterest;
+                } else {
+                  $curr_fifth_interest = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$curr_fifth_interest<br>";
+
+            while ($getCurrInt6 = $total_interest_6th_payment->fetch_array(MYSQLI_ASSOC)) {
+              if ($getCurrInt6 > 0) {
+                $currSixthInterest = $getCurrInt6['curr_sixth_interest'];
+                if ($currSixthInterest > 0) {
+                  $curr_sixth_interest = $currSixthInterest;
+                } else {
+                  $curr_sixth_interest = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$curr_sixth_interest<br>";
+
+            while ($getCurrIntFull = $total_interest_full_payment->fetch_array(MYSQLI_ASSOC)) {
+              if ($getCurrIntFull > 0) {
+                $currFullInterest = $getCurrIntFull['curr_full_interest'];
+                if ($currFullInterest > 0) {
+                  $curr_full_interest = $currFullInterest;
+                } else {
+                  $curr_full_interest = 0;
+                }
+              } else {
+              }
+            }
+
+            echo "<p style='font-size: 32px;'>$curr_full_interest</p>";
+
+            // $currentInterest = $curr_first_interest + $curr_second_interest + $curr_third_interest + $curr_fourth_interest + $curr_fifth_interest + $curr_sixth_interest + $curr_full_interest;
+            // echo "<p style='font-size: 32px;'>$currentInterest</p>";
+
+            ?>
           </div>
         </div>
         <div id="totalinterest" class="summarycard">
           <div id="totalinterest">
-            <p>Total Interest</p>
+            <h6 style="margin: 0; color: #666666;">TOTAL PAYMENT</h6>
           </div>
           <div id="totalinterest">
-            <p class="ls-value">0</p>
+            <?php
+            while ($getData = $getFirstPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
+              if ($getData > 0) {
+                $overall_first_amount_paid = $getData['overallFirstAmountPaid'];
+                if ($overall_first_amount_paid > 0) {
+                  $overallFirstAmountPaid = $overall_first_amount_paid;
+                } else {
+                  $overallFirstAmountPaid = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$overallFirstAmountPaid<br>";
+
+            while ($getData = $getSecondPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
+              if ($getData > 0) {
+                $overall_second_amount_paid = $getData['overallSecondAmountPaid'];
+                if ($overall_second_amount_paid > 0) {
+                  $overallSecondAmountPaid = $overall_second_amount_paid;
+                } else {
+                  $overallSecondAmountPaid = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$overallSecondAmountPaid<br>";
+
+            while ($getData = $getThirdPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
+              if ($getData > 0) {
+                $overall_third_amount_paid = $getData['overallThirdAmountPaid'];
+                if ($overall_third_amount_paid > 0) {
+                  $overallThirdAmountPaid = $getData['overallThirdAmountPaid'];
+                } else {
+                  $overallThirdAmountPaid = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$overallThirdAmountPaid<br>";
+
+            while ($getData = $getFourthPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
+              if ($getData > 0) {
+                $overall_fourth_amount_paid = $getData['overallFourthAmountPaid'];
+                if ($overall_fourth_amount_paid > 0) {
+                  $overallFourthAmountPaid = $getData['overallFourthAmountPaid'];
+                } else {
+                  $overallFourthAmountPaid = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$overallFourthAmountPaid<br>";
+
+            while ($getData = $getFifthPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
+              if ($getData > 0) {
+                $overall_fifth_amount_paid = $getData['overallFifthAmountPaid'];
+                if ($overall_fifth_amount_paid > 0) {
+                  $overallFifthAmountPaid = $getData['overallFifthAmountPaid'];
+                } else {
+                  $overallFifthAmountPaid = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$overallFifthAmountPaid<br>";
+
+            while ($getData = $getSixthPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
+              if ($getData > 0) {
+                $overall_sixth_amount_paid = $getData['overallSixthAmountPaid'];
+                if ($overall_sixth_amount_paid > 0) {
+                  $overallSixthAmountPaid = $getData['overallSixthAmountPaid'];
+                } else {
+                  $overallSixthAmountPaid = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$overallSixthAmountPaid<br>";
+
+            while ($getData = $getFullPaymentAmountPaid->fetch_array(MYSQLI_ASSOC)) {
+              if ($getData > 0) {
+                $overall_full_amount_paid = $getData['overallFullAmountPaid'];
+                if ($overall_full_amount_paid > 0) {
+                  $overallFullAmountPaid = $getData['overallFullAmountPaid'];
+                } else {
+                  $overallFullAmountPaid = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$overallFullAmountPaid<br>";
+
+            $overallTotalPaymentReceived = $overallFirstAmountPaid + $overallSecondAmountPaid + $overallThirdAmountPaid + $overallFourthAmountPaid + $overallFifthAmountPaid + $overallSixthAmountPaid + $overallFullAmountPaid;
+
+            echo "<p style='font-size: 32px;'>$overallTotalPaymentReceived</p>";
+
+            ?>
           </div>
         </div>
         <div id="totalpayment" class="summarycard">
           <div id="totalpaymentlabel">
-            <p>Total Payment</p>
+            <h6 style="margin: 0; color: #666666;">PENALTY COLLECTED</h6>
           </div>
           <div id="totalpaymentcount">
-            <p class="ls-value">0</p>
+            <?php
+            while ($getPenalty1 = $total_penalty_1->fetch_array(MYSQLI_ASSOC)) {
+              if ($getPenalty1 > 0) {
+                $totalPenalty1 = $getPenalty1['penalty_1'];
+                if ($totalPenalty1 > 0) {
+                  $penalty_1 = $totalPenalty1;
+                } else {
+                  $penalty_1 = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$penalty_1<br>";
+
+            while ($getPenalty2 = $total_penalty_2->fetch_array(MYSQLI_ASSOC)) {
+              if ($getPenalty2 > 0) {
+                $totalPenalty2 = $getPenalty2['penalty_2'];
+                if ($totalPenalty2 > 0) {
+                  $penalty_2 = $totalPenalty2;
+                } else {
+                  $penalty_2 = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$penalty_2<br>";
+
+            while ($getPenalty3 = $total_penalty_3->fetch_array(MYSQLI_ASSOC)) {
+              if ($getPenalty3 > 0) {
+                $totalPenalty3 = $getPenalty3['penalty_3'];
+                if ($totalPenalty3 > 0) {
+                  $penalty_3 = $totalPenalty3;
+                } else {
+                  $penalty_3 = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$penalty_3<br>";
+
+            while ($getPenalty4 = $total_penalty_4->fetch_array(MYSQLI_ASSOC)) {
+              if ($getPenalty4 > 0) {
+                $totalPenalty4 = $getPenalty4['penalty_4'];
+                if ($totalPenalty4 > 0) {
+                  $penalty_4 = $totalPenalty4;
+                } else {
+                  $penalty_4 = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$penalty_4<br>";
+
+            while ($getPenalty5 = $total_penalty_5->fetch_array(MYSQLI_ASSOC)) {
+              if ($getPenalty5 > 0) {
+                $totalPenalty5 = $getPenalty5['penalty_5'];
+                if ($totalPenalty5 > 0) {
+                  $penalty_5 = $totalPenalty5;
+                } else {
+                  $penalty_5 = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$penalty_5<br>";
+
+            while ($getPenalty6 = $total_penalty_6->fetch_array(MYSQLI_ASSOC)) {
+              if ($getPenalty6 > 0) {
+                $totalPenalty6 = $getPenalty6['penalty_6'];
+                if ($totalPenalty6 > 0) {
+                  $penalty_6 = $totalPenalty6;
+                } else {
+                  $penalty_6 = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$penalty_6<br>";
+
+            while ($getPenaltyfull = $total_penalty_full->fetch_array(MYSQLI_ASSOC)) {
+              if ($getPenaltyfull > 0) {
+                $totalPenaltyfull = $getPenaltyfull['penalty_full'];
+                if ($totalPenaltyfull > 0) {
+                  $penalty_full = $totalPenaltyfull;
+                } else {
+                  $penalty_full = 0;
+                }
+              } else {
+              }
+            }
+
+            // echo "$penalty_full<br>";
+
+            $overallPenalty = $penalty_1 + $penalty_2 + $penalty_3 + $penalty_4 + $penalty_5 + $penalty_6 + $penalty_full;
+            echo "<p style='font-size: 32px;'>$overallPenalty</p>";
+
+            ?>
           </div>
         </div>
 
@@ -307,8 +660,14 @@ BUTTON;
           <div id="5kadd-button-container">
             <button type="button" id="btn-addnew5k" onclick="document.getElementById('fiveKaddnewloan-container').style.display='block'">Add New 5K Loan</button>
           </div>
-          <div id="5ktransationtablename">
-            <h4 class="table_header_title">5K Transaction Table</h4>
+          <div id="5ktransationtablename" style="margin-bottom: 5px;">
+            <?php
+            while ($get5K = $get5kActiveLoan->fetch_array(MYSQLI_ASSOC)) {
+              $loanStatusCount = $get5K['loanStatusCount'];;
+            }
+
+            echo "<h4 style='margin: 20px 0 0 0;'><span style='font-size: 32px; font-weight: lighter;'>$loanStatusCount</span> <span style='font-size: 12px; font-weight: lighter;'>active loan</span></h4>";
+            ?>
           </div>
           <div id="5ktransactiontable">
             <form action="" method="POST" id="showLoanPanel">
@@ -332,42 +691,33 @@ BUTTON;
 
                 <!-- All Employee List -->
                 <div id="search_container" align="center">
-                  <?php foreach ($dt as $res) { ?>
-                    <?php
-                    while ($row = $lr5k->fetch_array(MYSQLI_ASSOC)) {
-                      $id = $row['5k_rates_id'];
-                      $loan_type_5k = $row['type_of_loan'];
-                      $la_amount = $row['5k_loan_amount_rates'];
-                      $mp_rates = $row['5k_monthly_payment_rates'];
-                      $cr_rates = $row['5k_credit_rates'];
-                      $beg_bal = $row['5k_beginning_balance_rates'];
-                      $interest = $row['5k_interest_rate'];
-                      $pen_permonth = $row['5k_penalty_permonth_rates'];
-                      $date_today = date("j-M-y");
-                      $formattedString = "950CEISG-000";
-                    }
-                    $empid = $res["emp_id"];
-                    $empfname = $res["emp_fName"];
-                    $empmname = $res["emp_mName"];
-                    $emplname = $res["emp_lName"];
-                    $empoffice = $res["emp_office"];
-                    $empType = $res["emptype"];
-                    $empRank = $res["empRank"];
-                    $la5k_count = $res['la5k'];
-                    $emp_fullname = "$res[emp_fName] $res[emp_mName] $res[emp_lName]";
-                    $emp_info_5k = "$res[emp_fName] $res[emp_mName] $res[emp_lName] | $res[emp_office]";
-                    $comment = "New Loan form $emp_fullname.";
-                    $debit_pay = 0;
-                    $status = 0;
-                    $first_payment = 0;
-                    $second_payment = 0;
-                    $third_payment = 0;
-                    $fourth_payment = 0;
-                    $fifth_payment = 0;
-                    $sixth_payment = 0;
-                    $full_payment = 0;
-                    $is_loan_requested_5k = 0;
-                    echo <<<EMP_LIST
+                  <?php
+                  while ($res = $dt->fetch_array(MYSQLI_ASSOC)) {
+                    if (isset($res)) {
+                      if ($res > 0) {
+                        $empid = $res["emp_id"];
+                        $empfname = $res["emp_fName"];
+                        $empmname = $res["emp_mName"];
+                        $emplname = $res["emp_lName"];
+                        $empoffice = $res["emp_office"];
+                        $empType = $res["emptype"];
+                        $empRank = $res["empRank"];
+                        $la5k_count = $res['la5k'];
+                        $emp_fullname = "$res[emp_fName] $res[emp_mName] $res[emp_lName]";
+                        $empFullname = ucwords(strtolower($emp_fullname));
+                        $emp_info_5k = "$res[emp_fName] $res[emp_mName] $res[emp_lName] | $res[emp_office]";
+                        $comment = "New Loan form $emp_fullname.";
+                        $debit_pay = 0;
+                        $status = 0;
+                        $first_payment = 0;
+                        $second_payment = 0;
+                        $third_payment = 0;
+                        $fourth_payment = 0;
+                        $fifth_payment = 0;
+                        $sixth_payment = 0;
+                        $full_payment = 0;
+                        $is_loan_requested_5k = 0;
+                        echo <<<EMP_LIST
                     <form action="add_new_5k_loan.php" method="POST" class="search_result_box" >
                       <div id="emp_list">
                         <input type="hidden" name="empid" class="hidden_5k_info hidden_id" value="$empid" />
@@ -388,13 +738,17 @@ BUTTON;
                         <input type="hidden" name="full_payment" class="hidden_5k_info" value="$full_payment" />
                         <input type="hidden" name="amount_of_payment" class="hidden_5k_info" value="$debit_pay" />
                         <input type="hidden" name="comment_remarks" class="hidden_5k_info" value="$comment" />
-                        <input type="text" disabled name="empfullname" class="emp_info_5k" value="$emp_fullname" />
+                        <input type="text" disabled name="empfullname" class="emp_info_5k" value="$empFullname" />
 EMP_LIST;
-                    echo "<input type='button' name = 'btn_add_5k_loan' value='Add New Loan' class='btn_add_5k_loan' onclick='addnewloan5k(\"" . $empid . "\", \"" . $formattedString . "\", \"" . $empfname . "\", \"" . $empmname . "\", \"" . $emplname . "\", \"" . $empType . "\", \"" . $loan_type_5k . "\", \"" . $la_amount . "\", \"" . $emp_fullname . "\", \"" . $mp_rates . "\", \"" . $cr_rates . "\", \"" . $debit_pay . "\", \"" . $interest . "\", \"" . $beg_bal . "\", \"" . $date_today . "\", \"" . $comment . "\", \"" . $pen_permonth . "\", \"" . $empoffice . "\", \"" . $empRank . "\", \"" . $la5k_count . "\", \"" . $first_payment . "\", \"" . $second_payment . "\", \"" . $third_payment . "\", \"" . $fourth_payment . "\", \"" . $fifth_payment . "\", \"" . $full_payment . "\", \"" . $status . "\");' />";
-                    echo '</div>';
-                    echo '</form>';
-                    ?>
-                  <?php } ?>
+                        echo "<input type='button' name = 'btn_add_5k_loan' value='Add New Loan' class='btn_add_5k_loan' onclick='addnewloan5k(\"" . $empid . "\", \"" . $formattedString . "\", \"" . $empfname . "\", \"" . $empmname . "\", \"" . $emplname . "\", \"" . $empType . "\", \"" . $loan_type_5k . "\", \"" . $la_amount . "\", \"" . $emp_fullname . "\", \"" . $mp_rates . "\", \"" . $cr_rates . "\", \"" . $debit_pay . "\", \"" . $interest . "\", \"" . $beg_bal . "\", \"" . $date_today . "\", \"" . $comment . "\", \"" . $pen_permonth . "\", \"" . $empoffice . "\", \"" . $empRank . "\", \"" . $la5k_count . "\", \"" . $first_payment . "\", \"" . $second_payment . "\", \"" . $third_payment . "\", \"" . $fourth_payment . "\", \"" . $fifth_payment . "\", \"" . $full_payment . "\", \"" . $status . "\");' />";
+                        echo '</div>';
+                        echo '</form>';
+                      } else {
+                      }
+                    } else {
+                    }
+                  }
+                  ?>
                 </div>
                 <!-- END OF SEARCH BOX -->
 
@@ -415,6 +769,24 @@ EMP_LIST;
                       <div class="loanaccountdetails-box">
 
                         <?php
+                        while ($row = $lr5k->fetch_array(MYSQLI_ASSOC)) {
+                          if (isset($row)) {
+                            if ($row > 0) {
+                              $id = $row['5k_rates_id'];
+                              $loan_type_5k = $row['type_of_loan'];
+                              $la_amount = $row['5k_loan_amount_rates'];
+                              $mp_rates = $row['5k_monthly_payment_rates'];
+                              $cr_rates = $row['5k_credit_rates'];
+                              $beg_bal = $row['5k_beginning_balance_rates'];
+                              $interest = $row['5k_interest_rate'];
+                              $pen_permonth = $row['5k_penalty_permonth_rates'];
+                              $date_today = date("j-M-y");
+                              $formattedString = "950CEISG-000";
+                            } else {
+                            }
+                          } else {
+                          }
+                        }
                         echo '<div class="firstbox">';
                         echo '<label for="loan_type_5k">Type of Loan account</label>';
                         echo '<label for="la_rate">Loan Amount Rate</label>';
@@ -460,41 +832,32 @@ EMP_LIST;
 
                 <!-- All Employee List -->
                 <div id="search_container_10k" align="center">
-                  <?php foreach ($dt as $res) { ?>
-                    <?php
-                    while ($row = $lr10k->fetch_array(MYSQLI_ASSOC)) {
-                      $id = $row['10k_rates_id'];
-                      $loan_type_10k = $row['type_of_loan'];
-                      $la_amount_10k = $row['10k_loan_amount_rates'];
-                      $mp_rates_10k = $row['10k_monthly_payment_rates'];
-                      $cr_rates_10k = $row['10k_credit_rates'];
-                      $beg_bal_10k = $row['10k_beginning_balance_rates'];
-                      $interest_10k = $row['10k_interest_rate'];
-                      $pen_permonth_10k = $row['10k_penalty_permonth_rates'];
-                      $date_today_10k = date("j-M-y");
-                      $formattedString10K = "950CEISG-000";
-                    }
-                    $empid = $res["emp_id"];
-                    $empfname = $res["emp_fName"];
-                    $empmname = $res["emp_mName"];
-                    $emplname = $res["emp_lName"];
-                    $empoffice = $res["emp_office"];
-                    $empType = $res["emptype"];
-                    $empRank = $res["empRank"];
-                    $la10k_count = $res['la10k'];
-                    $emp_fullname = "$res[emp_fName] $res[emp_mName] $res[emp_lName]";
-                    $emp_info_10k = "$res[emp_fName] $res[emp_mName] $res[emp_lName] | $res[emp_office]";
-                    $comment_10k = "New Loan form $emp_fullname.";
-                    $debit_pay_10k = 0;
-                    $status_10k = 0;
-                    $first_payment_10k = 0;
-                    $second_payment_10k = 0;
-                    $third_payment_10k = 0;
-                    $fourth_payment_10k = 0;
-                    $fifth_payment_10k = 0;
-                    $sixth_payment_col_10k = 0;
-                    $full_payment_10k = 0;
-                    echo <<<EMP_LIST
+                  <?php
+                  foreach ($dt2 as $res) {
+                    if (isset($res)) {
+                      if ($res > 0) {
+                        $empid = $res["emp_id"];
+                        $empfname = $res["emp_fName"];
+                        $empmname = $res["emp_mName"];
+                        $emplname = $res["emp_lName"];
+                        $empoffice = $res["emp_office"];
+                        $empType = $res["emptype"];
+                        $empRank = $res["empRank"];
+                        $la10k_count = $res['la10k'];
+                        $emp_fullname_10k = "$res[emp_fName] $res[emp_mName] $res[emp_lName]";
+                        $empFulname_10k = ucwords(strtolower($emp_fullname_10k));
+                        $emp_info_10k = "$res[emp_fName] $res[emp_mName] $res[emp_lName] | $res[emp_office]";
+                        $comment_10k = "New Loan form $emp_fullname.";
+                        $debit_pay_10k = 0;
+                        $status_10k = 0;
+                        $first_payment_10k = 0;
+                        $second_payment_10k = 0;
+                        $third_payment_10k = 0;
+                        $fourth_payment_10k = 0;
+                        $fifth_payment_10k = 0;
+                        $sixth_payment_col_10k = 0;
+                        $full_payment_10k = 0;
+                        echo <<<EMP_LIST
                     <form action="add_new_10k_loan.php" method="POST" class="search_result_box_10k" >
                       <div id="emp_list">
                         <input type="hidden" name="empid_10k" class="hidden_10k_info hidden_id" value="$empid" />
@@ -515,13 +878,17 @@ EMP_LIST;
                         <input type="hidden" name="full_payment_10k" class="hidden_10k_info" value="$full_payment_10k" />
                         <input type="hidden" name="amount_of_payment_10k" class="hidden_10k_info" value="$debit_pay_10k" />
                         <input type="hidden" name="comment_remarks_10k" class="hidden_10k_info" value="$comment_10k" />
-                        <input type="text" disabled name="empfullname_10k" class="emp_info_10k" value="$emp_fullname" />
+                        <input type="text" disabled name="empfullname_10k" class="emp_info_10k" value="$empFulname_10k" />
 EMP_LIST;
-                    echo "<input type='button' name = 'btn_add_10k_loan' value='Add New Loan' class='btn_add_10k_loan' onclick='addnewloan10k(\"" . $empid . "\", \"" . $formattedString10K . "\", \"" . $empfname . "\", \"" . $empmname . "\", \"" . $emplname . "\", \"" . $empType . "\", \"" . $loan_type_10k . "\", \"" . $la_amount_10k . "\", \"" . $emp_fullname . "\", \"" . $mp_rates_10k . "\", \"" . $cr_rates_10k . "\", \"" . $debit_pay_10k . "\", \"" . $interest_10k . "\", \"" . $beg_bal_10k . "\", \"" . $date_today_10k . "\", \"" . $comment_10k . "\", \"" . $pen_permonth_10k . "\", \"" . $empoffice . "\", \"" . $empRank . "\", \"" . $la10k_count . "\", \"" . $first_payment_10k . "\", \"" . $second_payment_10k . "\", \"" . $third_payment_10k . "\", \"" . $fourth_payment_10k . "\", \"" . $fifth_payment_10k . "\", \"" . $sixth_payment_col_10k . "\", \"" . $full_payment_10k . "\", \"" . $status_10k . "\");' />";
-                    echo '</div>';
-                    echo '</form>';
-                    ?>
-                  <?php } ?>
+                        echo "<input type='button' name = 'btn_add_10k_loan' value='Add New Loan' class='btn_add_10k_loan' onclick='addnewloan10k(\"" . $empid . "\", \"" . $formattedString10K . "\", \"" . $empfname . "\", \"" . $empmname . "\", \"" . $emplname . "\", \"" . $empType . "\", \"" . $loan_type_10k . "\", \"" . $la_amount_10k . "\", \"" . $emp_fullname . "\", \"" . $mp_rates_10k . "\", \"" . $cr_rates_10k . "\", \"" . $debit_pay_10k . "\", \"" . $interest_10k . "\", \"" . $beg_bal_10k . "\", \"" . $date_today_10k . "\", \"" . $comment_10k . "\", \"" . $pen_permonth_10k . "\", \"" . $empoffice . "\", \"" . $empRank . "\", \"" . $la10k_count . "\", \"" . $first_payment_10k . "\", \"" . $second_payment_10k . "\", \"" . $third_payment_10k . "\", \"" . $fourth_payment_10k . "\", \"" . $fifth_payment_10k . "\", \"" . $sixth_payment_col_10k . "\", \"" . $full_payment_10k . "\", \"" . $status_10k . "\");' />";
+                        echo '</div>';
+                        echo '</form>';
+                      } else {
+                      }
+                    } else {
+                    }
+                  }
+                  ?>
                 </div>
                 <!-- END OF SEARCH BOX -->
 
@@ -542,6 +909,24 @@ EMP_LIST;
                       <div class="loanaccountdetails-box">
 
                         <?php
+                        while ($row = $lr10k->fetch_array(MYSQLI_ASSOC)) {
+                          if(isset($row)){
+                            if($row > 0){
+                              $id = $row['10k_rates_id'];
+                              $loan_type_10k = $row['type_of_loan'];
+                              $la_amount_10k = $row['10k_loan_amount_rates'];
+                              $mp_rates_10k = $row['10k_monthly_payment_rates'];
+                              $cr_rates_10k = $row['10k_credit_rates'];
+                              $beg_bal_10k = $row['10k_beginning_balance_rates'];
+                              $interest_10k = $row['10k_interest_rate'];
+                              $pen_permonth_10k = $row['10k_penalty_permonth_rates'];
+                              $date_today_10k = date("j-M-y");
+                              $formattedString10K = "950CEISG-000";
+                            } else {
+                            }
+                          } else {
+                          }
+                        }
                         echo '<div class="firstbox_10k">';
                         echo '<label for="loan_type_10k">Type of Loan account</label>';
                         echo '<label for="la_rate_10k">Loan Amount Rate</label>';
@@ -578,8 +963,14 @@ EMP_LIST;
           <div id="10kadd-button-container">
             <button type="button" id="btn-addnew10k" onclick="document.getElementById('tenKaddnewloan-container').style.display='block'">Add New 10K Loan</button>
           </div>
-          <div id="10ktransactiontablename">
-            <p>10K Transaction Table</p>
+          <div id="10ktransactiontablename" style="margin-bottom: 5px;">
+            <?php
+            while ($get10K = $get10kActiveLoan->fetch_array(MYSQLI_ASSOC)) {
+              $loanStatusCount10k = $get10K['loanStatusCount10k'];
+            }
+
+            echo "<h4 style='margin: 20px 0 0 0;'><span style='font-size: 32px; font-weight: lighter;'>$loanStatusCount10k</span> <span style='font-size: 12px; font-weight: lighter;'>active loan</span></h4>";
+            ?>
           </div>
           <div id="10ktransactiontable">
             <form action="" method="POST" id="showLoanPanel">
@@ -720,7 +1111,7 @@ EMP_LIST;
           </div>
           <div class="current_loantransaction_container">
 
-            <hr>
+            <hr style="margin: 5px 0 5px 0;">
             <div class="clt_container">
               <div class="cltbox">
                 <div class="ctrl_number_box clt">
@@ -760,6 +1151,7 @@ EMP_LIST;
             $remarks_fp = $res['remarks'];
             $date_of_payment_fp = $res['date_of_payment'];
             $new_balance_fp = $res['current_balance'];
+            // $penalty_first = $res['penalty_amount'];
 
             if ($res > 0) {
               echo '
@@ -1138,10 +1530,8 @@ EMP_LIST;
             <input type="text" disabled value="' . $borrowerOffice10k . '" />
           </div>
         </div>
+        <hr style="margin: 5px 0 5px 0;">
         <div class="current_10K_loantransaction_container">
-          <div class="clt_header_10k">
-          </div>
-          <hr>
           <div class="clt_container_10k">
             <div class="cltbox10k">
               <div class="ctrl_number_box_10k clt">

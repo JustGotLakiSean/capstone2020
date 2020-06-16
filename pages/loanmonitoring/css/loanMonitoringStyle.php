@@ -123,7 +123,29 @@ body {
   -5px 2px 10px rgba(126, 125, 125, .1);
   //backdrop-filter: blur(8px);
 }
-#loan-summary-content p, h5{
+
+.summarycard5k {
+  padding: 3px;
+  // margin-bottom: 10px;
+  height: auto;
+  width: 200px;
+  //background: rgba(255, 255, 255, 0.2);
+  background: #FFFFFF;
+  font-size: 20px;
+  border-radius: 5px;
+  box-shadow: 5px 2px 10px rgba(126, 125, 125, .1),
+  -5px 2px 10px rgba(126, 125, 125, .1);
+  //backdrop-filter: blur(8px);
+
+}
+
+.summarycard5k p, h6 {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+#loan-summary-content p, h6{
   text-align: center;
   margin: 0;
   padding: 0;
@@ -170,7 +192,7 @@ body {
 }
 
 #transaction_table_5k > table {
-  width: 90%;
+  width: 100%;
   margin: auto;
   border-collapse: collapse;
   text-align: center;
@@ -192,7 +214,7 @@ body {
 }
 
 #trasaction_table_10k > table {
-  width: 90%;
+  width: 100%;
   margin: auto;
   border-collapse: collapse;
   text-align: center;
@@ -743,7 +765,7 @@ hr {
 #newpayment_5k_container {
   display: block;
   width: 600px;
-  height: 655px;
+  height: auto;
   margin: auto;
   background: #F2F2F2;
   border: 1px solid #dadada;
@@ -754,7 +776,7 @@ hr {
 }
 
 .newpayment_5k_titlecontainer {
-  height: 26px;
+  height: auto;
   background: #0071BC;
   border-radius: 5px;
   color: #fff;
@@ -762,7 +784,6 @@ hr {
 
 .newpayment_5k_titlecontainer > h3 {
   font-weight: lighter;
-  font-size: 16px;
   margin: 0;
 }
 
@@ -779,17 +800,18 @@ hr {
 
 .bdb_container {
   display: block;
-  height: 85px;
+  height: auto;
+  position: relative;
 }
 
 .borrowers_detailbox {
   display: grid;
-  grid-auto-flow: row;
+  // grid-auto-flow: row;
   grid-gap: 5px;
-  margin: auto;
-  position: relative;
-  top: 10px;
-  height: 65px;
+  margin-top: 10px;
+  // margin: auto;
+  // position: relative;
+  // height: 65px;
 }
 
 .borrowers_detailbox input[type=text]{
@@ -816,7 +838,7 @@ hr {
 
 .current_loantransaction_container {
   width: 550px;
-  height: 125px;
+  height: 110px;
   margin: auto;
 }
 
@@ -875,19 +897,13 @@ hr {
   font-size: 13px;
 }
 
-#transaction_box_5kcontainer {
-  margin-top: 15px;
-}
-
 .paymentbox_5k_container {
   position: relative;
-  top: 10px;
-  background: #fff;
+  margin-top: 10px;
 }
 
 .paymentbox_5k_content {
   height: 240px;
-  overflow: auto;
 }
 
 .paymentbox_5k_container h5 {
@@ -897,7 +913,6 @@ hr {
 }
 
 .paymentbox_5k {
-  height: 215px;
   display: grid;
   grid-gap: 5px;
   margin-top: 10px;
@@ -919,7 +934,7 @@ hr {
 }
 
 .np5kbox select {
-  width: 150px;
+  width: 184px;
   height: 27px;
   background: #0071BC;
   border: none;
@@ -932,8 +947,8 @@ hr {
 }
 
 #datepicker {
-  width: 10vw;
-  height: 4vh;
+  width: 184px;
+  height: 27px;
   border: 2px solid #0071BC;
   background: #F2F2F2;
   color: #808080;
@@ -1023,7 +1038,7 @@ hr {
 .newpayment_10k_container {
   display: block;
   width: 600px;
-  height: 650px;
+  height: auto;
   margin: auto;
   background: #F2F2F2;
   border: 1px solid #dadada;
@@ -1034,7 +1049,7 @@ hr {
 }
 
 .newpayment_10k_titlecontainer {
-  height: 26px;
+  height: auto;
   background: #009245;
   border-radius: 5px;
   color: #fff;
@@ -1042,7 +1057,6 @@ hr {
 
 .newpayment_10k_titlecontainer > h3 {
   font-weight: lighter;
-  font-size: 16px;
   margin: 0;
 }
 
@@ -1059,17 +1073,20 @@ hr {
 
 .bdb-10k_container {
   display: block;
-  height: 85px;
+  height: auto;
+  position: relative;
 }
 
 .borrowers_detailbox_10k {
   display: grid;
-  grid-auto-flow: row;
+  // grid-auto-flow: row;
   grid-gap: 5px;
-  margin: auto;
-  position: relative;
-  top: 10px;
-  height: 65px;
+  // margin: auto;
+  // position: relative;
+  margin-top: 10px;
+  // height: 65px;
+  // background: rgb(217,50,67);
+  // background: linear-gradient(90deg, rgba(217,50,67,1) 0%, rgba(255,172,177,1) 25%, rgba(254,132,187,1) 50%, rgba(255,177,120,1) 75%, rgba(255,167,68,1) 100%);
 }
 
 .borrowers_detailbox_10k input[type=text]{
@@ -1096,7 +1113,7 @@ hr {
 
 .current_10K_loantransaction_container {
   width: 550px;
-  height: 125px;
+  height: 110px;
   margin: auto;
 }
 
@@ -1134,19 +1151,14 @@ hr {
   font-size: 13px;
 }
 
-#transaction_box_10kcontainer {
-  margin-top: 15px;
-}
-
 .paymentbox_10k_container {
+  margin-top: 10px;
   position: relative;
-  top: 10px;
-  background: #fff;
 }
 
 .paymentbox_10k_content {
-  height: 240px;
-  overflow: auto;
+  height: 220px;
+  // overflow: auto;
 }
 
 .paymentbox_10k_container h5 {
@@ -1156,7 +1168,6 @@ hr {
 }
 
 .paymentbox_10k {
-  height: 215px;
   display: grid;
   grid-gap: 5px;
   margin-top: 10px;
@@ -1178,7 +1189,7 @@ hr {
 }
 
 .np10kbox select {
-  width: 150px;
+  width: 184px;
   height: 27px;
   background: #009245;
   border: none;
@@ -1191,8 +1202,8 @@ hr {
 }
 
 #datepicker_10k {
-  width: 10vw;
-  height: 4vh;
+  width: 184px;
+  height: 27px;
   border: 2px solid #009245;
   background: #F2F2F2;
   color: #808080;

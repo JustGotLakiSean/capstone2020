@@ -61,13 +61,10 @@ if(isset($_POST['submitnewofficer'])){
       alert("New Officers And EP Recorded.")
       </script>';
     } else {
-      echo "ERROR";
     }
   } else {
-
   }
 } else {
-
 }
 
 // Validate Civilian Employee data before "adding" to
@@ -127,13 +124,10 @@ if(isset($_POST['submitnewcivilian'])){
       alert("New Civilian Record Added.")
       </script>';
     } else {
-      echo "ERROR";
     }
   } else {
-
   }
 } else {
-
 }
 ?>
 <?PHP
@@ -149,8 +143,8 @@ function show_ce_table(){
   echo <<<THEAD
   <thead>
     <tr>
-      <th>NAME</th>
-      <th>Contributions</th>
+      <th>Civilian Name</th>
+      <th>Office</th>
       <th>View</th>
     </tr>
   </thead>
@@ -161,6 +155,7 @@ THEAD;
     $ce_fname = $civ_record_table['civilian_fName'];
     $ce_lname = $civ_record_table['civilian_lName'];
     $ce_mname = $civ_record_table['civilian_mName'];
+    $ce_office = $civ_record_table['civilian_office'];
     $ce_fullname = "$ce_fname $ce_mname $ce_lname";
     $ce_contribution = 0;
           
@@ -170,8 +165,8 @@ THEAD;
         <input type="hidden" name="CIVILIAN_ID" id="CIVILIAN_ID" value=$_SESSION[CE_ID] />
         <input type="hidden" name="CIVILIAN_FULLNAME" id="CIVILIAN_FULLNAME" value="$ce_fullname" />
         <td>$ce_fullname</td>
-        <input type="hidden" name="CIVILIAN_CONTRIBUTIONS" id="CIVILIAN_CONTRIBUTIONS" value="$ce_contribution" />
-        <td>$ce_contribution</td>
+        <td>$ce_office</td>
+        <input type="hidden" name="CIVILIAN_CONTRIBUTIONS" id="CIVILIAN_OFFICE" value="$ce_office" />
         <td><a type="submit" id="btn-view-ce" name="btn-view-ce" href="950th-employee.php?civilian_id={$_SESSION['CE_ID']}">View<a/></td>
       </tr>
     </tbody>
@@ -662,7 +657,7 @@ if(isset($_GET['officer_id'])){
               </div>
               <div class="oae_contactno oaebox">
                 <label for="txt_op_contactno">Contact Number</label>
-                <input type="text" disabled name="txt_op_contactno" id="$OFFICER_CONTACTNUMBER" />
+                <input type="text" disabled name="txt_op_contactno" id="txt_up_cno" value="$OFFICER_CONTACTNUMBER"/>
               </div>
               <div class="oae_birthdate oaebox">
                 <label for="txt_op_birthdate">Birthdate</label>

@@ -4,7 +4,7 @@ echo <<<STYLE
 <style type="text/css">
 body {
   margin: 0;
-  font-family: 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Roboto', 'Helvetica', 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
   background: #F2F2F2;
 }
 
@@ -19,7 +19,7 @@ body {
 }
 
 #loan-navigation-container nav ul {
-  height: 6vh;
+  height: 42px;
   display: flex;
   justify-content: space-evenly;
   padding: 0;
@@ -57,7 +57,7 @@ body {
   background: #dddddd;
   border: none;
   border-radius: 3px;
-  height: 4vh;
+  height: 26px;
   cursor: pointer;
   color: #fff;
   position: relative;
@@ -90,10 +90,32 @@ body {
   color: #666666;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #E6E6E6;
+  border-radius: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 7px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #808080;
+}
+
 #employee-container {
-  max-width: 1180px;
+  max-width: 92%;
   margin: auto;
-  margin-top: 20px;
+  height: 730px;
 }
 
 #employee-container > h1 {
@@ -107,6 +129,8 @@ body {
   height: 520px;
   margin: 0;
   background: #fff;
+  box-shadow: 5px 2px 10px rgba(126, 125, 125, .1),
+  -5px 2px 10px rgba(126, 125, 125, .1);
 }
 
 #employeetabs {
@@ -165,8 +189,8 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9); /* color */
-
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.4); /* color */
 }
 
 #OfficersAndEPProfile p {
@@ -184,7 +208,7 @@ body {
   border-radius: 5px;
   position: relative;
   top: 3rem;
-  border: 0;3
+  border: 0;
 }
 
 .oaefirstbox {
@@ -287,7 +311,8 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9); /* color */
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.4); /* color */
   display: none; /* making it hidden by default */
 }
 
@@ -435,7 +460,7 @@ body {
 }
 
 #civRecord_table {
-  width: 84vw;
+  width: 100%;
   margin: auto;
   margin-top: 10px;
   border-collapse: collapse;
@@ -479,7 +504,7 @@ body {
 }
 
 #oaep_table {
-  width: 84vw;
+  width: 100%;
   margin: auto;
   margin-top: 10px;
   border-collapse: collapse;
@@ -543,7 +568,8 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9); /* color */
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.4); /* color */
   display: none; /* making it hidden by default */
 }
 
@@ -650,8 +676,8 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9); /* color */
-  
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.4); /* color */
 }
 
 #CivilianEmployeeProfile p {

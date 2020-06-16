@@ -102,7 +102,7 @@ hr {
   grid-auto-flow: row;
 }
 
-input[type=text], input[type=password], input[type=date] {
+input[type=text], input[type=password], input[type=date], input[type=email] {
   height: 4vh;
   width: 380px;
   background: #F2F2F2;

@@ -111,6 +111,15 @@ if (isset($_POST['pb5k_btn_submit'])) {
     //   $is_penalty_paid = 1;
     //   $increment_penalty_count = (int)$penalty_count + 1;
     //   $increment_penalty5k_count = (int)$penalty_5k_count + 1;
+
+    //   if($type_of_employee === 'civilian'){
+    //     $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
+    //     $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
+    //   } else if($type_of_employee === 'officer'){
+    //     $db->increment_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
+    //     $db->increment_dp5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
+    //   }
+
     // } else {
     //   $penalty_amount = 0;
     //   $has_penalty = 0;
@@ -163,51 +172,44 @@ if (isset($_POST['pb5k_btn_submit'])) {
       // echo "$increment_penalty_count<br>";
       // echo "$increment_penalty5k_count<br>";
 
+      if(isset($_POST['penaltyrate_5k'])){
+        $penalty_amount = 80;
+        $has_penalty = 1;
+        $is_penalty_paid = 1;
+        $increment_penalty_count = (int)$penalty_count + 1;
+        $increment_penalty5k_count = (int)$penalty_5k_count + 1;
+  
+        if($type_of_employee === 'civilian'){
+          $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
+          $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
+        } else if($type_of_employee === 'officer'){
+          $db->increment_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
+          $db->increment_dp5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
+        }
+  
+      } else {
+        $penalty_amount = 0;
+        $has_penalty = 0;
+        $is_penalty_paid = 0;
+      }
+
       $add_new_payment = $db->first_payment($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $new_current_interest_5k, $new_current_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
       if ($add_new_payment) {
         $db->update_first_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
         $db->update_is_new_loan($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+        
         if ($type_of_employee === 'civilian') {
           $increment_dp = (int) $dp + 1;
           $increment_dp5k = (int) $dp5k + 1;
-
           $db->increment_downpayment_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
           $db->increment_dp5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
-          if (isset($_POST['penaltyrate_5k'])) {
-            $penalty_amount = 80;
-            $has_penalty = 1;
-            $is_penalty_paid = 1;
-            $increment_penalty_count = (int) $penalty_count + 1;
-            $increment_penalty5k_count = (int) $penalty_5k_count + 1;
-
-            $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
-            $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
-          } else {
-            $penalty_amount = 0;
-            $has_penalty = 0;
-            $is_penalty_paid = 0;
-          }
         } else if ($type_of_employee === 'officer') {
           $increment_dp = (int) $dp + 1;
           $increment_dp5k = (int) $dp5k + 1;
-
           $db->increment_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
           $db->increment_dp5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
-          if (isset($_POST['penaltyrate_5k'])) {
-            $penalty_amount = 80;
-            $has_penalty = 1;
-            $is_penalty_paid = 1;
-            $increment_penalty_count = (int) $penalty_count + 1;
-            $increment_penalty5k_count = (int) $penalty_5k_count + 1;
-
-            $db->increment_penalty_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
-            $db->increment_penalty5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
-          } else {
-            $penalty_amount = 0;
-            $has_penalty = 0;
-            $is_penalty_paid = 0;
-          }
         }
+        
         header("Location: loanMonitoring.php");
       } else {
         printf("%s\n", $con->error);
@@ -246,43 +248,31 @@ if (isset($_POST['pb5k_btn_submit'])) {
         $sp_current_balance_5k = (int) $new_balance_fp - (int) $amount_paid; // 17
         $sp_current_interest_5k = (int) $loan_amount_5k_rate - ((int) $amount_paid_fp + (int) $amount_paid); // 16
 
+        if(isset($_POST['penaltyrate_5k'])){
+          $penalty_amount = 80;
+          $has_penalty = 1;
+          $is_penalty_paid = 1;
+          $increment_penalty_count = (int)$penalty_count + 1;
+          $increment_penalty5k_count = (int)$penalty_5k_count + 1;
+    
+          if($type_of_employee === 'civilian'){
+            $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
+            $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
+          } else if($type_of_employee === 'officer'){
+            $db->increment_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
+            $db->increment_dp5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
+          }
+    
+        } else {
+          $penalty_amount = 0;
+          $has_penalty = 0;
+          $is_penalty_paid = 0;
+        }
+
         $add_second_payment = $db->add_to_2ndpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $sp_current_interest_5k, $sp_current_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
         if ($add_second_payment) {
           $db->update_second_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
           echo "Second Payment Done!";
-          if ($type_of_employee === 'civilian') {
-            if (isset($_POST['penaltyrate_5k'])) {
-              $penalty_amount = 80;
-              $has_penalty = 1;
-              $is_penalty_paid = 1;
-              $increment_penalty_count = (int) $penalty_count + 1;
-              $increment_penalty5k_count = (int) $penalty_5k_count + 1;
-
-              // CODE FOR UPDATING PENALTY;
-              $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
-              $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
-            } else {
-              $penalty_amount = 0;
-              $has_penalty = 0;
-              $is_penalty_paid = 0;
-            }
-          } else if ($type_of_employee === 'officer') {
-            if (isset($_POST['penaltyrate_5k'])) {
-              $penalty_amount = 80;
-              $has_penalty = 1;
-              $is_penalty_paid = 1;
-              $increment_penalty_count = (int) $penalty_count + 1;
-              $increment_penalty5k_count = (int) $penalty_5k_count + 1;
-
-              // CODE FOR UPDATING PENALTY;
-              $db->increment_penalty_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
-              $db->increment_penalty5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
-            } else {
-              $penalty_amount = 0;
-              $has_penalty = 0;
-              $is_penalty_paid = 0;
-            }
-          }
           header("Location: loanMonitoring.php");
         } else {
           printf("%s\n", $con->error);
@@ -310,6 +300,27 @@ if (isset($_POST['pb5k_btn_submit'])) {
 
           echo "FIRST PAYMENT: FULLY PAID<br>";
 
+          if(isset($_POST['penaltyrate_5k'])){
+            $penalty_amount = 80;
+            $has_penalty = 1;
+            $is_penalty_paid = 1;
+            $increment_penalty_count = (int)$penalty_count + 1;
+            $increment_penalty5k_count = (int)$penalty_5k_count + 1;
+      
+            if($type_of_employee === 'civilian'){
+              $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
+              $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
+            } else if($type_of_employee === 'officer'){
+              $db->increment_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
+              $db->increment_dp5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
+            }
+      
+          } else {
+            $penalty_amount = 0;
+            $has_penalty = 0;
+            $is_penalty_paid = 0;
+          }
+
           $full_payment_5k = $db->add_to_fullpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $full_interest_5k, $full_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
           if ($full_payment_5k) {
             $db->update_full_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
@@ -320,41 +331,11 @@ if (isset($_POST['pb5k_btn_submit'])) {
               $increment_fp5k = (int) $fp5k + 1;
               $db->increment_fullpayment_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp);
               $db->increment_fp_5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp5k);
-              if (isset($_POST['penaltyrate_5k'])) {
-                $penalty_amount = 80;
-                $has_penalty = 1;
-                $is_penalty_paid = 1;
-                $increment_penalty_count = (int) $penalty_count + 1;
-                $increment_penalty5k_count = (int) $penalty_5k_count + 1;
-
-                // CODE FOR UPDATING PENALTY
-                $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
-                $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
-              } else {
-                $penalty_amount = 0;
-                $has_penalty = 0;
-                $is_penalty_paid = 0;
-              }
             } else if ($type_of_employee === 'officer') {
               $increment_fp = (int) $fp + 1;
               $increment_fp5k = (int) $fp5k + 1;
               $db->increment_fp_5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp);
               $db->increment_fullpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp5k);
-              if (isset($_POST['penaltyrate_5k'])) {
-                $penalty_amount = 80;
-                $has_penalty = 1;
-                $is_penalty_paid = 1;
-                $increment_penalty_count = (int) $penalty_count + 1;
-                $increment_penalty5k_count = (int) $penalty_5k_count + 1;
-
-                // CODE FOR UPDATING PENALTY;
-                $db->increment_penalty_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
-                $db->increment_penalty5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
-              } else {
-                $penalty_amount = 0;
-                $has_penalty = 0;
-                $is_penalty_paid = 0;
-              }
             }
             echo "Fully paid!";
             header("Location: loanMonitoring.php");
@@ -378,42 +359,31 @@ if (isset($_POST['pb5k_btn_submit'])) {
             echo "FULL BALANCE 5K: $full_balance_5k<br>";
             echo "FULL INTEREST 5K: $full_interest_5k<br>";
 
+            if(isset($_POST['penaltyrate_5k'])){
+              $penalty_amount = 80;
+              $has_penalty = 1;
+              $is_penalty_paid = 1;
+              $increment_penalty_count = (int)$penalty_count + 1;
+              $increment_penalty5k_count = (int)$penalty_5k_count + 1;
+        
+              if($type_of_employee === 'civilian'){
+                $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
+                $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
+              } else if($type_of_employee === 'officer'){
+                $db->increment_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
+                $db->increment_dp5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
+              }
+        
+            } else {
+              $penalty_amount = 0;
+              $has_penalty = 0;
+              $is_penalty_paid = 0;
+            }
+
             $full_payment_5k = $db->add_to_fullpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $full_interest_5k, $full_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
             if ($full_payment_5k) {
               $db->update_loan_status($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
               $db->update_full_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
-              if ($type_of_employee === 'civilian') {
-                if (isset($_POST['penaltyrate_5k'])) {
-                  $penalty_amount = 80;
-                  $has_penalty = 1;
-                  $is_penalty_paid = 1;
-                  $increment_penalty_count = (int) $penalty_count + 1;
-                  $increment_penalty5k_count = (int) $penalty_5k_count + 1;
-
-                  $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
-                  $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
-                } else {
-                  $penalty_amount = 0;
-                  $has_penalty = 0;
-                  $is_penalty_paid = 0;
-                }
-              } else if ($type_of_employee === 'officer') {
-                if (isset($_POST['penaltyrate_5k'])) {
-                  $penalty_amount = 80;
-                  $has_penalty = 1;
-                  $is_penalty_paid = 1;
-                  $increment_penalty_count = (int) $penalty_count + 1;
-                  $increment_penalty5k_count = (int) $penalty_5k_count + 1;
-
-                  // CODE FOR UPDATING PENALTY;
-                  $db->increment_penalty_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
-                  $db->increment_penalty5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
-                } else {
-                  $penalty_amount = 0;
-                  $has_penalty = 0;
-                  $is_penalty_paid = 0;
-                }
-              }
               header("Location: loanMonitoring.php");
             } else {
               printf("%s\n", $con->error);
@@ -465,42 +435,31 @@ if (isset($_POST['pb5k_btn_submit'])) {
 
             echo "THIRD PAYMENT: FULLY PAID<br>";
 
+            if(isset($_POST['penaltyrate_5k'])){
+              $penalty_amount = 80;
+              $has_penalty = 1;
+              $is_penalty_paid = 1;
+              $increment_penalty_count = (int)$penalty_count + 1;
+              $increment_penalty5k_count = (int)$penalty_5k_count + 1;
+        
+              if($type_of_employee === 'civilian'){
+                $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
+                $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
+              } else if($type_of_employee === 'officer'){
+                $db->increment_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
+                $db->increment_dp5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
+              }
+        
+            } else {
+              $penalty_amount = 0;
+              $has_penalty = 0;
+              $is_penalty_paid = 0;
+            }
+
             $full_payment_5k = $db->add_to_fullpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $full_interest_5k, $full_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
             if ($full_payment_5k) {
               $db->update_full_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
               $db->update_loan_status($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
-              if ($type_of_employee === 'civilian') {
-                if (isset($_POST['penaltyrate_5k'])) {
-                  $penalty_amount = 80;
-                  $has_penalty = 1;
-                  $is_penalty_paid = 1;
-                  $increment_penalty_count = (int) $penalty_count + 1;
-                  $increment_penalty5k_count = (int) $penalty_5k_count + 1;
-
-                  $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
-                  $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
-                } else {
-                  $penalty_amount = 0;
-                  $has_penalty = 0;
-                  $is_penalty_paid = 0;
-                }
-              } else if ($type_of_employee === 'officer') {
-                if (isset($_POST['penaltyrate_5k'])) {
-                  $penalty_amount = 80;
-                  $has_penalty = 1;
-                  $is_penalty_paid = 1;
-                  $increment_penalty_count = (int) $penalty_count + 1;
-                  $increment_penalty5k_count = (int) $penalty_5k_count + 1;
-
-                  // CODE FOR UPDATING PENALTY;
-                  $db->increment_penalty_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
-                  $db->increment_penalty5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
-                } else {
-                  $penalty_amount = 0;
-                  $has_penalty = 0;
-                  $is_penalty_paid = 0;
-                }
-              }
               echo "Fully paid!";
               header("Location: loanMonitoring.php");
             } else {

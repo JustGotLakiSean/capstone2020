@@ -56,15 +56,30 @@ class db_access
     }
   }
 
+  // order by 5k counts
   public function view_all_employee()
   {
     $con = $this->getConnection();
-    $query = "SELECT civilian_ID as emp_id, type_of_employee as emptype, civilian_fName as emp_fName, civilian_mName as emp_mName, civilian_lName as emp_lName, civilian_email as emp_email, civilian_office as emp_office, civilian_rank as empRank, downpayment_count as dpCount, dp_5k_count as dp5k, dp_10k_count as dp10k, fullpayment_count as fp_count, fp_5k_count as fp5k, fp_10k_count as fp10k, penalty_count as penaltyCount, penalty_5k_count as penalty5k, penalty_10k_count as penalty10k, la_5k_count as la5k, la_10k_count as la10k FROM tbl_civilian_employee UNION SELECT officer_ID, type_of_employee, officer_fName, officer_mName, officer_lName, officer_email, officer_headquarter, officer_rank, downpayment_count, dp_5k_count, dp_10k_count, fullpayment_count, fp_5k_count, fp_10k_count, penalty_count, penalty_5k_count, penalty_10k_count, la_5k_count, la_10k_count FROM tbl_officersandep";
+    $query = "SELECT civilian_ID as emp_id, type_of_employee as emptype, civilian_fName as emp_fName, civilian_mName as emp_mName, civilian_lName as emp_lName, civilian_email as emp_email, civilian_office as emp_office, civilian_rank as empRank, downpayment_count as dpCount, dp_5k_count as dp5k, dp_10k_count as dp10k, fullpayment_count as fp_count, fp_5k_count as fp5k, fp_10k_count as fp10k, penalty_count as penaltyCount, penalty_5k_count as penalty5k, penalty_10k_count as penalty10k, la_5k_count as la5k, la_10k_count as la10k FROM tbl_civilian_employee UNION SELECT officer_ID, type_of_employee, officer_fName, officer_mName, officer_lName, officer_email, officer_headquarter, officer_rank, downpayment_count, dp_5k_count, dp_10k_count, fullpayment_count, fp_5k_count, fp_10k_count, penalty_count, penalty_5k_count, penalty_10k_count, la_5k_count, la_10k_count FROM tbl_officersandep ORDER BY la5k>=3 DESC";
     $data = $con->query($query);
     if ($data) {
       return $data;
     } else {
-      return false;
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // order by 10k counts
+  public function view_all_employee_10k()
+  {
+    $con = $this->getConnection();
+    $query = "SELECT civilian_ID as emp_id, type_of_employee as emptype, civilian_fName as emp_fName, civilian_mName as emp_mName, civilian_lName as emp_lName, civilian_email as emp_email, civilian_office as emp_office, civilian_rank as empRank, downpayment_count as dpCount, dp_5k_count as dp5k, dp_10k_count as dp10k, fullpayment_count as fp_count, fp_5k_count as fp5k, fp_10k_count as fp10k, penalty_count as penaltyCount, penalty_5k_count as penalty5k, penalty_10k_count as penalty10k, la_5k_count as la5k, la_10k_count as la10k FROM tbl_civilian_employee UNION SELECT officer_ID, type_of_employee, officer_fName, officer_mName, officer_lName, officer_email, officer_headquarter, officer_rank, downpayment_count, dp_5k_count, dp_10k_count, fullpayment_count, fp_5k_count, fp_10k_count, penalty_count, penalty_5k_count, penalty_10k_count, la_5k_count, la_10k_count FROM tbl_officersandep ORDER BY la10k>=3 DESC";
+    $data = $con->query($query);
+    if ($data) {
+      return $data;
+    } else {
+      die($con->error);
     }
     $con->close();
   }
@@ -1768,6 +1783,34 @@ class db_access
     $con->close();
   }
 
+  // get all 5k active loan
+  public function get5kActiveLoan()
+  {
+    $con = $this->getConnection();
+    $query="SELECT type_of_loan, loan_status AS loanStatus, count(loan_status) AS loanStatusCount FROM tbl_new_5k_loan WHERE loan_status = 0";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get all 10k active loan
+  public function get10kActiveLoan()
+  {
+    $con = $this->getConnection();
+    $query="SELECT type_of_loan, loan_status_10k AS loanStatus10k, count(loan_status_10k) AS loanStatusCount10k FROM tbl_new_10k_loan WHERE loan_status_10k = 0";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
   // get full name for active loan list (5k and 10k)
   // if "0" is the value of loan_status, it means it is active
   public function getActiveLoanList()
@@ -2186,6 +2229,310 @@ class db_access
               SELECT officer_ID AS empID, officer_fName AS empFname, officer_mName AS empMname, officer_lName AS empLname, type_of_employee AS typeOfEmployee, SUM(penalty_count) AS penaltyCount FROM tbl_officersandep GROUP BY officer_ID ORDER BY penaltyCount DESC";
     $get_data = $con->query($query);
     if ($get_data) {
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get overall interest from 1st_payment up to the full_payment; this is the current_interest;
+  public function total_interest_1st_payment()
+  {
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_interest) AS curr_first_interest FROM tbl_1stpayment WHERE type_of_loanAccount";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function total_interest_2nd_payment()
+  {
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_interest) AS curr_second_interest FROM tbl_2ndpayment";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function total_interest_3rd_payment()
+  {
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_interest) AS curr_third_interest FROM tbl_3rdpayment";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function total_interest_4th_payment()
+  {
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_interest) AS curr_fourth_interest FROM tbl_4thpayment";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function total_interest_5th_payment()
+  {
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_interest) AS curr_fifth_interest FROM tbl_5thpayment";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function total_interest_6th_payment()
+  {
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_interest) AS curr_sixth_interest FROM tbl_6thpayment";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function total_interest_full_payment()
+  {
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_interest) AS curr_full_interest FROM tbl_fullpayment";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get 5k total interest
+  public function total_5k_interest()
+  {
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_interest) AS curr_5k_interest FROM tbl_fullpayment WHERE type_of_loanAccount = '5k'";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get 10k total interest
+  public function total_10k_interest()
+  {
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_interest) AS curr_10k_interest FROM tbl_fullpayment WHERE type_of_loanAccout = '10k'";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get overall balance from 1st_payment up to the full_payment
+  public function current_balance_1()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(current_balance) AS curr_first_balance FROM tbl_1stpayment";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function current_balance_2()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(current_balance) AS curr_second_balance FROM tbl_2ndpayment";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function current_balance_3()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(current_balance) AS curr_third_balance FROM tbl_3rdpayment";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function current_balance_4()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(current_balance) AS curr_fourth_balance FROM tbl_4thpayment";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function current_balance_5()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(current_balance) AS curr_fifth_balance FROM tbl_5thpayment";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function current_balance_6()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(current_balance) AS curr_sixth_balance FROM tbl_6thpayment";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function current_balance_full()
+  {
+    $con=$this->getConnection();
+    $query="SELECT SUM(current_balance) AS curr_full_balance FROM tbl_fullpayment";
+    $get_data=$con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get total penalty collected from 1st_payment to full_payment
+  public function total_penalty_1()
+  {
+    $con = $this->getConnection();
+    $query="SELECT SUM(penalty_amount) AS penalty_1 FROM tbl_1stpayment";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function total_penalty_2()
+  {
+    $con = $this->getConnection();
+    $query="SELECT SUM(penalty_amount) AS penalty_2 FROM tbl_2ndpayment";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function total_penalty_3()
+  {
+    $con = $this->getConnection();
+    $query="SELECT SUM(penalty_amount) AS penalty_3 FROM tbl_3rdpayment";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function total_penalty_4()
+  {
+    $con = $this->getConnection();
+    $query="SELECT SUM(penalty_amount) AS penalty_4 FROM tbl_4thpayment";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function total_penalty_5()
+  {
+    $con = $this->getConnection();
+    $query="SELECT SUM(penalty_amount) AS penalty_5 FROM tbl_5thpayment";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function total_penalty_6()
+  {
+    $con = $this->getConnection();
+    $query="SELECT SUM(penalty_amount) AS penalty_6 FROM tbl_6thpayment";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  public function total_penalty_full()
+  {
+    $con = $this->getConnection();
+    $query="SELECT SUM(penalty_amount) AS penalty_full FROM tbl_fullpayment";
+    $get_data = $con->query($query);
+    if($get_data){
       return $get_data;
     } else {
       die($con->error);
