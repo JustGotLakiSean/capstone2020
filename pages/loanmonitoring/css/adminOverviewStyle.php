@@ -347,5 +347,172 @@ hr {
   overflow: visible;
   text-align: center;
 }
+
+.search_box_container {
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.3); /* color */
+  z-index: 1000;
+  display: none;
+}
+
+#search_control {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 5px;
+}
+
+
+#search_result_container {
+  background: #E6E6E6;
+  border-radius: 5px;
+  height: auto;
+  width: 480px;
+  backdrop-filter: blur(6px);
+  background-color: rgba(250, 250, 250, 0.8); /* color */
+}
+
+#search_container {
+  display: grid;
+  height: auto;
+}
+
+.search_box {
+  position: relative;
+  top: 100px;
+  margin: auto;
+  height: auto;
+  //background: #fff;
+}
+
+#search_result_box a {
+  font-size: 18px;
+  display: block;
+  list-style-type: none;
+  margin: 5px;
+  cursor: pointer;
+}
+
+#search_result_box hr {
+  background: #b4b4b4;
+}
+
+#txt_emp_search {
+  width: 480px;
+  height: 40px;
+  border: 0;
+  border-radius: 5px;
+  font-size: 20px;
+  padding-left: 10px;
+}
+
+.btn_search_close {
+  width: 50px;
+  height: 40px;
+  border: 0;
+  background: #ebebeb;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#result_container {
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.3); /* color */
+  z-index: 1000;
+}
+
+#search_close {
+  position: absolute;
+  top: -28px;
+  right: 0px;
+  height: 20px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  background-color: rgba(250, 250, 250, 0.3); /* color */
+  border: none;
+  border-radius: 20px;
+  color: #ffffff;
+  transition: 50ms ease-in;
+}
+
+#search_close:hover {
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.3); /* color */
+}
+
+#search_emp_result {
+  padding: 0px 0px 10px 0px;
+  border-radius: 20px;
+  position: relative;
+  top: 46px;
+  margin: auto;
+  height: 500px;
+  width: 480px;
+  backdrop-filter: blur(10px);
+  background-color: rgba(250, 250, 250, 0.8); /* color */
+}
+
+#search_header {
+  height: auto;
+  border: none;
+  // border-radius: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  width: 100%;
+  position: absolute;
+  background: #eee;
+  // backdrop-filter: blur(10px);
+  // background-color: rgba(250, 250, 250, 0.3); /* color */
+  z-index: 100;
+  display: block;
+}
+
+#pd_result {
+  padding: 8px;
+}
+
+#ld_result {
+  padding: 8px;
+}
+
+#account_result {
+  padding: 8px;
+}
+
+#result_con {
+  top: 24px;
+  height: 460px;
+  border-bottom-left-radius: 20px;
+  boder-bottom-right-radius: 20px;
+  overflow: auto;
+  position: relative;
+}
+
+#btn_view_emp_profile {
+  border: 0;
+  border-radius: 5px;
+  font-size: 22px;
+  height: 54px;
+  backdrop-filter: blur(0px);
+  background-color: rgba(250, 250, 250, 0.1); /* color */
+  width: 100%;
+}
+
+#result_form {
+
+}
 </style>
 STYLE;

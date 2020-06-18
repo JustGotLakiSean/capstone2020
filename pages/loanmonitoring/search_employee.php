@@ -3,7 +3,7 @@
   use \loan950\db_access;
   include("../../dbaccess/db_access.php");
   $db = new db_access();
-  $keyword = filter_var($_POST['txt_5K_newloan_borrower'], FILTER_SANITIZE_STRING);
+  $keyword = filter_var($_POST['txt_emp_search'], FILTER_SANITIZE_STRING);
   $result = $db->search_data($keyword);
   $myarr = array();
   while($res = $result->fetch_array(MYSQLI_ASSOC)){

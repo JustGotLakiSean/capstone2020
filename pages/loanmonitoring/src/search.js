@@ -9,7 +9,7 @@ function fetchEmployeeData(keyword){
     header: {
       "Content-type" : "application/json"
     },
-    body: new URLSearchParams('txt_5K_newloan_borrower=' + keyword)
+    body: new URLSearchParams('txt_emp_search=' + keyword)
   })
   .then(res => res.json())
   .then(res => display_search_result(res))
@@ -17,7 +17,7 @@ function fetchEmployeeData(keyword){
 }
 
 function display_search_result(emp_data){
-  const search_result = document.getElementById('search_result');
+  const search_result = document.getElementById('search_result_box');
 
   search_result.innerHTML = "";
 

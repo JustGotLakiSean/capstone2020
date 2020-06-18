@@ -1,7 +1,6 @@
 <?php
 echo <<<STYLE
 <style>
-
 * {
   box-sizing: border-box;
 }
@@ -11,81 +10,6 @@ body {
   font-family: 'Roboto', 'Helvetica', 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
   //background: linear-gradient(286deg, rgba(0,255,56,0.6839110644257703) 4%, rgba(147,48,204,1) 50%, rgba(0,255,188,1) 100%);
   background: #F2F2F2;
-}
-
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-}
-
-.loan_request_tabs button.active {
-  border-top: 3px solid #0071BC;
-  color: #000000;
-}
-
-.tablinks {
-  width: 570px;
-  height: 30px;
-  cursor: pointer;
-}
-
-.loan_request_tabs {
-  overflow: hidden;
-}
-
-.loan_request_tabs button {
-  background-color: #dddddd;
-  border-radius: 5px;
-  border: 1px solid rgb(179,179,179);
-  outline: none;
-  cursor: pointer;
-  height: 30px;
-  transition: 0.3s;
-  font-size: 16px;
-}
-
-#pending_table_5k > table {
-  width: 100%;
-  margin: auto;
-  border-collapse: collapse;
-  text-align: center;
-}
-
-#pending_table_10k > table {
-  width: 100%;
-  margin: auto;
-  border-collapse: collapse;
-  text-align: center;
-}
-
-#pending_table_5k > table > thead {
-  background: #0071BC;
-  border: 1px solid rgb(179,179,179);
-}
-
-#pending_table_10k > table > thead {
-  background: #0071BC;
-  border: 1px solid rgb(179,179,179);
-}
-
-#pending_table_5k > table > thead > tr > th {
-  color: #000;
-  font-weight: lighter;
-}
-
-#pending_table_10k > table > thead > tr > th {
-  color: #000;
-  font-weight: lighter;
-}
-
-#pending_table_5k > table > tbody {
-  background: #F2F2F2;
-  border: 1px solid rgb(179,179,179);
-}
-
-#pending_table_10k > table > tbody {
-  background: #F2F2F2;
-  border: 1px solid rgb(179,179,179);
 }
 
 #loan-navigation-container {
@@ -99,7 +23,7 @@ body {
 }
 
 #loan-navigation-container nav ul {
-  height: 6vh;
+  height: 42px;
   display: flex;
   justify-content: space-evenly;
   padding: 0;
@@ -171,23 +95,95 @@ body {
 }
 
 section {
-  max-width: 1150px;
+  max-width: 640px;
+  height: 300px;
   margin: auto;
   padding: 0;
+  background: #F2F2F2;
+  position: relative;
+  top: 30px;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 1px 2px 10px rgba(126, 125, 125, 0.3),
+  -1px 2px 10px rgba(126, 125, 125, 0.3);
 }
 
-h1 {
-  text-align: center;
-  font-size: 2.6rem;
+.as-inner {
+  width: 600px;
+  margin: auto;
+  display: grid;
+  /* grid-auto-flow: row; */
+  grid-gap: 1rem;
 }
 
-hr {
+.amdh {
+  font-size: 1.2rem;
+  margin: 0;
   padding: 0;
-  border: 0;
-  height: 2px;
-  background: #E6E6E6;
-  overflow: visible;
+}
+
+.amdp {
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  color: #808080;
+}
+
+.as-header {
+  position: relative;
+  /* top: 20px; */
+  /* margin-bottom: 40px; */
+}
+
+.f_header {
+  padding: 0;
   text-align: center;
+  position: relative;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.personal-details, .account-details, .loanrates-details {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.firstinner {
+  width: 250px;
+  margin: 0;
+  padding: 0;
+}
+
+.pd-viewbtn {
+  position: relative;
+  top: 30%;
+  left: 65%;
+}
+
+.pd-viewbtn button {
+  padding: 0;
+  margin: 0;
+  width: 50px;
+  height: 25px;
+  background: #B3B3B3;
+  border: none;
+  border-radius: 7px;
+  font-size: .7rem;
+  font-weight: bold;
+}
+
+.as-signoutbtn-container {
+  text-align: center;
+}
+
+.as-signoutbtn {
+  width: 100px;
+  height: 30px;
+  background: #B3B3B3;
+  border: none;
+  border-radius: 7px;
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 .search_box_container {
@@ -377,6 +373,16 @@ hr {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #808080;
+}
+
+hr {
+  margin: 5px 0 5px 0;
+  padding: 0;
+  border: 0;
+  height: 1px;
+  background: #dddddd;
+  overflow: visible;
+  text-align: center;
 }
 </style>
 STYLE;

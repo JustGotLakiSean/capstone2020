@@ -142,7 +142,7 @@ class db_access
   public function search_data($keyword)
   {
     $con = $this->getConnection();
-    $query = "SELECT civilian_ID as emp_id, civilian_fName as emp_fName, civilian_mName as emp_mName, civilian_lName as emp_lName, civilian_email as emp_email, civilian_office as emp_office FROM tbl_civilian_employee WHERE civilian_fName LIKE '%" . $keyword . "%' OR civilian_lName LIKE '%" . $keyword . "%' UNION SELECT officer_ID, officer_fName, officer_mName, officer_lName, officer_email, officer_headquarter FROM tbl_officersandep WHERE officer_fName LIKE '%" . $keyword . "%' OR officer_lName LIKE '%" . $keyword . "%'";
+    $query = "SELECT civilian_ID as emp_id, type_of_employee as emp_type, civilian_fName as emp_fName, civilian_mName as emp_mName, civilian_lName as emp_lName, civilian_email as emp_email, civilian_office as emp_office FROM tbl_civilian_employee WHERE civilian_fName LIKE '%" . $keyword . "%' OR civilian_lName LIKE '%" . $keyword . "%' UNION SELECT officer_ID, type_of_employee, officer_fName, officer_mName, officer_lName, officer_email, officer_headquarter FROM tbl_officersandep WHERE officer_fName LIKE '%" . $keyword . "%' OR officer_lName LIKE '%" . $keyword . "%'";
     $data = $con->query($query);
     if ($data) {
       return $data;
@@ -2531,6 +2531,78 @@ class db_access
   {
     $con = $this->getConnection();
     $query="SELECT SUM(penalty_amount) AS penalty_full FROM tbl_fullpayment";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // SEARCHING
+  // employee panel
+  public function search_emp_panel($s_emp_id, $s_emp_fname, $s_emp_mname, $s_emp_lname, $s_emp_type)
+  {
+    $con = $this->getConnection();
+    $query="SELECT civilian_ID as s_emp_id, type_of_employee as emp_type, civilian_fName as s_emp_fname, civilian_mName as s_emp_mname, civilian_lName as s_emp_lname, civilian_office as s_emp_office, civilian_email as s_emp_email, civilian_contactNumber as emp_no, civilian_birthdate as emp_bdate, civilian_address as emp_address, civilian_rank as emp_rank, has_account as hasAccount FROM tbl_civilian_employee WHERE civilian_ID = '$s_emp_id' AND civilian_fName = '$s_emp_fname' AND civilian_mName = '$s_emp_mname' AND civilian_lName = '$s_emp_lname' AND type_of_employee = '$s_emp_type' UNION SELECT officer_ID, type_of_employee, officer_fName, officer_mName, officer_lName, officer_headquarter, officer_email, officer_contactNumber, officer_birthdate, officer_address, officer_rank, has_account FROM tbl_officersandep WHERE officer_ID = '$s_emp_id' AND officer_fName = '$s_emp_fname' AND officer_mName = '$s_emp_mname' AND officer_lName = '$s_emp_lname' AND type_of_employee = '$s_emp_type'";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // check if there is active loan (5k)
+  public function show_active_loan($emp_id, $emp_fname, $emp_mname, $emp_lname, $emp_type)
+  {
+    $con = $this->getConnection();
+    // $query = "SELECT loan_id_5k as loanID, borrower_id as borrowerID, ctrl_no_prefix as loanPrefix, fname as borrowerFname, mname as borrowerMname, lname as borrowerLname, type_of_employee as borrowerType, type_of_loan as b_typeOfLoan, loan_status as loanStatus FROM tbl_new_5k_loan WHERE borrower_id = '$emp_id' AND fname = '$emp_fname' AND mname = '$emp_mname' AND lname = '$emp_lname' AND type_of_employee = '$emp_type' AND loan_status = 0 UNION SELECT loan_id_10k, borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, type_of_loan, loan_status_10k FROM tbl_new_10k_loan WHERE borrower_id = '$emp_id' AND fname = '$emp_fname' AND mname = '$emp_mname' AND lname = '$emp_lname' AND type_of_employee = '$emp_type' AND loan_status_10k = 0";
+    $query = "SELECT loan_id_5k AS loanID, count(*) AS countLD, borrower_id AS borrowerID, ctrl_no_prefix AS loanPrefix, fname AS borrowerFNAME, mname AS borrowerMNAME, lname AS borrowerLNAME, type_of_employee AS borrowerTYPE, type_of_loan AS typeOfLOAN, loan_status AS loanStatus FROM tbl_new_5k_loan WHERE borrower_id = '$emp_id' AND fname = '$emp_fname' AND mname = '$emp_mname' AND lname = '$emp_lname' AND type_of_employee = '$emp_type' AND loan_status = 0";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // check if there is active loan (10k)
+  public function show_active_loan_10k($emp_id, $emp_fname, $emp_mname, $emp_lname, $emp_type)
+  {
+    $con = $this->getConnection();
+    $query = "SELECT loan_id_10k, count(*), borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, type_of_loan, loan_status_10k FROM tbl_new_10k_loan WHERE borrower_id = '$emp_id' AND fname = '$emp_fname' AND mname = '$emp_mname' AND lname = '$emp_lname' AND type_of_employee = '$emp_type' AND loan_status_10k = 0";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // check if civilian has account
+  public function check_civ_account($emp_id, $emp_fname, $emp_mname, $emp_lname, $emp_type)
+  {
+    $con = $this->getConnection();
+    $query = "SELECT civilian_id, civilian_account_fName, civilian_account_mName, civilian_account_lName, civilian_username FROM tbl_civilian_employee_account WHERE civilian_id = '$emp_id' AND civilian_account_fName = '$emp_fname' AND civilian_account_mName = '$emp_mname' AND civilian_account_lName = '$emp_lname' AND type_of_employee = '$emp_type'";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // check if officer has account
+  public function check_off_account($emp_id, $emp_fname, $emp_mname, $emp_lname, $emp_type)
+  {
+    $con = $this->getConnection();
+    $query = "SELECT officer_id, officer_account_fName, officer_account_mName, officer_account_lName, officer_account_username FROM tbl_officersandep_account WHERE officer_id = '$emp_id' AND officer_account_fName = '$emp_fname' AND officer_account_mName = '$emp_mname' AND officer_account_lName = '$emp_lname' AND type_of_employee = '$emp_type'";
     $get_data = $con->query($query);
     if($get_data){
       return $get_data;
