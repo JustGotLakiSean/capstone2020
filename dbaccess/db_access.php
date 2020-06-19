@@ -2560,7 +2560,7 @@ class db_access
   {
     $con = $this->getConnection();
     // $query = "SELECT loan_id_5k as loanID, borrower_id as borrowerID, ctrl_no_prefix as loanPrefix, fname as borrowerFname, mname as borrowerMname, lname as borrowerLname, type_of_employee as borrowerType, type_of_loan as b_typeOfLoan, loan_status as loanStatus FROM tbl_new_5k_loan WHERE borrower_id = '$emp_id' AND fname = '$emp_fname' AND mname = '$emp_mname' AND lname = '$emp_lname' AND type_of_employee = '$emp_type' AND loan_status = 0 UNION SELECT loan_id_10k, borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, type_of_loan, loan_status_10k FROM tbl_new_10k_loan WHERE borrower_id = '$emp_id' AND fname = '$emp_fname' AND mname = '$emp_mname' AND lname = '$emp_lname' AND type_of_employee = '$emp_type' AND loan_status_10k = 0";
-    $query = "SELECT loan_id_5k AS loanID, count(*) AS countLD, borrower_id AS borrowerID, ctrl_no_prefix AS loanPrefix, fname AS borrowerFNAME, mname AS borrowerMNAME, lname AS borrowerLNAME, type_of_employee AS borrowerTYPE, type_of_loan AS typeOfLOAN, loan_status AS loanStatus FROM tbl_new_5k_loan WHERE borrower_id = '$emp_id' AND fname = '$emp_fname' AND mname = '$emp_mname' AND lname = '$emp_lname' AND type_of_employee = '$emp_type' AND loan_status = 0";
+    $query = "SELECT loan_id_5k AS loanID, borrower_id AS borrowerID, ctrl_no_prefix AS loanPrefix, fname AS borrowerFNAME, mname AS borrowerMNAME, lname AS borrowerLNAME, type_of_employee AS borrowerTYPE, type_of_loan AS typeOfLOAN, loan_status FROM tbl_new_5k_loan WHERE loan_status = 0 AND borrower_id = '$emp_id' AND fname = '$emp_fname' AND mname = '$emp_mname' AND lname = '$emp_lname' AND type_of_employee = '$emp_type'";
     $get_data = $con->query($query);
     if($get_data){
       return $get_data;
@@ -2603,6 +2603,35 @@ class db_access
   {
     $con = $this->getConnection();
     $query = "SELECT officer_id, officer_account_fName, officer_account_mName, officer_account_lName, officer_account_username FROM tbl_officersandep_account WHERE officer_id = '$emp_id' AND officer_account_fName = '$emp_fname' AND officer_account_mName = '$emp_mname' AND officer_account_lName = '$emp_lname' AND type_of_employee = '$emp_type'";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get advance, downpayment, pealty, la5k and la10k count
+  // CIVILIAN
+  public function get_loan_counts_civ($emp_id, $emp_fname, $emp_mname, $emp_lname, $emp_type)
+  {
+    $con = $this->getConnection();
+    $query = "SELECT civilian_ID, type_of_employee, civilian_fName, civilian_mName, civilian_lName, downpayment_count, fullpayment_count, penalty_count, la_5k_count, la_10k_count FROM tbl_civilian_employee WHERE civilian_ID = '$emp_id' AND civilian_fName = '$emp_fname' AND civilian_mName = '$emp_mname' AND civilian_lName = '$emp_lname' AND type_of_employee = '$emp_type'";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // OFFICER
+  public function get_loan_counts_off($emp_id, $emp_fname, $emp_mname, $emp_lname, $emp_type)
+  {
+    $con = $this->getConnection();
+    $query = "SELECT officer_ID, type_of_employee, officer_fName, officer_mName, officer_lName, downpayment_count, fullpayment_count, penalty_count, la_5k_count, la_10k_count FROM tbl_officersandep WHERE officer_ID = '$emp_id' AND officer_fName = '$emp_fname' AND officer_mName = '$emp_mname' AND officer_lName = '$emp_lname' AND type_of_employee = '$emp_type'";
     $get_data = $con->query($query);
     if($get_data){
       return $get_data;

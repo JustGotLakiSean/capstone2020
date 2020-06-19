@@ -330,8 +330,8 @@ BUTTON;
     echo '<hr style="background: #ccc;">';
   }
 
-  $fetchLoanDetail5k = $db->show_active_loan($emp_search_id, $emp_search_fname, $emp_search_mname, $emp_search_lname, $emp_search_empType);
-  $fetchLoanDetail10k = $db->show_active_loan_10k($emp_search_id, $emp_search_fname, $emp_search_mname, $emp_search_lname, $emp_search_empType);
+  $fetchLoanDetailCiv = $db->get_loan_counts_civ($emp_search_id, $emp_search_fname, $emp_search_mname, $emp_search_lname, $emp_search_empType);
+  $fetchLoanDetailOff = $db->get_loan_counts_off($emp_search_id, $emp_search_fname, $emp_search_mname, $emp_search_lname, $emp_search_empType);
   $fetchAccountCiv = $db->check_civ_account($emp_search_id, $emp_search_fname, $emp_search_mname, $emp_search_lname, $emp_search_empType);
   $fetchAccountOff = $db->check_off_account($emp_search_id, $emp_search_fname, $emp_search_mname, $emp_search_lname, $emp_search_empType);
   echo '<div id="ld_result">'; // 'ld' = loan details
@@ -339,82 +339,119 @@ BUTTON;
   echo '<div id="result_5k">';
   echo '<h3 style="margin: 1px;">Loan details</h3>';
 
-  while ($ress2 = $fetchLoanDetail5k->fetch_array(MYSQLI_ASSOC)) {
-    if ($ress2 > 0) {
-      $loanStatus = $ress2['loanStatus'];
+  if($emp_search_empType === 'civilian'){
+    while($ress22 = $fetchLoanDetailCiv->fetch_array(MYSQLI_ASSOC)){
+      $borrower_civ_id = $ress22['civilian_ID'];
+      $la5kcount_civ = $ress22['la_5k_count'];
+      $la10kcount_civ = $ress22['la_10k_count'];
+      $penalty_count_civ = $ress22['penalty_count'];
+      $downpayment_count_civ = $ress22['downpayment_count'];
+      $fullpayment_count_civ = $ress22['fullpayment_count'];
 
-      if ($loanStatus === 0) {
-        $loanID = $ress2['loanID'];
-        $borrowerID = $ress2['borrowerID'];
-        $transactionPrefix = $ress2['loanPrefix'];
-        $type_of_loan = $ress2['typeOfLOAN'];
-        $transactionID = "$transactionPrefix-000$loanID";
-        $isFullPaid = (($ress2['loanStatus'] == 0) ? 'Not fully paid' : 'Fully paid');
+      echo '<div style="display: grid; grid-auto-flow: row;">';
+      echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 0px 0;">';
+      echo '<span span style="font-weight: bold; width: 154px;">Loan 5K count: </span>';
+      echo '<p style="margin: 0; width: 300px;">' . $la5kcount_civ . '</p>';
+      echo '</div>';
+      echo '<hr style="height: 4px; width: ' . $la5kcount_civ . 'vw; border-radius: 5px; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%);">';
+      echo '</div>';
 
+      echo '<hr style="background: #ccc;">';
 
-        echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 12px 0;">';
-        echo '<span span style="font-weight: bold; width: 134px;">Active loan:</span>';
-        echo '<p style="margin: 0; width: 300px;">Yes</p>';
-        echo '</div>';
+      echo '<div style="display: grid; grid-auto-flow: row;">';
+      echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 0px 0;">';
+      echo '<span span style="font-weight: bold; width: 154px;">Loan 10K count: </span>';
+      echo '<p style="margin: 0; width: 300px;">' . $la10kcount_civ . '</p>';
+      echo '</div>';
+      echo '<hr style="height: 4px; width: ' . $la10kcount_civ . 'vw; border-radius: 5px; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%);">';
+      echo '</div>';
 
-        echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 12px 0;">';
-        echo '<span span style="font-weight: bold; width: 134px;">Type of loan:</span>';
-        echo '<p style="margin: 0; width: 300px;">' . $type_of_loan . '</p>';
-        echo '</div>';
+      echo '<hr style="background: #ccc;">';
 
-        echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 12px 0;">';
-        echo '<span span style="font-weight: bold; width: 134px;">Status:</span>';
-        echo '<p style="margin: 0; width: 300px;">' . $isFullPaid . '</p>';
-        echo '</div>';
+      echo '<div style="display: grid; grid-auto-flow: row;">';
+      echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 0px 0;">';
+      echo '<span span style="font-weight: bold; width: 154px;">Fullpayment count: </span>';
+      echo '<p style="margin: 0; width: 300px;">' . $fullpayment_count_civ . '</p>';
+      echo '</div>';
+      echo '<hr style="height: 4px; width: ' . $fullpayment_count_civ . 'vw; border-radius: 5px; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%);">';
+      echo '</div>';
 
-        echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 12px 0;">';
-        echo '<span span style="font-weight: bold; width: 134px;">Transaction ID:</span>';
-        echo '<p style="margin: 0; width: 300px;">' . $transactionID . '</p>';
-        echo '</div>';
-      } else {
-        echo '<p>No active 5k loan</p>';
-      }
-    } else {
+      echo '<hr style="background: #ccc;">';
+
+      echo '<div style="display: grid; grid-auto-flow: row;">';
+      echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 0px 0;">';
+      echo '<span span style="font-weight: bold; width: 154px;">Downpayment count: </span>';
+      echo '<p style="margin: 0; width: 300px;">' . $downpayment_count_civ . '</p>';
+      echo '</div>';
+      echo '<hr style="height: 4px; width: ' . $downpayment_count_civ . 'vw; border-radius: 5px; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%);">';
+      echo '</div>';
+
+      echo '<hr style="background: #ccc;">';
+
+      echo '<div style="display: grid; grid-auto-flow: row;">';
+      echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 0px 0;">';
+      echo '<span span style="font-weight: bold; width: 154px;">Penalty count: </span>';
+      echo '<p style="margin: 0; width: 300px;">' . $penalty_count_civ . '</p>';
+      echo '</div>';
+      echo '<hr style="height: 4px; width: ' . $penalty_count_civ . 'vw; border-radius: 5px; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%);">';
+      echo '</div>';
     }
-  }
+  } else if($emp_search_empType === 'officer'){
+    while($ress2 = $fetchLoanDetailOff->fetch_array(MYSQLI_ASSOC)){
+      $borrowerID = $ress2['officer_ID'];
+      $la5kcount = $ress2['la_5k_count'];
+      $la10kcount = $ress2['la_10k_count'];
+      $penalty_count = $ress2['penalty_count'];
+      $downpayment_count = $ress2['downpayment_count'];
+      $fullpayment_count = $ress2['fullpayment_count'];
 
-  echo '<hr style="background: #ccc;">';
+      echo '<div style="display: grid; grid-auto-flow: row;">';
+      echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 0px 0;">';
+      echo '<span span style="font-weight: bold; width: 154px;">Loan 5K count: </span>';
+      echo '<p style="margin: 0; width: 300px;">' . $la5kcount . '</p>';
+      echo '</div>';
+      echo '<hr style="height: 4px; width: ' . $la5kcount . 'vw; border-radius: 5px; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%);">';
+      echo '</div>';
 
-  while ($ress3 = $fetchLoanDetail10k->fetch_array(MYSQLI_ASSOC)) {
-    if ($ress3 > 0) {
-      $loanStatus10k = $ress['loan_status_10k'];
+      echo '<hr style="background: #ccc;">';
 
-      if ($loanStatus10k === 0) {
-        $loanID10k = $ress3['loan_id_10k'];
-        $borrowerID10k = $ress3['borrower_id'];
-        $transactionPrefix10k = $ress3['ctrl_no_prefix'];
-        $type_of_loan_10k = $ress3['type_of_loan'];
-        $transactionID10k = "$transactionPrefix10k-000$loanID10k";
-        $isFullPaid10k = (($ress3['loan_status_10k'] == 0) ? 'Not fully paid' : 'Fully paid');
+      echo '<div style="display: grid; grid-auto-flow: row;">';
+      echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 0px 0;">';
+      echo '<span span style="font-weight: bold; width: 154px;">Loan 10K count: </span>';
+      echo '<p style="margin: 0; width: 300px;">' . $la10kcount . '</p>';
+      echo '</div>';
+      echo '<hr style="height: 4px; width: ' . $la10kcount . 'vw; border-radius: 5px; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%);">';
+      echo '</div>';
 
-        echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 12px 0;">';
-        echo '<span span style="font-weight: bold; width: 134px;">Active loan:</span>';
-        echo '<p style="margin: 0; width: 300px;">Yes</p>';
-        echo '</div>';
+      echo '<hr style="background: #ccc;">';
 
-        echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 12px 0;">';
-        echo '<span span style="font-weight: bold; width: 134px;">Type of loan:</span>';
-        echo '<p style="margin: 0; width: 300px;">' . $type_of_loan . '</p>';
-        echo '</div>';
+      echo '<div style="display: grid; grid-auto-flow: row;">';
+      echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 0px 0;">';
+      echo '<span span style="font-weight: bold; width: 154px;">Fullpayment count: </span>';
+      echo '<p style="margin: 0; width: 300px;">' . $fullpayment_count . '</p>';
+      echo '</div>';
+      echo '<hr style="height: 4px; width: ' . $fullpayment_count . 'vw; border-radius: 5px; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%);">';
+      echo '</div>';
 
-        echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 12px 0;">';
-        echo '<span span style="font-weight: bold; width: 134px;">Status:</span>';
-        echo '<p style="margin: 0; width: 300px;">' . $isFullPaid10k . '</p>';
-        echo '</div>';
+      echo '<hr style="background: #ccc;">';
 
-        echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 12px 0;">';
-        echo '<span span style="font-weight: bold; width: 134px;">Transaction ID:</span>';
-        echo '<p style="margin: 0; width: 300px;">' . $transactionID10k . '</p>';
-        echo '</div>';
-      } else {
-        echo '<p>No active 10k loan</p>';
-      }
-    } else {
+      echo '<div style="display: grid; grid-auto-flow: row;">';
+      echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 0px 0;">';
+      echo '<span span style="font-weight: bold; width: 154px;">Downpayment count: </span>';
+      echo '<p style="margin: 0; width: 300px;">' . $downpayment_count . '</p>';
+      echo '</div>';
+      echo '<hr style="height: 4px; width: ' . $downpayment_count . 'vw; border-radius: 5px; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%);">';
+      echo '</div>';
+
+      echo '<hr style="background: #ccc;">';
+
+      echo '<div style="display: grid; grid-auto-flow: row;">';
+      echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 0px 0;">';
+      echo '<span span style="font-weight: bold; width: 154px;">Penalty count: </span>';
+      echo '<p style="margin: 0; width: 300px;">' . $penalty_count . '</p>';
+      echo '</div>';
+      echo '<hr style="height: 4px; width: ' . $penalty_count . 'vw; border-radius: 5px; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%);">';
+      echo '</div>';
     }
   }
 
@@ -429,9 +466,9 @@ BUTTON;
 
   if ($emp_search_empType === 'civilian') {
     // echo "CIVILAN";
-    if ($hasAccount === 1) {
+    if ($hasAccount == 1) {
       while ($ress4 = $fetchAccountCiv->fetch_array(MYSQLI_ASSOC)) {
-        $civ_username = $ress['civilian_username'];
+        $civ_username = $ress4['civilian_username'];
 
         echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 12px 0;">';
         echo '<span span style="font-weight: bold; width: 134px;">Username:</span>';
@@ -443,9 +480,9 @@ BUTTON;
     }
   } else if ($emp_search_empType === 'officer') {
     // echo "OFFICER";
-    if ($hasAccount === 1) {
+    if ($hasAccount == 1) {
       while ($ress4 = $fetchAccountOff->fetch_array(MYSQLI_ASSOC)) {
-        $off_username = $ress['officer_account_username'];
+        $off_username = $ress4['officer_account_username'];
 
         echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 12px 0;">';
         echo '<span span style="font-weight: bold; width: 134px;">Username:</span>';
