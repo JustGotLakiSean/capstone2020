@@ -985,10 +985,10 @@ class db_access
   // increment penalty 5k; civilian
   public function increment_penalty5k_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
   {
-    $con=$this->getConnection();
-    $query="UPDATE tbl_civilian_employee SET penalty_5k_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
-    $update_query=$con->query($query);
-    if($update_query){
+    $con = $this->getConnection();
+    $query = "UPDATE tbl_civilian_employee SET penalty_5k_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if ($update_query) {
       return true;
     } else {
       die($con->error);
@@ -999,10 +999,10 @@ class db_access
   // increment penalty 10k; civilian
   public function increment_penalty10k_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
   {
-    $con=$this->getConnection();
-    $query="UPDATE tbl_civilian_employee SET penalty_10k_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
-    $update_query=$con->query($query);
-    if($update_query){
+    $con = $this->getConnection();
+    $query = "UPDATE tbl_civilian_employee SET penalty_10k_count = '$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if ($update_query) {
       return true;
     } else {
       die($con->error);
@@ -1013,10 +1013,10 @@ class db_access
   // increment civilian penalty count
   public function increment_penalty_count_civilian($id, $fname, $mname, $lname, $type_of_employee, $increment)
   {
-    $con=$this->getConnection();
-    $query="UPDATE tbl_civilian_employee SET penalty_count ='$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
-    $update_query=$con->query($query);
-    if($update_query){
+    $con = $this->getConnection();
+    $query = "UPDATE tbl_civilian_employee SET penalty_count ='$increment' WHERE civilian_ID = '$id' AND civilian_fName = '$fname' AND civilian_mName = '$mname' AND civilian_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if ($update_query) {
       return true;
     } else {
       die($con->error);
@@ -1113,10 +1113,10 @@ class db_access
   // increment penalty 5k; officer
   public function increment_penalty5k_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
   {
-    $con=$this->getConnection();
-    $query="UPDATE tbl_officersandep SET penalty_5k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
-    $update_query=$con->query($query);
-    if($update_query){
+    $con = $this->getConnection();
+    $query = "UPDATE tbl_officersandep SET penalty_5k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if ($update_query) {
       return true;
     } else {
       die($con->error);
@@ -1127,10 +1127,10 @@ class db_access
   // increment penalty 10k; officer
   public function increment_penalty10k_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
   {
-    $con=$this->getConnection();
-    $query="UPDATE tbl_officersandep SET penalty_10k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
-    $update_query=$con->query($query);
-    if($update_query){
+    $con = $this->getConnection();
+    $query = "UPDATE tbl_officersandep SET penalty_10k_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if ($update_query) {
       return true;
     } else {
       die($con->error);
@@ -1141,10 +1141,10 @@ class db_access
   // increment officer penalty count
   public function increment_penalty_count_officer($id, $fname, $mname, $lname, $type_of_employee, $increment)
   {
-    $con=$this->getConnection();
-    $query="UPDATE tbl_officersandep SET penalty_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
-    $update_query=$con->query($query);
-    if($update_query){
+    $con = $this->getConnection();
+    $query = "UPDATE tbl_officersandep SET penalty_count = '$increment' WHERE officer_ID = '$id' AND officer_fName = '$fname' AND officer_mName = '$mname' AND officer_lName = '$lname' AND type_of_employee = '$type_of_employee'";
+    $update_query = $con->query($query);
+    if ($update_query) {
       return true;
     } else {
       die($con->error);
@@ -1716,10 +1716,10 @@ class db_access
   // get 5k sum of credit
   public function get_5k_credit_rate_sum()
   {
-    $con=$this->getConnection();
-    $query="SELECT SUM(credit_5k_rate) AS currCredit5kRate FROM tbl_new_5k_loan";
-    $get_data=$con->query($query);
-    if($get_data){
+    $con = $this->getConnection();
+    $query = "SELECT SUM(credit_5k_rate) AS currCredit5kRate FROM tbl_new_5k_loan";
+    $get_data = $con->query($query);
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -1730,10 +1730,10 @@ class db_access
   // get 10k sum of credit
   public function get_10k_credit_rate_sum()
   {
-    $con=$this->getConnection();
-    $query="SELECT SUM(credit_10k_rate) AS currCredit10kRate FROM tbl_new_10k_loan";
-    $get_data=$con->query($query);
-    if($get_data){
+    $con = $this->getConnection();
+    $query = "SELECT SUM(credit_10k_rate) AS currCredit10kRate FROM tbl_new_10k_loan";
+    $get_data = $con->query($query);
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -1787,9 +1787,9 @@ class db_access
   public function get5kActiveLoan()
   {
     $con = $this->getConnection();
-    $query="SELECT type_of_loan, loan_status AS loanStatus, count(loan_status) AS loanStatusCount FROM tbl_new_5k_loan WHERE loan_status = 0";
+    $query = "SELECT type_of_loan, loan_status AS loanStatus, count(loan_status) AS loanStatusCount FROM tbl_new_5k_loan WHERE loan_status = 0";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -1801,9 +1801,9 @@ class db_access
   public function get10kActiveLoan()
   {
     $con = $this->getConnection();
-    $query="SELECT type_of_loan, loan_status_10k AS loanStatus10k, count(loan_status_10k) AS loanStatusCount10k FROM tbl_new_10k_loan WHERE loan_status_10k = 0";
+    $query = "SELECT type_of_loan, loan_status_10k AS loanStatus10k, count(loan_status_10k) AS loanStatusCount10k FROM tbl_new_10k_loan WHERE loan_status_10k = 0";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2242,7 +2242,7 @@ class db_access
     $con = $this->getConnection();
     $query = "SELECT SUM(current_interest) AS curr_first_interest FROM tbl_1stpayment WHERE type_of_loanAccount";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2255,7 +2255,7 @@ class db_access
     $con = $this->getConnection();
     $query = "SELECT SUM(current_interest) AS curr_second_interest FROM tbl_2ndpayment";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2268,7 +2268,7 @@ class db_access
     $con = $this->getConnection();
     $query = "SELECT SUM(current_interest) AS curr_third_interest FROM tbl_3rdpayment";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2281,7 +2281,7 @@ class db_access
     $con = $this->getConnection();
     $query = "SELECT SUM(current_interest) AS curr_fourth_interest FROM tbl_4thpayment";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2294,7 +2294,7 @@ class db_access
     $con = $this->getConnection();
     $query = "SELECT SUM(current_interest) AS curr_fifth_interest FROM tbl_5thpayment";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2307,7 +2307,7 @@ class db_access
     $con = $this->getConnection();
     $query = "SELECT SUM(current_interest) AS curr_sixth_interest FROM tbl_6thpayment";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2320,7 +2320,7 @@ class db_access
     $con = $this->getConnection();
     $query = "SELECT SUM(current_interest) AS curr_full_interest FROM tbl_fullpayment";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2334,7 +2334,7 @@ class db_access
     $con = $this->getConnection();
     $query = "SELECT SUM(current_interest) AS curr_5k_interest FROM tbl_fullpayment WHERE type_of_loanAccount = '5k'";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2348,7 +2348,7 @@ class db_access
     $con = $this->getConnection();
     $query = "SELECT SUM(current_interest) AS curr_10k_interest FROM tbl_fullpayment WHERE type_of_loanAccout = '10k'";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2359,10 +2359,10 @@ class db_access
   // get overall balance from 1st_payment up to the full_payment
   public function current_balance_1()
   {
-    $con=$this->getConnection();
-    $query="SELECT SUM(current_balance) AS curr_first_balance FROM tbl_1stpayment";
-    $get_data=$con->query($query);
-    if($get_data){
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_balance) AS curr_first_balance FROM tbl_1stpayment";
+    $get_data = $con->query($query);
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2372,10 +2372,10 @@ class db_access
 
   public function current_balance_2()
   {
-    $con=$this->getConnection();
-    $query="SELECT SUM(current_balance) AS curr_second_balance FROM tbl_2ndpayment";
-    $get_data=$con->query($query);
-    if($get_data){
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_balance) AS curr_second_balance FROM tbl_2ndpayment";
+    $get_data = $con->query($query);
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2385,10 +2385,10 @@ class db_access
 
   public function current_balance_3()
   {
-    $con=$this->getConnection();
-    $query="SELECT SUM(current_balance) AS curr_third_balance FROM tbl_3rdpayment";
-    $get_data=$con->query($query);
-    if($get_data){
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_balance) AS curr_third_balance FROM tbl_3rdpayment";
+    $get_data = $con->query($query);
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2398,10 +2398,10 @@ class db_access
 
   public function current_balance_4()
   {
-    $con=$this->getConnection();
-    $query="SELECT SUM(current_balance) AS curr_fourth_balance FROM tbl_4thpayment";
-    $get_data=$con->query($query);
-    if($get_data){
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_balance) AS curr_fourth_balance FROM tbl_4thpayment";
+    $get_data = $con->query($query);
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2411,10 +2411,10 @@ class db_access
 
   public function current_balance_5()
   {
-    $con=$this->getConnection();
-    $query="SELECT SUM(current_balance) AS curr_fifth_balance FROM tbl_5thpayment";
-    $get_data=$con->query($query);
-    if($get_data){
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_balance) AS curr_fifth_balance FROM tbl_5thpayment";
+    $get_data = $con->query($query);
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2424,10 +2424,10 @@ class db_access
 
   public function current_balance_6()
   {
-    $con=$this->getConnection();
-    $query="SELECT SUM(current_balance) AS curr_sixth_balance FROM tbl_6thpayment";
-    $get_data=$con->query($query);
-    if($get_data){
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_balance) AS curr_sixth_balance FROM tbl_6thpayment";
+    $get_data = $con->query($query);
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2437,10 +2437,10 @@ class db_access
 
   public function current_balance_full()
   {
-    $con=$this->getConnection();
-    $query="SELECT SUM(current_balance) AS curr_full_balance FROM tbl_fullpayment";
-    $get_data=$con->query($query);
-    if($get_data){
+    $con = $this->getConnection();
+    $query = "SELECT SUM(current_balance) AS curr_full_balance FROM tbl_fullpayment";
+    $get_data = $con->query($query);
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2452,9 +2452,9 @@ class db_access
   public function total_penalty_1()
   {
     $con = $this->getConnection();
-    $query="SELECT SUM(penalty_amount) AS penalty_1 FROM tbl_1stpayment";
+    $query = "SELECT SUM(penalty_amount) AS penalty_1 FROM tbl_1stpayment";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2465,9 +2465,9 @@ class db_access
   public function total_penalty_2()
   {
     $con = $this->getConnection();
-    $query="SELECT SUM(penalty_amount) AS penalty_2 FROM tbl_2ndpayment";
+    $query = "SELECT SUM(penalty_amount) AS penalty_2 FROM tbl_2ndpayment";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2478,9 +2478,9 @@ class db_access
   public function total_penalty_3()
   {
     $con = $this->getConnection();
-    $query="SELECT SUM(penalty_amount) AS penalty_3 FROM tbl_3rdpayment";
+    $query = "SELECT SUM(penalty_amount) AS penalty_3 FROM tbl_3rdpayment";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2491,9 +2491,9 @@ class db_access
   public function total_penalty_4()
   {
     $con = $this->getConnection();
-    $query="SELECT SUM(penalty_amount) AS penalty_4 FROM tbl_4thpayment";
+    $query = "SELECT SUM(penalty_amount) AS penalty_4 FROM tbl_4thpayment";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2504,9 +2504,9 @@ class db_access
   public function total_penalty_5()
   {
     $con = $this->getConnection();
-    $query="SELECT SUM(penalty_amount) AS penalty_5 FROM tbl_5thpayment";
+    $query = "SELECT SUM(penalty_amount) AS penalty_5 FROM tbl_5thpayment";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2517,9 +2517,9 @@ class db_access
   public function total_penalty_6()
   {
     $con = $this->getConnection();
-    $query="SELECT SUM(penalty_amount) AS penalty_6 FROM tbl_6thpayment";
+    $query = "SELECT SUM(penalty_amount) AS penalty_6 FROM tbl_6thpayment";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2530,9 +2530,9 @@ class db_access
   public function total_penalty_full()
   {
     $con = $this->getConnection();
-    $query="SELECT SUM(penalty_amount) AS penalty_full FROM tbl_fullpayment";
+    $query = "SELECT SUM(penalty_amount) AS penalty_full FROM tbl_fullpayment";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2545,9 +2545,9 @@ class db_access
   public function search_emp_panel($s_emp_id, $s_emp_fname, $s_emp_mname, $s_emp_lname, $s_emp_type)
   {
     $con = $this->getConnection();
-    $query="SELECT civilian_ID as s_emp_id, type_of_employee as emp_type, civilian_fName as s_emp_fname, civilian_mName as s_emp_mname, civilian_lName as s_emp_lname, civilian_office as s_emp_office, civilian_email as s_emp_email, civilian_contactNumber as emp_no, civilian_birthdate as emp_bdate, civilian_address as emp_address, civilian_rank as emp_rank, has_account as hasAccount FROM tbl_civilian_employee WHERE civilian_ID = '$s_emp_id' AND civilian_fName = '$s_emp_fname' AND civilian_mName = '$s_emp_mname' AND civilian_lName = '$s_emp_lname' AND type_of_employee = '$s_emp_type' UNION SELECT officer_ID, type_of_employee, officer_fName, officer_mName, officer_lName, officer_headquarter, officer_email, officer_contactNumber, officer_birthdate, officer_address, officer_rank, has_account FROM tbl_officersandep WHERE officer_ID = '$s_emp_id' AND officer_fName = '$s_emp_fname' AND officer_mName = '$s_emp_mname' AND officer_lName = '$s_emp_lname' AND type_of_employee = '$s_emp_type'";
+    $query = "SELECT civilian_ID as s_emp_id, type_of_employee as emp_type, civilian_fName as s_emp_fname, civilian_mName as s_emp_mname, civilian_lName as s_emp_lname, civilian_office as s_emp_office, civilian_email as s_emp_email, civilian_contactNumber as emp_no, civilian_birthdate as emp_bdate, civilian_address as emp_address, civilian_rank as emp_rank, has_account as hasAccount FROM tbl_civilian_employee WHERE civilian_ID = '$s_emp_id' AND civilian_fName = '$s_emp_fname' AND civilian_mName = '$s_emp_mname' AND civilian_lName = '$s_emp_lname' AND type_of_employee = '$s_emp_type' UNION SELECT officer_ID, type_of_employee, officer_fName, officer_mName, officer_lName, officer_headquarter, officer_email, officer_contactNumber, officer_birthdate, officer_address, officer_rank, has_account FROM tbl_officersandep WHERE officer_ID = '$s_emp_id' AND officer_fName = '$s_emp_fname' AND officer_mName = '$s_emp_mname' AND officer_lName = '$s_emp_lname' AND type_of_employee = '$s_emp_type'";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2562,7 +2562,7 @@ class db_access
     // $query = "SELECT loan_id_5k as loanID, borrower_id as borrowerID, ctrl_no_prefix as loanPrefix, fname as borrowerFname, mname as borrowerMname, lname as borrowerLname, type_of_employee as borrowerType, type_of_loan as b_typeOfLoan, loan_status as loanStatus FROM tbl_new_5k_loan WHERE borrower_id = '$emp_id' AND fname = '$emp_fname' AND mname = '$emp_mname' AND lname = '$emp_lname' AND type_of_employee = '$emp_type' AND loan_status = 0 UNION SELECT loan_id_10k, borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, type_of_loan, loan_status_10k FROM tbl_new_10k_loan WHERE borrower_id = '$emp_id' AND fname = '$emp_fname' AND mname = '$emp_mname' AND lname = '$emp_lname' AND type_of_employee = '$emp_type' AND loan_status_10k = 0";
     $query = "SELECT loan_id_5k AS loanID, borrower_id AS borrowerID, ctrl_no_prefix AS loanPrefix, fname AS borrowerFNAME, mname AS borrowerMNAME, lname AS borrowerLNAME, type_of_employee AS borrowerTYPE, type_of_loan AS typeOfLOAN, loan_status FROM tbl_new_5k_loan WHERE loan_status = 0 AND borrower_id = '$emp_id' AND fname = '$emp_fname' AND mname = '$emp_mname' AND lname = '$emp_lname' AND type_of_employee = '$emp_type'";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2576,7 +2576,7 @@ class db_access
     $con = $this->getConnection();
     $query = "SELECT loan_id_10k, count(*), borrower_id, ctrl_no_prefix, fname, mname, lname, type_of_employee, type_of_loan, loan_status_10k FROM tbl_new_10k_loan WHERE borrower_id = '$emp_id' AND fname = '$emp_fname' AND mname = '$emp_mname' AND lname = '$emp_lname' AND type_of_employee = '$emp_type' AND loan_status_10k = 0";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2590,7 +2590,7 @@ class db_access
     $con = $this->getConnection();
     $query = "SELECT civilian_id, civilian_account_fName, civilian_account_mName, civilian_account_lName, civilian_username FROM tbl_civilian_employee_account WHERE civilian_id = '$emp_id' AND civilian_account_fName = '$emp_fname' AND civilian_account_mName = '$emp_mname' AND civilian_account_lName = '$emp_lname' AND type_of_employee = '$emp_type'";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2604,7 +2604,7 @@ class db_access
     $con = $this->getConnection();
     $query = "SELECT officer_id, officer_account_fName, officer_account_mName, officer_account_lName, officer_account_username FROM tbl_officersandep_account WHERE officer_id = '$emp_id' AND officer_account_fName = '$emp_fname' AND officer_account_mName = '$emp_mname' AND officer_account_lName = '$emp_lname' AND type_of_employee = '$emp_type'";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2619,7 +2619,7 @@ class db_access
     $con = $this->getConnection();
     $query = "SELECT civilian_ID, type_of_employee, civilian_fName, civilian_mName, civilian_lName, downpayment_count, fullpayment_count, penalty_count, la_5k_count, la_10k_count FROM tbl_civilian_employee WHERE civilian_ID = '$emp_id' AND civilian_fName = '$emp_fname' AND civilian_mName = '$emp_mname' AND civilian_lName = '$emp_lname' AND type_of_employee = '$emp_type'";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
     } else {
       die($con->error);
@@ -2633,8 +2633,52 @@ class db_access
     $con = $this->getConnection();
     $query = "SELECT officer_ID, type_of_employee, officer_fName, officer_mName, officer_lName, downpayment_count, fullpayment_count, penalty_count, la_5k_count, la_10k_count FROM tbl_officersandep WHERE officer_ID = '$emp_id' AND officer_fName = '$emp_fname' AND officer_mName = '$emp_mname' AND officer_lName = '$emp_lname' AND type_of_employee = '$emp_type'";
     $get_data = $con->query($query);
-    if($get_data){
+    if ($get_data) {
       return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // check if 5k and 10k rates is empty
+  public function check_rates()
+  {
+    $con = $this->getConnection();
+    $query = "SELECT 5k_rates_id as rateID FROM tbl_5k_rates UNION SELECT 10k_rates_id FROM tbl_10k_rates";
+    $get_data = $con->query($query);
+    if ($get_data) {
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // add 5k rates
+  public function add_5k_rates($type_of_loan_5k, $loan_amount_rates, $monthly_payment_rates, $credit_rates, $balance_rates, $interest_rates, $penaltyPercentage, $pealty_per_month)
+  {
+    $con = $this->getConnection();
+    $query = "INSERT INTO tbl_5k_rates(type_of_loan, 5k_loan_amount_rates, 5k_monthly_payment_rates, 5k_credit_rates, 5k_beginning_balance_rates, 5k_interest_rate, 5k_penaltyPercentage_rates, 5k_penalty_permonth_rates)
+    VALUES('$type_of_loan_5k', '$loan_amount_rates', '$monthly_payment_rates', '$credit_rates', '$balance_rates', '$interest_rates', '$penaltyPercentage', '$pealty_per_month')";
+    $insert_data = $con->query($query);
+    if($insert_data){
+      return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // add 10k rates
+  public function add_10k_rates($type_of_loan_10k, $loan_amount_rates, $monthly_payment_rates, $credit_rates, $balance_rates, $interest_rates, $penaltyPercentage, $pealty_per_month)
+  {
+    $con = $this->getConnection();
+    $query = "INSERT INTO tbl_10k_rates(type_of_loan, 10k_loan_amount_rates, 10k_monthly_payment_rates, 10k_credit_rates, 10k_beginning_balance_rates, 10k_interest_rate, 10k_penaltyPercentage_rates, 10k_penalty_permonth_rates)
+    VALUES('$type_of_loan_10k', '$loan_amount_rates', '$monthly_payment_rates', '$credit_rates', '$balance_rates', '$interest_rates', '$penaltyPercentage', '$pealty_per_month')";
+    $insert_data = $con->query($query);
+    if($insert_data){
+      return true;
     } else {
       die($con->error);
     }

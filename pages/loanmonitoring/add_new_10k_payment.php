@@ -714,10 +714,11 @@ if (isset($_POST['pb10k_btn_submit'])) {
             } else if ($type_of_employee === 'officer') {
               $increment_fp = (int) $fp + 1;
               $increment_fp10k = (int) $fp10k + 1;
-              $db->increment_fullpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
+              $db->increment_fullpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp);
+              $db->increment_fp_10k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp10k);
             }
             echo "FULLY PAID!";
-            header("Location: loanMonitoring.php");
+            header("location: loanMonitoring.php");
           } else {
             printf("%s\n", $con->error);
           }
@@ -1043,7 +1044,7 @@ if (isset($_POST['pb10k_btn_submit'])) {
               $db->update_full_payment_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
               $db->update_loan_status_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
               echo "FULLY PAID<br>";
-              // header("Location: loanMonitoring.php");
+              header("Location: loanMonitoring.php");
             } else {
               printf("%s\n", $con->error);
             }

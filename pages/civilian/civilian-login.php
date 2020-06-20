@@ -44,8 +44,8 @@ $lr10k = $db->loan_rates_10K();
       <div id = "civ-signin-as-options">
         <label>Sign In As</label>
         <div id="cl-btn-option">
-          <input type="button" name="btn-al-link" id="btn-al-link" value="Admin" />
-          <input type="button" name="btn-oaep-link" id="btn-oaep-link" value="Officers And EP" />
+          <input type="button" name="btn-al-link" id="btn-al-link" onclick="window.location.href='../admin/adminSignInForm.php'" style="cursor: pointer;" value="Admin" />
+          <input type="button" name="btn-oaep-link" id="btn-oaep-link" onclick="window.location.href='../officersandep/officer-ep-login.php'" style="cursor: pointer;" value="Officers And EP" />
         </div>
       </div>
       <hr>

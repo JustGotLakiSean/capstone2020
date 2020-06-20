@@ -11,7 +11,7 @@ $off_list = $db->select_off_account();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/oep-login.css">
+  <!-- <link rel="stylesheet" href="css/oep-login.css"> -->
   <?php include('css/oep-login.php'); ?>
   <title>Officers and EP Sign In</title>
 </head>
@@ -41,8 +41,8 @@ $off_list = $db->select_off_account();
       <div id = "oep-signin-as-options">
         <label>Sign In As</label>
         <div class="oep-btn-option">
-          <input type="button" name="btn-al-link" id="btn-al-link" value="Admin" />
-          <input type="button" name="btn-ce-link" id="btn-ce-link" value="Civilian Employee" />
+          <input type="button" name="btn-al-link" id="btn-al-link" onclick="window.location.href='../admin/adminSignInForm.php'" style="cursor: pointer;" value="Admin" />
+          <input type="button" name="btn-ce-link" id="btn-ce-link" onclick="window.location.href='../civilian/civilian-login.php'" style="cursor: pointer;" value="Civilian Employee" />
         </div>
       </div>
       <hr>

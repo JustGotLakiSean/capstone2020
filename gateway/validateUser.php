@@ -43,43 +43,43 @@ ALERT;
   }
 }
 
-if(isset($_POST["btn_submit_login"])){
-  if(isset($_POST['txt_admin_username']) && isset($_POST['txt_admin_password'])){
-    require_once ("../dbaccess/db_access.php");
-    $dbaccess = new db_access();
+// if(isset($_POST["btn_submit_login"])){
+//   if(isset($_POST['txt_admin_username']) && isset($_POST['txt_admin_password'])){
+//     require_once ("../dbaccess/db_access.php");
+//     $dbaccess = new db_access();
 
-    // Data from login form
-    $USERNAME = filter_var($_POST['txt_admin_username'], FILTER_SANITIZE_STRING);
-    $PASSWORD = filter_var($_POST['txt_admin_password'], FILTER_SANITIZE_STRING);
-    $hashed_password = md5($PASSWORD);
-    $login_user = $dbaccess->login_admin($USERNAME, $PASSWORD);
+//     // Data from login form
+//     $USERNAME = filter_var($_POST['txt_admin_username'], FILTER_SANITIZE_STRING);
+//     $PASSWORD = filter_var($_POST['txt_admin_password'], FILTER_SANITIZE_STRING);
+//     $hashed_password = md5($PASSWORD);
+//     $login_user = $dbaccess->login_admin($USERNAME, $PASSWORD);
     
-    // Data from Database
-    $UNAME = '';
-    $PASS = '';
-    $ID = '';
-    $FNAME = '';
+//     // Data from Database
+//     $UNAME = '';
+//     $PASS = '';
+//     $ID = '';
+//     $FNAME = '';
     
-    // while ($row = $login_user->fetch(PDO::FETCH_ASSOC)) {
-    while($row = $login_user->fetch_assoc()) {
-      $ID = $row['admin_ID'];
-      $UNAME = $row['admin_username'];
-      $PASS = $row['admin_password'];
-      $FNAME = $row['admin_firstname'];
-    }
+//     // while ($row = $login_user->fetch(PDO::FETCH_ASSOC)) {
+//     while($row = $login_user->fetch_assoc()) {
+//       $ID = $row['admin_ID'];
+//       $UNAME = $row['admin_username'];
+//       $PASS = $row['admin_password'];
+//       $FNAME = $row['admin_firstname'];
+//     }
 
 
-    if($USERNAME === $UNAME && $hashed_password === $PASS){
-      session_start();
-      $_SESSION['admin_username'] = $UNAME;
-      $_SESSION['admin_id'] = $ID;
-      $_SESSION['fname'] = $FNAME;
-      header('location: ../pages/loanmonitoring/adminOverview.php');
-    } else {
-      header('location: ../pages/admin/adminSignInForm.php');
-    }
-  }
-}
+//     if($USERNAME === $UNAME && $hashed_password === $PASS){
+//       session_start();
+//       $_SESSION['admin_username'] = $UNAME;
+//       $_SESSION['admin_id'] = $ID;
+//       $_SESSION['fname'] = $FNAME;
+//       header('location: ../pages/loanmonitoring/adminOverview.php');
+//     } else {
+//       header('location: ../pages/admin/adminSignInForm.php');
+//     }
+//   }
+// }
 
 // Civilian Login
 if(isset($_POST['btn-cl-submit'])){

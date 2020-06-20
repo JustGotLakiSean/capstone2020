@@ -530,7 +530,7 @@ BUTTON;
         <li class="nav-links"><a href="adminOverview.php">Overview</a></li>
         <li class="nav-links"><a href="loanMonitoring.php">Loan Monitoring</a></li>
         <li class="nav-links"><a href="950th-employee.php">Employee</a></li>
-        <li class="nav-links"><a href="general-ledger.php">General Ledger</a></li>
+        <!-- <li class="nav-links"><a href="general-ledger.php">General Ledger</a></li> -->
         <li class="nav-links"><a type="button" onclick="document.querySelector('.search_box_container').style.display='block'" style="cursor: pointer;">Search</a></li>
         <li>
           <div>
@@ -1150,7 +1150,7 @@ EMP_LIST;
                         $emp_fullname_10k = "$res[emp_fName] $res[emp_mName] $res[emp_lName]";
                         $empFulname_10k = ucwords(strtolower($emp_fullname_10k));
                         $emp_info_10k = "$res[emp_fName] $res[emp_mName] $res[emp_lName] | $res[emp_office]";
-                        $comment_10k = "New Loan form $emp_fullname.";
+                        $comment_10k = "New Loan form $emp_fullname_10k.";
                         $debit_pay_10k = 0;
                         $status_10k = 0;
                         $first_payment_10k = 0;
@@ -1183,7 +1183,7 @@ EMP_LIST;
                         <input type="hidden" name="comment_remarks_10k" class="hidden_10k_info" value="$comment_10k" />
                         <input type="text" disabled name="empfullname_10k" class="emp_info_10k" value="$empFulname_10k" />
 EMP_LIST;
-                        echo "<input type='button' name = 'btn_add_10k_loan' value='Add New Loan' class='btn_add_10k_loan' onclick='addnewloan10k(\"" . $empid . "\", \"" . $formattedString10K . "\", \"" . $empfname . "\", \"" . $empmname . "\", \"" . $emplname . "\", \"" . $empType . "\", \"" . $loan_type_10k . "\", \"" . $la_amount_10k . "\", \"" . $emp_fullname . "\", \"" . $mp_rates_10k . "\", \"" . $cr_rates_10k . "\", \"" . $debit_pay_10k . "\", \"" . $interest_10k . "\", \"" . $beg_bal_10k . "\", \"" . $date_today_10k . "\", \"" . $comment_10k . "\", \"" . $pen_permonth_10k . "\", \"" . $empoffice . "\", \"" . $empRank . "\", \"" . $la10k_count . "\", \"" . $first_payment_10k . "\", \"" . $second_payment_10k . "\", \"" . $third_payment_10k . "\", \"" . $fourth_payment_10k . "\", \"" . $fifth_payment_10k . "\", \"" . $sixth_payment_col_10k . "\", \"" . $full_payment_10k . "\", \"" . $status_10k . "\");' />";
+                        echo "<input type='button' name = 'btn_add_10k_loan' value='Add New Loan' class='btn_add_10k_loan' onclick='addnewloan10k(\"" . $empid . "\", \"" . $formattedString10K . "\", \"" . $empfname . "\", \"" . $empmname . "\", \"" . $emplname . "\", \"" . $empType . "\", \"" . $loan_type_10k . "\", \"" . $la_amount_10k . "\", \"" . $emp_fullname_10k . "\", \"" . $mp_rates_10k . "\", \"" . $cr_rates_10k . "\", \"" . $debit_pay_10k . "\", \"" . $interest_10k . "\", \"" . $beg_bal_10k . "\", \"" . $date_today_10k . "\", \"" . $comment_10k . "\", \"" . $pen_permonth_10k . "\", \"" . $empoffice . "\", \"" . $empRank . "\", \"" . $la10k_count . "\", \"" . $first_payment_10k . "\", \"" . $second_payment_10k . "\", \"" . $third_payment_10k . "\", \"" . $fourth_payment_10k . "\", \"" . $fifth_payment_10k . "\", \"" . $sixth_payment_col_10k . "\", \"" . $full_payment_10k . "\", \"" . $status_10k . "\");' />";
                         echo '</div>';
                         echo '</form>';
                       } else {

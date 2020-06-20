@@ -972,7 +972,7 @@ BUTTON;
         <li class="nav-links"><a href="../loanmonitoring/adminOverview.php">Overview</a></li>
         <li class="nav-links"><a href="../loanmonitoring/loanMonitoring.php">Loan Monitoring</a></li>
         <li class="nav-links"><a href="../loanmonitoring/950th-employee.php">Employee</a></li>
-        <li class="nav-links"><a href="../loanmonitoring/general-ledger.php">General Ledger</a></li>
+        <!-- <li class="nav-links"><a href="../loanmonitoring/general-ledger.php">General Ledger</a></li> -->
         <li class="nav-links"><a type="button" onclick="document.querySelector('.search_box_container').style.display='block'" style="cursor: pointer;">Search</a></li>
         <!-- <li><input type="text" name = "txt_search_employee" id = "txt_search_employee" placeholder = "Search Employee"/></li> -->
         <li>

@@ -346,7 +346,7 @@ BUTTON;
         <li class="nav-links"><a href="adminOverview.php">Overview</a></li>
         <li class="nav-links"><a href="loanMonitoring.php">Loan Monitoring</a></li>
         <li class="nav-links"><a href="950th-employee.php">Employee</a></li>
-        <li class="nav-links"><a href="general-ledger.php">General Ledger</a></li>
+        <!-- <li class="nav-links"><a href="general-ledger.php">General Ledger</a></li> -->
         <li class="nav-links"><a type="button" onclick="document.querySelector('.search_box_container').style.display='block'" style="cursor: pointer;">Search</a></li>
         <li>
           <div>
@@ -1032,7 +1032,7 @@ BUTTON;
               $laCount = $get_lacount_data['laCount'];
 
               if (isset($laCount)) {
-                if ($laCount >= 15) {
+                if ($laCount >= 7) {
                   $laCountPercentage = $laCount / 100;
                   echo "<p style='font-size: 16px; margin: 0; color: #333333; font-weight: bold;'>" . ucwords(strtolower($empFullname)) . "</p>";
                   echo "<p style='font-size: 22px; margin: 0; color: #333333;'>$laCount <span style='font-size: 12px;'>counts</span></p>";
