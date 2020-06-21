@@ -11,47 +11,49 @@ $db = new db_access();
 if (isset($_POST["btn_submit_login"])) {
   if (isset($_POST['txt_admin_username']) && isset($_POST['txt_admin_password'])) {
 
-    $checkRates = $db->check_rates();
+    // $checkRates = $db->check_rates();
 
-    if ($checkRates) {
-      $ro = mysqli_num_rows($checkRates);
-      if ($ro > 1) {
-        // printf($ro);
-        require_once("../../dbaccess/db_access.php");
-        $dbaccess = new db_access();
+    // if ($checkRates) {
+    //   $ro = mysqli_num_rows($checkRates);
+    //   if ($ro > 1) {
+    // printf($ro);
+    require_once("../../dbaccess/db_access.php");
+    $dbaccess = new db_access();
 
-        // Data from login form
-        $USERNAME = filter_var($_POST['txt_admin_username'], FILTER_SANITIZE_STRING);
-        $PASSWORD = filter_var($_POST['txt_admin_password'], FILTER_SANITIZE_STRING);
-        $hashed_password = md5($PASSWORD);
-        $login_user = $dbaccess->login_admin($USERNAME, $PASSWORD);
+    // Data from login form
+    $USERNAME = filter_var($_POST['txt_admin_username'], FILTER_SANITIZE_STRING);
+    $PASSWORD = filter_var($_POST['txt_admin_password'], FILTER_SANITIZE_STRING);
+    $hashed_password = md5($PASSWORD);
+    $login_user = $dbaccess->login_admin($USERNAME, $PASSWORD);
 
-        // Data from Database
-        $UNAME = '';
-        $PASS = '';
-        $ID = '';
-        $FNAME = '';
+    // Data from Database
+    $UNAME = '';
+    $PASS = '';
+    $ID = '';
+    $FNAME = '';
 
-        // while ($row = $login_user->fetch(PDO::FETCH_ASSOC)) {
-        while ($row = $login_user->fetch_assoc()) {
-          $ID = $row['admin_ID'];
-          $UNAME = $row['admin_username'];
-          $PASS = $row['admin_password'];
-          $FNAME = $row['admin_firstname'];
-        }
+    // while ($row = $login_user->fetch(PDO::FETCH_ASSOC)) {
+    while ($row = $login_user->fetch_assoc()) {
+      $ID = $row['admin_ID'];
+      $UNAME = $row['admin_username'];
+      $PASS = $row['admin_password'];
+      $FNAME = $row['admin_firstname'];
+    }
 
 
-        if ($USERNAME === $UNAME && $hashed_password === $PASS) {
+    if ($USERNAME === $UNAME && $hashed_password === $PASS) {
+      $checkRates = $db->check_rates();
+      if ($checkRates) {
+        $ro = mysqli_num_rows($checkRates);
+        if ($ro > 1) {
+          printf($ro);
           session_start();
           $_SESSION['admin_username'] = $UNAME;
           $_SESSION['admin_id'] = $ID;
           $_SESSION['fname'] = $FNAME;
           header('location: ../loanmonitoring/adminOverview.php');
         } else {
-          header('location: ../admin/adminSignInForm.php');
-        }
-      } else {
-        echo <<<SCRIPT
+          echo <<<SCRIPT
         <div id="setup_lr_container">
           <form action="" method="POST" id="setup_lr_inner">
 
@@ -144,8 +146,11 @@ if (isset($_POST["btn_submit_login"])) {
           </form>
         </div>
 SCRIPT;
+        }
+      } else {
       }
     } else {
+      header('location: ../admin/adminSignInForm.php');
     }
   } else {
   }
@@ -153,7 +158,7 @@ SCRIPT;
 }
 
 // SETUP LOAN RATES UPON THE FIRST LOGIN MADE //
-if(isset($_POST['add_rates'])){
+if (isset($_POST['add_rates'])) {
   // 5k
   $type_of_loan_5k = '';
   $la_5k_rates = '';
@@ -175,9 +180,11 @@ if(isset($_POST['add_rates'])){
   $pm_10k_rates = '';
 
   $connectToDb = '';
-  
-  if(isset($_POST['typeOfLoan_5k']) && isset($_POST['la_5k_rates']) && isset($_POST['mp_5k_rates']) && isset($_POST['cr_5k_rates']) && isset($_POST['bal_5k_rates']) && isset($_POST['int_5k_rates']) && isset($_POST['pp_5k_rates']) && isset($_POST['pm_5k_rates'])
-  && isset($_POST['typeOfLoan_10k']) && isset($_POST['la_10k_rates']) && isset($_POST['mp_10k_rates']) && isset($_POST['cr_10k_rates']) && isset($_POST['bal_10k_rates']) && isset($_POST['int_10k_rates']) && isset($_POST['pp_10k_rates']) && isset($_POST['pm_10k_rates'])){
+
+  if (
+    isset($_POST['typeOfLoan_5k']) && isset($_POST['la_5k_rates']) && isset($_POST['mp_5k_rates']) && isset($_POST['cr_5k_rates']) && isset($_POST['bal_5k_rates']) && isset($_POST['int_5k_rates']) && isset($_POST['pp_5k_rates']) && isset($_POST['pm_5k_rates'])
+    && isset($_POST['typeOfLoan_10k']) && isset($_POST['la_10k_rates']) && isset($_POST['mp_10k_rates']) && isset($_POST['cr_10k_rates']) && isset($_POST['bal_10k_rates']) && isset($_POST['int_10k_rates']) && isset($_POST['pp_10k_rates']) && isset($_POST['pm_10k_rates'])
+  ) {
     $connectToDb = $db->getConnection();
 
     $type_of_loan_5k = mysqli_real_escape_string($connectToDb, $_POST['typeOfLoan_5k']);
@@ -201,8 +208,8 @@ if(isset($_POST['add_rates'])){
     $insert_rates_5k = $db->add_5k_rates($type_of_loan_5k, $la_5k_rates, $mp_5k_rates, $cr_5k_rates, $bal_5k_rates, $int_5k_rates, $pp_5k_rates, $pm_5k_rates);
     $insert_rates_10k = $db->add_10k_rates($type_of_loan_10k, $la_10k_rates, $mp_10k_rates, $cr_10k_rates, $bal_10k_rates, $int_10k_rates, $pp_10k_rates, $pm_10k_rates);
 
-    if($insert_rates_5k){
-      if($insert_rates_10k){
+    if ($insert_rates_5k) {
+      if ($insert_rates_10k) {
         header('location: adminSignInForm.php');
       } else {
         printf("%s\n", $connectToDb->error);
@@ -219,7 +226,7 @@ if(isset($_POST['add_rates'])){
     // echo "$int_5k_rates";
     // echo "$pp_5k_rates";
     // echo "$pm_5k_rates";
-  
+
     // // 10k
     // echo "$type_of_loan_10k";
     // echo "$la_10k_rates";
@@ -229,7 +236,7 @@ if(isset($_POST['add_rates'])){
     // echo "$int_10k_rates";
     // echo "$pp_10k_rates";
     // echo "$pm_10k_rates";
-    
+
   } else {
   }
 } else {

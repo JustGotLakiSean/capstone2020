@@ -43,7 +43,8 @@ body {
   color: #eee;
   text-decoration: none;
   position: relative;
-  top: .7rem;
+  padding-top: 10px;
+  height: 42px;
 }
 
 #loan-navigation-container input[type=text] {
@@ -275,8 +276,8 @@ body {
   height: 650px;
   margin: auto;
   background: #F2F2F2;
-  // background: rgba(255, 255, 255, 0.9);
-  // backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
   position: relative;
   top: 8px;
   border-radius: 5px;

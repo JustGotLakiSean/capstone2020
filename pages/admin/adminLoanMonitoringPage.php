@@ -1,15 +1,19 @@
 <?php
+
 namespace loan950;
+
 use \loan950\db_access;
+
 include('../../dbaccess/db_access.php');
 $db = new db_access();
 
-function DISPLAY_5K_RATES(){
+function DISPLAY_5K_RATES()
+{
   $LOANRATES_5K_ACCESS = new db_access();
   $LOANRATES_5K_DB = $LOANRATES_5K_ACCESS->loan_rates_5K();
   echo '<form action="" method="POST" class="5kaccountrates-container">';
 
-  while($LOANRATES_5K = $LOANRATES_5K_DB->fetch_assoc()){
+  while ($LOANRATES_5K = $LOANRATES_5K_DB->fetch_assoc()) {
     $LOANRATES_5K_ID = $LOANRATES_5K['5k_rates_id'];
     $LOANRATES_5K_LOANAMOUNT = $LOANRATES_5K['5k_loan_amount_rates'];
     $LOANRATES_5K_MONTHLYPAYMENT = $LOANRATES_5K['5k_monthly_payment_rates'];
@@ -55,7 +59,7 @@ function DISPLAY_5K_RATES(){
     </div>
 DISPLAY5K;
   }
-    
+
   echo '</form>';
 }
 
@@ -64,8 +68,8 @@ function DISPLAY_10K_RATES()
   $LOANRATES_10K_ACCESS = new db_access();
   $LOANRATES_10K_DB = $LOANRATES_10K_ACCESS->loan_rates_10K();
   echo '<form action="" method="POST" class="10kaccountrates-container">';
-  
-  while($LOANRATES_10K = $LOANRATES_10K_DB->fetch_assoc()){
+
+  while ($LOANRATES_10K = $LOANRATES_10K_DB->fetch_assoc()) {
     $LOANRATES_10K_ID = $LOANRATES_10K['10k_rates_id'];
     $LOANRATES_10K_LOANAMOUNT = $LOANRATES_10K['10k_loan_amount_rates'];
     $LOANRATES_10K_MONTHLYPAYMENT = $LOANRATES_10K['10k_monthly_payment_rates'];
@@ -215,8 +219,8 @@ BUTTON;
   echo '<div id="result_5k">';
   echo '<h3 style="margin: 1px;">Loan details</h3>';
 
-  if($emp_search_empType === 'civilian'){
-    while($ress22 = $fetchLoanDetailCiv->fetch_array(MYSQLI_ASSOC)){
+  if ($emp_search_empType === 'civilian') {
+    while ($ress22 = $fetchLoanDetailCiv->fetch_array(MYSQLI_ASSOC)) {
       $borrower_civ_id = $ress22['civilian_ID'];
       $la5kcount_civ = $ress22['la_5k_count'];
       $la10kcount_civ = $ress22['la_10k_count'];
@@ -272,8 +276,8 @@ BUTTON;
       echo '<hr style="height: 4px; width: ' . $penalty_count_civ . 'vw; border-radius: 5px; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%);">';
       echo '</div>';
     }
-  } else if($emp_search_empType === 'officer'){
-    while($ress2 = $fetchLoanDetailOff->fetch_array(MYSQLI_ASSOC)){
+  } else if ($emp_search_empType === 'officer') {
+    while ($ress2 = $fetchLoanDetailOff->fetch_array(MYSQLI_ASSOC)) {
       $borrowerID = $ress2['officer_ID'];
       $la5kcount = $ress2['la_5k_count'];
       $la10kcount = $ress2['la_10k_count'];
@@ -340,10 +344,10 @@ BUTTON;
   echo '<div id="account_result">';
   echo '<h3 style="margin: 1px;">Account details</h3>';
 
-  if($emp_search_empType === 'civilian'){
+  if ($emp_search_empType === 'civilian') {
     // echo "CIVILAN";
-    if($hasAccount == 1){
-      while($ress4 = $fetchAccountCiv->fetch_array(MYSQLI_ASSOC)){
+    if ($hasAccount == 1) {
+      while ($ress4 = $fetchAccountCiv->fetch_array(MYSQLI_ASSOC)) {
         $civ_username = $ress4['civilian_username'];
 
         echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 12px 0;">';
@@ -354,10 +358,10 @@ BUTTON;
     } else {
       echo '<p>No account</p>';
     }
-  } else if($emp_search_empType === 'officer'){
+  } else if ($emp_search_empType === 'officer') {
     // echo "OFFICER";
-    if($hasAccount == 1){
-      while($ress4 = $fetchAccountOff->fetch_array(MYSQLI_ASSOC)){
+    if ($hasAccount == 1) {
+      while ($ress4 = $fetchAccountOff->fetch_array(MYSQLI_ASSOC)) {
         $off_username = $ress4['officer_account_username'];
 
         echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 12px 0;">';
@@ -379,13 +383,14 @@ BUTTON;
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- <link rel="stylesheet" href="css/adminLoanMonitoring.css"> -->
-<?PHP
-include("css/adminLoanMonitoring.php");
-?>
+  <?PHP
+  include("css/adminLoanMonitoring.php");
+  ?>
   <title>Loan Monitoring Settings</title>
 </head>
 
@@ -394,42 +399,42 @@ include("css/adminLoanMonitoring.php");
 </script>
 
 <script>
-function ENABLE_5K_INPUT(){ 
-  document.getElementById('txt-5kloanamount-rate').disabled = false;
-  document.getElementById('txt-5kmonthlypayment-rate').disabled = false;
-  document.getElementById('txt-5kcredit-rate').disabled = false;
-  document.getElementById('txt-5kbeginningbalance-rate').disabled = false;
-  document.getElementById('txt-5kpenalty-rate').disabled = false;
-  document.getElementById('txt-5kpenaltypermonth-rate').disabled = false;
-  document.getElementById('txt-5kinterest-rate').disabled = false;
-}
+  function ENABLE_5K_INPUT() {
+    document.getElementById('txt-5kloanamount-rate').disabled = false;
+    document.getElementById('txt-5kmonthlypayment-rate').disabled = false;
+    document.getElementById('txt-5kcredit-rate').disabled = false;
+    document.getElementById('txt-5kbeginningbalance-rate').disabled = false;
+    document.getElementById('txt-5kpenalty-rate').disabled = false;
+    document.getElementById('txt-5kpenaltypermonth-rate').disabled = false;
+    document.getElementById('txt-5kinterest-rate').disabled = false;
+  }
 
-function ENABLE_10K_INPUTS() {
-  document.getElementById('txt-10kloanamount-rate').disabled = false;
-  document.getElementById('txt-10kmonthlypayment-rate').disabled = false;
-  document.getElementById('txt-10kcredit-rate').disabled = false;
-  document.getElementById('txt-10kbeginningbalance-rate').disabled = false;
-  document.getElementById('txt-10kpenalty-rate').disabled = false;
-  document.getElementById('txt-10kpenaltypermonth-rate').disabled = false;
-  document.getElementById('txt-10kinterest-rate').disabled = false;
-}
+  function ENABLE_10K_INPUTS() {
+    document.getElementById('txt-10kloanamount-rate').disabled = false;
+    document.getElementById('txt-10kmonthlypayment-rate').disabled = false;
+    document.getElementById('txt-10kcredit-rate').disabled = false;
+    document.getElementById('txt-10kbeginningbalance-rate').disabled = false;
+    document.getElementById('txt-10kpenalty-rate').disabled = false;
+    document.getElementById('txt-10kpenaltypermonth-rate').disabled = false;
+    document.getElementById('txt-10kinterest-rate').disabled = false;
+  }
 </script>
+
 <body>
-  <header id = "loan-navigation-container">
-    <nav id = "loan-global-navigation">
+  <header id="loan-navigation-container">
+    <nav id="loan-global-navigation">
       <ul>
-        <li class = "nav-links"><a href = "../loanmonitoring/adminOverview.php">Overview</a></li>
-        <li class = "nav-links"><a href = "../loanmonitoring/loanMonitoring.php">Loan Monitoring</a></li>
-        <li class = "nav-links"><a href = "../loanmonitoring/950th-employee.php">Employee</a></li>
-        <!-- <li class = "nav-links"><a href = "../loanmonitoring/general-ledger.php">General Ledger</a></li> -->
+        <li class="nav-links"><a href="../loanmonitoring/adminOverview.php">Overview</a></li>
+        <li class="nav-links"><a href="../loanmonitoring/loanMonitoring.php">Loan Monitoring</a></li>
+        <li class="nav-links"><a href="../loanmonitoring/950th-employee.php">Employee</a></li>
+        <!-- <li class="nav-links"><a href="../loanmonitoring/general-ledger.php">General Ledger</a></li> -->
+        <li class="nav-links"><a href="../../pages/admin/adminloanrequest.php">Loan request<span id="countNotif" style='height: 18px; width: 18px; border-radius: 5px; background: rgba(24, 24, 24, 1); position: absolute; top: 11px; right: -22px; font-size: 12px; font-weight: bold; padding-top: 2px;'></span></a></li>
         <li class="nav-links"><a type="button" onclick="document.querySelector('.search_box_container').style.display='block'" style="cursor: pointer;">Search</a></li>
-        <!-- <li><input type="text" name = "txt_search_employee" id = "txt_search_employee" placeholder = "Search Employee"/></li> -->
         <li>
           <div>
-            <input type="button" id = "admin-button" value="Admin Button" onclick="document.getElementById('admin_menu_box').style.display='flex'"/>
+            <input type="button" id="admin-button" value="Admin Button" onclick="document.getElementById('admin_menu_box').style.display='flex'" />
             <div id="admin_menu_box">
               <a href="../../pages/admin/adminSettings.php">Setting</a>
-              <a href="../../pages/admin/adminloanrequest.php">View Loan Request</a>
               <a href="logout.php">Sign Out</a>
             </div>
           </div>
@@ -438,9 +443,26 @@ function ENABLE_10K_INPUTS() {
     </nav>
   </header>
 
+  <script>
+    function loadDoc() {
+      setInterval(function() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("countNotif").innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", "../../gateway/notif.php", true);
+        xhttp.send();
+      }, 1000);
+    }
+
+    loadDoc();
+  </script>
+
   <main onclick="document.getElementById('admin_menu_box').style.display='none'">
 
-  <div class="search_box_container">
+    <div class="search_box_container">
       <div id="search_container">
         <div class="search_box">
           <!-- <form action="search_employee.php" method="POST"> -->
@@ -461,24 +483,25 @@ function ENABLE_10K_INPUTS() {
         </div>
       </div>
     </div>
-<?php
-if(isset($_SESSION['admin_username'])){
-  echo '<div class="account_box">';
-  echo '<h3>Hello, ' . $_SESSION['fname'] . '</h3>';
-  echo '</div>';
-} else {
-  header('location: ../../pages/admin/adminSignInForm.php');
-}
-?>
+
     <section class="loanmonitoring-rates-container-outer">
+      <?php
+      if (isset($_SESSION['admin_username'])) {
+        echo '<div class="account_box">';
+        echo '<h3>Hello, ' . $_SESSION['fname'] . '</h3>';
+        echo '</div>';
+      } else {
+        header('location: ../../pages/admin/adminSignInForm.php');
+      }
+      ?>
       <div class="loanmonitoring-rates-container-inner">
         <div class="loanmonitoring-rates-title-container">
           <h1 class="hfred">Loan Monitoring Rates</h1>
         </div>
         <div class="accounts-rates-box">
 
-        <?php DISPLAY_5K_RATES(); ?>
-        <?PHP DISPLAY_10K_RATES(); ?>
+          <?php DISPLAY_5K_RATES(); ?>
+          <?PHP DISPLAY_10K_RATES(); ?>
           <!-- <form class="5kaccountrates-container">
 
             <div class="5kar-title-container">
@@ -576,4 +599,5 @@ if(isset($_SESSION['admin_username'])){
     </section>
   </main>
 </body>
+
 </html>

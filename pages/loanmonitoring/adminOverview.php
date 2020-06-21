@@ -6,6 +6,15 @@ use \loan950\db_access;
 
 include('../../dbaccess/db_access.php');
 session_start();
+
+// if(isset($_SESSION['req'])){
+//   echo "$_SESSION[req]";
+//   if($_SESSION['req']){
+//     unset($_SESSION['req']);
+//   } else {
+//   }
+// } else {
+// }
 date_default_timezone_set('Asia/Manila');
 $db = new db_access();
 $get_total_num_borrower = $db->total_num_borrowers();
@@ -159,8 +168,8 @@ BUTTON;
   echo '<div id="result_5k">';
   echo '<h3 style="margin: 1px;">Loan details</h3>';
 
-  if($emp_search_empType === 'civilian'){
-    while($ress22 = $fetchLoanDetailCiv->fetch_array(MYSQLI_ASSOC)){
+  if ($emp_search_empType === 'civilian') {
+    while ($ress22 = $fetchLoanDetailCiv->fetch_array(MYSQLI_ASSOC)) {
       $borrower_civ_id = $ress22['civilian_ID'];
       $la5kcount_civ = $ress22['la_5k_count'];
       $la10kcount_civ = $ress22['la_10k_count'];
@@ -170,7 +179,7 @@ BUTTON;
 
       echo '<div style="display: grid; grid-auto-flow: row;">';
       echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 0px 0;">';
-      echo '<span span style="font-weight: bold; width: 154px;">Loan 5K count: </span>';
+      echo '<span span style="font-weight: bold; width: 154px; ">Loan 5K count: </span>';
       echo '<p style="margin: 0; width: 300px;">' . $la5kcount_civ . '</p>';
       echo '</div>';
       echo '<hr style="height: 4px; width: ' . $la5kcount_civ . 'vw; border-radius: 5px; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%);">';
@@ -216,8 +225,8 @@ BUTTON;
       echo '<hr style="height: 4px; width: ' . $penalty_count_civ . 'vw; border-radius: 5px; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%);">';
       echo '</div>';
     }
-  } else if($emp_search_empType === 'officer'){
-    while($ress2 = $fetchLoanDetailOff->fetch_array(MYSQLI_ASSOC)){
+  } else if ($emp_search_empType === 'officer') {
+    while ($ress2 = $fetchLoanDetailOff->fetch_array(MYSQLI_ASSOC)) {
       $borrowerID = $ress2['officer_ID'];
       $la5kcount = $ress2['la_5k_count'];
       $la10kcount = $ress2['la_10k_count'];
@@ -284,10 +293,10 @@ BUTTON;
   echo '<div id="account_result">';
   echo '<h3 style="margin: 1px;">Account details</h3>';
 
-  if($emp_search_empType === 'civilian'){
+  if ($emp_search_empType === 'civilian') {
     // echo "CIVILAN";
-    if($hasAccount == 1){
-      while($ress4 = $fetchAccountCiv->fetch_array(MYSQLI_ASSOC)){
+    if ($hasAccount == 1) {
+      while ($ress4 = $fetchAccountCiv->fetch_array(MYSQLI_ASSOC)) {
         $civ_username = $ress4['civilian_username'];
 
         echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 12px 0;">';
@@ -298,10 +307,10 @@ BUTTON;
     } else {
       echo '<p>No account</p>';
     }
-  } else if($emp_search_empType === 'officer'){
+  } else if ($emp_search_empType === 'officer') {
     // echo "OFFICER";
-    if($hasAccount == 1){
-      while($ress4 = $fetchAccountOff->fetch_array(MYSQLI_ASSOC)){
+    if ($hasAccount == 1) {
+      while ($ress4 = $fetchAccountOff->fetch_array(MYSQLI_ASSOC)) {
         $off_username = $ress4['officer_account_username'];
 
         echo '<div style="display: grid; grid-auto-flow: column; margin: 12px 0 12px 0;">';
@@ -335,9 +344,7 @@ BUTTON;
 </head>
 
 <!-- <script src="src/search5.js"></script> -->
-<script src="src/searchempprofile.js">
-
-</script>
+<script src="src/searchempprofile.js"></script>
 
 <body>
   <header id="loan-navigation-container">
@@ -346,14 +353,14 @@ BUTTON;
         <li class="nav-links"><a href="adminOverview.php">Overview</a></li>
         <li class="nav-links"><a href="loanMonitoring.php">Loan Monitoring</a></li>
         <li class="nav-links"><a href="950th-employee.php">Employee</a></li>
-        <!-- <li class="nav-links"><a href="general-ledger.php">General Ledger</a></li> -->
+        <li class="nav-links"><a href="../../pages/admin/adminloanrequest.php">Loan request<span id="countNotif" style='height: 18px; width: 18px; border-radius: 5px; background: rgba(24, 24, 24, 1); position: absolute; top: 11px; right: -22px; font-size: 12px; font-weight: bold; padding-top: 2px;'></span></a></li>
         <li class="nav-links"><a type="button" onclick="document.querySelector('.search_box_container').style.display='block'" style="cursor: pointer;">Search</a></li>
         <li>
           <div>
             <input type="button" id="admin-button" value="Admin Button" onclick="document.getElementById('admin_menu_box').style.display='flex'" />
             <div id="admin_menu_box">
               <a href="../../pages/admin/adminSettings.php">Setting</a>
-              <a href="../../pages/admin/adminloanrequest.php">View Loan Request</a>
+              <!-- <a href="../../pages/admin/adminloanrequest.php">View Loan Request</a> -->
               <a href="logout.php">Sign Out</a>
             </div>
           </div>
@@ -361,6 +368,23 @@ BUTTON;
       </ul>
     </nav>
   </header>
+
+  <script>
+    function loadDoc() {
+      setInterval(function() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("countNotif").innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", "../../gateway/notif.php", true);
+        xhttp.send();
+      }, 1000);
+    }
+
+    loadDoc();
+  </script>
 
   <main onclick="document.getElementById('admin_menu_box').style.display='none'">
 
@@ -915,7 +939,7 @@ BUTTON;
           // echo "$total10KFullPayment<br>";
 
           $overallTotalPaymentReceived = $overallFirstAmountPaid + $overallSecondAmountPaid + $overallThirdAmountPaid + $overallFourthAmountPaid + $overallFifthAmountPaid + $overallSixthAmountPaid + $overallFullAmountPaid;
-          $overallTotal5KPaymentReceived = $total5KFirstPayment + $total5KSecondPayment + $total5KThirdPayment + $total5KFourthPayment + $total5KFifthPayment + $total5KSixthPayment + $total5KFullPayment + $total5KFullPayment;
+          $overallTotal5KPaymentReceived = $total5KFirstPayment + $total5KSecondPayment + $total5KThirdPayment + $total5KFourthPayment + $total5KFifthPayment + $total5KSixthPayment + $total5KFullPayment;
           $overallTotal10KPaymentReceived = $total10KFirstPayment + $total10KSecondPayment + $total10KThirdPayment + $total10KFourthPayment + $total10KFifthPayment + $total10KSixthPayment + $total10KFullPayment;
           if (isset($overallTotalPaymentReceived)) {
             if ($overallTotalPaymentReceived != 0) {
@@ -1032,13 +1056,14 @@ BUTTON;
               $laCount = $get_lacount_data['laCount'];
 
               if (isset($laCount)) {
-                if ($laCount >= 7) {
+                if ($laCount >= 2) {
                   $laCountPercentage = $laCount / 100;
                   echo "<p style='font-size: 16px; margin: 0; color: #333333; font-weight: bold;'>" . ucwords(strtolower($empFullname)) . "</p>";
                   echo "<p style='font-size: 22px; margin: 0; color: #333333;'>$laCount <span style='font-size: 12px;'>counts</span></p>";
 
                   // $co = $laCount * $laCount;
-                  echo "<hr class='hr-or' style='width: " . $laCountPercentage . "vw; height: 5px; border-radius: 5px; background: linear-gradient(118deg, rgba(180,67,255,1) 0%, rgba(255,26,209,1) 50%, rgba(255,58,58,1) 100%);'>";
+                  // echo "<meter max = '150' value=".$laCountPercentage." style='width: 10%;'></meter>";
+                  echo "<hr class='hr-or' style='width: " . $laCountPercentage . "vw; height: 6px; border-radius: 5px; background: linear-gradient(118deg, rgba(180,67,255,1) 0%, rgba(255,26,209,1) 50%, rgba(255,58,58,1) 100%);'>";
                   echo '<hr style="margin: 10px 0 10px 0;">';
                 } else {
                 }

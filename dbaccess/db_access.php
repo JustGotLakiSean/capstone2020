@@ -56,6 +56,20 @@ class db_access
     }
   }
 
+  // check if admin username exist
+  public function if_useradmin_exist($admin_username)
+  {
+    $con = $this->getConnection();
+    $query = "SELECT admin_username FROM tbl_admin_account WHERE admin_username = '$admin_username'";
+    $is_exist = $con->query($query);
+    if($is_exist){
+      return $is_exist;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
   // order by 5k counts
   public function view_all_employee()
   {
@@ -2662,7 +2676,7 @@ class db_access
     $query = "INSERT INTO tbl_5k_rates(type_of_loan, 5k_loan_amount_rates, 5k_monthly_payment_rates, 5k_credit_rates, 5k_beginning_balance_rates, 5k_interest_rate, 5k_penaltyPercentage_rates, 5k_penalty_permonth_rates)
     VALUES('$type_of_loan_5k', '$loan_amount_rates', '$monthly_payment_rates', '$credit_rates', '$balance_rates', '$interest_rates', '$penaltyPercentage', '$pealty_per_month')";
     $insert_data = $con->query($query);
-    if($insert_data){
+    if ($insert_data) {
       return true;
     } else {
       die($con->error);
@@ -2677,8 +2691,52 @@ class db_access
     $query = "INSERT INTO tbl_10k_rates(type_of_loan, 10k_loan_amount_rates, 10k_monthly_payment_rates, 10k_credit_rates, 10k_beginning_balance_rates, 10k_interest_rate, 10k_penaltyPercentage_rates, 10k_penalty_permonth_rates)
     VALUES('$type_of_loan_10k', '$loan_amount_rates', '$monthly_payment_rates', '$credit_rates', '$balance_rates', '$interest_rates', '$penaltyPercentage', '$pealty_per_month')";
     $insert_data = $con->query($query);
+    if ($insert_data) {
+      return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // send notification to admin
+  public function send_notif_to_admin($source_fname, $source_mname, $source_lname, $type_of_employee, $notif_message, $had_read, $is_displayed)
+  {
+    $con = $this->getConnection();
+    $query = "INSERT INTO tbl_admin_notif(source_fname, source_mname, source_lname, type_of_employee, notif_message, has_read, is_displayed)
+    VALUES('$source_fname', '$source_mname', '$source_lname', '$type_of_employee', '$notif_message', '$had_read', '$is_displayed')";
+    $insert_data = $con->query($query);
     if($insert_data){
       return true;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get counts for not yet read
+  public function get_not_yet_read()
+  {
+    $con = $this->getConnection();
+    $query = "SELECT count(notif_id) AS notifCount FROM tbl_admin_notif WHERE has_read = 0 GROUP BY notif_id";
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get all pending loan request
+  public function all_pending_request()
+  {
+    $con = $this->getConnection();
+    $query = "SELECT SUM((SELECT COUNT(loan_request_id) AS request_id FROM tbl_loan_request_5k WHERE is_granted = 0 AND is_granted = 0 AND is_pending = 1) + (SELECT COUNT(loan_request_id_10k) AS request_id FROM tbl_loan_request_10k WHERE is_granted_10k = 0 AND is_declined_10k = 0 AND is_pending_10k = 1)) AS all_pending";
+    // $query = "SELECT COUNT(loan_request_id) FROM tbl_loan"
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
     } else {
       die($con->error);
     }

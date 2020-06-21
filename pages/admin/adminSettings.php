@@ -288,13 +288,13 @@ BUTTON;
         <li class="nav-links"><a href="../loanmonitoring/loanMonitoring.php">Loan Monitoring</a></li>
         <li class="nav-links"><a href="../loanmonitoring/950th-employee.php">Employee</a></li>
         <!-- <li class="nav-links"><a href="../loanmonitoring/general-ledger.php">General Ledger</a></li> -->
+        <li class="nav-links"><a href="../../pages/admin/adminloanrequest.php">Loan request<span id="countNotif" style='height: 18px; width: 18px; border-radius: 5px; background: rgba(24, 24, 24, 1); position: absolute; top: 11px; right: -22px; font-size: 12px; font-weight: bold; padding-top: 2px;'></span></a></li>
         <li class="nav-links"><a type="button" onclick="document.querySelector('.search_box_container').style.display='block'" style="cursor: pointer;">Search</a></li>
         <li>
           <div>
             <input type="button" id="admin-button" value="Admin Button" onclick="document.getElementById('admin_menu_box').style.display='flex'" />
             <div id="admin_menu_box">
               <a href="../../pages/admin/adminSettings.php">Setting</a>
-              <a href="../../pages/admin/adminloanrequest.php">View Loan Request</a>
               <a href="logout.php">Sign Out</a>
             </div>
           </div>
@@ -302,6 +302,23 @@ BUTTON;
       </ul>
     </nav>
   </header>
+
+  <script>
+    function loadDoc() {
+      setInterval(function() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("countNotif").innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", "../../gateway/notif.php", true);
+        xhttp.send();
+      }, 1000);
+    }
+
+    loadDoc();
+  </script>
 
   <div class="search_box_container">
       <div id="search_container">
@@ -404,7 +421,7 @@ BUTTON;
               <h3 class="amdh">Loan Detail Page</h3>
             </div>
             <div class="third-detailsbox-description">
-              <p class="amdp">View, modify loan rates.</p>
+              <p class="amdp">View loan rates.</p>
             </div>
           </div>
           <div class="viewbutton-container pd-viewbtn">

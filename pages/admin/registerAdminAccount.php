@@ -1,3 +1,13 @@
+<?php
+session_start();
+if(isset($_SESSION['err'])){
+  echo "$_SESSION[err]";
+  if($_SESSION['err']){
+    session_destroy();
+  }
+} else {
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>

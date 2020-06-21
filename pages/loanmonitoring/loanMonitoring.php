@@ -6,6 +6,14 @@ use \loan950\db_access;
 
 include('../../dbaccess/db_access.php');
 session_start();
+
+if(isset($_SESSION['mess'])){
+  echo "$_SESSION[mess]";
+  if($_SESSION['mess']){
+    unset($_SESSION['mess']);
+  }
+} else {
+}
 $db = new db_access();
 $dt = $db->view_all_employee();
 $dt2 = $db->view_all_employee_10k();
@@ -343,8 +351,8 @@ BUTTON;
   echo '<div id="result_5k">';
   echo '<h3 style="margin: 1px;">Loan details</h3>';
 
-  if($emp_search_empType === 'civilian'){
-    while($ress22 = $fetchLoanDetailCiv->fetch_array(MYSQLI_ASSOC)){
+  if ($emp_search_empType === 'civilian') {
+    while ($ress22 = $fetchLoanDetailCiv->fetch_array(MYSQLI_ASSOC)) {
       $borrower_civ_id = $ress22['civilian_ID'];
       $la5kcount_civ = $ress22['la_5k_count'];
       $la10kcount_civ = $ress22['la_10k_count'];
@@ -400,8 +408,8 @@ BUTTON;
       echo '<hr style="height: 4px; width: ' . $penalty_count_civ . 'vw; border-radius: 5px; background: linear-gradient(118deg, rgba(255,158,30,1) 9%, rgba(222,44,229,1) 90%);">';
       echo '</div>';
     }
-  } else if($emp_search_empType === 'officer'){
-    while($ress2 = $fetchLoanDetailOff->fetch_array(MYSQLI_ASSOC)){
+  } else if ($emp_search_empType === 'officer') {
+    while ($ress2 = $fetchLoanDetailOff->fetch_array(MYSQLI_ASSOC)) {
       $borrowerID = $ress2['officer_ID'];
       $la5kcount = $ress2['la_5k_count'];
       $la10kcount = $ress2['la_10k_count'];
@@ -522,22 +530,25 @@ BUTTON;
 </script>
 
 <body>
-  <script src="src/newloan.js"></script>
-  <script src="src/new_loan_10k.js"></script>
+  <!-- <script src="src/newloan.js"></script> -->
+  <!-- <script src="src/n.js"></script> -->
+  <script src="src/n10k2.js"></script>
+  <script src="src/n2.js"></script>
+  <!-- <script src="src/new_loan_10k.js"></script> -->
   <header id="loan-navigation-container">
     <nav id="loan-global-navigation">
       <ul>
         <li class="nav-links"><a href="adminOverview.php">Overview</a></li>
         <li class="nav-links"><a href="loanMonitoring.php">Loan Monitoring</a></li>
         <li class="nav-links"><a href="950th-employee.php">Employee</a></li>
-        <!-- <li class="nav-links"><a href="general-ledger.php">General Ledger</a></li> -->
+        <li class="nav-links"><a href="../../pages/admin/adminloanrequest.php">Loan request<span id="countNotif" style='height: 18px; width: 18px; border-radius: 5px; background: rgba(24, 24, 24, 1); position: absolute; top: 11px; right: -22px; font-size: 12px; font-weight: bold; padding-top: 2px;'></span></a></li>
         <li class="nav-links"><a type="button" onclick="document.querySelector('.search_box_container').style.display='block'" style="cursor: pointer;">Search</a></li>
         <li>
           <div>
             <input type="button" id="admin-button" value="Admin Button" onclick="document.getElementById('admin_menu_box').style.display='flex'" />
-            <div id="admin_menu_box" style="z-index: 1;">
+            <div id="admin_menu_box">
               <a href="../../pages/admin/adminSettings.php">Setting</a>
-              <a href="../../pages/admin/adminloanrequest.php">View Loan Request</a>
+              <!-- <a href="../../pages/admin/adminloanrequest.php">View Loan Request</a> -->
               <a href="logout.php">Sign Out</a>
             </div>
           </div>
@@ -545,6 +556,23 @@ BUTTON;
       </ul>
     </nav>
   </header>
+
+  <script>
+    function loadDoc() {
+      setInterval(function() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("countNotif").innerHTML = this.responseText;
+          }
+        };
+        xhttp.open("GET", "../../gateway/notif.php", true);
+        xhttp.send();
+      }, 1000);
+    }
+
+    loadDoc();
+  </script>
 
   <main onclick="document.getElementById('admin_menu_box').style.display='none'">
 
@@ -703,7 +731,7 @@ BUTTON;
               }
             }
 
-            echo "<p style='font-size: 32px;'>$curr_full_interest</p>";
+            echo "<p style='font-size: 32px;'>$curr_full_interest</p>"; // get the interest only if paid full
 
             // $currentInterest = $curr_first_interest + $curr_second_interest + $curr_third_interest + $curr_fourth_interest + $curr_fifth_interest + $curr_sixth_interest + $curr_full_interest;
             // echo "<p style='font-size: 32px;'>$currentInterest</p>";
@@ -977,38 +1005,38 @@ BUTTON;
                 <!-- All Employee List -->
                 <div id="search_container" align="center">
                   <?php
-                  while ($res = $dt->fetch_array(MYSQLI_ASSOC)) {
-                    while ($row = $lr5k->fetch_array(MYSQLI_ASSOC)) {
-                      if (isset($row)) {
-                        if ($row > 0) {
-                          $id = $row['5k_rates_id'];
-                          $loan_type_5k = $row['type_of_loan'];
-                          $la_amount = $row['5k_loan_amount_rates'];
-                          $mp_rates = $row['5k_monthly_payment_rates'];
-                          $cr_rates = $row['5k_credit_rates'];
-                          $beg_bal = $row['5k_beginning_balance_rates'];
-                          $interest = $row['5k_interest_rate'];
-                          $pen_permonth = $row['5k_penalty_permonth_rates'];
-                          $date_today = date("j-M-y");
-                          $formattedString = "950CEISG-000";
-                        } else {
-                        }
+                  while ($row5k = $lr5k->fetch_array(MYSQLI_ASSOC)) {
+                    if (isset($row5k)) {
+                      if ($row5k > 0) {
+                        $id = $row5k['5k_rates_id'];
+                        $loan_type_5k = $row5k['type_of_loan'];
+                        $la_amount = $row5k['5k_loan_amount_rates'];
+                        $mp_rates = $row5k['5k_monthly_payment_rates'];
+                        $cr_rates = $row5k['5k_credit_rates'];
+                        $beg_bal = $row5k['5k_beginning_balance_rates'];
+                        $interest = $row5k['5k_interest_rate'];
+                        $pen_permonth = $row5k['5k_penalty_permonth_rates'];
+                        $date_today = date("j-M-y");
+                        $formattedString = "950CEISG-000";
                       } else {
                       }
+                    } else {
                     }
-                    if (isset($res)) {
-                      if ($res > 0) {
-                        $empid = $res["emp_id"];
-                        $empfname = $res["emp_fName"];
-                        $empmname = $res["emp_mName"];
-                        $emplname = $res["emp_lName"];
-                        $empoffice = $res["emp_office"];
-                        $empType = $res["emptype"];
-                        $empRank = $res["empRank"];
-                        $la5k_count = $res['la5k'];
-                        $emp_fullname = "$res[emp_fName] $res[emp_mName] $res[emp_lName]";
+                  }
+                  while ($res5k = $dt->fetch_array(MYSQLI_ASSOC)) {
+                    if (isset($res5k)) {
+                      if ($res5k > 0) {
+                        $empid = $res5k["emp_id"];
+                        $empfname = $res5k["emp_fName"];
+                        $empmname = $res5k["emp_mName"];
+                        $emplname = $res5k["emp_lName"];
+                        $empoffice = $res5k["emp_office"];
+                        $empType = $res5k["emptype"];
+                        $empRank = $res5k["empRank"];
+                        $la5k_count = $res5k['la5k'];
+                        $emp_fullname = "$res5k[emp_fName] $res5k[emp_mName] $res5k[emp_lName]";
                         $empFullname = ucwords(strtolower($emp_fullname));
-                        $emp_info_5k = "$res[emp_fName] $res[emp_mName] $res[emp_lName] | $res[emp_office]";
+                        $emp_info_5k = "$res5k[emp_fName] $res5k[emp_mName] $res5k[emp_lName] | $res5k[emp_office]";
                         $comment = "New Loan form $emp_fullname.";
                         $debit_pay = 0;
                         $status = 0;
@@ -1062,7 +1090,7 @@ EMP_LIST;
             <form action="" method="POST" id="fiveKnewloanform">
               <div class="fiveKnewloansecondbox">
                 <div class="fiveKlistboxtitleholder">
-                  <h4>Borrower List</h4>
+
                 </div>
                 <div class="fiveKborrowernewloandetails">
                   <div class="fiveKnewloandetailstitleholder">
@@ -1118,25 +1146,25 @@ EMP_LIST;
                 <!-- All Employee List -->
                 <div id="search_container_10k" align="center">
                   <?php
-                  foreach ($dt2 as $res) {
-                    while ($row = $lr10k->fetch_array(MYSQLI_ASSOC)) {
-                      if (isset($row)) {
-                        if ($row > 0) {
-                          $id = $row['10k_rates_id'];
-                          $loan_type_10k = $row['type_of_loan'];
-                          $la_amount_10k = $row['10k_loan_amount_rates'];
-                          $mp_rates_10k = $row['10k_monthly_payment_rates'];
-                          $cr_rates_10k = $row['10k_credit_rates'];
-                          $beg_bal_10k = $row['10k_beginning_balance_rates'];
-                          $interest_10k = $row['10k_interest_rate'];
-                          $pen_permonth_10k = $row['10k_penalty_permonth_rates'];
-                          $date_today_10k = date("j-M-y");
-                          $formattedString10K = "950CEISG-000";
-                        } else {
-                        }
+                  while ($row = $lr10k->fetch_array(MYSQLI_ASSOC)) {
+                    if (isset($row)) {
+                      if ($row > 0) {
+                        $id = $row['10k_rates_id'];
+                        $loan_type_10k = $row['type_of_loan'];
+                        $la_amount_10k = $row['10k_loan_amount_rates'];
+                        $mp_rates_10k = $row['10k_monthly_payment_rates'];
+                        $cr_rates_10k = $row['10k_credit_rates'];
+                        $beg_bal_10k = $row['10k_beginning_balance_rates'];
+                        $interest_10k = $row['10k_interest_rate'];
+                        $pen_permonth_10k = $row['10k_penalty_permonth_rates'];
+                        $date_today_10k = date("j-M-y");
+                        $formattedString10K = "950CEISG-000";
                       } else {
                       }
+                    } else {
                     }
+                  }
+                  foreach ($dt2 as $res) {
                     if (isset($res)) {
                       if ($res > 0) {
                         $empid = $res["emp_id"];
@@ -1202,7 +1230,7 @@ EMP_LIST;
             <form action="" method="POST" id="tenKnewloanform">
               <div class="tenKnewloansecondbox">
                 <div class="tenKlistboxtitleholder">
-                  <h4>Borrower List</h4>
+
                 </div>
                 <div class="tenKborrowernewloandetails">
                   <div class="tenKnewloandetailstitleholder">
@@ -1830,7 +1858,7 @@ EMP_LIST;
                 <input type="text" disabled value="' . $LoanType10k . '" />
               </div>
               <div class="balance_10k_box clt">
-                <label>Current Balance</label>
+                <label>Balance rate</label>
                 <input type="hidden" name="balance_10k" id="balance_10k" value="' . $currentBalance10k . '" /> 
                 <input type="text" disabled value="' . $currentBalance10k . '" />
               </div>

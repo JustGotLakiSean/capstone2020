@@ -4,6 +4,10 @@ namespace loan950;
 
 use \loan950\db_access;
 
+include("../dbaccess/db_access.php");
+
+$db = new db_access();
+
 // if(session_status() === PHP_SESSION_ACTIVE){
 //   header('location: ../pages/index.php');
 // }
@@ -26,19 +30,27 @@ if(isset($_POST["btn-submit-new-admin"])) {
     $cpassword = filter_var($_POST['txt_admin_confirmPassword'], FILTER_SANITIZE_STRING);
 
     if($password === $cpassword){
-      require_once ("../dbaccess/db_access.php");
-      $new_admin = new db_access();
-      $insert_admin = $new_admin->registerAdmin($firstname, $lastname, $middlename, $username, $password, $email);
-      if($insert_admin){
-        header('Location: ../pages/admin/adminSignInForm.php');
+      $check_username = $db->if_useradmin_exist($username);
+      if(mysqli_num_rows($check_username) > 0){
+        session_start();
+        $_SESSION['err'] ='<script>
+        alert("Username already exist.");
+        </script>';
+        header('location: ../pages/admin/registerAdminAccount.php');
       } else {
-        echo 'ERROR.';
+        // $new_admin = new db_access();
+        $insert_admin = $db->registerAdmin($firstname, $lastname, $middlename, $username, $password, $email);
+        if($insert_admin){
+          header('Location: ../pages/admin/adminSignInForm.php');
+        } else {
+          printf("%s\n", $db->error);
+        }
       }
     } else {
       echo <<<ALERT
       <script type="text/javascript">alert("Password did not match.")</script>
 ALERT;
-      header('Location: ../pages/admin/registerAdminAccount.php');
+      // header('Location: ../pages/admin/registerAdminAccount.php');
     }
   }
 }
@@ -103,13 +115,13 @@ if(isset($_POST['btn-cl-submit'])){
   $ce_fullname = '';
 
   if(isset($_POST['civ_username']) && isset($_POST['civ_password'])){
-    include("../dbaccess/db_access.php");
-    $dbaccess = new db_access();
-    $con = $dbaccess->getConnection();
+    // include("../dbaccess/db_access.php");
+    // $dbaccess = new db_access();
+    $con = $db->getConnection();
     $civilian_username = mysqli_real_escape_string($con, $_POST['civ_username']);
     $civilian_password = mysqli_real_escape_string($con, $_POST['civ_password']);
 
-    $log = $dbaccess->login_civ($civilian_username, $civilian_password);
+    $log = $db->login_civ($civilian_username, $civilian_password);
 
     while($row = $log->fetch_array(MYSQLI_ASSOC)){
       $ce_acc_id = $row['civilian_account_id'];
@@ -180,13 +192,13 @@ if(isset($_POST['btn_oepsubmit_login'])){
     // echo "YW<br>";
     // echo "$_POST[txt_oep_username]<br>";
     // echo "$_POST[txt_oep_password]<br>";
-    include("../dbaccess/db_access.php");
-    $dbaccess = new db_access();
-    $con = $dbaccess->getConnection();
+    // include("../dbaccess/db_access.php");
+    // $dbaccess = new db_access();
+    $con = $db->getConnection();
     $txt_officer_username = mysqli_real_escape_string($con, $_POST['txt_oep_username']);
     $txt_officer_password = mysqli_real_escape_string($con, $_POST['txt_oep_password']);
 
-    $log = $dbaccess->login_officer($txt_officer_username, $txt_officer_password);
+    $log = $db->login_officer($txt_officer_username, $txt_officer_password);
     while($row = $log->fetch_array(MYSQLI_ASSOC)){
       $officer_account_id = $row['officer_account_id'];
       $officer_username = $row['officer_account_username'];

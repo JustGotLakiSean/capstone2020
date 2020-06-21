@@ -4,6 +4,17 @@ use \loan950\db_access;
 include('../../dbaccess/db_access.php');
 $db = new db_access();
 ?>
+
+<?php
+session_start();
+if(isset($_SESSION['err'])){
+  echo "$_SESSION[err]";
+  if($_SESSION['err']){
+    session_destroy();
+  }
+} else {
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

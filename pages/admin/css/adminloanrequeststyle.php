@@ -118,7 +118,8 @@ body {
   color: #eee;
   text-decoration: none;
   position: relative;
-  top: .7rem;
+  padding-top: 10px;
+  height: 42px;
 }
 
 #loan-navigation-container input[type=text] {

@@ -73,7 +73,7 @@ if(isset($_POST['lrf_btn_submit'])){
     $is_declined = 0;
     $is_pending = 1;
     $comment = "New 5K Loan for $lrf_txt_borrowerfname $lrf_txt_borrowermname $lrf_txt_borrowerlname";
-
+    $req_message = "$lrf_txt_borrowerfname $lrf_txt_borrowerlname has requested a 5K loan.";
     echo "$lrf_txt_borrowerid<br>";
     echo "$lrf_txt_borroweraccoundid<br>";
     echo "$formatted_string<br>";
@@ -108,9 +108,27 @@ if(isset($_POST['lrf_btn_submit'])){
     echo "$is_pending<br>";
     echo "$is_new_loan_5k<br>";
 
-    $insert_requets = $db->add_loan_request_5k($lrf_txt_borrowerid, $lrf_txt_borroweraccoundid, $formatted_string, $type_of_account, $officer_username, $lrf_txt_borrowerfname, $lrf_txt_borrowermname, $lrf_txt_borrowerlname, $lrf_txt_borroweremail, $lrf_txt_borrowertype, $lrf_txt_borroweroffice, $lrf_txt_borrowerrank, $loan_amount_rates_5k, $monthly_payment_rates_5k, $credit_rates_5k, $debit_pay_5k, $interest_rates_5k, $beginning_balance_5k, $comment, $penalty_permonth_rates_5k, $first_payment_5k, $second_payment_5k, $third_payment_5k, $fourth_payment_5k, $fifth_payment_5k, $full_payment_5k, $loan_status_5k, $is_new_loan_5k, $is_granted, $is_declined, $is_pending, $is_loan_requested_5k);
-    if($insert_requets){
-      header('location: officer-homepage.php');
+    $me = array('rmessage' => $req_message);
+
+    $insert_request = $db->add_loan_request_5k($lrf_txt_borrowerid, $lrf_txt_borroweraccoundid, $formatted_string, $type_of_account, $officer_username, $lrf_txt_borrowerfname, $lrf_txt_borrowermname, $lrf_txt_borrowerlname, $lrf_txt_borroweremail, $lrf_txt_borrowertype, $lrf_txt_borroweroffice, $lrf_txt_borrowerrank, $loan_amount_rates_5k, $monthly_payment_rates_5k, $credit_rates_5k, $debit_pay_5k, $interest_rates_5k, $beginning_balance_5k, $comment, $penalty_permonth_rates_5k, $first_payment_5k, $second_payment_5k, $third_payment_5k, $fourth_payment_5k, $fifth_payment_5k, $full_payment_5k, $loan_status_5k, $is_new_loan_5k, $is_granted, $is_declined, $is_pending, $is_loan_requested_5k);
+    if($insert_request){
+      $has_read = 0;
+      $is_displayed = 1;
+      $send_message = $db->send_notif_to_admin($lrf_txt_borrowerfname, $lrf_txt_borrowermname, $lrf_txt_borrowerlname, $lrf_txt_borrowertype, "$lrf_txt_borrowerfname $lrf_txt_borrowerlname is requesting a 5K loan", $has_read, $is_displayed);
+      if($send_message){
+        // echo mysqli_num_rows($insert_request);
+        session_start();
+        $_SESSION['success'] = '<script>
+        alert("Loan request success");
+        </script>';
+        // $_SESSION['req'] = '<div>
+        // <p>REQUREST LOAN</p>
+        // </div>';
+        header('location: officer-homepage.php');
+      } else {
+        printf("%s\n", $con->error);
+      }
+      
     } else {
       printf("%s\n", $con->error);
     }
@@ -235,6 +253,10 @@ if(isset($_POST['lrf_btn_submit'])){
 
     $insert_request_10k = $db->add_loan_request_10k($lrf_txt_borrowerid_10k, $lrf_txt_borroweraccoundid_10k, $formatted_string_10k, $type_of_account_10k, $borrower_username_10k, $lrf_txt_borrowerfname_10k, $lrf_txt_borrowermname_10k, $lrf_txt_borrowerlname_10k, $lrf_txt_borroweremail_10k, $lrf_txt_borrowertype_10k, $lrf_txt_borroweroffice_10k, $lrf_txt_borrowerrank_10k, $loan_amount_rates_10k, $monthly_payment_rates_10k, $credit_rates_10k, $debit_pay_10k, $interest_rates_10k, $beginning_balance_10k, $comment_10k, $penalty_permonth_rates_10k, $first_payment_10k, $second_payment_10k, $third_payment_10k, $fourth_payment_10k, $fifth_payment_10k, $sixth_payment_10k, $full_payment_10k, $loan_status_10k, $is_new_loan_10k, $is_granted_10k, $is_declined_10k, $is_pending_10k, $is_loan_requested_10k);
     if($insert_request_10k){
+      session_start();
+      $_SESSION['success'] = '<script>
+      alert("Loan request success");
+      </script>';
       header('location: officer-homepage.php');
     } else {
       printf("%s\n", $con->error);

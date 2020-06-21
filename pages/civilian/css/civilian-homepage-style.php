@@ -4,7 +4,29 @@ echo <<<STYLE
 body {
   background: #F2F2F2;
   margin: 0;
-  font-family: 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Roboto', 'Helvetica', 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #E6E6E6;
+  border-radius: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 7px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #808080;
 }
 
 #cl-header {
@@ -79,7 +101,7 @@ body {
 }
 
 .cepd-inner-content {
-  height: 300px;
+  max-height: 300px;
   background: #fff;
   border-radius: 15px;
   position: relative;
@@ -105,6 +127,7 @@ body {
 
 #ce-fullname {
   font-size: 29px;
+  margin: 0;
 }
 
 .cepd-avatar {

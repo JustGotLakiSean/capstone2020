@@ -7,6 +7,15 @@ $lr5k = $db->loan_rates_5K();
 $lr10k = $db->loan_rates_10K();
 session_start();
 
+if(isset($_SESSION['success'])){
+  echo "$_SESSION[success]";
+  if($_SESSION['success']){
+    unset($_SESSION['success']);
+  } else {
+  }
+} else {
+}
+
 if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
   header('location: civilian-login.php');
 }
@@ -51,9 +60,9 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
           <div class="cepd-inner-content">
             <div class="cepd-detailbox">
               <div class="cepd-imagebox-container">
-                <div class="cepd-imagebox">
+                <!-- <div class="cepd-imagebox">
                   <img src="" id="cepd-avatar" />
-                </div>
+                </div> -->
               </div>
               <div class="cepd-box">
                 <div class="cepd-fullname-box">

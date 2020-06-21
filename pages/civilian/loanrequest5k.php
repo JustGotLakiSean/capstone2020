@@ -110,6 +110,10 @@ if(isset($_POST['lrf_btn_submit_5k'])){
 
     $insert_request = $db->add_loan_request_5k($lrf_txt_borrowerid, $lrf_txt_borroweraccoundid, $formatted_string, $type_of_account, $civilian_username, $lrf_txt_borrowerfname, $lrf_txt_borrowermname, $lrf_txt_borrowerlname, $lrf_txt_borroweremail, $lrf_txt_borrowertype, $lrf_txt_borroweroffice, $lrf_txt_borrowerrank, $loan_amount_rates_5k, $monthly_payment_rates_5k, $credit_rates_5k, $debit_pay_5k, $interest_rates_5k, $beginning_balance_5k, $comment, $penalty_permonth_rates_5k, $first_payment_5k, $second_payment_5k, $third_payment_5k, $fourth_payment_5k, $fifth_payment_5k, $full_payment_5k, $loan_status_5k, $is_new_loan_5k, $is_granted, $is_declined, $is_pending, $is_loan_requested_5k);
     if($insert_request){
+      session_start();
+      $_SESSION['success'] = '<script>
+      alert("Loan request success");
+      </script>';
       header('location: civilian-homepage.php');
     } else {
       printf("%s\n", $con->error);
@@ -234,8 +238,16 @@ if(isset($_POST['lrf_btn_submit_5k'])){
     echo "$is_pending_10k<br>";
     echo "$is_new_loan_10k<br>";
 
+
     $insert_request_10k = $db->add_loan_request_10k($lrf_txt_borrowerid_10k, $lrf_txt_borroweraccoundid_10k, $formatted_string_10k, $type_of_account_10k, $borrower_username_10k, $lrf_txt_borrowerfname_10k, $lrf_txt_borrowermname_10k, $lrf_txt_borrowerlname_10k, $lrf_txt_borroweremail_10k, $lrf_txt_borrowertype_10k, $lrf_txt_borroweroffice_10k, $lrf_txt_borrowerrank_10k, $loan_amount_rates_10k, $monthly_payment_rates_10k, $credit_rates_10k, $debit_pay_10k, $interest_rates_10k, $beginning_balance_10k, $comment_10k, $penalty_permonth_rates_10k, $first_payment_10k, $second_payment_10k, $third_payment_10k, $fourth_payment_10k, $fifth_payment_10k, $sixth_payment_10k, $full_payment_10k, $loan_status_10k, $is_new_loan_10k, $is_granted_10k, $is_declined_10k, $is_pending_10k, $is_loan_requested_10k);
     if($insert_request_10k){
+      session_start();
+      $_SESSION['success'] = '<script>
+      alert("Loan request success");
+      </script>';
+      $_SESSION['req'] = '<div>
+      <p>REQUREST LOAN</p>
+      </div>';
       header('location: civilian-homepage.php');
     } else {
       printf("%s\n", $con->error);

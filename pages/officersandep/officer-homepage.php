@@ -7,6 +7,15 @@ $lr5k = $db->loan_rates_5K();
 $lr10k = $db->loan_rates_10K();
 session_start();
 
+if(isset($_SESSION['success'])){
+  echo "$_SESSION[success]";
+  if($_SESSION['success']){
+    unset($_SESSION['success']);
+  } else {
+  }
+} else {
+}
+
 if(!isset($_SESSION['officer_account_id']) && !isset($_SESSION['officer_username'])){
   header('location: officer-ep-login.php');
 }
@@ -56,9 +65,9 @@ if(!isset($_SESSION['officer_account_id']) && !isset($_SESSION['officer_username
             </div> -->
             <div class="oep-detailbox">
               <div class="oaeppd-imagebox-container">
-                <div class="oaeppd-imagebox">
+                <!-- <div class="oaeppd-imagebox">
                   <img src="" id="oep-avatar" />
-                </div>
+                </div> -->
               </div>
               <div class="oaeppd-box">
                 <div class="oaeppd-fullname-box">

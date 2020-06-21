@@ -8,6 +8,28 @@ body {
   font-family: 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #E6E6E6;
+  border-radius: 2px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 7px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #808080;
+}
+
 #oep-header {
   margin: 0;
   padding: 0;
@@ -79,7 +101,7 @@ body {
 }
 
 .oaeppd-inner-content {
-  height: 300px;
+  max-height: 300px;
   border-radius: 15px;
   background: #fff;
   position: relative;
