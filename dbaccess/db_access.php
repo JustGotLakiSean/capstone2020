@@ -2732,8 +2732,22 @@ class db_access
   public function all_pending_request()
   {
     $con = $this->getConnection();
-    $query = "SELECT SUM((SELECT COUNT(loan_request_id) AS request_id FROM tbl_loan_request_5k WHERE is_granted = 0 AND is_granted = 0 AND is_pending = 1) + (SELECT COUNT(loan_request_id_10k) AS request_id FROM tbl_loan_request_10k WHERE is_granted_10k = 0 AND is_declined_10k = 0 AND is_pending_10k = 1)) AS all_pending";
+    $query = "SELECT SUM((SELECT COUNT(loan_request_id) AS request_id FROM tbl_loan_request_5k WHERE is_pending = 1) + (SELECT COUNT(loan_request_id_10k) AS request_id FROM tbl_loan_request_10k WHERE is_pending_10k = 1)) AS all_pending";
     // $query = "SELECT COUNT(loan_request_id) FROM tbl_loan"
+    $get_data = $con->query($query);
+    if($get_data){
+      return $get_data;
+    } else {
+      die($con->error);
+    }
+    $con->close();
+  }
+
+  // get message request
+  public function get_message_request()
+  {
+    $con = $this->getConnection();
+    $query = "SELECT loan_request_id AS req_id, account_id AS accountID, borrower_id AS borrowerID, borrower_fname AS borrowerFname, borrower_mname AS borrowerMname, borrower_lname AS borrowerLname, type_of_loan AS typeOfLoan, is_pending AS pending FROM tbl_loan_request_5k WHERE is_pending = 1 UNION SELECT loan_request_id_10k AS req_id, account_id_10k, borrower_id_10k, borrower_fname_10k, borrower_mname_10k, borrower_lname_10k, type_of_loan_10k, is_pending_10k FROM tbl_loan_request_10k WHERE is_pending_10k = 1 ORDER BY req_id ASC";
     $get_data = $con->query($query);
     if($get_data){
       return $get_data;

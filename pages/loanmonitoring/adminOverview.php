@@ -368,6 +368,9 @@ BUTTON;
       </ul>
     </nav>
   </header>
+  <div id="show_message" style="width: auto; height: auto;">
+    
+  </div>
 
   <script>
     function loadDoc() {
@@ -376,6 +379,11 @@ BUTTON;
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
             document.getElementById("countNotif").innerHTML = this.responseText;
+            if(this.responseText == 0){
+              document.getElementById("countNotif").style.display='none';
+            } else if(this.responseText >= 1) {
+              document.getElementById("countNotif").style.display='block';
+            }
           }
         };
         xhttp.open("GET", "../../gateway/notif.php", true);
@@ -383,7 +391,31 @@ BUTTON;
       }, 1000);
     }
 
+    // function showMessage()
+    // {
+    //   setInterval(function() {
+    //     var xhttp = new XMLHttpRequest();
+    //     xhttp.onreadystatechange = function(){
+    //       if(this.readyState == 4 && this.status == 200){
+    //         var mess = JSON.parse(this.responseText);
+    //         var output_message = '';
+    //         for(let i in mess){
+    //           output_message +=
+    //           `<div style="width: 340px; height: 500px; background: red; position: absolute; left: 15px; top: 58px; z-index: 1; border-top: 4px solid black; border-radius: 15px;>
+    //             <p>${mess[i].borrowerFname} ${mess[i].borrowerMname} is requesting a ${mess[i].typeOfLoan}</p>
+    //           </div>`;
+    //         }
+    //         // document.getElementById("show_message").innerHTML = this.responseText;
+    //         document.getElementById("show_message").innerHTML = output_message;
+    //       }
+    //     };
+    //     xhttp.open("GET", "../../gateway/message_request.php", true);
+    //     xhttp.send();
+    //   }, 1000)
+    // }
+
     loadDoc();
+    // showMessage();
   </script>
 
   <main onclick="document.getElementById('admin_menu_box').style.display='none'">
