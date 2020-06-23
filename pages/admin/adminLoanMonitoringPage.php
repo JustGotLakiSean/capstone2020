@@ -428,7 +428,7 @@ BUTTON;
         <li class="nav-links"><a href="../loanmonitoring/loanMonitoring.php">Loan Monitoring</a></li>
         <li class="nav-links"><a href="../loanmonitoring/950th-employee.php">Employee</a></li>
         <!-- <li class="nav-links"><a href="../loanmonitoring/general-ledger.php">General Ledger</a></li> -->
-        <li class="nav-links"><a href="../../pages/admin/adminloanrequest.php">Loan request<span id="countNotif" style='height: 18px; width: 18px; border-radius: 5px; background: rgba(24, 24, 24, 1); position: absolute; top: 11px; right: -22px; font-size: 12px; font-weight: bold; padding-top: 2px;'></span></a></li>
+        <li class="nav-links"><a href="../../pages/admin/adminloanrequest.php">Loan request<span id="countNotif" style='display: none; height: 18px; width: 18px; border-radius: 5px; background: rgba(24, 24, 24, 1); position: absolute; top: 11px; right: -22px; font-size: 12px; font-weight: bold; padding-top: 2px;'></span></a></li>
         <li class="nav-links"><a type="button" onclick="document.querySelector('.search_box_container').style.display='block'" style="cursor: pointer;">Search</a></li>
         <li>
           <div>
@@ -450,6 +450,11 @@ BUTTON;
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
             document.getElementById("countNotif").innerHTML = this.responseText;
+            if(this.responseText == 0){
+              document.getElementById("countNotif").style.display='none';
+            } else if(this.responseText >= 1) {
+              document.getElementById("countNotif").style.display='block';
+            }
           }
         };
         xhttp.open("GET", "../../gateway/notif.php", true);

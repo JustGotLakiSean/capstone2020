@@ -150,7 +150,10 @@ SCRIPT;
       } else {
       }
     } else {
-      header('location: ../admin/adminSignInForm.php');
+      echo '<script>
+      alert("Wrong credentials. Try again.")
+      </script>';
+      // header('location: ../admin/adminSignInForm.php');
     }
   } else {
   }
@@ -289,7 +292,7 @@ if (isset($_POST['add_rates'])) {
   </header>
 
   <!-- setup loan rates form -->
-
+  
 
   <section id="admin-signin-container">
     <!-- <form action = "../../gateway/validateUser.php" method = "POST" id = "admin-signin-form" onsubmit="return validateLogin()"> -->

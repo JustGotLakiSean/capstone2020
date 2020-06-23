@@ -8,11 +8,14 @@ body {
   // background: linear-gradient(180deg, rgba(0,1,255,1) 0%, rgba(48,223,255,1) 80%) no-repeat center center fixed;
   // background: linear-gradient(180deg, rgba(100,255,123,1) 0%, rgba(31,96,222,1) 100%) no-repeat center center fixed;
   // background: linear-gradient(118deg, rgba(226,30,255,1) 9%, rgba(242,146,61,0.8295693277310925) 50%, rgba(44,91,229,1) 90%) no-repeat center center fixed;
-  background: linear-gradient(199deg, rgba(226,30,255,1) 0%, rgba(255,0,131,0.865983893557423) 25%, rgba(205,0,255,0.8295693277310925) 50%, rgba(255,0,236,0.8995973389355743) 77%, rgba(44,91,229,1) 100%) no-repeat center center fixed;
+  // background: linear-gradient(199deg, rgba(226,30,255,1) 0%, rgba(255,0,131,0.865983893557423) 25%, rgba(205,0,255,0.8295693277310925) 50%, rgba(255,0,236,0.8995973389355743) 77%, rgba(44,91,229,1) 100%) no-repeat center center fixed;
   // background: linear-gradient(90deg, rgba(0,112,255,1) 0%, rgba(0,255,102,1) 50%, rgba(33,243,255,1) 100%) no-repeat center center fixed;
   // background: rgb(0,112,255);
 // background: linear-gradient(7deg, rgba(0,112,255,1) 0%, rgba(214,23,247,0.6306897759103641) 31%, rgba(0,255,102,0.5746673669467788) 73%, rgba(33,243,255,1) 100%) no-repeat center center fixed;
-  // background: linear-gradient(90deg, rgba(28,49,143,1) 0%, rgba(239,0,255,1) 100%) no-repeat center center fixed;
+  // background: linear-gradient(98deg, rgba(28,49,143,1) 0%, rgba(239,0,255,1) 100%) no-repeat center center fixed;
+  // background: linear-gradient(286deg, rgba(0,255,56,0.6839110644257703) 4%, rgba(147,48,204,1) 50%, rgba(0,255,188,1) 100%) no-repeat center center fixed;
+  // background: linear-gradient(118deg, rgba(226,30,255,1) 9%, rgba(242,146,61,0.8295693277310925) 50%, rgba(44,91,229,1) 90%) no-repeat center center fixed;
+  background: linear-gradient(215deg, rgba(142,0,212,1) 0%, rgba(255,0,236,0.8995973389355743) 24%, rgba(255,0,146,1) 49%, rgba(255,81,0,1) 76%, rgba(255,0,0,1) 100%) no-repeat center center fixed;
   margin: 0;
   height: auto;
   font-family: 'Roboto', 'Helvetica', 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
@@ -25,10 +28,10 @@ body {
 }
 
 #asf-header nav {
-  height: 40px;
+  height: 25px;
   width: 100%;
-  background-color: rgba(250, 250, 250, 0.9);
-  color: #333;
+  background-color: rgba(250, 250, 250, 0.2);
+  color: #fff;
 }
 
 #asf-header nav ul {
@@ -37,8 +40,10 @@ body {
 }
 
 #asf-header nav li {
+  height: 25px;
   display: inline;
   float: left;
+  transition: 40ms ease-in;
 }
 
 #asf-header nav a {
@@ -46,13 +51,14 @@ body {
   width: 100px;
   text-align: center;
   text-decoration: none;
-  padding: 10px 0;
-  color: #333;
+  padding: 2px 0;
+  color: #fff;
   text-decoration: none;
+  font-weight: bold;
 }
 
 #asf-header nav li:hover {
-  background-color: #eee;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 /* Section */
@@ -61,8 +67,9 @@ section#admin-signin-container {
   max-width: 330px;
   margin: auto;
   padding: 5px 0 0 0;
-  // background-color: rgba(250, 250, 250, 1);
-  background: #fff;
+  background-color: rgba(255, 255, 255, 1);
+  // background: linear-gradient(25deg, rgba(142,0,212,1) 0%, rgba(255,0,236,0.4) 24%, rgba(255,0,146,0.4) 49%, rgba(255,81,0,0.4) 76%, rgba(255,0,0,1) 100%);
+  // background: #fff;
   box-shadow: 5px 2px 10px rgba(126, 125, 125, .1),
   -5px 2px 10px rgba(126, 125, 125, .1);
   border-radius: 15px;
@@ -86,7 +93,7 @@ section hr {
   padding: 0;
   border: 0;
   height: 1px;
-  background: #dadada;
+  background-color: rgba(250, 250, 250, 0.5);
   overflow: visible;
   text-align: center;
 }
@@ -171,7 +178,7 @@ input[type=submit]:hover {
   text-align: center;
   position: relative;
   margin: auto;
-  
+
 }
 
 #admin-options > a {
@@ -265,7 +272,7 @@ input[type=submit]:hover {
   cursor: pointer;
   font-size: 14px;
   color: #fff;
-  height: 28px; 
+  height: 28px;
   transition: 40ms ease-in;
 }
 

@@ -159,6 +159,10 @@ if(isset($_POST['btn-cl-submit'])){
       $_SESSION['ce_fullname'] = $ce_fullname;
       header('location: ../pages/civilian/civilian-homepage.php');
     } else {
+      session_start();
+      $_SESSION['err'] = '<script>
+      alert("Wrong Username or Password. Try again.);
+      </script>';
       header('location: ../pages/civilian/civilian-login.php');
     }
 
