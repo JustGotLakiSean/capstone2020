@@ -42,7 +42,7 @@ if(isset($_POST['btn-submit-new-Civilian'])){
       $check_username = $db->if_civ_exist($txt_Civilian_username);
       if(mysqli_num_rows($check_username) > 0){
         session_start();
-        $_SESSION['err'] ='<script>
+        $_SESSION['err_civ_reg'] ='<script>
         alert("Username already exist.");
         </script>';
         header('Location: civilian-login.php');
@@ -50,7 +50,7 @@ if(isset($_POST['btn-submit-new-Civilian'])){
         $new_ce_account = new db_access();
         $insert_ce_account = $new_ce_account->register_civilian_account($txt_civilian_id, $txt_Civilian_firstname, $txt_Civilian_lastname, $txt_Civilian_middlename, $txt_type_of_employee, $txt_civilian_rank, $txt_civilian_office, $txt_Civilian_email, $txt_Civilian_contactnumber, $txt_Civilian_birthdate, $txt_civilian_address, $txt_Civilian_username, $txt_Civilian_password, $txt_Civilian_confirmPassword);
         if($insert_ce_account){
-          echo "UPDATED";
+          // echo "UPDATED";
           $db->update_has_account_civilian($txt_civilian_id, $txt_Civilian_firstname, $txt_Civilian_middlename, $txt_Civilian_lastname, $txt_Civilian_email, $txt_civilian_rank);
           header('Location: civilian-login.php');
         } else {
@@ -65,11 +65,11 @@ if(isset($_POST['btn-submit-new-Civilian'])){
     }
 
   } else {
-    echo "LOL";
+    header('Location: civilian-login.php');
   }
 
 
 } else {
-  echo "WHAT";
+  header('Location: civilian-login.php');
 }
 ?>

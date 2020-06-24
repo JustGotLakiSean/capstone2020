@@ -3,6 +3,7 @@ namespace loan950;
 use \loan950\db_access;
 include('../../dbaccess/db_access.php');
 $db = new db_access();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

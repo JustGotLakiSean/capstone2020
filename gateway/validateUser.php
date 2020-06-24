@@ -160,8 +160,8 @@ if(isset($_POST['btn-cl-submit'])){
       header('location: ../pages/civilian/civilian-homepage.php');
     } else {
       session_start();
-      $_SESSION['err'] = '<script>
-      alert("Wrong Username or Password. Try again.);
+      $_SESSION['err_civ'] = '<script>
+      alert("Wrong Username or Password. Try again.");
       </script>';
       header('location: ../pages/civilian/civilian-login.php');
     }
@@ -255,6 +255,10 @@ if(isset($_POST['btn_oepsubmit_login'])){
       header('location: ../pages/officersandep/officer-homepage.php');
 
     } else {
+      session_start();
+      $_SESSION['err_log_oaep'] = '<script>
+      alert("Wrong Username or Password. Try again.");
+      </script>';
       header('location: ../pages/officersandep/officer-ep-login.php');
     }
 

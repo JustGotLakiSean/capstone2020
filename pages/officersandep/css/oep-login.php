@@ -234,14 +234,14 @@ hr {
 #off_list_container {
   position: relative;
   top: 10px;
-  width: 380px;
+  width: 99.4%;
   height: 450px;
 }
 
 #off_list {
   background: #E6E6E6;
   border-radius: 5px;
-  width: 36.3vw;
+  width: 100%;
   max-height: 38vh;
   overflow: auto;
   border: 2px solid #1A1A1A;
@@ -250,7 +250,7 @@ hr {
 .off_fullname {
   text-align: center;
   margin-bottom: 5px;
-  width: 25.5vw;
+  width: 300px;
   color: #FFF;
   background: #1A1A1A;
   border: none;

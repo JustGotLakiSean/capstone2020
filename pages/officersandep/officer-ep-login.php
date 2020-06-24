@@ -4,6 +4,23 @@ use \loan950\db_access;
 include('../../dbaccess/db_access.php');
 $db = new db_access();
 $off_list = $db->select_off_account();
+session_start();
+if(isset($_SESSION['err_oaep'])){
+  echo $_SESSION['err_oaep'];
+  if($_SESSION['err_oaep']){
+    session_destroy();
+  }
+} else {
+}
+
+if(isset($_SESSION['err_log_oaep'])){
+  echo "$_SESSION[err_log_oaep]";
+  if($_SESSION['err_log_oaep']){
+    session_destroy();
+  } else {
+  }
+} else {
+}
 
 ?>
 <!DOCTYPE html>

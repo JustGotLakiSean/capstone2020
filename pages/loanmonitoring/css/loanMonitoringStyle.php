@@ -11,6 +11,8 @@ body {
   font-family: 'Roboto', 'Helvetica', 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif;
   //background: linear-gradient(286deg, rgba(0,255,56,0.6839110644257703) 4%, rgba(147,48,204,1) 50%, rgba(0,255,188,1) 100%);
   background: #F2F2F2;
+  // background: linear-gradient(90deg, rgba(246,0,245,1) 18%, rgba(85,52,255,1) 67%, rgba(68,252,198,1) 100%) no-repeat center center fixed;
+  // background: linear-gradient(90deg, rgba(246,0,245,1) 10%, rgba(255,42,0,1) 43%, rgba(93,255,223,1) 80%, rgba(38,0,255,1) 100%) no-repeat center center fixed;
 }
 
 #loan-navigation-container {
@@ -19,7 +21,8 @@ body {
 }
 
 #loan-navigation-container nav {
-  background-color: #0071BC;
+  // backdrop-filter: blur(10px);
+  background: #0071BC;
   color: #eee;
 }
 
@@ -40,11 +43,17 @@ body {
   display: inline-block;
   text-align: center;
   text-decoration: none;
-  color: #eee;
+  color: rgba(250, 250, 250, 0.9);
   text-decoration: none;
   position: relative;
   padding-top: 10px;
   height: 42px;
+  transition: 60ms ease-in;
+  width: 150px;
+}
+
+#loan-navigation-container nav > ul > li > a:hover{
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 #loan-navigation-container input[type=text] {
@@ -63,7 +72,7 @@ body {
   background: #dddddd;
   border: none;
   border-radius: 3px;
-  height: 26px;
+  height: 24px;
   cursor: pointer;
   color: #fff;
   position: relative;
@@ -85,6 +94,7 @@ body {
   justify-content: space-evenly;
   box-shadow: 1px 2px 5px rgba(126, 125, 125, 0.1),
   -1px 2px 5px rgba(126, 125, 125, 0.1);
+  z-index: 1;
 }
 
 #admin_menu_box a {
@@ -123,6 +133,7 @@ body {
   box-shadow: 5px 2px 10px rgba(126, 125, 125, .1),
   -5px 2px 10px rgba(126, 125, 125, .1);
   //backdrop-filter: blur(8px);
+  border-top: 2px solid linear-gradient(90deg, rgba(246,0,245,1) 18%, rgba(85,52,255,1) 67%, rgba(68,252,198,1) 100%);
 }
 
 .summarycard5k {
@@ -234,6 +245,42 @@ body {
 #trasaction_table_10k > table > tbody {
   background: #F2F2F2;
   border: 1px solid rgb(230, 230, 230);
+}
+
+.view_loan_5k {
+  padding: 2px;
+  height: 50vh;
+  width: 4vw;
+  border: none;
+  color: #fff;
+  font-size: .8rem;
+  background: #0071BC;
+  border-radius: 2px;
+  transition: 200ms ease-in;
+  text-decoration: none;
+}
+
+.view_loan_5k:hover {
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2),
+  -1px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.view_loan_10k {
+  padding: 2px;
+  height: 50vh;
+  width: 4vw;
+  border: none;
+  color: #fff;
+  font-size: .8rem;
+  background: #009245;
+  border-radius: 2px;
+  transition: 200ms ease-in;
+  text-decoration: none;
+}
+
+.view_loan_10k:hover {
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2),
+  -1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 #btn-addnew5k {
@@ -539,9 +586,11 @@ hr {
   width: 700px;
   height: 650px;
   margin: auto;
-  background: #F2F2F2;
+  // background: #F2F2F2;
   border: none;
   border-radius: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
 }
 
 .tenKnewloantitleholder {

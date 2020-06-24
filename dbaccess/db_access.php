@@ -448,7 +448,7 @@ class db_access
   public function new_5k_list()
   {
     $con = $this->getConnection();
-    $query = "SELECT * FROM tbl_new_5k_loan";
+    $query = "SELECT * FROM tbl_new_5k_loan ORDER BY loan_status ASC";
     $view_list = $con->query($query);
     if ($view_list) {
       return $view_list;
@@ -623,7 +623,7 @@ class db_access
   public function new_10k_list()
   {
     $con = $this->getConnection();
-    $query = "SELECT * FROM tbl_new_10k_loan";
+    $query = "SELECT * FROM tbl_new_10k_loan ORDER BY loan_status_10k ASC";
     $view_list = $con->query($query);
     if ($view_list) {
       return $view_list;

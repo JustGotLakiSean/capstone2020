@@ -7,10 +7,19 @@ use \loan950\db_access;
 include('../../dbaccess/db_access.php');
 session_start();
 
-if(isset($_SESSION['mess'])){
-  echo "$_SESSION[mess]";
-  if($_SESSION['mess']){
-    unset($_SESSION['mess']);
+if(isset($_SESSION['mess_10k'])){
+  echo "$_SESSION[mess_10k]";
+  if($_SESSION['mess_10k']){
+    unset($_SESSION['mess_10k']);
+  }
+} else {
+}
+
+if(isset($_SESSION['mess_5k'])){
+  echo "$_SESSION[mess_5k]";
+  if($_SESSION['mess_5k']){
+    unset($_SESSION['mess_5k']);
+  } else {
   }
 } else {
 }
@@ -144,7 +153,7 @@ function transaction_table_5k()
         <td>' . ucwords(strtolower($borrower_fullname)) . '</td>
         <td>' . $loan_status . '</td>';
         echo <<<BUT
-        <td><a type="button" href="loanMonitoring.php?transaction_number={$_SESSION['transaction_number']}">VIEW</a></td>
+        <td><a type="button" class="view_loan_5k" href="loanMonitoring.php?transaction_number={$_SESSION['transaction_number']}">VIEW</a></td>
 BUT;
         echo '</tr>
     </tbody>';
@@ -244,7 +253,7 @@ function transaction_table_10k()
             <td>' . ucwords(strtolower($borrower_fullname_10k)) . '</td>
             <td>' . $loan_status_10k . '</td>';
         echo <<<BUTTON
-            <td><a href="loanMonitoring.php?transaction_number_10k={$_SESSION['loan_id_10k']}">VIEW</a></td>
+            <td><a class="view_loan_10k" href="loanMonitoring.php?transaction_number_10k={$_SESSION['loan_id_10k']}">VIEW</a></td>
 BUTTON;
         echo '</tr>
         </tbody>';
@@ -539,7 +548,7 @@ BUTTON;
     <nav id="loan-global-navigation">
       <ul>
         <li class="nav-links"><a href="adminOverview.php">Overview</a></li>
-        <li class="nav-links"><a href="loanMonitoring.php">Loan Monitoring</a></li>
+        <li class="nav-links"><a href="loanMonitoring.php" style="border-bottom: 4px solid #005086;">Loan Monitoring</a></li>
         <li class="nav-links"><a href="950th-employee.php">Employee</a></li>
         <li class="nav-links"><a href="../../pages/admin/adminloanrequest.php">Loan request<span id="countNotif" style='display: none; height: 18px; width: 18px; border-radius: 5px; background: rgba(24, 24, 24, 1); position: absolute; top: 11px; right: -22px; font-size: 12px; font-weight: bold; padding-top: 2px;'></span></a></li>
         <li class="nav-links"><a type="button" onclick="document.querySelector('.search_box_container').style.display='block'" style="cursor: pointer;">Search</a></li>
@@ -634,6 +643,7 @@ BUTTON;
             ?>
           </div>
         </div>
+
         <div id="collectibles" class="summarycard">
           <div id="collectibleslabel">
             <h6 style="margin: 0; color: #666666;">CURRENT INTEREST</h6>
@@ -744,6 +754,7 @@ BUTTON;
             ?>
           </div>
         </div>
+
         <div id="totalinterest" class="summarycard">
           <div id="totalinterest">
             <h6 style="margin: 0; color: #666666;">TOTAL PAYMENT</h6>
@@ -855,6 +866,7 @@ BUTTON;
             ?>
           </div>
         </div>
+
         <div id="totalpayment" class="summarycard">
           <div id="totalpaymentlabel">
             <h6 style="margin: 0; color: #666666;">PENALTY COLLECTED</h6>

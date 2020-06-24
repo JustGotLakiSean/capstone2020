@@ -79,11 +79,17 @@ hr {
   display: inline-block;
   text-align: center;
   text-decoration: none;
-  color: #eee;
+  color: rgba(250, 250, 250, 0.9);
   text-decoration: none;
   position: relative;
   padding-top: 10px;
   height: 42px;
+  transition: 60ms ease-in;
+  width: 150px;
+}
+
+#loan-navigation-container nav > ul > li > a:hover{
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 #loan-navigation-container input[type=text] {
@@ -102,7 +108,7 @@ hr {
   background: #dddddd;
   border: none;
   border-radius: 3px;
-  height: 26px;
+  height: 24px;
   cursor: pointer;
   color: #fff;
   position: relative;

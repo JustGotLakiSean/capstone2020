@@ -54,7 +54,7 @@ body {
 }
 
 #loan-navigation-container nav ul {
-  height: 6vh;
+  height: 42px;
   display: flex;
   justify-content: space-evenly;
   padding: 0;
@@ -70,11 +70,17 @@ body {
   display: inline-block;
   text-align: center;
   text-decoration: none;
-  color: #eee;
+  color: rgba(250, 250, 250, 0.9);
   text-decoration: none;
   position: relative;
   padding-top: 10px;
   height: 42px;
+  transition: 60ms ease-in;
+  width: 150px;
+}
+
+#loan-navigation-container nav > ul > li > a:hover{
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 #loan-navigation-container input[type=text] {
@@ -93,7 +99,7 @@ body {
   background: #dddddd;
   border: none;
   border-radius: 3px;
-  height: 4vh;
+  height: 24px;
   cursor: pointer;
   color: #fff;
   position: relative;

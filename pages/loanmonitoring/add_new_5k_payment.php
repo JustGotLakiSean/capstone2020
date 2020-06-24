@@ -129,7 +129,7 @@ if (isset($_POST['pb5k_btn_submit'])) {
     if ($payment_option === '1st_payment_option') {
       $new_current_balance_5k = (int) $credit_rate - (int) $amount_paid;
       $new_current_interest_5k = (int) $loan_amount_5k_rate - (int) $amount_paid;
-      $remarks = "$borrowerFullname New Loan Payment"; // apostrophe
+      $remarks = "$borrowerFullname 1st payment"; // apostrophe
       echo '1st_payment_option<br>';
       echo "<strong>2 Loan ID</strong>: $loan_id<br>"; // 1
       echo "<strong>3 Type of Loan Account</strong>: $type_of_loanAccount<br>"; // 2
@@ -209,14 +209,17 @@ if (isset($_POST['pb5k_btn_submit'])) {
           $db->increment_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
           $db->increment_dp5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
         }
-        
+        session_start();
+        $_SESSION['mess_5k'] = '<script>
+        alert("Payment made successfully.");
+        </script>';
         header("Location: loanMonitoring.php");
       } else {
         printf("%s\n", $con->error);
       }
     } else if ($payment_option === '2nd_payment_option') {
       echo '2st_payment_option<br>';
-      $remarks = "$borrowerFullname Second Payment"; // apostrophe
+      $remarks = "$borrowerFullname 2nd Payment."; // apostrophe
       echo "<strong>2 Loan ID</strong>: $loan_id<br>"; // 1
       echo "<strong>3 Type of Loan Account</strong>: $type_of_loanAccount<br>"; // 2
       echo "<strong>4 Borrower ID</strong>: $borrower_id<br>"; // 3
@@ -272,8 +275,12 @@ if (isset($_POST['pb5k_btn_submit'])) {
         $add_second_payment = $db->add_to_2ndpayment_table($loan_id, $type_of_loanAccount, $borrower_id, $ctrl_no_prefix, $fname, $mname, $lname, $type_of_employee, $office, $borrower_rank, $loan_amount_5k_rate, $monthly_payment_5k_rate, $credit_rate, $amount_paid, $is_paid, $sp_current_interest_5k, $sp_current_balance_5k, $payment_option, $date_of_payment, $has_penalty, $is_penalty_paid, $penalty_amount, $remarks);
         if ($add_second_payment) {
           $db->update_second_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
-          echo "Second Payment Done!";
-          header("Location: loanMonitoring.php");
+          // echo "Second Payment Done!";
+          session_start();
+          $_SESSION['mess_5k'] = '<script>
+          alert("Payment made successfully.");
+          </script>';
+          header("Location: loanMonitoring.php?transaction_number=".$loan_id."");
         } else {
           printf("%s\n", $con->error);
         }
@@ -337,8 +344,12 @@ if (isset($_POST['pb5k_btn_submit'])) {
               $db->increment_fp_5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp);
               $db->increment_fullpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp5k);
             }
-            echo "Fully paid!";
-            header("Location: loanMonitoring.php");
+            // echo "Fully paid!";
+            session_start();
+            $_SESSION['mess_5k'] = '<script>
+            alert("Payment made successfully.");
+            </script>';
+            header("Location: loanMonitoring.php?transaction_number=".$loan_id."");
           } else {
             printf("%s\n", $con->error);
           }
@@ -384,7 +395,11 @@ if (isset($_POST['pb5k_btn_submit'])) {
             if ($full_payment_5k) {
               $db->update_loan_status($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
               $db->update_full_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
-              header("Location: loanMonitoring.php");
+              session_start();
+              $_SESSION['mess_5k'] = '<script>
+              alert("Payment made successfully.");
+              </script>';
+              header("Location: loanMonitoring.php?transaction_number=".$loan_id."");
             } else {
               printf("%s\n", $con->error);
             }
@@ -460,8 +475,12 @@ if (isset($_POST['pb5k_btn_submit'])) {
             if ($full_payment_5k) {
               $db->update_full_payment($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
               $db->update_loan_status($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
-              echo "Fully paid!";
-              header("Location: loanMonitoring.php");
+              // echo "Fully paid!";
+              session_start();
+              $_SESSION['mess_5k'] = '<script>
+              alert("Payment made successfully.");
+              </script>';
+              header("Location: loanMonitoring.php?transaction_number=".$loan_id."");
             } else {
               printf("%s\n", $con->error);
             }

@@ -6,6 +6,21 @@ $db = new db_access();
 $civ_list = $db->select_civ_account();
 $lr5k = $db->loan_rates_5K();
 $lr10k = $db->loan_rates_10K();
+
+session_start();
+if(isset($_SESSION['err_civ'])){
+  echo "$_SESSION[err_civ]";
+  if($_SESSION['err_civ']){
+    session_destroy();
+  }
+}
+
+if(isset($_SESSION['err_civ_reg'])){
+  echo "$_SESSION[err_civ_reg]";
+  if($_SESSION['err_civ_reg']){
+    session_destroy();
+  }
+}
 ?>
 
 <!DOCTYPE html>

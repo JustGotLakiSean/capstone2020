@@ -4,7 +4,7 @@ use \loan950\db_access;
 include('../../dbaccess/db_access.php');
 $db = new db_access();
 if(isset($_POST['btn-submit-new-oep'])){
-  echo "YOW<br>";
+  // echo "YOW<br>";
   $txt_officersandep_id = '';
   $txt_officersandep_typeofemployee = '';
   $txt_officersandep_firstname = '';
@@ -42,8 +42,14 @@ if(isset($_POST['btn-submit-new-oep'])){
     if($txt_officersandep_password === $txt_officersandep_confirmPassword){
       $check_username = $db->if_off_exist($txt_officersandep_username);
       if(mysqli_num_rows($check_username) > 0){
-        echo "EXIST<br>";
-        printf("%s\n", $con->error);
+        session_start();
+        $_SESSION['err_oaep'] ='<script>
+        alert("Username already exist.");
+        </script>';
+        header('location: officer-ep-login.php');
+        // echo "EXIST<br>";
+
+        // printf("%s\n", $con->error);
       } else {
         echo "NO<br>";
         $new_account = new db_access();
@@ -59,15 +65,15 @@ if(isset($_POST['btn-submit-new-oep'])){
     } else {
       echo '
       <script type="text/javascript">alert("Password did not match.")</script>';
-      header('Location: registerCivilianEmployeeAccount.php');
+      header('Location: registerOfficersAndEPAccount.php');
     }
 
   } else {
-
+    header('location: officer-ep-login.php');
   }
 
 } else {
-  
+  header('location: officer-ep-login.php');
 }
 
 ?>
