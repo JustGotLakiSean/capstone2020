@@ -45,7 +45,7 @@ if (isset($_POST["btn_submit_login"])) {
       $checkRates = $db->check_rates();
       if ($checkRates) {
         $ro = mysqli_num_rows($checkRates);
-        if ($ro > 1) {
+        if ($ro >= 1) {
           printf($ro);
           session_start();
           $_SESSION['admin_username'] = $UNAME;
@@ -53,6 +53,7 @@ if (isset($_POST["btn_submit_login"])) {
           $_SESSION['fname'] = $FNAME;
           header('location: ../loanmonitoring/adminOverview.php');
         } else {
+          // printf($ro);
           echo <<<SCRIPT
         <div id="setup_lr_container">
           <form action="" method="POST" id="setup_lr_inner">

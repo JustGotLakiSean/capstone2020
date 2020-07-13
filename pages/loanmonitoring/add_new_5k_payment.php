@@ -213,7 +213,7 @@ if (isset($_POST['pb5k_btn_submit'])) {
         $_SESSION['mess_5k'] = '<script>
         alert("Payment made successfully.");
         </script>';
-        header("Location: loanMonitoring.php");
+        header("Location: loanMonitoring.php?transaction_number=".$loan_id."");
       } else {
         printf("%s\n", $con->error);
       }

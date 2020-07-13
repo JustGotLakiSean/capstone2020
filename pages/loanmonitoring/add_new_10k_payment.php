@@ -741,7 +741,7 @@ if (isset($_POST['pb10k_btn_submit'])) {
               $db->increment_fullpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp);
               $db->increment_fp_10k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_fp10k);
             }
-            // echo "FULLY PAID!";
+            echo "FULLY PAID!";
             session_start();
             $_SESSION['mess_10k'] = '<script>
             alert("Payment made successfully.");
@@ -790,7 +790,7 @@ if (isset($_POST['pb10k_btn_submit'])) {
             if ($full_payment_10k) {
               $db->update_full_payment_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
               $db->update_loan_status_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
-              // echo "FULLY PAID<br>";
+              echo "FULLY PAID<br>";
               session_start();
               $_SESSION['mess_10k'] = '<script>
               alert("Payment made successfully.");
@@ -891,7 +891,7 @@ if (isset($_POST['pb10k_btn_submit'])) {
             if ($full_payment_10k) {
               $db->update_full_payment_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
               $db->update_loan_status_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
-              // echo "FULLY PAID<br>";
+              echo "FULLY PAID<br>";
               session_start();
               $_SESSION['mess_10k'] = '<script>
               alert("Payment made successfully.");
@@ -944,7 +944,7 @@ if (isset($_POST['pb10k_btn_submit'])) {
             if ($full_payment_10k) {
               $db->update_full_payment_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
               $db->update_loan_status_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
-              // echo "FULLY PAID<br>";
+              echo "FULLY PAID<br>";
               session_start();
               $_SESSION['mess_10k'] = '<script>
               alert("Payment made successfully.");
@@ -956,7 +956,7 @@ if (isset($_POST['pb10k_btn_submit'])) {
           } else {
           }
         } else if ($is_new_loan_10k == 0 && $first_payment_col_10k == 1 && $second_payment_col_10k == 1 && $third_payment_col_10k == 1 && $fourth_payment_col_10k == 1 && $fifth_payment_col_10k == 1 && $sixth_payment_col_10k == 0 && $full_payment_col_10k == 0) {
-          // echo "SIXTH PAY: FULL PAYMENT<br>";
+          echo "SIXTH PAY: FULL PAYMENT<br>";
           if (isset($_POST['prev_fifth_pay']) && isset($_POST['prev_fifth_bal']) && isset($_POST['prev_fifth_interest'])) {
             $prev_fifth_pay = mysqli_real_escape_string($db->getConnection(), $_POST['prev_fifth_pay']);
             $prev_fifth_bal = mysqli_real_escape_string($db->getConnection(), $_POST['prev_fifth_bal']);
@@ -997,7 +997,7 @@ if (isset($_POST['pb10k_btn_submit'])) {
             if ($full_payment_10k) {
               $db->update_full_payment_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
               $db->update_loan_status_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
-              // echo "FULLY PAID<br>";
+              echo "FULLY PAID<br>";
               session_start();
               $_SESSION['mess_10k'] = '<script>
               alert("Payment made successfully.");
@@ -1009,7 +1009,7 @@ if (isset($_POST['pb10k_btn_submit'])) {
           } else {
           }
         } else if ($is_new_loan_10k == 0 && $first_payment_col_10k == 1 && $second_payment_col_10k == 1 && $third_payment_col_10k == 1 && $fourth_payment_col_10k == 1 && $fifth_payment_col_10k == 1 && $sixth_payment_col_10k == 1 && $full_payment_col_10k == 0) {
-          // echo "FULL<br>";
+          echo "FULL<br>";
           $remarks = "$borrowerFullname10k New Loan Payment";
           // echo '4th_payment_option<br>';
           // echo "<strong>2 Load ID 10k</strong>: $loan_id<br>";
@@ -1087,7 +1087,7 @@ if (isset($_POST['pb10k_btn_submit'])) {
             if ($add_full_payment_10k) {
               $db->update_full_payment_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
               $db->update_loan_status_10k($loan_id, $borrower_id, $fname, $mname, $lname, $type_of_employee, $borrower_rank);
-              // echo "FULLY PAID<br>";
+              echo "FULLY PAID<br>";
               session_start();
               $_SESSION['mess_10k'] = '<script>
               alert("Payment made successfully.");
@@ -1111,5 +1111,4 @@ if (isset($_POST['pb10k_btn_submit'])) {
     // do nothing...
   }
 } else {
-  echo "G";
 }
