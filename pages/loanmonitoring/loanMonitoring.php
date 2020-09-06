@@ -1404,7 +1404,7 @@ EMP_LIST;
         echo '
     <form id="newpayment_5k_container" method="POST" action="add_new_5k_payment.php">
       <div class="newpayment_5k_titlecontainer">
-        <h3 id="new_payment_title_5k"align="center">Loan details</h3>
+        <h3 id="new_payment_title_5k"align="center">Borrower details</h3>
       </div>
       <div class="bdb-content">
         <div class="bdb-inner-content">
@@ -1821,7 +1821,7 @@ EMP_LIST;
         echo '
   <form class="newpayment_10k_container" method="post" action="add_new_10k_payment.php">
     <div class="newpayment_10k_titlecontainer">
-      <h3 align="center">Loan details</h3>
+      <h3 align="center">Borrower details</h3>
     </div>
     <div class="bdb-10k-content">
       <div class="bdb-10k-inner-content">
