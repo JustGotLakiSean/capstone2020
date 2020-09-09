@@ -83,7 +83,7 @@ if(isset($_SESSION['err'])){
       <nav>
         <ul>
           <li>
-            <a href="../index.php">Home</a>
+            <a href="adminSignInForm.php">Back</a>
           </li>
         </ul>
       </nav>
@@ -97,9 +97,9 @@ if(isset($_SESSION['err'])){
               <label style="top: 4px;">Personal Details</label>
             </div>
             <div class="raaform-input-inner">
-              <input type="text" name = "txt_admin_firstname" id = "txt_admin_firstname" required placeholder = "Firstname" class="input-inner"/><span class="error-field" id="fname_error"></span>
-              <input type="text" name = "txt_admin_middlename" id = "txt_admin_middlename" required placeholder = "Middle Name" class="input-inner"/><span class="error-field" id="mname_error"></span>
-              <input type="text" name = "txt_admin_lastname" id = "txt_admin_lastname" required placeholder = "Lastname" class="input-inner"/><span class="error-field" id="lname_error"></span>
+              <input type="text" pattern="[a-zA-Z]+[a-zA-Z ]+" minlength="2" maxlength="26" name = "txt_admin_firstname" id = "txt_admin_firstname" required placeholder = "Firstname" class="input-inner"/><span class="error-field" id="fname_error"></span>
+              <input type="text" pattern="[a-zA-Z]+[a-zA-Z ]+" minlength="2" maxlength="26" name = "txt_admin_middlename" id = "txt_admin_middlename" required placeholder = "Middle Name" class="input-inner"/><span class="error-field" id="mname_error"></span>
+              <input type="text" pattern="[a-zA-Z]+[a-zA-Z ]+" minlength="2" maxlength="26" name = "txt_admin_lastname" id = "txt_admin_lastname" required placeholder = "Lastname" class="input-inner"/><span class="error-field" id="lname_error"></span>
               <input type="email" name = "txt_admin_email" id = "txt_admin_email" required placeholder = "Email" class="input-inner"/><span class="error-field" id="email_error"></span>
             </div>
           </div>
