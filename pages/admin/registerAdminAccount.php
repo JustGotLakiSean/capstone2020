@@ -109,9 +109,9 @@ if(isset($_SESSION['err'])){
               <label for="txt_admin_username">Account Details</label>
             </div>
             <div class="raaform-input-inner">
-              <input type="text" name = "txt_admin_username" id = "txt_admin_username" required placeholder = "Username" /><span class="error-field" id="uname_error"></span>
-              <input type="password" name = "txt_admin_password" id = "txt_admin_password" required placeholder="Password"/><span class="error-field" id="password_error"></span>
-              <input type="password" name = "txt_admin_confirmPassword" id = "txt_admin_confirmPassword" required placeholder="Confirm Password"/><span class="error-field" id="cpassword_error"></span>
+              <input type="text" pattern="[a-zA-Z]+[a-zA-Z0-9_]+" minlength="5" maxlength="15" name = "txt_admin_username" id = "txt_admin_username" required placeholder = "Username" /><span class="error-field" id="uname_error"></span>
+              <input type="password" pattern="^[a-zA-Z0-9@#&_]+" minlength="8" maxlength="32" name = "txt_admin_password" id = "txt_admin_password" required placeholder="Password"/><span class="error-field" id="password_error"></span>
+              <input type="password" pattern="^[a-zA-Z0-9@#&_]+" minlength="8" maxlength="32" name = "txt_admin_confirmPassword" id = "txt_admin_confirmPassword" required placeholder="Confirm Password"/><span class="error-field" id="cpassword_error"></span>
             </div>
           </div>
           <div id = "register-action">

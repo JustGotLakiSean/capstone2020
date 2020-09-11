@@ -7,6 +7,15 @@ use mysqli;
 
 include('../../dbaccess/db_access.php');
 $db = new db_access();
+session_start();
+if(isset($_SESSION['success_mess'])){
+  echo "$_SESSION[success_mess]";
+  if($_SESSION['success_mess']){
+    unset($_SESSION['success_mess']);
+  }
+} else {
+  
+}
 
 if (isset($_POST["btn_submit_login"])) {
   if (isset($_POST['txt_admin_username']) && isset($_POST['txt_admin_password'])) {
@@ -245,6 +254,10 @@ if (isset($_POST['add_rates'])) {
   }
 } else {
 }
+?>
+
+<?php
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

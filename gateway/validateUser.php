@@ -41,6 +41,10 @@ if(isset($_POST["btn-submit-new-admin"])) {
         // $new_admin = new db_access();
         $insert_admin = $db->registerAdmin($firstname, $lastname, $middlename, $username, $password, $email);
         if($insert_admin){
+          session_start();
+          $_SESSION['success_mess'] = '<script>
+          alert("' . $username . ' successfully registered.");
+          </script>';
           header('Location: ../pages/admin/adminSignInForm.php');
         } else {
           printf("%s\n", $db->error);
