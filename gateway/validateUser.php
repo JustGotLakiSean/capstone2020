@@ -16,6 +16,12 @@ $db = new db_access();
 //   header('location: ../pages/index.php');
 // }
 
+// JEAN JOSHUA H VILLANUEVA
+// JESS MATTHEW SANTILLAN
+// JOHN RAYMOND AUSTRIA
+// NICOLAS SANDAGON
+// BSAIT 4-1
+
 echo "TEST";
 
 if(isset($_POST["btn-submit-new-admin"])) {
@@ -34,8 +40,13 @@ if(isset($_POST["btn-submit-new-admin"])) {
       if(mysqli_num_rows($check_username) > 0){
         session_start();
         $_SESSION['err'] ='<script>
-        alert("Username already exist.");
+        alert("Username '.$username.' already exist.");
         </script>';
+        $_SESSION['retain_firstname'] = $firstname;
+        $_SESSION['retain_middlename'] = $middlename;
+        $_SESSION['retain_lastname'] = $lastname;
+        $_SESSION['retain_email'] = $email;
+        $_SESSION['retain_username'] = $username;
         header('location: ../pages/admin/registerAdminAccount.php');
       } else {
         // $new_admin = new db_access();
