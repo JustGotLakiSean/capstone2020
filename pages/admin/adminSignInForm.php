@@ -83,32 +83,32 @@ if (isset($_POST["btn_submit_login"])) {
                 <hr>
                 <div id="rates5k_box">
                   <div class="inner_5k">
-                    <label>Loan amount</label>
+                    <label>5K Loan amount</label>
                     <input type="hidden" name="typeOfLoan_5k" value="5k" />
                     <input type="number" name="la_5k_rates" required />
                   </div>
                   <div class="inner_5k">
-                    <label>Monthly payment</label>
+                    <label>5K Monthly payment</label>
                     <input type="number" name="mp_5k_rates" required />
                   </div>
                   <div class="inner_5k">
-                    <label>Credit rate</label>
+                    <label>5K Credit rate</label>
                     <input type="number" name="cr_5k_rates" required />
                   </div>
                   <div class="inner_5k">
-                    <label>Balance</label>
+                    <label>5K Balance</label>
                     <input type="number" name="bal_5k_rates" required />
                   </div>
                   <div class="inner_5k">
-                    <label for="int_5k_rates">Interest</label>
+                    <label for="int_5k_rates">5K Interest</label>
                     <input type="number" name="int_5k_rates" id="int_5k_rates" required />
                   </div>
                   <div class="inner_5k">
-                    <label>Penalty %</label>
+                    <label>5K Penalty %</label>
                     <input type="number" name="pp_5k_rates" required step="0.001" />
                   </div>
                   <div class="inner_5k">
-                    <label>Penalty per month</label>
+                    <label>5K Penalty per month</label>
                     <input type="number" name="pm_5k_rates" required />
                   </div>
                 </div>
@@ -119,32 +119,32 @@ if (isset($_POST["btn_submit_login"])) {
                 <hr>
                 <div id="rates10k_box">
                   <div class="inner_10k">
-                    <label>Loan amount</label>
+                    <label>10K Loan amount</label>
                     <input type="hidden" name="typeOfLoan_10k" value="10k" />
                     <input type="number" name="la_10k_rates" required />
                   </div>
                   <div class="inner_10k">
-                    <label>Monthly payment</label>
+                    <label>10K Monthly payment</label>
                     <input type="number" name="mp_10k_rates" required />
                   </div>
                   <div class="inner_10k">
-                    <label>Credit rate</label>
+                    <label>10K Credit rate</label>
                     <input type="number" name="cr_10k_rates" required />
                   </div>
                   <div class="inner_10k">
-                    <label>Balance</label>
+                    <label>10K Balance</label>
                     <input type="number" name="bal_10k_rates" required />
                   </div>
                   <div class="inner_10k">
-                    <label>Interest</label>
+                    <label>10K Interest</label>
                     <input type="number" name="int_10k_rates" required />
                   </div>
                   <div class="inner_10k">
-                    <label>Penalty %</label>
+                    <label>10K Penalty %</label>
                     <input type="number" name="pp_10k_rates" required step="0.001" />
                   </div>
                   <div class="inner_10k">
-                    <label>Penalty per month</label>
+                    <label>10K Penalty per month</label>
                     <input type="number" name="pm_10k_rates" required />
                   </div>
                 </div>
@@ -316,8 +316,8 @@ if (isset($_POST['add_rates'])) {
       </div>
       <hr>
       <div id="asf-inputbox">
-        <input type="text" name="txt_admin_username" id="txt_admin_username" required placeholder="Enter Username" /><span id="username_error"></span>
-        <input type="password" name="txt_admin_password" id="txt_admin_password" required placeholder="Enter Password" /><span id="password_error"></span>
+        <input type="text" pattern="[a-zA-Z]+[a-zA-Z0-9_]+" name="txt_admin_username" id="txt_admin_username" required placeholder="Enter Username" /><span id="username_error"></span>
+        <input type="password" pattern="^[a-zA-Z0-9@#&_]+" name="txt_admin_password" id="txt_admin_password" required placeholder="Enter Password" /><span id="password_error"></span>
         <input type="submit" name="btn_submit_login" id="btn_submit_login" value="Sign In" />
       </div>
       <hr class="hr-or">

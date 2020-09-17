@@ -1012,8 +1012,9 @@ BUTTON;
         <section id="fiveKaddnewloan-container" class="modal">
           <div class="fiveKaddnewloanpanel" id="fiveKaddnewloan">
             <div class="fiveKnewloantitleholder">
-              <h3 id="fiveKnewloantitle">New Loan Record</h3>
-              <button type="button" id="btn_close" onclick="document.getElementById('fiveKaddnewloan-container').style.display='none'">Close</button>
+              <h3 id="fiveKnewloantitle">Borrower List</h3>
+              <button type="button" id="btn_close" onclick = "window.location.href = 'loanMonitoring.php';">Close</button>
+              <!-- <button type="button" id="btn_close" onclick="document.getElementById('fiveKaddnewloan-container').style.display='none'">Close</button> -->
             </div>
             <span id="alert" style="display: none; text-align: center;">New Record Added.</span>
             <div class="fiveKnewloanfirstbox">
@@ -1153,7 +1154,7 @@ EMP_LIST;
         <section id="tenKaddnewloan-container">
           <div class="tenKaddnewloanpanel" id="tenKaddnewloan">
             <div class="tenKnewloantitleholder">
-              <h3 id="tenKnewloantitle">New Loan Record</h3>
+              <h3 id="tenKnewloantitle">Borrower List</h3>
               <button type="button" id="btn_close_10k" onclick="document.getElementById('tenKaddnewloan-container').style.display='none'">Close</button>
             </div>
             <span id="alert_10k" style="display: none; text-align: center;">New Record Added.</span>
