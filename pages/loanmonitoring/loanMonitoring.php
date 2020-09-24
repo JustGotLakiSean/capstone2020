@@ -629,7 +629,7 @@ BUTTON;
 
         <div id="totalborrowers" class="summarycard">
           <div id="totalborrowerslabel">
-            <h6 style="margin: 0; color: #666666;">ACTIVE LOAN</h6>
+            <h6 style="margin: 0; color: #666666;">OVERALL ACTIVE LOAN</h6>
           </div>
           <div id="totalborrowercount">
             <?php
@@ -996,7 +996,7 @@ BUTTON;
               $loanStatusCount = $get5K['loanStatusCount'];;
             }
 
-            echo "<h4 style='margin: 20px 0 0 0;'><span style='font-size: 32px; font-weight: lighter;'>$loanStatusCount</span> <span style='font-size: 12px; font-weight: lighter;'>active loan</span></h4>";
+            echo "<h4 style='margin: 20px 0 0 0;'><span style='font-size: 12px; font-weight: lighter;'>5K active loan count: </span> <span style='font-size: 32px; font-weight: lighter;'>$loanStatusCount</span></h4>";
             ?>
           </div>
           <div id="5ktransactiontable">
@@ -1012,7 +1012,7 @@ BUTTON;
         <section id="fiveKaddnewloan-container" class="modal">
           <div class="fiveKaddnewloanpanel" id="fiveKaddnewloan">
             <div class="fiveKnewloantitleholder">
-              <h3 id="fiveKnewloantitle">Borrower List</h3>
+              <h3 id="fiveKnewloantitle">5K Borrower List</h3>
               <button type="button" id="btn_close" onclick = "window.location.href = 'loanMonitoring.php';">Close</button>
               <!-- <button type="button" id="btn_close" onclick="document.getElementById('fiveKaddnewloan-container').style.display='none'">Close</button> -->
             </div>
@@ -1154,8 +1154,8 @@ EMP_LIST;
         <section id="tenKaddnewloan-container">
           <div class="tenKaddnewloanpanel" id="tenKaddnewloan">
             <div class="tenKnewloantitleholder">
-              <h3 id="tenKnewloantitle">Borrower List</h3>
-              <button type="button" id="btn_close_10k" onclick="document.getElementById('tenKaddnewloan-container').style.display='none'">Close</button>
+              <h3 id="tenKnewloantitle">10K Borrower List</h3>
+              <button type="button" id="btn_close_10k" onclick="window.location.href='loanMonitoring.php';">Close</button>
             </div>
             <span id="alert_10k" style="display: none; text-align: center;">New Record Added.</span>
             <div class="tenKnewloanfirstbox">
@@ -1300,7 +1300,7 @@ EMP_LIST;
               $loanStatusCount10k = $get10K['loanStatusCount10k'];
             }
 
-            echo "<h4 style='margin: 20px 0 0 0;'><span style='font-size: 32px; font-weight: lighter;'>$loanStatusCount10k</span> <span style='font-size: 12px; font-weight: lighter;'>active loan</span></h4>";
+            echo "<h4 style='margin: 20px 0 0 0;'><span style='font-size: 12px; font-weight: lighter;'>10K active loan count: </span> <span style='font-size: 32px; font-weight: lighter;'>$loanStatusCount10k</span></h4>";
             ?>
           </div>
           <div id="10ktransactiontable">

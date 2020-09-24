@@ -1009,15 +1009,16 @@ OAEP_PROFILE;
             </div> -->
             <div class="cetextfieldcontainer">
               <div class="add_ce_personaldetails add_info_box">
-                <input type="text" name="txtcivilianfirstname" id="txtcivilianfirstname" placeholder="Firstname" required />
-                <input type="text" name="txtcivilianmiddlename" id="txtcivilianmiddlename" placeholder="Middle Name" required />
-                <input type="text" name="txtcivilianlastname" id="txtcivilianlastname" placeholder="Lastname" required />
+                <input type="text" pattern="[a-zA-Z]+[a-zA-Z ]+" minlength="2" maxlength="26" name="txtcivilianfirstname" id="txtcivilianfirstname" placeholder="Firstname" required />
+                <input type="text" pattern="[a-zA-Z]+[a-zA-Z ]+" maxlength="26" name="txtcivilianmiddlename" id="txtcivilianmiddlename" placeholder="Middle Name" required />
+                <input type="text" pattern="[a-zA-Z]+[a-zA-Z ]+" minlength="2" maxlength="26" name="txtcivilianlastname" id="txtcivilianlastname" placeholder="Lastname" required />
                 <input type="date" id="txtcivilianbirthdate" class="datepicker" name="txtcivilianbirthdate" placeholder="Birthdate" required />
-                <input type="text" id="txtcivilianaddress" name="txtcivilianaddress" placeholder="Address" required />
+                <input type="text" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-., ]+" minlength="2" maxlength="60" id="txtcivilianaddress" name="txtcivilianaddress" placeholder="Address" />
               </div>
               <div class="ceofficebox add_info_box">
                 <label for="ce_office_option add_info_box">Office</label>
                 <select name="ce_office_option" id="ce_office_option" required>
+                  <option value=""></option>
                   <option value="Headquarters">Headquarters</option>
                   <option value="951ST CES">951ST CES</option>
                   <option value="VSAT">VSAT</option>
@@ -1028,7 +1029,7 @@ OAEP_PROFILE;
               </div>
               <div class="ce_contactdetails_box add_info_box">
                 <input type="email" id="txtcivilianemail" name="txtcivilianemail" placeholder="Email" required />
-                <input type="text" id="txtciviliancontactnumber" name="txtciviliancontactnumber" placeholder="Contact Number" required />
+                <input type="text" pattern="^[0-9]*$" minlength="8" maxlength="11" id="txtciviliancontactnumber" name="txtciviliancontactnumber" placeholder="Contact Number" />
               </div>
               <div class="addciviliancommand">
                 <input type="submit" name="submitnewcivilian" id="submitnewcivilian" value="Submit New Record" />
