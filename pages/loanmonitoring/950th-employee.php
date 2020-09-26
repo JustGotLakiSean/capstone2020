@@ -61,7 +61,7 @@ if (isset($_POST['submitnewofficer'])) {
     $insert_new_oaep = $new_oaep_record->add_new_officers_and_ep($emp_type, $oaep_firstname, $oaep_lastname, $oaep_middlename, $oaep_office, $oaep_email, $oaep_contactnumber, $oaep_birthdate, $oaep_address, $oaep_rank, $has_account, $downpayment_count, $db_5k_count, $db_10k_count, $fullpayment_count, $fp_5k_count, $fp_10k_count, $penalty_count, $penalty_5k_count, $penalty_10k_count, $la_5k_count, $la_10k_count);
     if ($insert_new_oaep) {
       echo '<script>
-      alert("New Officers And EP Recorded.")
+      alert("New Officers And EP Added.")
       </script>';
     } else {
     }
@@ -124,7 +124,7 @@ if (isset($_POST['submitnewcivilian'])) {
     $INSERT_NEW_RECORD = $NEW_CIVILIAN_RECORD->add_new_civilian_record($emp_type, $CIVRECORD_FIRSTNAME, $CIVRECORD_LASTNAME, $CIVRECORD_MIDDLENAME, $CIVRECORD_OFFICE, $CIVRECORD_EMAIL, $CIVRECORD_CONTACTNUMBER, $CIVRECORD_BIRTHDATE, $CIVRECORD_ADDRESS, $CIV_RECORD_RANK, $has_account, $downpayment_count, $db_5k_count, $db_10k_count, $fullpayment_count, $fp_5k_count, $fp_10k_count, $penalty_count, $penalty_5k_count, $penalty_10k_count, $la_5k_count, $la_10k_count);
     if ($INSERT_NEW_RECORD) {
       echo '<script>
-      alert("New Civilian Record Added.")
+      alert("New Civilian Employee Added.")
       </script>';
     } else {
     }
@@ -771,11 +771,11 @@ BUTTON;
             </div> -->
             <div class="oaetextfieldcontainer">
               <div class="add_oae_personaldetails add_info_box">
-                <input type="text" name="txtofficerfirstname" id="txtofficerfirstname" placeholder="Firstname" required />
-                <input type="text" name="txtofficermiddlename" id="txtofficermiddlename" placeholder="Middle Name" required />
-                <input type="text" name="txtofficerlastname" id="txtofficerlastname" placeholder="Lastname" required />
-                <input type="date" id="txtofficerbirthdate" class="datepicker" name="txtofficerbirthdate" placeholder="Birthdate" />
-                <input type="text" id="txtofficeraddress" name="txtofficeraddress" placeholder="Address" required />
+                <input type="text" pattern="[a-zA-Z]+[a-zA-Z ]+" minlength="2" maxlength="26" name="txtofficerfirstname" id="txtofficerfirstname" placeholder="Firstname" required />
+                <input type="text" pattern="[a-zA-Z]+[a-zA-Z ]+" maxlength="26" name="txtofficermiddlename" id="txtofficermiddlename" placeholder="Middle Name" required />
+                <input type="text" pattern="[a-zA-Z]+[a-zA-Z ]+" minlength="2" maxlength="26" name="txtofficerlastname" id="txtofficerlastname" placeholder="Lastname" required />
+                <input type="date" id="txtofficerbirthdate" class="datepicker" name="txtofficerbirthdate" placeholder="Birthdate" required />
+                <input type="text" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-., ]+" minlength="2" maxlength="60" id="txtofficeraddress" name="txtofficeraddress" placeholder="Address" required />
               </div>
               <div class="oaeofficebox add_info_box oae_select_option">
                 <label for="oae_office_option">Office:</label>
@@ -802,7 +802,7 @@ BUTTON;
               </div>
               <div class="oae_contactdetails_box add_info_box">
                 <input type="email" id="txtofficeremail" name="txtofficeremail" placeholder="Email" />
-                <input type="text" id="txtofficercontactnumber" name="txtofficercontactnumber" placeholder="Contact Number" />
+                <input type="text" pattern="^[0-9]*$" minlength="8" maxlength="11" id="txtofficercontactnumber" name="txtofficercontactnumber" placeholder="Contact Number" />
               </div>
               <div class="addofficercommand">
                 <input type="submit" name="submitnewofficer" id="submitnewofficer" value="Submit New Record" />
@@ -872,7 +872,7 @@ BUTTON;
       </div>
       <div class="cedetailsboxcontainer">
         <div class="ce_name cebox">
-          <label>Officer Name</label>
+          <label>Civilian Name</label>
           <input type="text" disabled name="txt_ce_name" id="txt_ce_name" value="$CIVILIAN_FULLNAME" />
         </div>
         <div class="ce_email cebox">
@@ -1014,7 +1014,7 @@ OAEP_PROFILE;
                 <input type="text" pattern="[a-zA-Z]+[a-zA-Z ]+" minlength="2" maxlength="26" name="txtcivilianlastname" id="txtcivilianlastname" placeholder="Lastname" required />
                 <input type="date" id="txtcivilianbirthdate" class="datepicker" name="txtcivilianbirthdate" placeholder="Birthdate" required />
                 <input type="text" pattern="[a-zA-Z0-9]+[a-zA-Z0-9-., ]+" minlength="2" maxlength="60" id="txtcivilianaddress" name="txtcivilianaddress" placeholder="Address" />
-              </div>
+              </div><?php?>
               <div class="ceofficebox add_info_box">
                 <label for="ce_office_option add_info_box">Office</label>
                 <select name="ce_office_option" id="ce_office_option" required>
