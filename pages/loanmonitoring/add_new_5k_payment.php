@@ -183,8 +183,8 @@ if (isset($_POST['pb5k_btn_submit'])) {
           $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
           $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
         } else if($type_of_employee === 'officer'){
-          $db->increment_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
-          $db->increment_dp5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
+          $db->increment_penalty_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
+          $db->increment_penalty5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
         }
   
       } else {
@@ -262,8 +262,8 @@ if (isset($_POST['pb5k_btn_submit'])) {
             $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
             $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
           } else if($type_of_employee === 'officer'){
-            $db->increment_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
-            $db->increment_dp5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
+            $db->increment_penalty_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
+            $db->increment_penalty5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
           }
     
         } else {
@@ -318,8 +318,8 @@ if (isset($_POST['pb5k_btn_submit'])) {
               $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
               $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
             } else if($type_of_employee === 'officer'){
-              $db->increment_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
-              $db->increment_dp5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
+              $db->increment_penalty_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
+              $db->increment_penalty5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
             }
       
           } else {
@@ -381,8 +381,8 @@ if (isset($_POST['pb5k_btn_submit'])) {
                 $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
                 $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
               } else if($type_of_employee === 'officer'){
-                $db->increment_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
-                $db->increment_dp5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
+                $db->increment_penalty_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
+                $db->increment_penalty5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
               }
         
             } else {
@@ -461,8 +461,8 @@ if (isset($_POST['pb5k_btn_submit'])) {
                 $db->increment_penalty_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty_count);
                 $db->increment_penalty5k_count_civilian($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_penalty5k_count);
               } else if($type_of_employee === 'officer'){
-                $db->increment_downpayment_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
-                $db->increment_dp5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
+                $db->increment_penalty_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp);
+                $db->increment_penalty5k_count_officer($borrower_id, $fname, $mname, $lname, $type_of_employee, $increment_dp5k);
               }
         
             } else {

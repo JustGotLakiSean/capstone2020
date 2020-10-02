@@ -89,9 +89,9 @@ $db = new db_access();
                 <label>Account Details</label>
               </div>
               <div id = "rc-input-inner">
-                <input type="text" name = "txt_Civilian_username" id = "txt_Civilian_username" required placeholder = "Username" />
-                <input type="password" name = "txt_Civilian_password" id = "txt_Civilian_password" required placeholder="Password" />
-                <input type="password" name = "txt_Civilian_confirmPassword" id = "txt_Civilian_confirmPassword" required placeholder="Confirm Password"/>
+                <input type="text" pattern="[a-zA-Z]+[a-zA-Z0-9_]+" minlength="5" maxlength="15" name = "txt_Civilian_username" id = "txt_Civilian_username" required placeholder = "Username" />
+                <input type="password" pattern="^[a-zA-Z0-9@#&_]+" minlength="8" maxlength="32" name = "txt_Civilian_password" id = "txt_Civilian_password" required placeholder="Password" />
+                <input type="password" pattern="^[a-zA-Z0-9@#&_]+" minlength="8" maxlength="32" name = "txt_Civilian_confirmPassword" id = "txt_Civilian_confirmPassword" required placeholder="Confirm Password"/>
               </div>
             </div>
             <div id = "register-action">

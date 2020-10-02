@@ -7,17 +7,17 @@ use \loan950\db_access;
 include('../../dbaccess/db_access.php');
 session_start();
 
-if(isset($_SESSION['mess_10k'])){
+if (isset($_SESSION['mess_10k'])) {
   echo "$_SESSION[mess_10k]";
-  if($_SESSION['mess_10k']){
+  if ($_SESSION['mess_10k']) {
     unset($_SESSION['mess_10k']);
   }
 } else {
 }
 
-if(isset($_SESSION['mess_5k'])){
+if (isset($_SESSION['mess_5k'])) {
   echo "$_SESSION[mess_5k]";
-  if($_SESSION['mess_5k']){
+  if ($_SESSION['mess_5k']) {
     unset($_SESSION['mess_5k']);
   } else {
   }
@@ -573,10 +573,10 @@ BUTTON;
         xhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
             document.getElementById("countNotif").innerHTML = this.responseText;
-            if(this.responseText == 0){
-              document.getElementById("countNotif").style.display='none';
-            } else if(this.responseText >= 1) {
-              document.getElementById("countNotif").style.display='block';
+            if (this.responseText == 0) {
+              document.getElementById("countNotif").style.display = 'none';
+            } else if (this.responseText >= 1) {
+              document.getElementById("countNotif").style.display = 'block';
             }
           }
         };
@@ -1012,8 +1012,8 @@ BUTTON;
         <section id="fiveKaddnewloan-container" class="modal">
           <div class="fiveKaddnewloanpanel" id="fiveKaddnewloan">
             <div class="fiveKnewloantitleholder">
-              <h3 id="fiveKnewloantitle">5K Borrower List</h3>
-              <button type="button" id="btn_close" onclick = "window.location.href = 'loanMonitoring.php';">Close</button>
+              <h3 id="fiveKnewloantitle">New Loan Record</h3>
+              <button type="button" id="btn_close" onclick="window.location.href = 'loanMonitoring.php';">Close</button>
               <!-- <button type="button" id="btn_close" onclick="document.getElementById('fiveKaddnewloan-container').style.display='none'">Close</button> -->
             </div>
             <span id="alert" style="display: none; text-align: center;">New Record Added.</span>
@@ -1112,7 +1112,7 @@ EMP_LIST;
                 </div>
                 <div class="fiveKborrowernewloandetails">
                   <div class="fiveKnewloandetailstitleholder">
-                    <h4>Loan Details (5K Account)</h4>
+                    <h4>5K Loan Rates</h4>
                     <hr>
                     <div class="fiveKloanaccountdetailscontainer">
                       <div class="loanaccountdetails-box">
@@ -1154,7 +1154,7 @@ EMP_LIST;
         <section id="tenKaddnewloan-container">
           <div class="tenKaddnewloanpanel" id="tenKaddnewloan">
             <div class="tenKnewloantitleholder">
-              <h3 id="tenKnewloantitle">10K Borrower List</h3>
+              <h3 id="tenKnewloantitle">New Loan Record</h3>
               <button type="button" id="btn_close_10k" onclick="window.location.href='loanMonitoring.php';">Close</button>
             </div>
             <span id="alert_10k" style="display: none; text-align: center;">New Record Added.</span>
@@ -1365,19 +1365,22 @@ EMP_LIST;
           {
             // '1' means new... '0' means not new... //
             if ($isNewLoan == 1) { // if no payment
-              echo '<select name="paymentoption_5k">
+              echo '<select name="paymentoption_5k" required>
+              <option value=""></option>
               <option value="1st_payment_option">1ST Payment</option>
               <option value="2nd_payment_option" disabled>2ND Payment</option>
               <option value="full_payment_option">FULL PAYMENT</option>
             </select>';
             } else if ($isNewLoan == 0 && $firstPaymentCol == 1 && $secondPaymentCol == 0) { // paid the first
-              echo '<select name="paymentoption_5k">
+              echo '<select name="paymentoption_5k" required>
+              <option value=""></option>
               <option value="1st_payment_option" disabled>1ST Payment</option>
               <option value="2nd_payment_option">2ND Payment</option>
               <option value="full_payment_option">FULL PAYMENT</option>
             </select>';
             } else if ($isNewLoan == 0 && $fullPaymentCol == 0 && $secondPaymentCol == 1) {
-              echo '<select name="paymentoption_5k">
+              echo '<select name="paymentoption_5k" required>
+              <option value=""></option>
               <option value="1st_payment_option" disabled>1ST Payment</option>
               <option value="2nd_payment_option" disabled>2ND Payment</option>
               <option value="full_payment_option">FULL PAYMENT</option>
@@ -1623,17 +1626,17 @@ EMP_LIST;
                   </div>
                   <div class="date_of_payment_5k_box np5kbox">
                     <label for="date_of_payment_5k">Date of Payment</label>
-                    <input type="date" name="date_of_payment_5k" id="datepicker"/>
+                    <input type="date" name="date_of_payment_5k" id="datepicker" required/>
                   </div>
                   <div class="amount_payment_5k_box np5kbox">
                     <label for="txt_amount_payment_5k">Amount Payment</label>
-                    <input type="number" name="txt_amount_payment_5k" id="txt_amount_payment_5k"/>
+                    <input type="number" pattern="^[0-9]*$" name="txt_amount_payment_5k" id="txt_amount_payment_5k" required/>
                   </div>
                   <div class="penaltyrate_5k_box np5kbox">
                     <label>Penalty:</label>
                     <div>
                       <label for="penaltyrate_5k" style="font-size: 13px;">80 PHP</label>
-                      <input type="radio" name="penaltyrate_5k" id="penaltyrate_5k" value="80"/>
+                      <input type="checkbox" name="penaltyrate_5k" id="penaltyrate_5k" value="80"/>
                     </div>
                   </div>
                   <div class="interest_5k_box np5kbox">
@@ -1730,7 +1733,8 @@ EMP_LIST;
           function payment_options_10k($isNewLoan_10k, $firstPaymentCol_10k, $secondPaymentCol_10k, $thirdPaymentCol_10k, $fourthPaymentCol_10k, $fifthPaymentCol_10k, $sixthPaymentCol_10k, $fullPaymentCol_10k)
           {
             if ($isNewLoan_10k == 1) {
-              echo '<select name="paymentoption_10k">
+              echo '<select name="paymentoption_10k" required>
+              <option value=""></option>
           <option value="1st_payment_10k">1ST Payment</option>
           <option value="2nd_payment_10k" disabled>2ND Payment</option>
           <option value="3rd_payment_10k" disabled>3RD Payment</option>
@@ -1740,7 +1744,8 @@ EMP_LIST;
           <option value="full_payment_10k">FULL PAYMENT</option>
         </select>';
             } else if ($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 0 && $thirdPaymentCol_10k == 0 && $fourthPaymentCol_10k == 0 && $fifthPaymentCol_10k == 0 && $sixthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0) {
-              echo '<select name="paymentoption_10k">
+              echo '<select name="paymentoption_10k" required>
+              <option value=""></option>
           <option value="1st_payment_10k" disabled>1ST Payment</option>
           <option value="2nd_payment_10k">2ND Payment</option>
           <option value="3rd_payment_10k" disabled>3RD Payment</option>
@@ -1750,7 +1755,8 @@ EMP_LIST;
           <option value="full_payment_10k">FULL PAYMENT</option>
         </select>';
             } else if ($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 0 && $fourthPaymentCol_10k == 0 && $fifthPaymentCol_10k == 0 && $sixthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0) {
-              echo '<select name="paymentoption_10k">
+              echo '<select name="paymentoption_10k" required>
+              <option value=""></option>
           <option value="1st_payment_10k" disabled>1ST Payment</option>
           <option value="2nd_payment_10k" disabled>2ND Payment</option>
           <option value="3rd_payment_10k">3RD Payment</option>
@@ -1760,7 +1766,8 @@ EMP_LIST;
           <option value="full_payment_10k">FULL PAYMENT</option>
         </select>';
             } else if ($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 1 && $fourthPaymentCol_10k == 0 && $fifthPaymentCol_10k == 0 && $sixthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0) {
-              echo '<select name="paymentoption_10k">
+              echo '<select name="paymentoption_10k" required>
+              <option value=""></option>
           <option value="1st_payment_10k" disabled>1ST Payment</option>
           <option value="2nd_payment_10k" disabled>2ND Payment</option>
           <option value="3rd_payment_10k" disabled>3RD Payment</option>
@@ -1770,7 +1777,8 @@ EMP_LIST;
           <option value="full_payment_10k">FULL PAYMENT</option>
         </select>';
             } else if ($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 1 && $fourthPaymentCol_10k == 1 && $fifthPaymentCol_10k == 0 && $sixthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0) {
-              echo '<select name="paymentoption_10k">
+              echo '<select name="paymentoption_10k" required>
+              <option value=""></option>
           <option value="1st_payment_10k" disabled>1ST Payment</option>
           <option value="2nd_payment_10k" disabled>2ND Payment</option>
           <option value="3rd_payment_10k" disabled>3RD Payment</option>
@@ -1780,7 +1788,8 @@ EMP_LIST;
           <option value="full_payment_10k">FULL PAYMENT</option>
         </select>';
             } else if ($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 1 && $fourthPaymentCol_10k == 1 && $fifthPaymentCol_10k == 1 && $sixthPaymentCol_10k == 0 && $fullPaymentCol_10k == 0) {
-              echo '<select name="paymentoption_10k">
+              echo '<select name="paymentoption_10k" required>
+              <option value=""></option>
           <option value="1st_payment_10k" disabled>1ST Payment</option>
           <option value="2nd_payment_10k" disabled>2ND Payment</option>
           <option value="3rd_payment_10k" disabled>3RD Payment</option>
@@ -1790,7 +1799,8 @@ EMP_LIST;
           <option value="full_payment_10k">FULL PAYMENT</option>
         </select>';
             } else if ($isNewLoan_10k == 0 && $firstPaymentCol_10k == 1 && $secondPaymentCol_10k == 1 && $thirdPaymentCol_10k == 1 && $fourthPaymentCol_10k == 1 && $fifthPaymentCol_10k == 1 && $sixthPaymentCol_10k == 1 && $fullPaymentCol_10k == 0) {
-              echo '<select name="paymentoption_10k">
+              echo '<select name="paymentoption_10k" required>
+              <option value=""></option>
           <option value="1st_payment_10k" disabled>1ST Payment</option>
           <option value="2nd_payment_10k" disabled>2ND Payment</option>
           <option value="3rd_payment_10k" disabled>3RD Payment</option>
@@ -2180,11 +2190,11 @@ EMP_LIST;
                 </div>
                 <div class="date_of_payment_10k_box np10kbox">
                   <label for="date_of_payment_10k">Date of Payment</label>
-                  <input type="date" name="date_of_payment_10k" id="datepicker_10k"/>
+                  <input type="date" name="date_of_payment_10k" id="datepicker_10k" required/>
                 </div>
                 <div class="amount_payment_10k_box np10kbox">
                   <label for="txt_amount_payment_10k">Amount Payment</label>
-                  <input type="number" name="txt_amount_payment_10k" id="txt_amount_payment_10k"/>
+                  <input type="number" name="txt_amount_payment_10k" id="txt_amount_payment_10k" required/>
                 </div>
                 <div class="penaltyrate_10k_box np10kbox">
                   <label>Penalty</label>

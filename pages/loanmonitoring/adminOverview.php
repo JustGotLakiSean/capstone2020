@@ -727,7 +727,7 @@ BUTTON;
         <!-- ACTIVE LOAN CHART -->
         <!-- Get the total of active loan -->
         <div id="active_cards" class="fourth-card">
-          <h5 style="margin: 0; color: #666666;">ACTIVE LOAN</h5>
+          <h5 style="margin: 0; color: #666666;">ACTIVE LOAN OVERVIEW</h5>
           <div id="fourth-card-label-container">
             <?php
             while ($get_total_active_loan = $getTotalActiveLoan->fetch_array(MYSQLI_ASSOC)) {
