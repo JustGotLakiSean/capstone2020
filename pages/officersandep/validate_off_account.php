@@ -44,7 +44,7 @@ if(isset($_POST['btn-submit-new-oep'])){
       if(mysqli_num_rows($check_username) > 0){
         session_start();
         $_SESSION['err_oaep'] ='<script>
-        alert("Username already exist.");
+        alert("Username '.$txt_officersandep_username.' already exist.");
         </script>';
         header('location: officer-ep-login.php');
         // echo "EXIST<br>";

@@ -51,8 +51,8 @@ if(isset($_SESSION['err_civ_reg'])){
     </div>
     <form action = "../../gateway/validateUser.php" method = "POST" id = "civilian-signin-form" onsubmit="return validate_ce_login()">
       <div id = "civilian-credentials-container">
-        <input type="text" name = "civ_username" id = "civ_username" required placeholder="Username"/>
-        <input type="password" name = "civ_password" id = "civ_password" required placeholder="Password"/>
+        <input type="text" pattern="[a-zA-Z]+[a-zA-Z0-9_]+" name = "civ_username" id = "civ_username" required placeholder="Username"/>
+        <input type="password" pattern="^[a-zA-Z0-9@#&_]+" name = "civ_password" id = "civ_password" required placeholder="Password"/>
         <input type="submit" name="btn-cl-submit" id="btn-cl-submit" value="Log In" />
       </div>
       <hr class="hr-or">

@@ -22,7 +22,7 @@ $db = new db_access();
       <nav>
         <ul>
           <li>
-            <a href="../index.php">Home</a>
+            <a href="civilian-login.php">Home</a>
           </li>
         </ul>
       </nav>

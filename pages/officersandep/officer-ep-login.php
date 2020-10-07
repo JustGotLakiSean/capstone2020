@@ -50,8 +50,8 @@ if(isset($_SESSION['err_log_oaep'])){
     </div>
     <form action = "../../gateway/validateUser.php" method = "POST" id = "oep-signin-form">
       <div id = "oep-credentials-container">
-        <input type="text" name = "txt_oep_username" id = "txt_oep_username" required placeholder="Username"/>
-        <input type="password" name = "txt_oep_password" id = "txt_oep_password" required placeholder="Password" />
+        <input type="text" pattern="[a-zA-Z]+[a-zA-Z0-9_]+" name = "txt_oep_username" id = "txt_oep_username" required placeholder="Username"/>
+        <input type="password" pattern="^[a-zA-Z0-9@#&_]+" name = "txt_oep_password" id = "txt_oep_password" required placeholder="Password" />
         <input type="submit" name = "btn_oepsubmit_login" id = "btn_oepsubmit_login" value="Login" />
       </div>
       <hr class="hr-or">

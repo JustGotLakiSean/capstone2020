@@ -171,7 +171,7 @@ function display_pending_5k_request($borrower_id, $borrower_account_id, $type_of
 
           <div id = "active_loan_5k_tab" class="tabcontent">
             <div id="active_loan_5k_tablename">
-              <h4 class="table_header_title">5k Transaction Table</h4>
+              <h4 class="table_header_title">5K Active Transaction Table</h4>
             </div>
             <div id="active_loan_5k_table">
               <form action ="" method="POST" id="showActiveLoanPanel">
@@ -214,7 +214,7 @@ function display_pending_5k_request($borrower_id, $borrower_account_id, $type_of
 
           <div id="pending_loan_5k_tab" class="tabcontent">
             <div id="pending_loan_5k_tablename">
-              <h4 class="table_header_title">Pending Loan Request Table</h4>
+              <h4 class="table_header_title">5K Pending Loan Request Table</h4>
             </div>
             <div id="pending_loan_5k_table">
               <form action="" method="POST" id="showPendingLoanPanel">

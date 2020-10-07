@@ -1054,7 +1054,7 @@ BUTTON;
 
         <div id="loan_request_10k_tab" class="tabcontent">
           <div id="loan_request_10k_tablename">
-            <h4>10K Loan Request List</h4>
+            <h4>10K Loan Request Table</h4>
           </div>
           <div id="loan_request_10k_table">
             <form action="" method="POST" class="loanrequest-panel">
@@ -1067,7 +1067,7 @@ BUTTON;
 
         <div id="loan_request_5k_tab" class="tabcontent">
           <div id="loan_request_5k_tablename">
-            <h4>5K Loan request list</h4>
+            <h4>5K Loan Request Table</h4>
           </div>
           <div id="loan_request_5k_table">
             <?php

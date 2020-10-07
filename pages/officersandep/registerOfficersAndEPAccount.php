@@ -21,7 +21,7 @@ $db = new db_access();
       <nav>
         <ul>
           <li>
-            <a href="../index.php">Home</a>
+            <a href="officer-ep-login.php">Home</a>
           </li>
         </ul>
       </nav>
@@ -89,9 +89,9 @@ $db = new db_access();
                   <label>Account Details</label>
                 </div>
                 <div id = "roep-input-inner">
-                  <input type="text" name = "txt_officersandep_username" id = "txt_officersandep_username" placeholder = "Username" required />
-                  <input type="password" name = "txt_officersandep_password" id = "txt_officersandep_password" placeholder="Password" required />
-                  <input type="password" name = "txt_officersandep_confirmPassword" id = "txt_officersandep_confirmPassword" placeholder="Confirm Password" required />
+                  <input type="text" pattern="[a-zA-Z]+[a-zA-Z0-9_]+" minlength="5" maxlength="15" name = "txt_officersandep_username" id = "txt_officersandep_username" placeholder = "Username" required />
+                  <input type="password" pattern="^[a-zA-Z0-9@#&_]+" minlength="8" maxlength="32" name = "txt_officersandep_password" id = "txt_officersandep_password" placeholder="Password" required />
+                  <input type="password" pattern="^[a-zA-Z0-9@#&_]+" minlength="8" maxlength="32" name = "txt_officersandep_confirmPassword" id = "txt_officersandep_confirmPassword" placeholder="Confirm Password" required />
                 </div>
               </div>
               <div id = "register-action">

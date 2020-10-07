@@ -214,7 +214,7 @@ function display_pending_10k_request($borrower_id_10k, $borrower_account_id_10k,
 
           <div id="pending_loan_10k_tab" class="tabcontent">
             <div id="pending_loan_10k_tablename">
-              <h4 class="table_header_title">Pending Loan Request Table</h4>
+              <h4 class="table_header_title">10K Pending Loan Request Table</h4>
             </div>
             <div id="pending_loan_5k_table">
               <form action="" method="POST" id="showPendingLoanPanel">

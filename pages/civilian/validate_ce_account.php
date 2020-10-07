@@ -43,7 +43,7 @@ if(isset($_POST['btn-submit-new-Civilian'])){
       if(mysqli_num_rows($check_username) > 0){
         session_start();
         $_SESSION['err_civ_reg'] ='<script>
-        alert("Username "'.$txt_Civilian_username.'" already exist.");
+        alert("Username '.$txt_Civilian_username.' already exist.");
         </script>';
         header('Location: civilian-login.php');
       } else {

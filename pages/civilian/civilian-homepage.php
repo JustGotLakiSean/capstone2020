@@ -165,7 +165,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
       <div class="lrf-inner-container">
         <div class="lrf-top-container">
           <div class="lrf-header">
-            <h3 align="center">Loan Request Form</h3>
+            <h3 align="center">Loan Request Form 5K</h3>
             <button type="button" class="btn_lrf_close" onclick="document.getElementById('lrf-container_5k').style.display='none'">
               Close
             </button>
@@ -285,7 +285,7 @@ if(!isset($_SESSION['cuid']) && !isset($_SESSION['cuname'])){
       <div class="lrf-inner-container">
         <div class="lrf-top-container">
           <div class="lrf-header">
-            <h3 align="center">Loan Request Form</h3>
+            <h3 align="center">Loan Request Form 10K</h3>
             <button type="button" class="btn_lrf_close" onclick="document.getElementById('lrf-container_10k').style.display='none'">
               Close
             </button>
