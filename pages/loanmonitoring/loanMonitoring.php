@@ -662,7 +662,7 @@ BUTTON;
               }
             }
 
-            // echo "$curr_first_interest<br>";
+            // echo "$curr_first_interest<br>".;
 
             while ($getCurrInt2 = $total_interest_2nd_payment->fetch_array(MYSQLI_ASSOC)) {
               if ($getCurrInt2 > 0) {
